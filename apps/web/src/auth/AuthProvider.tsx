@@ -15,7 +15,7 @@ import {
   signOut,
   type User,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, isFirebaseConfigured } from "../firebase";
 
 interface AuthContextValue {
   user: User | null;
@@ -33,11 +33,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
+    if (!isFirebaseConfigured || !auth) {
       setLoading(false);
-    });
-    return unsub;
+      return;
+    }
+    let unsub: (() => void) | undefined;
+    try {
+      unsub = onAuthStateChanged(
+        auth,
+        (u) => {
+          setUser(u);
+          setLoading(false);
+        },
+        () => {
+          setLoading(false);
+        },
+      );
+    } catch {
+      setLoading(false);
+    }
+    return () => unsub?.();
   }, []);
 
   const value = useMemo<AuthContextValue>(
