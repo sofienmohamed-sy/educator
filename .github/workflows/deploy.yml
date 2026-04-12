@@ -33,6 +33,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -46,18 +48,75 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools@^13
 
-      - name: Deploy to Firebase
+      - name: Authenticate to Google Cloud
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
           set -euo pipefail
           if [ -n "${GOOGLE_APPLICATION_CREDENTIALS_JSON:-}" ]; then
             echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > "$RUNNER_TEMP/sa.json"
-            export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
-            AUTH_FLAGS=""
+            echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> "$GITHUB_ENV"
+          elif [ -n "${FIREBASE_TOKEN:-}" ]; then
+            echo "FIREBASE_TOKEN=$FIREBASE_TOKEN" >> "$GITHUB_ENV"
           else
+            echo "::error::Neither FIREBASE_SERVICE_ACCOUNT nor FIREBASE_TOKEN is set."
+            exit 1
+          fi
+
+      # Push every runtime secret the functions need from GitHub Actions into
+      # Firebase Secret Manager. Idempotent: if the latest Secret Manager
+      # version already matches the GitHub value, no new version is created.
+      # Add more rows to SECRETS to sync additional secrets — just make sure
+      # each one is also referenced via `defineSecret` in functions/src.
+      - name: Sync Firebase function secrets
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set -euo pipefail
+
+          # name:env-var pairs — extend this list as you add new secrets.
+          SECRETS=(
+            "ANTHROPIC_API_KEY:ANTHROPIC_API_KEY"
+          )
+
+          sync_secret() {
+            local name="$1"
+            local value="$2"
+
+            if [ -z "$value" ]; then
+              echo "::warning::GitHub secret for $name is empty; skipping."
+              return 0
+            fi
+
+            local current=""
+            if current=$(firebase functions:secrets:access "$name" \
+                  --project "$FIREBASE_PROJECT_ID" 2>/dev/null); then
+              if [ "$current" = "$value" ]; then
+                echo "✓ $name already up to date in Secret Manager."
+                return 0
+              fi
+            else
+              echo "• $name does not exist yet in Secret Manager; creating."
+            fi
+
+            printf '%s' "$value" | firebase functions:secrets:set "$name" \
+              --project "$FIREBASE_PROJECT_ID" \
+              --data-file -
+            echo "✓ $name synced to Secret Manager."
+          }
+
+          for entry in "${SECRETS[@]}"; do
+            name="${entry%%:*}"
+            envvar="${entry##*:}"
+            sync_secret "$name" "${!envvar-}"
+          done
+
+      - name: Deploy to Firebase
+        run: |
+          set -euo pipefail
+          AUTH_FLAGS=""
+          if [ -z "${GOOGLE_APPLICATION_CREDENTIALS:-}" ] && [ -n "${FIREBASE_TOKEN:-}" ]; then
             AUTH_FLAGS="--token $FIREBASE_TOKEN"
           fi
           firebase deploy \
