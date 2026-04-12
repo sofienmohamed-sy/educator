@@ -1,0 +1,38 @@
+{
+  "name": "functions",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Firebase Cloud Functions for mathresolver.",
+  "main": "lib/index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.ts\"",
+    "test": "vitest",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.33.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.1.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@eslint/js": "^9.15.0",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^9.15.0",
+    "typescript-eslint": "^8.15.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.5"
+  }
+}

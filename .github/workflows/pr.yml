@@ -1,0 +1,42 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main]
+
+concurrency:
+  group: pr-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    name: web — lint · typecheck · test · build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm --workspace apps/web run lint
+      - run: npm --workspace apps/web run typecheck
+      - run: npm --workspace apps/web test -- --run
+      - run: npm --workspace apps/web run build
+
+  functions:
+    name: functions — lint · typecheck · test · build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm --workspace functions run lint
+      - run: npm --workspace functions run typecheck
+      - run: npm --workspace functions test -- --run
+      - run: npm --workspace functions run build

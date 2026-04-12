@@ -1,0 +1,25 @@
+{
+  "name": "mathresolver",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI-powered math tutor — Claude generates step-by-step, curriculum-aware solutions.",
+  "workspaces": [
+    "apps/web",
+    "functions"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "npm --workspace apps/web run dev",
+    "build": "npm --workspace apps/web run build && npm --workspace functions run build",
+    "lint": "npm --workspace apps/web run lint && npm --workspace functions run lint",
+    "typecheck": "npm --workspace apps/web run typecheck && npm --workspace functions run typecheck",
+    "test": "npm --workspace apps/web test -- --run && npm --workspace functions test -- --run",
+    "emulators": "firebase emulators:start",
+    "deploy": "firebase deploy"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
