@@ -1,3 +1,4 @@
+import Anthropic from "@anthropic-ai/sdk";
 import { getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
@@ -76,7 +77,9 @@ export const solveProblem = onCall(
       fileBytes = bytes;
     }
 
-    const apiKey = ANTHROPIC_API_KEY.value();
+    // Trim defensively: Secret Manager values created from a shell pipeline
+    // can pick up a trailing newline, which makes the key invalid.
+    const apiKey = ANTHROPIC_API_KEY.value().trim();
     if (!apiKey) {
       throw new HttpsError(
         "failed-precondition",
@@ -95,7 +98,18 @@ export const solveProblem = onCall(
         fileContentType,
       });
     } catch (err) {
-      logger.error("Claude invocation failed", { uid, err });
+      const payload: Record<string, unknown> = { uid };
+      if (err instanceof Error) {
+        payload.message = err.message;
+        payload.name = err.name;
+        payload.stack = err.stack;
+      }
+      if (err instanceof Anthropic.APIError) {
+        payload.status = err.status;
+        payload.type = err.error?.type;
+        payload.requestId = err.headers?.["request-id"];
+      }
+      logger.error("Claude invocation failed", payload);
       throw new HttpsError("internal", "Failed to generate a solution.");
     }
 
