@@ -8,23 +8,22 @@ import { logger } from "firebase-functions/v2";
 
 import { solveWithClaude } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
-import { buildSystemPrompt } from "./prompts";
+import { buildSystemPrompt, buildRagContextBlock } from "./prompts";
+import { enforceRateLimit } from "./rateLimit";
+import { searchRelevantChunks } from "./rag";
 import { solveRequestSchema, type SolveRequest } from "./schema";
 
 if (getApps().length === 0) initializeApp();
 
 const ANTHROPIC_API_KEY = defineSecret("ANTHROPIC_API_KEY");
-
-/** Simple per-user rate limit: max 30 solves per rolling hour. */
-const RATE_LIMIT_PER_HOUR = 30;
+const GCP_PROJECT_ID = defineSecret("GCP_PROJECT_ID");
 
 export const solveProblem = onCall(
   {
     region: "us-central1",
-    secrets: [ANTHROPIC_API_KEY],
+    secrets: [ANTHROPIC_API_KEY, GCP_PROJECT_ID],
     memory: "512MiB",
     timeoutSeconds: 120,
-    // Require App Check in production; leave enforcement off for emulator.
     enforceAppCheck: false,
   },
   async (request) => {
@@ -44,16 +43,31 @@ export const solveProblem = onCall(
     }
     const req: SolveRequest = parsed.data;
 
-    await enforceRateLimit(uid);
+    await enforceRateLimit(uid, "solve", 30);
 
-    // Load curriculum profile if seeded; otherwise fall back to Claude knowledge.
     const profile = await getCurriculumProfile(req.country);
+
+    let ragContext = "";
+    if (req.bookIds?.length) {
+      const query =
+        req.input.kind === "text"
+          ? req.input.text.slice(0, 500)
+          : `${req.subject ?? "science"} problem`;
+      const chunks = await searchRelevantChunks(
+        query,
+        req.bookIds,
+        GCP_PROJECT_ID.value(),
+      );
+      ragContext = buildRagContextBlock(chunks);
+    }
 
     const systemPrompt = buildSystemPrompt({
       country: req.country,
       gradeLevel: req.gradeLevel,
       language: req.language,
+      subject: req.subject,
       profile,
+      ragContext,
     });
 
     // Fetch the uploaded file, if any.
@@ -140,23 +154,3 @@ export const solveProblem = onCall(
   },
 );
 
-async function enforceRateLimit(uid: string): Promise<void> {
-  const db = getFirestore();
-  const ref = db.collection("users").doc(uid).collection("_meta").doc("rate");
-  const now = Date.now();
-  const windowStart = now - 60 * 60 * 1000;
-
-  await db.runTransaction(async (tx) => {
-    const snap = await tx.get(ref);
-    const existing = (snap.data()?.solves as number[] | undefined) ?? [];
-    const recent = existing.filter((t) => t >= windowStart);
-    if (recent.length >= RATE_LIMIT_PER_HOUR) {
-      throw new HttpsError(
-        "resource-exhausted",
-        `Rate limit reached: ${RATE_LIMIT_PER_HOUR} solves per hour.`,
-      );
-    }
-    recent.push(now);
-    tx.set(ref, { solves: recent }, { merge: true });
-  });
-}

@@ -2,14 +2,17 @@ import { useState, type FormEvent } from "react";
 import { useAuth } from "../auth/AuthProvider";
 import CountryPicker from "../components/CountryPicker";
 import ProblemInput, { type InputValue } from "../components/ProblemInput";
+import SubjectPicker from "../components/SubjectPicker";
 import StepList, { type Solution } from "../components/StepList";
 import { fileContentType, uploadProblemFile } from "../lib/upload";
 import { solveProblem } from "../lib/solve";
+import type { Subject } from "../lib/types";
 
 export default function Solve() {
   const { user } = useAuth();
   const [country, setCountry] = useState("US");
   const [gradeLevel, setGradeLevel] = useState("");
+  const [subject, setSubject] = useState<Subject>("math");
   const [input, setInput] = useState<InputValue>({ kind: "text", text: "" });
   const [solution, setSolution] = useState<Solution | null>(null);
   const [usedCurated, setUsedCurated] = useState(false);
@@ -29,6 +32,7 @@ export default function Solve() {
         const res = await solveProblem({
           country,
           gradeLevel: gradeLevel || undefined,
+          subject,
           input: { kind: "text", text: input.text.trim() },
         });
         setSolution(res.solution);
@@ -38,6 +42,7 @@ export default function Solve() {
         const res = await solveProblem({
           country,
           gradeLevel: gradeLevel || undefined,
+          subject,
           input: {
             kind: "storage",
             path,
@@ -59,7 +64,8 @@ export default function Solve() {
       <form onSubmit={onSubmit} className="card">
         <h2 style={{ marginTop: 0 }}>New problem</h2>
 
-        <div className="row" style={{ marginBottom: "0.75rem" }}>
+        <div className="row" style={{ marginBottom: "0.75rem", flexWrap: "wrap" }}>
+          <SubjectPicker value={subject} onChange={setSubject} />
           <div>
             <label>Country curriculum</label>
             <CountryPicker value={country} onChange={setCountry} />

@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { buildSystemPrompt } from "../prompts";
+import {
+  buildSystemPrompt,
+  buildRagContextBlock,
+  buildCoursePrompt,
+  buildExercisesPrompt,
+  buildExamPrompt,
+} from "../prompts";
 
 describe("buildSystemPrompt", () => {
   it("injects the curriculum profile when one is provided", () => {
@@ -23,7 +29,7 @@ describe("buildSystemPrompt", () => {
 
   it("falls back to Claude's knowledge when no profile is provided", () => {
     const prompt = buildSystemPrompt({ country: "JP", gradeLevel: "高校2年" });
-    expect(prompt).toContain("JP math curriculum");
+    expect(prompt).toContain("JP mathematics curriculum");
     expect(prompt).toContain("高校2年");
   });
 
@@ -31,4 +37,104 @@ describe("buildSystemPrompt", () => {
     const prompt = buildSystemPrompt({ country: "US" });
     expect(prompt.toLowerCase()).toContain("passage between");
   });
+
+  it("includes subject label when subject is provided", () => {
+    const prompt = buildSystemPrompt({ country: "US", subject: "physics" });
+    expect(prompt).toContain("physics tutor");
+  });
+
+  it("injects ragContext when provided", () => {
+    const prompt = buildSystemPrompt({
+      country: "FR",
+      ragContext: "REFERENCE MATERIAL\n\n[Excerpt 1]\nSome book text",
+    });
+    expect(prompt).toContain("REFERENCE MATERIAL");
+    expect(prompt).toContain("Excerpt 1");
+  });
 });
+
+describe("buildRagContextBlock", () => {
+  it("returns empty string for empty chunks array", () => {
+    expect(buildRagContextBlock([])).toBe("");
+  });
+
+  it("numbers excerpts correctly", () => {
+    const block = buildRagContextBlock([
+      { text: "First chunk", bookTitle: "Book A" },
+      { text: "Second chunk", bookTitle: "Book B", pageHint: 42 },
+    ]);
+    expect(block).toContain("[Excerpt 1]");
+    expect(block).toContain("[Excerpt 2");
+    expect(block).toContain("page 42");
+    expect(block).toContain("REFERENCE MATERIAL");
+  });
+});
+
+describe("buildCoursePrompt", () => {
+  it("includes topic and subject", () => {
+    const prompt = buildCoursePrompt({
+      subject: "chemistry",
+      topic: "Acid-base reactions",
+      country: "US",
+    });
+    expect(prompt).toContain("Acid-base reactions");
+    expect(prompt).toContain("chemistry");
+    expect(COURSE_CONTRACT_MARKER.test(prompt)).toBe(true);
+  });
+
+  it("injects RAG context when provided", () => {
+    const prompt = buildCoursePrompt({
+      subject: "math",
+      topic: "Integrals",
+      country: "FR",
+      ragContext: "REFERENCE MATERIAL\n\n[Excerpt 1]\nIntegral definition",
+    });
+    expect(prompt).toContain("REFERENCE MATERIAL");
+  });
+});
+
+describe("buildExercisesPrompt", () => {
+  it("includes count and difficulty", () => {
+    const prompt = buildExercisesPrompt({
+      subject: "physics",
+      topic: "Kinematics",
+      difficulty: "hard",
+      count: 3,
+      country: "UK",
+    });
+    expect(prompt).toContain("3");
+    expect(prompt).toContain("hard");
+    expect(prompt).toContain("Kinematics");
+  });
+});
+
+describe("buildExamPrompt", () => {
+  it("contains 60/20/20 mandatory distribution language", () => {
+    const prompt = buildExamPrompt({
+      subject: "math",
+      topics: ["Derivatives", "Integrals"],
+      totalPoints: 100,
+      country: "FR",
+    });
+    expect(prompt).toContain("60 pts");
+    expect(prompt).toContain("20 pts");
+    expect(prompt).toContain("DIRECT");
+    expect(prompt).toContain("INDIRECT");
+    expect(prompt).toContain("SYNTHESIS");
+    expect(prompt).toContain("sum(questions.points) MUST equal 100");
+  });
+
+  it("scales point allocations with totalPoints", () => {
+    const prompt = buildExamPrompt({
+      subject: "physics",
+      topics: ["Mechanics"],
+      totalPoints: 50,
+      country: "US",
+    });
+    expect(prompt).toContain("30 pts");
+    expect(prompt).toContain("10 pts");
+  });
+});
+
+// Helper regex to check course JSON contract marker appears in prompt
+const COURSE_CONTRACT_MARKER = /type Course\s*=/u;

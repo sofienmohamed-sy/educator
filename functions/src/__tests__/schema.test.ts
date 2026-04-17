@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { solveRequestSchema, solutionSchema } from "../schema";
+import {
+  solveRequestSchema,
+  solutionSchema,
+  generateCourseRequestSchema,
+  generateExercisesRequestSchema,
+  generateExamRequestSchema,
+  examSchema,
+  bookMetaSchema,
+  userProfileSchema,
+} from "../schema";
 
 describe("solveRequestSchema", () => {
   it("accepts a valid text request", () => {
@@ -80,5 +89,195 @@ describe("solutionSchema", () => {
       finalAnswer: "x = 4",
     });
     expect(result.success).toBe(true);
+  });
+});
+
+describe("generateCourseRequestSchema", () => {
+  it("accepts a valid request", () => {
+    expect(
+      generateCourseRequestSchema.safeParse({
+        subject: "math",
+        topic: "Quadratic equations",
+        country: "FR",
+        gradeLevel: "Terminale",
+      }).success,
+    ).toBe(true);
+  });
+
+  it("rejects invalid subject", () => {
+    expect(
+      generateCourseRequestSchema.safeParse({
+        subject: "biology",
+        topic: "Cells",
+        country: "US",
+      }).success,
+    ).toBe(false);
+  });
+
+  it("rejects too many bookIds", () => {
+    expect(
+      generateCourseRequestSchema.safeParse({
+        subject: "physics",
+        topic: "Newton's laws",
+        country: "US",
+        bookIds: ["a", "b", "c", "d", "e", "f"],
+      }).success,
+    ).toBe(false);
+  });
+});
+
+describe("generateExercisesRequestSchema", () => {
+  it("accepts valid request with defaults", () => {
+    const result = generateExercisesRequestSchema.safeParse({
+      subject: "chemistry",
+      topic: "Stoichiometry",
+      country: "MA",
+      difficulty: "medium",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.count).toBe(5);
+  });
+
+  it("rejects count > 20", () => {
+    expect(
+      generateExercisesRequestSchema.safeParse({
+        subject: "math",
+        topic: "Limits",
+        country: "FR",
+        difficulty: "easy",
+        count: 25,
+      }).success,
+    ).toBe(false);
+  });
+});
+
+describe("generateExamRequestSchema", () => {
+  it("accepts valid request", () => {
+    expect(
+      generateExamRequestSchema.safeParse({
+        subject: "informatics",
+        topics: ["Sorting algorithms", "Big-O notation"],
+        country: "US",
+        totalPoints: 100,
+      }).success,
+    ).toBe(true);
+  });
+
+  it("rejects totalPoints < 20", () => {
+    expect(
+      generateExamRequestSchema.safeParse({
+        subject: "math",
+        topics: ["Derivatives"],
+        country: "FR",
+        totalPoints: 10,
+      }).success,
+    ).toBe(false);
+  });
+
+  it("rejects empty topics array", () => {
+    expect(
+      generateExamRequestSchema.safeParse({
+        subject: "physics",
+        topics: [],
+        country: "US",
+        totalPoints: 100,
+      }).success,
+    ).toBe(false);
+  });
+});
+
+describe("examSchema — 60/20/20 distribution validator", () => {
+  const minSolution = {
+    restatement: "test",
+    assumptions: [],
+    steps: [{ title: "s", expression: "x", explanation: "because" }],
+    finalAnswer: "42",
+  };
+
+  function makeExam(
+    distribution: Array<{ type: "direct" | "indirect" | "synthesis"; points: number }>,
+  ) {
+    return {
+      title: "Test Exam",
+      durationMinutes: 60,
+      totalPoints: distribution.reduce((s, q) => s + q.points, 0),
+      questions: distribution.map((q) => ({
+        type: q.type,
+        question: "Question text",
+        points: q.points,
+        solution: minSolution,
+      })),
+    };
+  }
+
+  it("accepts a valid 60/20/20 exam", () => {
+    const exam = makeExam([
+      { type: "direct", points: 60 },
+      { type: "indirect", points: 20 },
+      { type: "synthesis", points: 20 },
+    ]);
+    expect(examSchema.safeParse(exam).success).toBe(true);
+  });
+
+  it("rejects exam with no questions", () => {
+    expect(
+      examSchema.safeParse({
+        title: "Empty",
+        totalPoints: 100,
+        questions: [],
+      }).success,
+    ).toBe(false);
+  });
+});
+
+describe("bookMetaSchema", () => {
+  it("accepts a valid pending book", () => {
+    expect(
+      bookMetaSchema.safeParse({
+        title: "Transmath Terminale",
+        subject: "math",
+        country: "FR",
+        storagePath: "books/abc123/original.pdf",
+        uploadedBy: "uid123",
+        status: "pending",
+      }).success,
+    ).toBe(true);
+  });
+
+  it("rejects an invalid status", () => {
+    expect(
+      bookMetaSchema.safeParse({
+        title: "Book",
+        subject: "physics",
+        country: "US",
+        storagePath: "books/x/original.pdf",
+        uploadedBy: "uid",
+        status: "deleted",
+      }).success,
+    ).toBe(false);
+  });
+});
+
+describe("userProfileSchema", () => {
+  it("accepts student role", () => {
+    expect(
+      userProfileSchema.safeParse({ role: "student" }).success,
+    ).toBe(true);
+  });
+
+  it("accepts professor role with optional fields", () => {
+    expect(
+      userProfileSchema.safeParse({
+        role: "professor",
+        defaultCountry: "FR",
+        preferredLanguage: "fr",
+      }).success,
+    ).toBe(true);
+  });
+
+  it("rejects invalid role", () => {
+    expect(
+      userProfileSchema.safeParse({ role: "admin" }).success,
+    ).toBe(false);
   });
 });

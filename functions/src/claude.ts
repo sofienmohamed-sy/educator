@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { logger } from "firebase-functions/v2";
+import type { ZodType, ZodTypeDef } from "zod";
 import {
   solutionSchema,
   type Solution,
@@ -39,6 +40,49 @@ export interface SolveArgs {
 }
 
 /**
+ * Generic: send a text prompt to Claude and parse the JSON response against
+ * any Zod schema. Retries once with a corrective nudge on validation failure.
+ */
+export async function generateWithClaude<T>(args: {
+  apiKey: string;
+  model?: string;
+  systemPrompt: string;
+  userMessage: string;
+  schema: ZodType<T, ZodTypeDef, unknown>;
+}): Promise<T> {
+  const { apiKey, systemPrompt, userMessage, schema } = args;
+  const model = args.model ?? DEFAULT_MODEL;
+  const anthropic = client(apiKey);
+
+  const userContent: Anthropic.Messages.ContentBlockParam[] = [
+    { type: "text", text: userMessage },
+  ];
+
+  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent);
+  const firstParse = tryParseAs(firstReply, schema);
+  if (firstParse.ok) return firstParse.value;
+
+  logger.warn("Claude response failed validation; retrying once", {
+    error: firstParse.error,
+  });
+
+  const retryContent: Anthropic.Messages.ContentBlockParam[] = [
+    ...userContent,
+    {
+      type: "text",
+      text: `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`,
+    },
+  ];
+  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent);
+  const secondParse = tryParseAs(secondReply, schema);
+  if (secondParse.ok) return secondParse.value;
+
+  throw new Error(
+    `Claude returned invalid JSON after retry: ${secondParse.error}`,
+  );
+}
+
+/**
  * Send the problem to Claude and parse the returned JSON into a validated
  * `Solution`. Retries once with the zod error appended if the first response
  * fails validation.
@@ -52,14 +96,13 @@ export async function solveWithClaude(args: SolveArgs): Promise<Solution> {
   const anthropic = client(apiKey);
 
   const firstReply = await callClaude(anthropic, model, systemPrompt, userContent);
-  const firstParse = tryParseSolution(firstReply);
+  const firstParse = tryParseAs(firstReply, solutionSchema);
   if (firstParse.ok) return firstParse.value;
 
   logger.warn("Claude solution failed validation; retrying once", {
     error: firstParse.error,
   });
 
-  // Retry with a corrective nudge appended.
   const retryContent: Anthropic.Messages.ContentBlockParam[] = [
     ...userContent,
     {
@@ -68,7 +111,7 @@ export async function solveWithClaude(args: SolveArgs): Promise<Solution> {
     },
   ];
   const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent);
-  const secondParse = tryParseSolution(secondReply);
+  const secondParse = tryParseAs(secondReply, solutionSchema);
   if (secondParse.ok) return secondParse.value;
 
   throw new Error(
@@ -152,8 +195,8 @@ function buildUserContent(
 
 type ParseResult<T> = { ok: true; value: T } | { ok: false; error: string };
 
-/** Extract the first JSON object from Claude's reply and validate it. */
-function tryParseSolution(text: string): ParseResult<Solution> {
+/** Extract the first JSON object from Claude's reply and validate it against any Zod schema. */
+function tryParseAs<T>(text: string, schema: ZodType<T, ZodTypeDef, unknown>): ParseResult<T> {
   const jsonText = extractJsonObject(text);
   if (!jsonText) return { ok: false, error: "no JSON object found in reply" };
 
@@ -167,7 +210,7 @@ function tryParseSolution(text: string): ParseResult<Solution> {
     };
   }
 
-  const result = solutionSchema.safeParse(parsed);
+  const result = schema.safeParse(parsed);
   if (!result.success) {
     return {
       ok: false,
