@@ -68,6 +68,9 @@ jobs:
           printf '%s' "${{ secrets.ANTHROPIC_API_KEY }}" | npx firebase-tools functions:secrets:set ANTHROPIC_API_KEY \
             --project ${{ secrets.FIREBASE_PROJECT_ID }} \
             --data-file=-
+          printf '%s' "${{ secrets.GCP_PROJECT_ID }}" | npx firebase-tools functions:secrets:set GCP_PROJECT_ID \
+            --project ${{ secrets.FIREBASE_PROJECT_ID }} \
+            --data-file=-
 
       - name: Deploy to Firebase
         run: |

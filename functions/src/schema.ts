@@ -1,5 +1,17 @@
 import { z } from "zod";
 
+// ── Subject ───────────────────────────────────────────────────────────────────
+
+export const subjectSchema = z.enum([
+  "math",
+  "physics",
+  "chemistry",
+  "informatics",
+]);
+export type Subject = z.infer<typeof subjectSchema>;
+
+// ── Solve problem ─────────────────────────────────────────────────────────────
+
 /** Request body for the `solveProblem` callable. */
 export const solveRequestSchema = z.object({
   country: z
@@ -11,6 +23,8 @@ export const solveRequestSchema = z.object({
   gradeLevel: z.string().trim().max(64).optional(),
   language: z.string().trim().min(2).max(16).optional(),
   model: z.enum(["claude-opus-4-6", "claude-sonnet-4-6"]).optional(),
+  subject: subjectSchema.optional(),
+  bookIds: z.array(z.string().min(1)).max(5).optional(),
   input: z.discriminatedUnion("kind", [
     z.object({
       kind: z.literal("text"),
@@ -69,3 +83,166 @@ export const curriculumProfileSchema = z.object({
 });
 
 export type CurriculumProfile = z.infer<typeof curriculumProfileSchema>;
+
+// ── User profile ──────────────────────────────────────────────────────────────
+
+export const userProfileSchema = z.object({
+  role: z.enum(["student", "professor"]),
+  defaultCountry: z.string().trim().min(2).max(8).optional(),
+  defaultGradeLevel: z.string().trim().max(64).optional(),
+  preferredLanguage: z.string().trim().min(2).max(16).optional(),
+  createdAt: z.any().optional(),
+  updatedAt: z.any().optional(),
+});
+export type UserProfile = z.infer<typeof userProfileSchema>;
+
+// ── Book library ──────────────────────────────────────────────────────────────
+
+export const bookMetaSchema = z.object({
+  title: z.string().trim().min(1).max(256),
+  subject: subjectSchema,
+  country: z.string().trim().min(2).max(8),
+  gradeLevel: z.string().trim().max(64).optional(),
+  language: z.string().trim().min(2).max(16).optional(),
+  storagePath: z.string().min(1),
+  uploadedBy: z.string().min(1),
+  status: z.enum(["pending", "processing", "ready", "error"]),
+  chunkCount: z.number().int().nonnegative().optional(),
+  errorMessage: z.string().optional(),
+  createdAt: z.any().optional(),
+  updatedAt: z.any().optional(),
+});
+export type BookMeta = z.infer<typeof bookMetaSchema>;
+
+export const bookChunkSchema = z.object({
+  bookId: z.string().min(1),
+  chunkIndex: z.number().int().nonnegative(),
+  text: z.string().min(1),
+  pageHint: z.number().int().nonnegative().optional(),
+});
+export type BookChunk = z.infer<typeof bookChunkSchema>;
+
+/** RAG chunk returned from vector search, enriched with book title. */
+export interface RagChunk {
+  text: string;
+  bookTitle: string;
+  pageHint?: number;
+}
+
+// ── Course generation ─────────────────────────────────────────────────────────
+
+export const generateCourseRequestSchema = z.object({
+  subject: subjectSchema,
+  topic: z.string().trim().min(1).max(256),
+  country: z.string().trim().min(2).max(8),
+  gradeLevel: z.string().trim().max(64).optional(),
+  language: z.string().trim().min(2).max(16).optional(),
+  bookIds: z.array(z.string().min(1)).max(5).optional(),
+});
+export type GenerateCourseRequest = z.infer<typeof generateCourseRequestSchema>;
+
+export const courseSchema = z.object({
+  subject: subjectSchema,
+  topic: z.string(),
+  theory: z.string().min(1),
+  keyConcepts: z
+    .array(z.object({ term: z.string(), definition: z.string() }))
+    .min(1),
+  workedExamples: z
+    .array(z.object({ problem: z.string(), solution: z.string() }))
+    .min(1),
+  summary: z.string().min(1),
+});
+export type Course = z.infer<typeof courseSchema>;
+
+// ── Exercise generation ───────────────────────────────────────────────────────
+
+export const generateExercisesRequestSchema = z.object({
+  subject: subjectSchema,
+  topic: z.string().trim().min(1).max(256),
+  country: z.string().trim().min(2).max(8),
+  gradeLevel: z.string().trim().max(64).optional(),
+  language: z.string().trim().min(2).max(16).optional(),
+  difficulty: z.enum(["easy", "medium", "hard"]),
+  count: z.number().int().min(1).max(20).default(5),
+  bookIds: z.array(z.string().min(1)).max(5).optional(),
+});
+export type GenerateExercisesRequest = z.infer<
+  typeof generateExercisesRequestSchema
+>;
+
+export const exerciseSchema = z.object({
+  question: z.string().min(1),
+  hints: z.array(z.string()).optional(),
+  solution: solutionSchema,
+});
+export const exercisesResponseSchema = z.object({
+  exercises: z.array(exerciseSchema).min(1),
+});
+export type Exercise = z.infer<typeof exerciseSchema>;
+
+// ── Exam generation ───────────────────────────────────────────────────────────
+
+export const generateExamRequestSchema = z.object({
+  subject: subjectSchema,
+  topics: z.array(z.string().trim().min(1)).min(1).max(10),
+  country: z.string().trim().min(2).max(8),
+  gradeLevel: z.string().trim().max(64).optional(),
+  language: z.string().trim().min(2).max(16).optional(),
+  totalPoints: z.number().int().min(20).max(200).default(100),
+  bookIds: z.array(z.string().min(1)).max(5).optional(),
+});
+export type GenerateExamRequest = z.infer<typeof generateExamRequestSchema>;
+
+export const examQuestionSchema = z.object({
+  type: z.enum(["direct", "indirect", "synthesis"]),
+  question: z.string().min(1),
+  points: z.number().int().min(1),
+  solution: solutionSchema,
+  rubric: z.string().optional(),
+});
+export const examSchema = z.object({
+  title: z.string().min(1),
+  durationMinutes: z.number().int().positive().optional(),
+  questions: z.array(examQuestionSchema).min(1),
+  totalPoints: z.number().int().positive(),
+});
+export type ExamQuestion = z.infer<typeof examQuestionSchema>;
+export type Exam = z.infer<typeof examSchema>;
+
+// ── processBook callable ──────────────────────────────────────────────────────
+
+export const processBookRequestSchema = z.object({
+  bookId: z.string().trim().min(1),
+});
+
+// ── createBook callable ───────────────────────────────────────────────────────
+
+export const createBookRequestSchema = z.object({
+  title: z.string().trim().min(1).max(256),
+  subject: subjectSchema,
+  country: z.string().trim().min(2).max(8),
+  gradeLevel: z.string().trim().max(64).optional(),
+  language: z.string().trim().min(2).max(16).optional(),
+});
+export type CreateBookRequest = z.infer<typeof createBookRequestSchema>;
+
+// ── listBooks callable ────────────────────────────────────────────────────────
+
+export const listBooksRequestSchema = z.object({
+  subject: subjectSchema.optional(),
+  country: z.string().trim().min(2).max(8).optional(),
+});
+export type ListBooksRequest = z.infer<typeof listBooksRequestSchema>;
+
+// ── updateProfile callable ────────────────────────────────────────────────────
+
+export const updateProfileRequestSchema = userProfileSchema
+  .pick({
+    role: true,
+    defaultCountry: true,
+    defaultGradeLevel: true,
+    preferredLanguage: true,
+  })
+  .partial();
+export type UpdateProfileRequest = z.infer<typeof updateProfileRequestSchema>;

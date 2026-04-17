@@ -1,0 +1,103 @@
+import { getApps, initializeApp } from "firebase-admin/app";
+import { getFirestore, FieldValue } from "firebase-admin/firestore";
+import { defineSecret } from "firebase-functions/params";
+import { HttpsError, onCall } from "firebase-functions/v2/https";
+
+import { generateWithClaude } from "./claude";
+import { getCurriculumProfile } from "./curriculum";
+import { buildCoursePrompt, buildRagContextBlock } from "./prompts";
+import { enforceRateLimit } from "./rateLimit";
+import { searchRelevantChunks } from "./rag";
+import {
+  generateCourseRequestSchema,
+  courseSchema,
+  type GenerateCourseRequest,
+  type Course,
+} from "./schema";
+
+if (getApps().length === 0) initializeApp();
+
+const ANTHROPIC_API_KEY = defineSecret("ANTHROPIC_API_KEY");
+const GCP_PROJECT_ID = defineSecret("GCP_PROJECT_ID");
+
+export const generateCourse = onCall(
+  {
+    region: "us-central1",
+    secrets: [ANTHROPIC_API_KEY, GCP_PROJECT_ID],
+    memory: "512MiB",
+    timeoutSeconds: 180,
+  },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Sign in required.");
+    }
+    const uid = request.auth.uid;
+
+    const parsed = generateCourseRequestSchema.safeParse(request.data);
+    if (!parsed.success) {
+      throw new HttpsError(
+        "invalid-argument",
+        `Invalid request: ${parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ")}`,
+      );
+    }
+    const req: GenerateCourseRequest = parsed.data;
+
+    await enforceRateLimit(uid, "generateCourse", 10);
+
+    const profile = await getCurriculumProfile(req.country);
+
+    let ragContext = "";
+    if (req.bookIds?.length) {
+      const chunks = await searchRelevantChunks(
+        req.topic,
+        req.bookIds,
+        GCP_PROJECT_ID.value(),
+      );
+      ragContext = buildRagContextBlock(chunks);
+    }
+
+    const systemPrompt = buildCoursePrompt({
+      subject: req.subject,
+      topic: req.topic,
+      country: req.country,
+      gradeLevel: req.gradeLevel,
+      language: req.language,
+      profile,
+      ragContext,
+    });
+
+    const apiKey = ANTHROPIC_API_KEY.value().trim();
+    if (!apiKey) {
+      throw new HttpsError("failed-precondition", "ANTHROPIC_API_KEY is not configured.");
+    }
+
+    let course: Course;
+    try {
+      course = await generateWithClaude({
+        apiKey,
+        systemPrompt,
+        userMessage: `Generate a complete course lesson on "${req.topic}" for ${req.subject} at ${req.country}${req.gradeLevel ? ` ${req.gradeLevel}` : ""} level. Return only the JSON object.`,
+        schema: courseSchema,
+      });
+    } catch {
+      throw new HttpsError("internal", "Failed to generate course.");
+    }
+
+    const ref = await getFirestore()
+      .collection("users")
+      .doc(uid)
+      .collection("courses")
+      .add({
+        createdAt: FieldValue.serverTimestamp(),
+        subject: req.subject,
+        topic: req.topic,
+        country: req.country,
+        gradeLevel: req.gradeLevel ?? null,
+        language: req.language ?? null,
+        bookIds: req.bookIds ?? [],
+        course,
+      });
+
+    return { id: ref.id, course };
+  },
+);
