@@ -19,19 +19,22 @@ export default function GenerateExercises() {
   const [books, setBooks] = useState<BookMeta[]>([]);
   const [selectedBookIds, setSelectedBookIds] = useState<string[]>([]);
   const [booksLoaded, setBooksLoaded] = useState(false);
+  const [booksLoading, setBooksLoading] = useState(false);
 
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function loadBooks() {
-    if (booksLoaded) return;
+    setBooksLoading(true);
     try {
       const { data } = await listBooksFn({ subject });
       setBooks(data.books.filter((b) => b.status === "ready"));
       setBooksLoaded(true);
-    } catch {
-      // ignore
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setBooksLoading(false);
     }
   }
 
@@ -124,8 +127,8 @@ export default function GenerateExercises() {
         <div style={{ marginBottom: "0.75rem" }}>
           <div className="row" style={{ justifyContent: "space-between" }}>
             <label>Reference books (optional)</label>
-            <button type="button" onClick={loadBooks} style={{ fontSize: "0.8rem" }}>
-              Load library
+            <button type="button" onClick={loadBooks} disabled={booksLoading} style={{ fontSize: "0.8rem" }}>
+              {booksLoading ? "Loading…" : "Load library"}
             </button>
           </div>
           {booksLoaded && books.length > 0 && (
