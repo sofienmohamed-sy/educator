@@ -5,8 +5,6 @@ import { defineSecret } from "firebase-functions/params";
 import { onObjectFinalized } from "firebase-functions/v2/storage";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 import { logger } from "firebase-functions/v2";
-import pdfParse from "pdf-parse";
-
 import { chunkText, storeChunks } from "./rag";
 import { processBookRequestSchema } from "./schema";
 
@@ -36,6 +34,7 @@ async function runProcessBook(
 
   try {
     const [bytes] = await getStorage().bucket().file(storagePath).download();
+    const { default: pdfParse } = await import("pdf-parse");
     const { text } = await pdfParse(bytes);
     const chunks = chunkText(text);
 
