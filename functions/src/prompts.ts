@@ -1,4 +1,4 @@
-import type { CurriculumProfile, RagChunk, Subject } from "./schema";
+import type { CurriculumProfile, RagChunk, Subject, WritingSubject } from "./schema";
 
 /**
  * JSON output contract that Claude MUST return. Kept in sync with
@@ -307,3 +307,196 @@ export const USER_INSTRUCTION_FOR_PDF =
 
 export const USER_INSTRUCTION_FOR_TEXT = (text: string): string =>
   `Here is the math problem:\n\n${text}\n\nRestate it, then solve it step by step according to the rules in the system prompt. Return only the JSON object.`;
+
+// ── Writing analysis prompt ───────────────────────────────────────────────────
+
+const WRITING_SUBJECT_LABELS: Record<WritingSubject, string> = {
+  grammar: "grammar and language mechanics",
+  essay: "essay writing and argumentation",
+  vocabulary: "vocabulary and word usage",
+  literature: "literary analysis",
+  reading: "reading comprehension",
+};
+
+const WRITING_SUBJECT_INSTRUCTIONS: Record<WritingSubject, string> = {
+  grammar:
+    "Identify and correct all grammar, spelling, punctuation, and sentence structure errors. For each correction, provide the original text, the corrected version, and a clear explanation of the rule that was violated.",
+  essay:
+    "Evaluate the essay's thesis, argument structure, evidence, coherence, and style. Identify specific passages that need improvement and explain how to strengthen them.",
+  vocabulary:
+    "Explain the meaning, usage, connotations, and register of the target words or phrases. Provide example sentences and highlight common errors in usage.",
+  literature:
+    "Analyze the literary devices, themes, characters, structure, and author's craft in the text. Support observations with textual evidence.",
+  reading:
+    "Answer the comprehension questions or summarize the key ideas of the passage. Explain the reasoning for each answer by referencing the text directly.",
+};
+
+const WRITING_ANALYSIS_JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no prose before or after) matching this TypeScript type:
+
+type WritingAnalysis = {
+  restatement: string;              // the task or question restated in your own words
+  feedback: string;                 // main analysis, evaluation, or explanation (full prose)
+  corrections: Array<{             // specific corrections or improvements; [] if not applicable
+    original: string;              // the original text or phrase
+    corrected: string;             // the corrected or improved version
+    explanation: string;           // why this correction was made (rule, principle, etc.)
+  }>;
+  suggestions: string[];           // actionable improvement suggestions; [] if none
+  conclusion: string;              // brief wrap-up summarising the main takeaways
+};`;
+
+export interface BuildWritingAnalysisPromptArgs {
+  country: string;
+  gradeLevel?: string;
+  language?: string;
+  writingSubject: WritingSubject;
+  profile?: CurriculumProfile | null;
+  ragContext?: string;
+}
+
+export function buildWritingAnalysisPrompt(
+  args: BuildWritingAnalysisPromptArgs,
+): string {
+  const { country, gradeLevel, language, writingSubject, profile, ragContext } =
+    args;
+
+  const subjectLabel = WRITING_SUBJECT_LABELS[writingSubject];
+  const language_ =
+    language ?? profile?.defaultLanguage ?? "the student's language";
+  const subjectInstruction = WRITING_SUBJECT_INSTRUCTIONS[writingSubject];
+
+  const curriculumBlock = profile
+    ? [
+        `A curated curriculum profile is provided for ${profile.countryName ?? country}. Follow it strictly.`,
+        profile.notation ? `Language conventions: ${profile.notation}` : null,
+        profile.conventions ? `Conventions: ${profile.conventions}` : null,
+        profile.referenceBooks?.length
+          ? `Reference books (cite when relevant): ${profile.referenceBooks.join("; ")}`
+          : null,
+        profile.notes ? `Additional notes: ${profile.notes}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n")
+    : `No curated profile is provided. Use your best knowledge of the ${country} language arts curriculum — the official standards, conventions, and pedagogical expectations — for a student${gradeLevel ? ` at ${gradeLevel} level` : ""}.`;
+
+  return [
+    `You are a patient, expert ${subjectLabel} tutor.`,
+    `Audience: a student in ${country}${gradeLevel ? `, grade ${gradeLevel}` : ""}.`,
+    `Answer language: ${language_}.`,
+    ``,
+    `Curriculum:`,
+    curriculumBlock,
+    ragContext ? `\n${ragContext}` : "",
+    ``,
+    subjectInstruction,
+    ``,
+    `Be constructive and encouraging. Explain WHY each correction or suggestion matters — name the rule, principle, or rhetorical strategy involved. Tailor vocabulary and depth to the student's level.`,
+    ``,
+    WRITING_ANALYSIS_JSON_CONTRACT,
+  ]
+    .filter((line) => line !== "")
+    .join("\n");
+}
+
+export const WRITING_USER_INSTRUCTION_FOR_TEXT = (text: string): string =>
+  `Here is the writing task:\n\n${text}\n\nAnalyze it according to the rules in the system prompt. Return only the JSON object.`;
+
+export const WRITING_USER_INSTRUCTION_FOR_IMAGE =
+  "The writing task is in the attached image. Read it carefully, then analyze it according to the rules in the system prompt. Return only the JSON object.";
+
+export const WRITING_USER_INSTRUCTION_FOR_PDF =
+  "The writing task is in the attached PDF. Read it carefully, then analyze it according to the rules in the system prompt. Return only the JSON object.";
+
+// ── Writing content generation prompt ─────────────────────────────────────────
+
+const WRITING_CONTENT_TYPE_LABELS: Record<string, string> = {
+  lesson: "lesson",
+  exercise: "exercise set",
+  quiz: "quiz",
+  essay_prompt: "essay prompt",
+};
+
+const WRITING_CONTENT_JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no prose) matching this TypeScript type:
+
+type WritingContent = {
+  title: string;
+  contentType: "lesson" | "exercise" | "quiz" | "essay_prompt";
+  writingSubject: "grammar" | "essay" | "vocabulary" | "literature" | "reading";
+  // For lessons:
+  theory?: string;                 // prose explanation of the concept
+  keyConcepts?: Array<{ term: string; definition: string }>;
+  // For exercises and quizzes:
+  items?: Array<{
+    prompt: string;                // the question or task
+    hints?: string[];              // optional hints (1-3)
+    answer: string;                // model answer
+    explanation: string;           // why this is the correct answer
+  }>;
+  // For essay prompts:
+  prompt?: string;                 // the essay question or scenario
+  criteria?: string[];             // evaluation criteria
+  tips?: string[];                 // writing tips for the student
+  summary?: string;                // closing note or learning objective
+};`;
+
+export interface BuildWritingGenerationPromptArgs {
+  writingSubject: WritingSubject;
+  contentType: "lesson" | "exercise" | "quiz" | "essay_prompt";
+  topic: string;
+  country: string;
+  gradeLevel?: string;
+  language?: string;
+  difficulty?: "easy" | "medium" | "hard";
+  count?: number;
+  profile?: CurriculumProfile | null;
+  ragContext?: string;
+}
+
+export function buildWritingGenerationPrompt(
+  args: BuildWritingGenerationPromptArgs,
+): string {
+  const {
+    writingSubject,
+    contentType,
+    topic,
+    country,
+    gradeLevel,
+    language,
+    difficulty,
+    count,
+    profile,
+    ragContext,
+  } = args;
+
+  const subjectLabel = WRITING_SUBJECT_LABELS[writingSubject];
+  const contentTypeLabel = WRITING_CONTENT_TYPE_LABELS[contentType];
+  const language_ =
+    language ?? profile?.defaultLanguage ?? "the student's language";
+  const audienceDesc = `${country}${gradeLevel ? ` grade ${gradeLevel}` : ""} students`;
+
+  const curriculumNote = profile
+    ? `Follow the ${profile.countryName ?? country} language arts curriculum strictly.`
+    : `Follow the official ${country} language arts curriculum and use vocabulary, examples, and conventions that ${audienceDesc} would recognise.`;
+
+  const contentTypeInstruction = {
+    lesson: `Generate a complete lesson on "${topic}". Include a thorough theory section, at least 3 key concepts with definitions, and a summary.`,
+    exercise: `Generate exactly ${count ?? 5} ${difficulty ?? "medium"}-difficulty exercises on "${topic}". Each must have a model answer and a clear explanation. Include 1–3 hints per exercise.`,
+    quiz: `Generate exactly ${count ?? 5} ${difficulty ?? "medium"}-difficulty quiz questions on "${topic}". Each must have a model answer and a clear explanation.`,
+    essay_prompt: `Generate a compelling essay prompt on "${topic}". Include clear evaluation criteria and practical writing tips for students.`,
+  }[contentType];
+
+  return [
+    `You are an expert ${subjectLabel} educator preparing a ${contentTypeLabel}.`,
+    `Audience: ${audienceDesc}.`,
+    `Answer language: ${language_}.`,
+    ``,
+    curriculumNote,
+    ragContext ? `\n${ragContext}` : "",
+    ``,
+    contentTypeInstruction,
+    ``,
+    WRITING_CONTENT_JSON_CONTRACT,
+  ]
+    .filter((line) => line !== "")
+    .join("\n");
+}

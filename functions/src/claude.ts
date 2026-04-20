@@ -12,6 +12,19 @@ import {
   USER_INSTRUCTION_FOR_TEXT,
 } from "./prompts";
 
+export interface MultimodalInput {
+  kind: "text" | "storage";
+  text?: string;
+  fileBytes?: Buffer;
+  fileContentType?: string;
+}
+
+export interface MultimodalUserInstructions {
+  forText: (text: string) => string;
+  forImage: string;
+  forPdf: string;
+}
+
 const DEFAULT_MODEL = "claude-opus-4-6";
 const MAX_TOKENS = 4096;
 
@@ -119,6 +132,57 @@ export async function solveWithClaude(args: SolveArgs): Promise<Solution> {
   );
 }
 
+export interface AnalyzeArgs<T> {
+  apiKey: string;
+  model?: string;
+  systemPrompt: string;
+  input: SolveRequest["input"];
+  fileBytes?: Buffer;
+  fileContentType?: string;
+  schema: ZodType<T, ZodTypeDef, unknown>;
+  instructions: MultimodalUserInstructions;
+}
+
+/**
+ * Generic multimodal Claude call — like `solveWithClaude` but accepts any
+ * schema and custom user instruction strings. Used by the writing solver.
+ */
+export async function analyzeWithClaude<T>(args: AnalyzeArgs<T>): Promise<T> {
+  const { apiKey, systemPrompt, input, schema, instructions } = args;
+  const model = args.model ?? DEFAULT_MODEL;
+  const anthropic = client(apiKey);
+
+  const userContent = buildUserContent(
+    input,
+    args.fileBytes,
+    args.fileContentType,
+    instructions,
+  );
+
+  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent);
+  const firstParse = tryParseAs(firstReply, schema);
+  if (firstParse.ok) return firstParse.value;
+
+  logger.warn("Claude analysis failed validation; retrying once", {
+    error: firstParse.error,
+  });
+
+  const retryContent: Anthropic.Messages.ContentBlockParam[] = [
+    ...userContent,
+    {
+      type: "text",
+      text: `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`,
+    },
+  ];
+  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent);
+  const secondParse = tryParseAs(secondReply, schema);
+  if (secondParse.ok) return secondParse.value;
+
+  throw new Error(
+    `Claude returned invalid JSON after retry: ${secondParse.error}`,
+  );
+}
+
 async function callClaude(
   anthropic: Anthropic,
   model: string,
@@ -149,13 +213,20 @@ async function callClaude(
   return text;
 }
 
+const DEFAULT_INSTRUCTIONS: MultimodalUserInstructions = {
+  forText: USER_INSTRUCTION_FOR_TEXT,
+  forImage: USER_INSTRUCTION_FOR_IMAGE,
+  forPdf: USER_INSTRUCTION_FOR_PDF,
+};
+
 function buildUserContent(
   input: SolveRequest["input"],
   fileBytes: Buffer | undefined,
   fileContentType: string | undefined,
+  instructions: MultimodalUserInstructions = DEFAULT_INSTRUCTIONS,
 ): Anthropic.Messages.ContentBlockParam[] {
   if (input.kind === "text") {
-    return [{ type: "text", text: USER_INSTRUCTION_FOR_TEXT(input.text) }];
+    return [{ type: "text", text: instructions.forText(input.text) }];
   }
 
   if (!fileBytes || !fileContentType) {
@@ -174,7 +245,7 @@ function buildUserContent(
           data: base64,
         },
       },
-      { type: "text", text: USER_INSTRUCTION_FOR_PDF },
+      { type: "text", text: instructions.forPdf },
     ];
   }
 
@@ -189,7 +260,7 @@ function buildUserContent(
         data: base64,
       },
     },
-    { type: "text", text: USER_INSTRUCTION_FOR_IMAGE },
+    { type: "text", text: instructions.forImage },
   ];
 }
 

@@ -210,6 +210,108 @@ export const examSchema = z.object({
 export type ExamQuestion = z.infer<typeof examQuestionSchema>;
 export type Exam = z.infer<typeof examSchema>;
 
+// ── Writing subject ───────────────────────────────────────────────────────────
+
+export const writingSubjectSchema = z.enum([
+  "grammar",
+  "essay",
+  "vocabulary",
+  "literature",
+  "reading",
+]);
+export type WritingSubject = z.infer<typeof writingSubjectSchema>;
+
+// ── Solve writing ─────────────────────────────────────────────────────────────
+
+export const solveWritingRequestSchema = z.object({
+  country: z
+    .string()
+    .trim()
+    .min(2)
+    .max(8)
+    .describe("ISO-3166 alpha-2 country code, e.g. 'FR', 'US', 'MA'."),
+  gradeLevel: z.string().trim().max(64).optional(),
+  language: z.string().trim().min(2).max(16).optional(),
+  model: z.enum(["claude-opus-4-6", "claude-sonnet-4-6"]).optional(),
+  writingSubject: writingSubjectSchema,
+  input: z.discriminatedUnion("kind", [
+    z.object({
+      kind: z.literal("text"),
+      text: z.string().trim().min(1).max(10_000),
+    }),
+    z.object({
+      kind: z.literal("storage"),
+      path: z
+        .string()
+        .trim()
+        .min(1)
+        .max(512)
+        .regex(/^uploads\/[^/]+\/.+/u, "path must be under uploads/{uid}/..."),
+      contentType: z
+        .string()
+        .regex(
+          /^(image\/(png|jpeg|jpg|webp|gif)|application\/pdf)$/u,
+          "only images or PDFs are accepted",
+        ),
+    }),
+  ]),
+});
+export type SolveWritingRequest = z.infer<typeof solveWritingRequestSchema>;
+
+export const writingCorrectionSchema = z.object({
+  original: z.string(),
+  corrected: z.string(),
+  explanation: z.string(),
+});
+
+export const writingAnalysisSchema = z.object({
+  restatement: z.string(),
+  feedback: z.string().min(1),
+  corrections: z.array(writingCorrectionSchema).default([]),
+  suggestions: z.array(z.string()).default([]),
+  conclusion: z.string(),
+});
+export type WritingAnalysis = z.infer<typeof writingAnalysisSchema>;
+export type WritingCorrection = z.infer<typeof writingCorrectionSchema>;
+
+// ── Generate writing content ──────────────────────────────────────────────────
+
+export const generateWritingRequestSchema = z.object({
+  writingSubject: writingSubjectSchema,
+  contentType: z.enum(["lesson", "exercise", "quiz", "essay_prompt"]),
+  topic: z.string().trim().min(1).max(256),
+  country: z.string().trim().min(2).max(8),
+  gradeLevel: z.string().trim().max(64).optional(),
+  language: z.string().trim().min(2).max(16).optional(),
+  difficulty: z.enum(["easy", "medium", "hard"]).optional(),
+  count: z.number().int().min(1).max(20).default(5).optional(),
+});
+export type GenerateWritingRequest = z.infer<typeof generateWritingRequestSchema>;
+
+export const writingItemSchema = z.object({
+  prompt: z.string().min(1),
+  hints: z.array(z.string()).optional(),
+  answer: z.string().min(1),
+  explanation: z.string().min(1),
+});
+
+export const writingContentSchema = z.object({
+  title: z.string().min(1),
+  contentType: z.enum(["lesson", "exercise", "quiz", "essay_prompt"]),
+  writingSubject: writingSubjectSchema,
+  theory: z.string().optional(),
+  keyConcepts: z
+    .array(z.object({ term: z.string(), definition: z.string() }))
+    .optional(),
+  items: z.array(writingItemSchema).optional(),
+  prompt: z.string().optional(),
+  criteria: z.array(z.string()).optional(),
+  tips: z.array(z.string()).optional(),
+  summary: z.string().optional(),
+});
+export type WritingContent = z.infer<typeof writingContentSchema>;
+export type WritingItem = z.infer<typeof writingItemSchema>;
+
 // ── processBook callable ──────────────────────────────────────────────────────
 
 export const processBookRequestSchema = z.object({
