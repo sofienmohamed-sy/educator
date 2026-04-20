@@ -11,7 +11,7 @@ import {
 import { db } from "../firebase";
 import { useAuth } from "../auth/AuthProvider";
 
-type HistoryTab = "problems" | "courses" | "exercises" | "exams";
+type HistoryTab = "problems" | "courses" | "exercises" | "exams" | "writingProblems" | "writingContent";
 
 interface HistoryDoc {
   id: string;
@@ -25,6 +25,10 @@ interface HistoryDoc {
   difficulty?: string;
   totalPoints?: number;
   exam?: { title?: string };
+  writingSubject?: string;
+  contentType?: string;
+  analysis?: { restatement?: string; feedback?: string };
+  content?: { title?: string; contentType?: string };
 }
 
 const NAV_CARDS = [
@@ -58,6 +62,18 @@ const NAV_CARDS = [
     desc: "Browse uploaded scientific textbooks. Professors can upload books to power the RAG system.",
     cta: "Browse →",
   },
+  {
+    to: "/writing/solve",
+    title: "Analyze writing",
+    desc: "Get grammar corrections, essay feedback, vocabulary explanations, literary analysis, or reading comprehension help.",
+    cta: "Analyze →",
+  },
+  {
+    to: "/writing/generate",
+    title: "Generate writing content",
+    desc: "Create grammar lessons, essay prompts, writing exercises, or vocabulary quizzes aligned to your curriculum.",
+    cta: "Generate →",
+  },
 ];
 
 export default function Home() {
@@ -74,7 +90,11 @@ export default function Home() {
           ? "courses"
           : tab === "exercises"
             ? "exercises"
-            : "exams";
+            : tab === "exams"
+              ? "exams"
+              : tab === "writingProblems"
+                ? "writingProblems"
+                : "writingContent";
 
     const q = query(
       collection(db, "users", user.uid, collectionName),
@@ -119,11 +139,27 @@ export default function Home() {
         </span>
       );
     }
-    // exams
+    if (tab === "exams") {
+      return (
+        <span>
+          <strong>{item.subject}</strong> — {item.exam?.title ?? item.topics?.join(", ")}{" "}
+          <span className="muted">({item.totalPoints} pts)</span>
+        </span>
+      );
+    }
+    if (tab === "writingProblems") {
+      return (
+        <span>
+          <strong>{item.writingSubject ?? "writing"}</strong> · {item.country} —{" "}
+          {item.analysis?.restatement ?? "(no restatement)"}
+        </span>
+      );
+    }
+    // writingContent
     return (
       <span>
-        <strong>{item.subject}</strong> — {item.exam?.title ?? item.topics?.join(", ")}{" "}
-        <span className="muted">({item.totalPoints} pts)</span>
+        <strong>{item.writingSubject}</strong> — {item.content?.title ?? item.topic}{" "}
+        <span className="muted">({item.content?.contentType ?? item.contentType})</span>
       </span>
     );
   }
@@ -155,14 +191,18 @@ export default function Home() {
         <h2 style={{ marginTop: 0 }}>History</h2>
 
         <div className="row" style={{ marginBottom: "1rem", gap: "0.5rem", flexWrap: "wrap" }}>
-          {(["problems", "courses", "exercises", "exams"] as HistoryTab[]).map((t) => (
+          {(["problems", "courses", "exercises", "exams", "writingProblems", "writingContent"] as HistoryTab[]).map((t) => (
             <button
               key={t}
               type="button"
               className={tab === t ? "primary" : ""}
               onClick={() => setTab(t)}
             >
-              {t.charAt(0).toUpperCase() + t.slice(1)}
+              {t === "writingProblems"
+                ? "Writing Analyses"
+                : t === "writingContent"
+                  ? "Writing Content"
+                  : t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
           ))}
         </div>

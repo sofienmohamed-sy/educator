@@ -7,6 +7,9 @@ import type {
   Exercise,
   Exam,
   Subject,
+  WritingSubject,
+  WritingAnalysis,
+  WritingContent,
 } from "./types";
 
 // ── Profile ───────────────────────────────────────────────────────────────────
@@ -84,3 +87,32 @@ export const generateExamFn = httpsCallable<
   },
   { id: string; exam: Exam }
 >(functions, "generateExam");
+
+// ── Writing ───────────────────────────────────────────────────────────────────
+
+export const solveWritingFn = httpsCallable<
+  {
+    country: string;
+    gradeLevel?: string;
+    language?: string;
+    writingSubject: WritingSubject;
+    input:
+      | { kind: "text"; text: string }
+      | { kind: "storage"; path: string; contentType: string };
+  },
+  { id: string; analysis: WritingAnalysis; usedCuratedCurriculum: boolean }
+>(functions, "solveWriting");
+
+export const generateWritingFn = httpsCallable<
+  {
+    writingSubject: WritingSubject;
+    contentType: "lesson" | "exercise" | "quiz" | "essay_prompt";
+    topic: string;
+    country: string;
+    gradeLevel?: string;
+    language?: string;
+    difficulty?: "easy" | "medium" | "hard";
+    count?: number;
+  },
+  { id: string; content: WritingContent }
+>(functions, "generateWriting");

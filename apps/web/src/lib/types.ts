@@ -53,3 +53,46 @@ export interface Exam {
   questions: ExamQuestion[];
   totalPoints: number;
 }
+
+// ── Writing ───────────────────────────────────────────────────────────────────
+
+export type WritingSubject =
+  | "grammar"
+  | "essay"
+  | "vocabulary"
+  | "literature"
+  | "reading";
+
+export interface WritingCorrection {
+  original: string;
+  corrected: string;
+  explanation: string;
+}
+
+export interface WritingAnalysis {
+  restatement: string;
+  feedback: string;
+  corrections: WritingCorrection[];
+  suggestions: string[];
+  conclusion: string;
+}
+
+export interface WritingItem {
+  prompt: string;
+  hints?: string[];
+  answer: string;
+  explanation: string;
+}
+
+export interface WritingContent {
+  title: string;
+  contentType: "lesson" | "exercise" | "quiz" | "essay_prompt";
+  writingSubject: WritingSubject;
+  theory?: string;
+  keyConcepts?: Array<{ term: string; definition: string }>;
+  items?: WritingItem[];
+  prompt?: string;
+  criteria?: string[];
+  tips?: string[];
+  summary?: string;
+}
