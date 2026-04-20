@@ -33,8 +33,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    # Job-level env so Firebase Hosting's predeploy (vite build) picks up
-    # the same VITE_FIREBASE_* values when `firebase deploy` re-runs it.
     env:
       VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
       VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
@@ -43,6 +41,7 @@ jobs:
       VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
       VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
       VITE_USE_EMULATORS: "false"
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -53,29 +52,33 @@ jobs:
       - run: npm --workspace apps/web run build
       - run: npm --workspace functions run build
 
+      - name: Write service account key
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > /tmp/sa.json
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
-      # Push every runtime secret the functions need from GitHub Actions into
-      # Firebase Secret Manager, one line per secret. Each call creates a new
-      # Secret Manager version; Cloud Functions binds to the latest on the
-      # next deploy below. Add more lines here as you add new defineSecret()
-      # calls in functions/src.
       - name: Sync Cloud Functions secrets from GitHub
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
         run: |
-          printf '%s' "${{ secrets.ANTHROPIC_API_KEY }}" | npx firebase-tools functions:secrets:set ANTHROPIC_API_KEY \
-            --project ${{ secrets.FIREBASE_PROJECT_ID }} \
+          printf '%s' "$ANTHROPIC_API_KEY" | npx firebase-tools functions:secrets:set ANTHROPIC_API_KEY \
+            --project "$FIREBASE_PROJECT_ID" \
             --data-file=-
-          printf '%s' "${{ secrets.GCP_PROJECT_ID }}" | npx firebase-tools functions:secrets:set GCP_PROJECT_ID \
-            --project ${{ secrets.FIREBASE_PROJECT_ID }} \
+          printf '%s' "$GCP_PROJECT_ID" | npx firebase-tools functions:secrets:set GCP_PROJECT_ID \
+            --project "$FIREBASE_PROJECT_ID" \
             --data-file=-
 
       - name: Deploy to Firebase
+        env:
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
         run: |
           npx firebase-tools deploy \
-            --project ${{ secrets.FIREBASE_PROJECT_ID }} \
+            --project "$FIREBASE_PROJECT_ID" \
             --only "hosting,functions,firestore:rules,firestore:indexes,storage" \
             --non-interactive \
             --force
