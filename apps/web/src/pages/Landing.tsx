@@ -84,7 +84,7 @@ function TimeCalculator() {
             <div className="lp-calc-stat lp-calc-ai">
               <div className="lp-calc-stat-icon">⚡</div>
               <div className="lp-calc-stat-number">{aiHoursPerMonth}h</div>
-              <div className="lp-calc-stat-label">With MathResolver / month</div>
+              <div className="lp-calc-stat-label">With Educator / month</div>
             </div>
 
             <div className="lp-calc-arrow">→</div>
@@ -211,7 +211,7 @@ export default function Landing() {
       <nav className="lp-nav">
         <div className="lp-nav-inner">
           <div className="lp-logo">
-            <span className="lp-logo-symbol">Σ</span> mathresolver
+            <span className="lp-logo-symbol">Σ</span> Educator
           </div>
           <div className="lp-nav-links">
             <a href="#how-it-works">How it works</a>
@@ -415,10 +415,10 @@ export default function Landing() {
       <footer className="lp-footer">
         <div className="lp-container lp-footer-inner">
           <div className="lp-logo lp-footer-logo">
-            <span className="lp-logo-symbol">Σ</span> mathresolver
+            <span className="lp-logo-symbol">Σ</span> Educator
           </div>
           <p className="lp-footer-copy">
-            © {new Date().getFullYear()} mathresolver. AI-powered math tutoring.
+            © {new Date().getFullYear()} Educator. AI-powered scientific tutoring.
           </p>
         </div>
       </footer>

@@ -2,7 +2,7 @@
   "name": "functions",
   "version": "0.1.0",
   "private": true,
-  "description": "Firebase Cloud Functions for mathresolver.",
+  "description": "Firebase Cloud Functions for educator.",
   "main": "lib/index.js",
   "engines": {
     "node": "22"

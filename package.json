@@ -1,5 +1,5 @@
 {
-  "name": "mathresolver",
+  "name": "educator",
   "version": "0.1.0",
   "private": true,
   "description": "AI-powered math tutor — Claude generates step-by-step, curriculum-aware solutions.",
