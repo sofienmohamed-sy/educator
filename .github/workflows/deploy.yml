@@ -54,8 +54,17 @@ jobs:
       - run: npm --workspace apps/web run build
       - run: npm --workspace functions run build
 
-      - name: Write service account key
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > /tmp/sa.json
+      - name: Verify service account secret is present
+        env:
+          SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$SA" ]; then
+            echo "::error::FIREBASE_SERVICE_ACCOUNT is EMPTY. Check that the secret is saved under the 'production' environment (Settings → Environments → production → Environment secrets), not only at the repository level."
+            exit 1
+          fi
+          echo "FIREBASE_SERVICE_ACCOUNT length: ${#SA}"
+          # Validate it parses as JSON without printing its contents.
+          printf '%s' "$SA" | python3 -c "import json,sys; json.load(sys.stdin); print('JSON parse: OK')"
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
