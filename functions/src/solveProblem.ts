@@ -124,7 +124,13 @@ export const solveProblem = onCall(
         payload.requestId = err.headers?.["request-id"];
       }
       logger.error("Claude invocation failed", payload);
-      throw new HttpsError("internal", "Failed to generate a solution.");
+      const detail =
+        err instanceof Anthropic.APIError
+          ? `Anthropic API ${err.status}: ${err.message}`
+          : err instanceof Error
+            ? err.message
+            : String(err);
+      throw new HttpsError("internal", `Failed to generate a solution: ${detail}`);
     }
 
     // Persist for the student's history.
