@@ -43,7 +43,7 @@ export const solveRequestSchema = z.object({
   gradeLevel: nullishString({ max: 64 }),
   language: nullishString({ min: 2, max: 16 }),
   model: z
-    .enum(["claude-opus-4-6", "claude-sonnet-4-6"])
+    .enum(["claude-opus-4-7", "claude-sonnet-4-6"])
     .nullish()
     .transform((v) => v ?? undefined),
   subject: subjectSchema.nullish().transform((v) => v ?? undefined),
@@ -256,7 +256,7 @@ export const solveWritingRequestSchema = z.object({
   gradeLevel: nullishString({ max: 64 }),
   language: nullishString({ min: 2, max: 16 }),
   model: z
-    .enum(["claude-opus-4-6", "claude-sonnet-4-6"])
+    .enum(["claude-opus-4-7", "claude-sonnet-4-6"])
     .nullish()
     .transform((v) => v ?? undefined),
   writingSubject: writingSubjectSchema,

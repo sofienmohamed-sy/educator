@@ -132,7 +132,7 @@ export const solveWriting = onCall(
         gradeLevel: req.gradeLevel ?? null,
         language: req.language ?? null,
         writingSubject: req.writingSubject,
-        model: req.model ?? "claude-opus-4-6",
+        model: req.model ?? "claude-sonnet-4-6",
         usedCuratedCurriculum: Boolean(profile),
         input:
           req.input.kind === "text"

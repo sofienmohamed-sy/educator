@@ -25,7 +25,7 @@ export interface MultimodalUserInstructions {
   forPdf: string;
 }
 
-const DEFAULT_MODEL = "claude-opus-4-6";
+const DEFAULT_MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 4096;
 
 /** Lazy client — created on first use so unit tests can mock the module. */
