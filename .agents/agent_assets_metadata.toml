@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "q1w8-GVMr8InEU9J--bAg"
+uri = "file://artifacts/mockup-sandbox/public/images/hero-science.png"
+type = "image"
+title = "Science hero background"
