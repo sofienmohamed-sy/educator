@@ -20,6 +20,14 @@ const nullishArray = <T extends z.ZodTypeAny>(item: T, max?: number) => {
   return a.nullish().transform((v) => v ?? undefined);
 };
 
+// Helpers for Claude *response* schemas — models sometimes return null for
+// optional fields even when the prompt says to omit them.
+const rspOptStr = () => z.string().nullish().transform((v) => v ?? undefined);
+const rspOptArr = <T extends z.ZodTypeAny>(item: T) =>
+  z.array(item).nullish().transform((v) => v ?? undefined);
+const rspDefArr = <T extends z.ZodTypeAny>(item: T) =>
+  z.array(item).nullish().transform((v) => v ?? []);
+
 // ── Subject ───────────────────────────────────────────────────────────────────
 
 export const subjectSchema = z.enum([
@@ -78,15 +86,15 @@ export const solutionStepSchema = z.object({
   title: z.string(),
   expression: z.string(),
   explanation: z.string(),
-  ruleOrTheorem: z.string().optional(),
+  ruleOrTheorem: rspOptStr(),
 });
 
 export const solutionSchema = z.object({
   restatement: z.string(),
-  assumptions: z.array(z.string()).default([]),
+  assumptions: rspDefArr(z.string()),
   steps: z.array(solutionStepSchema).min(1),
   finalAnswer: z.string(),
-  verification: z.string().optional(),
+  verification: rspOptStr(),
 });
 
 export type Solution = z.infer<typeof solutionSchema>;
@@ -196,7 +204,7 @@ export type GenerateExercisesRequest = z.infer<
 
 export const exerciseSchema = z.object({
   question: z.string().min(1),
-  hints: z.array(z.string()).optional(),
+  hints: rspOptArr(z.string()),
   solution: solutionSchema,
 });
 export const exercisesResponseSchema = z.object({
@@ -222,11 +230,11 @@ export const examQuestionSchema = z.object({
   question: z.string().min(1),
   points: z.number().int().min(1),
   solution: solutionSchema,
-  rubric: z.string().optional(),
+  rubric: rspOptStr(),
 });
 export const examSchema = z.object({
   title: z.string().min(1),
-  durationMinutes: z.number().int().positive().optional(),
+  durationMinutes: z.number().int().positive().nullish().transform((v) => v ?? undefined),
   questions: z.array(examQuestionSchema).min(1),
   totalPoints: z.number().int().positive(),
 });
@@ -293,8 +301,8 @@ export const writingCorrectionSchema = z.object({
 export const writingAnalysisSchema = z.object({
   restatement: z.string(),
   feedback: z.string().min(1),
-  corrections: z.array(writingCorrectionSchema).default([]),
-  suggestions: z.array(z.string()).default([]),
+  corrections: rspDefArr(writingCorrectionSchema),
+  suggestions: rspDefArr(z.string()),
   conclusion: z.string(),
 });
 export type WritingAnalysis = z.infer<typeof writingAnalysisSchema>;
@@ -325,7 +333,7 @@ export type GenerateWritingRequest = z.infer<typeof generateWritingRequestSchema
 
 export const writingItemSchema = z.object({
   prompt: z.string().min(1),
-  hints: z.array(z.string()).optional(),
+  hints: rspOptArr(z.string()),
   answer: z.string().min(1),
   explanation: z.string().min(1),
 });
@@ -334,15 +342,13 @@ export const writingContentSchema = z.object({
   title: z.string().min(1),
   contentType: z.enum(["lesson", "exercise", "quiz", "essay_prompt"]),
   writingSubject: writingSubjectSchema,
-  theory: z.string().optional(),
-  keyConcepts: z
-    .array(z.object({ term: z.string(), definition: z.string() }))
-    .optional(),
-  items: z.array(writingItemSchema).optional(),
-  prompt: z.string().optional(),
-  criteria: z.array(z.string()).optional(),
-  tips: z.array(z.string()).optional(),
-  summary: z.string().optional(),
+  theory: rspOptStr(),
+  keyConcepts: rspOptArr(z.object({ term: z.string(), definition: z.string() })),
+  items: rspOptArr(writingItemSchema),
+  prompt: rspOptStr(),
+  criteria: rspOptArr(z.string()),
+  tips: rspOptArr(z.string()),
+  summary: rspOptStr(),
 });
 export type WritingContent = z.infer<typeof writingContentSchema>;
 export type WritingItem = z.infer<typeof writingItemSchema>;
