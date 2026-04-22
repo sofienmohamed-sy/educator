@@ -137,7 +137,7 @@ export const solveProblem = onCall(
         country: req.country,
         gradeLevel: req.gradeLevel ?? null,
         language: req.language ?? null,
-        model: req.model ?? "claude-opus-4-6",
+        model: req.model ?? "claude-sonnet-4-6",
         usedCuratedCurriculum: Boolean(profile),
         input:
           req.input.kind === "text"
