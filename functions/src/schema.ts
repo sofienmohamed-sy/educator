@@ -1,5 +1,25 @@
 import { z } from "zod";
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+/**
+ * Firebase Callable SDK serialises `undefined` values as `null` on the wire
+ * (see `encode()` in @firebase/functions). Use these helpers for optional
+ * request fields so both `null` and `undefined` are accepted.
+ */
+const nullishString = (opts: { min?: number; max?: number } = {}) => {
+  let s = z.string().trim();
+  if (opts.min !== undefined) s = s.min(opts.min);
+  if (opts.max !== undefined) s = s.max(opts.max);
+  return s.nullish().transform((v) => v ?? undefined);
+};
+
+const nullishArray = <T extends z.ZodTypeAny>(item: T, max?: number) => {
+  let a = z.array(item);
+  if (max !== undefined) a = a.max(max);
+  return a.nullish().transform((v) => v ?? undefined);
+};
+
 // ── Subject ───────────────────────────────────────────────────────────────────
 
 export const subjectSchema = z.enum([
@@ -20,11 +40,14 @@ export const solveRequestSchema = z.object({
     .min(2)
     .max(8)
     .describe("ISO-3166 alpha-2 country code, e.g. 'FR', 'US', 'MA'."),
-  gradeLevel: z.string().trim().max(64).optional(),
-  language: z.string().trim().min(2).max(16).optional(),
-  model: z.enum(["claude-opus-4-6", "claude-sonnet-4-6"]).optional(),
-  subject: subjectSchema.optional(),
-  bookIds: z.array(z.string().min(1)).max(5).optional(),
+  gradeLevel: nullishString({ max: 64 }),
+  language: nullishString({ min: 2, max: 16 }),
+  model: z
+    .enum(["claude-opus-4-6", "claude-sonnet-4-6"])
+    .nullish()
+    .transform((v) => v ?? undefined),
+  subject: subjectSchema.nullish().transform((v) => v ?? undefined),
+  bookIds: nullishArray(z.string().min(1), 5),
   input: z.discriminatedUnion("kind", [
     z.object({
       kind: z.literal("text"),
@@ -135,9 +158,9 @@ export const generateCourseRequestSchema = z.object({
   subject: subjectSchema,
   topic: z.string().trim().min(1).max(256),
   country: z.string().trim().min(2).max(8),
-  gradeLevel: z.string().trim().max(64).optional(),
-  language: z.string().trim().min(2).max(16).optional(),
-  bookIds: z.array(z.string().min(1)).max(5).optional(),
+  gradeLevel: nullishString({ max: 64 }),
+  language: nullishString({ min: 2, max: 16 }),
+  bookIds: nullishArray(z.string().min(1), 5),
 });
 export type GenerateCourseRequest = z.infer<typeof generateCourseRequestSchema>;
 
@@ -161,11 +184,11 @@ export const generateExercisesRequestSchema = z.object({
   subject: subjectSchema,
   topic: z.string().trim().min(1).max(256),
   country: z.string().trim().min(2).max(8),
-  gradeLevel: z.string().trim().max(64).optional(),
-  language: z.string().trim().min(2).max(16).optional(),
+  gradeLevel: nullishString({ max: 64 }),
+  language: nullishString({ min: 2, max: 16 }),
   difficulty: z.enum(["easy", "medium", "hard"]),
   count: z.number().int().min(1).max(20).default(5),
-  bookIds: z.array(z.string().min(1)).max(5).optional(),
+  bookIds: nullishArray(z.string().min(1), 5),
 });
 export type GenerateExercisesRequest = z.infer<
   typeof generateExercisesRequestSchema
@@ -187,10 +210,10 @@ export const generateExamRequestSchema = z.object({
   subject: subjectSchema,
   topics: z.array(z.string().trim().min(1)).min(1).max(10),
   country: z.string().trim().min(2).max(8),
-  gradeLevel: z.string().trim().max(64).optional(),
-  language: z.string().trim().min(2).max(16).optional(),
+  gradeLevel: nullishString({ max: 64 }),
+  language: nullishString({ min: 2, max: 16 }),
   totalPoints: z.number().int().min(20).max(200).default(100),
-  bookIds: z.array(z.string().min(1)).max(5).optional(),
+  bookIds: nullishArray(z.string().min(1), 5),
 });
 export type GenerateExamRequest = z.infer<typeof generateExamRequestSchema>;
 
@@ -230,9 +253,12 @@ export const solveWritingRequestSchema = z.object({
     .min(2)
     .max(8)
     .describe("ISO-3166 alpha-2 country code, e.g. 'FR', 'US', 'MA'."),
-  gradeLevel: z.string().trim().max(64).optional(),
-  language: z.string().trim().min(2).max(16).optional(),
-  model: z.enum(["claude-opus-4-6", "claude-sonnet-4-6"]).optional(),
+  gradeLevel: nullishString({ max: 64 }),
+  language: nullishString({ min: 2, max: 16 }),
+  model: z
+    .enum(["claude-opus-4-6", "claude-sonnet-4-6"])
+    .nullish()
+    .transform((v) => v ?? undefined),
   writingSubject: writingSubjectSchema,
   input: z.discriminatedUnion("kind", [
     z.object({
@@ -281,10 +307,19 @@ export const generateWritingRequestSchema = z.object({
   contentType: z.enum(["lesson", "exercise", "quiz", "essay_prompt"]),
   topic: z.string().trim().min(1).max(256),
   country: z.string().trim().min(2).max(8),
-  gradeLevel: z.string().trim().max(64).optional(),
-  language: z.string().trim().min(2).max(16).optional(),
-  difficulty: z.enum(["easy", "medium", "hard"]).optional(),
-  count: z.number().int().min(1).max(20).default(5).optional(),
+  gradeLevel: nullishString({ max: 64 }),
+  language: nullishString({ min: 2, max: 16 }),
+  difficulty: z
+    .enum(["easy", "medium", "hard"])
+    .nullish()
+    .transform((v) => v ?? undefined),
+  count: z
+    .number()
+    .int()
+    .min(1)
+    .max(20)
+    .nullish()
+    .transform((v) => v ?? undefined),
 });
 export type GenerateWritingRequest = z.infer<typeof generateWritingRequestSchema>;
 
