@@ -66,6 +66,18 @@ service cloud.firestore {
         allow write: if false;
       }
 
+      // Writing analyses — written by Cloud Functions only; read by owner
+      match /writingProblems/{docId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+
+      // Generated writing content — written by Cloud Functions only; read by owner
+      match /writingContent/{docId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+
       // Rate limit counters — never client-accessible
       match /_meta/{doc} {
         allow read, write: if false;
