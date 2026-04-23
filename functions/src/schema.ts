@@ -369,8 +369,8 @@ export type CreateBookRequest = z.infer<typeof createBookRequestSchema>;
 // ── listBooks callable ────────────────────────────────────────────────────────
 
 export const listBooksRequestSchema = z.object({
-  subject: subjectSchema.optional(),
-  country: z.string().trim().min(2).max(8).optional(),
+  subject: subjectSchema.nullish().transform((v) => v ?? undefined),
+  country: nullishString({ min: 2, max: 8 }),
 });
 export type ListBooksRequest = z.infer<typeof listBooksRequestSchema>;
 

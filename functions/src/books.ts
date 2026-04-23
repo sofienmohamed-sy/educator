@@ -1,6 +1,7 @@
 import { getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
+import { logger } from "firebase-functions/v2";
 
 import {
   createBookRequestSchema,
@@ -97,7 +98,18 @@ export const listBooks = onCall(
       query = query.where("country", "==", req.country) as typeof query;
     }
 
-    const snap = await query.limit(50).get();
+    let snap;
+    try {
+      snap = await query.limit(50).get();
+    } catch (err) {
+      logger.error("listBooks Firestore query failed", {
+        uid,
+        subject: req.subject,
+        country: req.country,
+        error: err instanceof Error ? err.message : String(err),
+      });
+      throw new HttpsError("internal", "Failed to load books.");
+    }
     const books = snap.docs
       .map((doc) => ({ id: doc.id, ...doc.data() }))
       .filter((book) => {
