@@ -1,7 +1,9 @@
+import Anthropic from "@anthropic-ai/sdk";
 import { getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { defineSecret } from "firebase-functions/params";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
+import { logger } from "firebase-functions/v2";
 
 import { generateWithClaude } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
@@ -79,8 +81,16 @@ export const generateCourse = onCall(
         userMessage: `Generate a complete course lesson on "${req.topic}" for ${req.subject} at ${req.country}${req.gradeLevel ? ` ${req.gradeLevel}` : ""} level. Return only the JSON object.`,
         schema: courseSchema,
       });
-    } catch {
-      throw new HttpsError("internal", "Failed to generate course.");
+    } catch (err) {
+      const payload: Record<string, unknown> = { uid };
+      if (err instanceof Error) { payload.message = err.message; payload.stack = err.stack; }
+      if (err instanceof Anthropic.APIError) { payload.status = err.status; }
+      logger.error("Claude course generation failed", payload);
+      const detail =
+        err instanceof Anthropic.APIError
+          ? `Anthropic API ${err.status}: ${err.message}`
+          : err instanceof Error ? err.message : String(err);
+      throw new HttpsError("internal", `Failed to generate course: ${detail}`);
     }
 
     const ref = await getFirestore()
