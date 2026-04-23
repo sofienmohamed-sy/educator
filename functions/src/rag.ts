@@ -187,20 +187,16 @@ export async function storeChunks(
 
 // ── Vector search ─────────────────────────────────────────────────────────────
 
-export async function searchRelevantChunks(
+async function doSearchRelevantChunks(
   query: string,
   bookIds: string[],
   projectId: string,
 ): Promise<RagChunk[]> {
-  if (!bookIds.length || !query.trim()) return [];
-
   let queryEmbedding: number[];
   try {
     queryEmbedding = await embedText(projectId, query);
   } catch (err) {
-    logger.warn("Failed to embed query for RAG search, returning no chunks", {
-      err,
-    });
+    logger.warn("Failed to embed query for RAG search, returning no chunks", { err });
     return [];
   }
 
@@ -238,11 +234,9 @@ export async function searchRelevantChunks(
     }),
   );
 
-  // Sort by distance (ascending = more similar), take top TOP_K overall
   results.sort((a, b) => a.distance - b.distance);
   const top = results.slice(0, TOP_K);
 
-  // Fetch book titles for the selected chunks
   const uniqueBookIds = [...new Set(top.map((r) => r.bookId))];
   const bookTitles: Record<string, string> = {};
   await Promise.all(
@@ -257,4 +251,22 @@ export async function searchRelevantChunks(
     bookTitle: bookTitles[r.bookId] ?? r.bookId,
     ...(r.pageHint !== undefined ? { pageHint: r.pageHint } : {}),
   }));
+}
+
+export async function searchRelevantChunks(
+  query: string,
+  bookIds: string[],
+  projectId: string,
+  timeoutMs = 30_000,
+): Promise<RagChunk[]> {
+  if (!bookIds.length || !query.trim()) return [];
+
+  const timeout = new Promise<RagChunk[]>((resolve) =>
+    setTimeout(() => {
+      logger.warn("searchRelevantChunks timed out, proceeding without RAG context");
+      resolve([]);
+    }, timeoutMs),
+  );
+
+  return Promise.race([doSearchRelevantChunks(query, bookIds, projectId), timeout]);
 }
