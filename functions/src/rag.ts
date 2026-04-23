@@ -58,7 +58,7 @@ async function getVertexClient() {
   });
 }
 
-export async function embedText(
+async function embedTextRaw(
   projectId: string,
   text: string,
 ): Promise<number[]> {
@@ -120,6 +120,20 @@ export async function embedText(
   }
 
   return values;
+}
+
+export async function embedText(
+  projectId: string,
+  text: string,
+  timeoutMs = 20_000,
+): Promise<number[]> {
+  const timeout = new Promise<never>((_, reject) =>
+    setTimeout(
+      () => reject(new Error(`Vertex AI embedText timed out after ${timeoutMs}ms`)),
+      timeoutMs,
+    ),
+  );
+  return Promise.race([embedTextRaw(projectId, text), timeout]);
 }
 
 // ── Store chunks with embeddings ──────────────────────────────────────────────
