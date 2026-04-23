@@ -173,15 +173,11 @@ export const generateCourseRequestSchema = z.object({
 export type GenerateCourseRequest = z.infer<typeof generateCourseRequestSchema>;
 
 export const courseSchema = z.object({
-  subject: subjectSchema,
-  topic: z.string(),
+  subject: subjectSchema.nullish().transform((v) => v ?? undefined),
+  topic: rspOptStr(),
   theory: z.string().min(1),
-  keyConcepts: z
-    .array(z.object({ term: z.string(), definition: z.string() }))
-    .min(1),
-  workedExamples: z
-    .array(z.object({ problem: z.string(), solution: z.string() }))
-    .min(1),
+  keyConcepts: rspDefArr(z.object({ term: z.string(), definition: z.string() })),
+  workedExamples: rspDefArr(z.object({ problem: z.string(), solution: z.string() })),
   summary: z.string().min(1),
 });
 export type Course = z.infer<typeof courseSchema>;
@@ -373,8 +369,8 @@ export type CreateBookRequest = z.infer<typeof createBookRequestSchema>;
 // ── listBooks callable ────────────────────────────────────────────────────────
 
 export const listBooksRequestSchema = z.object({
-  subject: subjectSchema.optional(),
-  country: z.string().trim().min(2).max(8).optional(),
+  subject: subjectSchema.nullish().transform((v) => v ?? undefined),
+  country: nullishString({ min: 2, max: 8 }),
 });
 export type ListBooksRequest = z.infer<typeof listBooksRequestSchema>;
 
