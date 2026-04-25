@@ -1,5 +1,6 @@
 import { useState } from "react";
 import StepList from "./StepList";
+import { renderMarkdown } from "../lib/renderRichText";
 import type { Exam, ExamQuestion } from "../lib/types";
 
 const TYPE_LABELS: Record<ExamQuestion["type"], string> = {
@@ -85,7 +86,7 @@ export default function ExamViewer({ exam, showRubric = false }: Props) {
             </div>
             <span style={{ fontWeight: 700 }}>{q.points} pts</span>
           </div>
-          <p style={{ margin: 0 }}>{q.question}</p>
+          <div style={{ margin: 0 }}>{renderMarkdown(q.question)}</div>
         </div>
       ))}
 
@@ -116,16 +117,16 @@ export default function ExamViewer({ exam, showRubric = false }: Props) {
                   [{TYPE_LABELS[q.type]}]
                 </span>
               </div>
-              <p className="muted" style={{ marginBottom: "0.5rem" }}>
-                {q.question}
-              </p>
+              <div className="muted" style={{ marginBottom: "0.5rem" }}>
+                {renderMarkdown(q.question)}
+              </div>
               <StepList solution={q.solution} />
               {showRubric && q.rubric && (
                 <div
                   className="card"
                   style={{ background: "var(--bg-alt, #fef9c3)", marginTop: "0.5rem" }}
                 >
-                  <strong>Grading rubric:</strong> {q.rubric}
+                  <strong>Grading rubric:</strong> {renderMarkdown(q.rubric!)}
                 </div>
               )}
             </div>
