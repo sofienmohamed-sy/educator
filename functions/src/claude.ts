@@ -99,6 +99,46 @@ export async function generateWithClaude<T>(args: {
 }
 
 /**
+ * Streaming variant of generateWithClaude. Calls `onDelta` for each text
+ * token as it arrives, then returns the fully parsed result at the end.
+ */
+export async function streamWithClaude<T>(args: {
+  apiKey: string;
+  model?: string;
+  systemPrompt: string;
+  userMessage: string;
+  schema: ZodType<T, ZodTypeDef, unknown>;
+  onDelta: (text: string) => void;
+}): Promise<T> {
+  const { apiKey, systemPrompt, userMessage, schema, onDelta } = args;
+  const model = args.model ?? DEFAULT_MODEL;
+  const anthropic = client(apiKey);
+
+  let fullText = "";
+
+  const stream = anthropic.messages.stream({
+    model,
+    max_tokens: MAX_TOKENS_GENERATION,
+    system: [{ type: "text", text: systemPrompt, cache_control: { type: "ephemeral" } }],
+    messages: [{ role: "user", content: [{ type: "text", text: userMessage }] }],
+  });
+
+  for await (const event of stream) {
+    if (
+      event.type === "content_block_delta" &&
+      event.delta.type === "text_delta"
+    ) {
+      fullText += event.delta.text;
+      onDelta(event.delta.text);
+    }
+  }
+
+  const result = tryParseAs(fullText, schema);
+  if (result.ok) return result.value;
+  throw new Error(`Claude returned invalid JSON: ${result.error}`);
+}
+
+/**
  * Send the problem to Claude and parse the returned JSON into a validated
  * `Solution`. Retries once with the zod error appended if the first response
  * fails validation.

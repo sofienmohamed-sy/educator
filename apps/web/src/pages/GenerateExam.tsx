@@ -1,12 +1,14 @@
-import { useState, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import ExamViewer from "../components/ExamViewer";
 import BookList from "../components/BookList";
-import { generateExamFn, listBooksFn, getProfileFn } from "../lib/callables";
+import { listBooksFn, getProfileFn } from "../lib/callables";
+import { streamGenerate } from "../lib/streamClient";
 import { useAuth } from "../auth/AuthProvider";
 import type { Exam, Subject, BookMeta, UserRole } from "../lib/types";
-import { useEffect } from "react";
+
+type ExamResult = { exam: Exam };
 
 export default function GenerateExam() {
   const { user } = useAuth();
@@ -23,8 +25,10 @@ export default function GenerateExam() {
   const [booksLoading, setBooksLoading] = useState(false);
 
   const [exam, setExam] = useState<Exam | null>(null);
+  const [streamText, setStreamText] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const streamRef = useRef<HTMLPreElement>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -37,7 +41,7 @@ export default function GenerateExam() {
     setBooksLoading(true);
     try {
       const { data } = await listBooksFn({ subject });
-      setBooks(data.books.filter((b) => b.status === "ready"));
+      setBooks(data.books.filter((b) => b.status === "ready" && (b.chunkCount ?? 0) > 0));
       setBooksLoaded(true);
     } catch (err) {
       setError((err as Error).message);
@@ -70,9 +74,11 @@ export default function GenerateExam() {
     if (!validTopics.length) return;
     setError(null);
     setExam(null);
+    setStreamText("");
     setBusy(true);
+
     try {
-      const { data } = await generateExamFn({
+      const gen = streamGenerate<ExamResult>("generateExamStream", {
         subject,
         topics: validTopics,
         country,
@@ -80,7 +86,25 @@ export default function GenerateExam() {
         totalPoints,
         bookIds: selectedBookIds.length ? selectedBookIds : undefined,
       });
-      setExam(data.exam);
+
+      for await (const event of gen) {
+        if (event.type === "delta") {
+          setStreamText((prev) => {
+            const next = prev + event.text;
+            requestAnimationFrame(() => {
+              if (streamRef.current) {
+                streamRef.current.scrollTop = streamRef.current.scrollHeight;
+              }
+            });
+            return next;
+          });
+        } else if (event.type === "result") {
+          setExam(event.exam);
+          setStreamText("");
+        } else if (event.type === "error") {
+          setError(event.message);
+        }
+      }
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -160,12 +184,7 @@ export default function GenerateExam() {
             </button>
           </div>
           {booksLoaded && books.length > 0 && (
-            <BookList
-              books={books}
-              role="student"
-              selectedIds={selectedBookIds}
-              onToggle={toggleBook}
-            />
+            <BookList books={books} role="student" selectedIds={selectedBookIds} onToggle={toggleBook} />
           )}
         </div>
 
@@ -179,6 +198,30 @@ export default function GenerateExam() {
           {busy ? "Generating…" : "Generate exam"}
         </button>
       </form>
+
+      {busy && streamText && (
+        <div className="card" style={{ marginTop: "1rem" }}>
+          <p className="muted" style={{ marginBottom: "0.5rem", fontSize: "0.85rem" }}>
+            Claude is generating your exam…
+          </p>
+          <pre
+            ref={streamRef}
+            style={{
+              fontFamily: "monospace",
+              fontSize: "0.78rem",
+              color: "var(--muted, #6b7280)",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              maxHeight: "300px",
+              overflowY: "auto",
+              margin: 0,
+              lineHeight: 1.5,
+            }}
+          >
+            {streamText}▌
+          </pre>
+        </div>
+      )}
 
       {exam && (
         <div style={{ marginTop: "1rem" }}>
