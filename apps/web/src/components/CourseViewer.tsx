@@ -1,19 +1,9 @@
 import { useState } from "react";
-import MathRenderer from "./MathRenderer";
+import { renderRichText } from "../lib/renderRichText";
 import type { Course } from "../lib/types";
 
 interface Props {
   course: Course;
-}
-
-function renderWithMath(text: string) {
-  // Split on inline LaTeX delimited by \( ... \) or $ ... $
-  const parts = text.split(/(\$[^$]+\$|\\\([^)]+\\\))/g);
-  return parts.map((part, i) => {
-    const inline = part.match(/^\$([^$]+)\$$/u) ?? part.match(/^\\\((.+)\\\)$/u);
-    if (inline) return <MathRenderer key={i} tex={inline[1]} />;
-    return <span key={i}>{part}</span>;
-  });
 }
 
 export default function CourseViewer({ course }: Props) {
@@ -26,7 +16,7 @@ export default function CourseViewer({ course }: Props) {
         <p className="muted" style={{ marginBottom: "1rem" }}>
           {course.subject} — Theory
         </p>
-        <div style={{ lineHeight: 1.7 }}>{renderWithMath(course.theory)}</div>
+        <div style={{ lineHeight: 1.7 }}>{renderRichText(course.theory)}</div>
       </div>
 
       <div className="card">
@@ -38,7 +28,7 @@ export default function CourseViewer({ course }: Props) {
                 <strong>{kc.term}</strong>
               </dt>
               <dd style={{ marginLeft: "1rem" }}>
-                {renderWithMath(kc.definition)}
+                {renderRichText(kc.definition)}
               </dd>
             </div>
           ))}
@@ -62,7 +52,7 @@ export default function CourseViewer({ course }: Props) {
             </div>
             {expandedExample === i && (
               <div style={{ marginTop: "0.75rem", borderTop: "1px solid var(--border, #e5e7eb)", paddingTop: "0.75rem" }}>
-                {renderWithMath(ex.solution)}
+                {renderRichText(ex.solution)}
               </div>
             )}
           </div>
@@ -71,7 +61,7 @@ export default function CourseViewer({ course }: Props) {
 
       <div className="card">
         <h3 style={{ marginTop: 0 }}>Summary</h3>
-        <p>{renderWithMath(course.summary)}</p>
+        <p>{renderRichText(course.summary)}</p>
       </div>
     </div>
   );
