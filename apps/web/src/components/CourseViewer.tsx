@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { renderRichText } from "../lib/renderRichText";
+import { renderRichText, renderMarkdown } from "../lib/renderRichText";
 import type { Course } from "../lib/types";
 
 interface Props {
@@ -16,7 +16,7 @@ export default function CourseViewer({ course }: Props) {
         <p className="muted" style={{ marginBottom: "1rem" }}>
           {course.subject} — Theory
         </p>
-        <div style={{ lineHeight: 1.7 }}>{renderRichText(course.theory)}</div>
+        <div>{renderMarkdown(course.theory)}</div>
       </div>
 
       <div className="card">
@@ -52,7 +52,7 @@ export default function CourseViewer({ course }: Props) {
             </div>
             {expandedExample === i && (
               <div style={{ marginTop: "0.75rem", borderTop: "1px solid var(--border, #e5e7eb)", paddingTop: "0.75rem" }}>
-                {renderRichText(ex.solution)}
+                {renderMarkdown(ex.solution)}
               </div>
             )}
           </div>
@@ -61,7 +61,7 @@ export default function CourseViewer({ course }: Props) {
 
       <div className="card">
         <h3 style={{ marginTop: 0 }}>Summary</h3>
-        <p>{renderRichText(course.summary)}</p>
+        <div>{renderMarkdown(course.summary)}</div>
       </div>
     </div>
   );
