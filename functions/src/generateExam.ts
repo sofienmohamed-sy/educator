@@ -4,7 +4,7 @@ import { defineSecret } from "firebase-functions/params";
 import { HttpsError, onCall } from "firebase-functions/v2/https";
 import { logger } from "firebase-functions/v2";
 
-import { generateWithClaude } from "./claude";
+import { generateWithClaude, MAX_TOKENS_EXAM } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildExamPrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
@@ -112,6 +112,7 @@ export const generateExam = onCall(
         systemPrompt,
         userMessage,
         schema: examSchema,
+        maxTokens: MAX_TOKENS_EXAM,
       });
     } catch {
       throw new HttpsError("internal", "Failed to generate exam.");
@@ -130,6 +131,7 @@ export const generateExam = onCall(
           systemPrompt,
           userMessage: correctedMessage,
           schema: examSchema,
+          maxTokens: MAX_TOKENS_EXAM,
         });
       } catch {
         throw new HttpsError("internal", "Failed to generate exam after retry.");
