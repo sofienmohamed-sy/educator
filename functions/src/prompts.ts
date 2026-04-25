@@ -226,23 +226,33 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — EXTRACT, DON'T INVENT:\n` +
-        `The CONTENT REFERENCE excerpts above are your ONLY source of content. Your task is\n` +
-        `NOT to write a course about "${topic}" from your general knowledge. Your task is to\n` +
-        `EXTRACT and ORGANISE the book's own content on this topic into the JSON structure.\n` +
+      ? `PRIMARY RULE — MIMIC THE SOUL, NOT THE WORDS:\n` +
+        `Your task is to generate a course on "${topic}" that has the SAME SOUL as the book.\n` +
+        `"Same soul" means:\n` +
         `\n` +
-        `• Use the book's exact sentences, examples, proofs, and computations wherever\n` +
-        `  possible — reproduce them faithfully, do not paraphrase.\n` +
-        `• Preserve every example and numerical result from the excerpts (e.g. if the book\n` +
-        `  has a table of values or a specific calculation, include it verbatim).\n` +
-        `• Only add the minimum connecting prose needed to bridge gaps between excerpts.\n` +
-        `• If an excerpt is not directly about "${topic}" but provides context the book uses\n` +
-        `  to introduce the topic, include that context — it is part of the soul.\n` +
-        `• Do NOT add examples, definitions, or theorems that are not in the excerpts.\n` +
-        `• Follow the STYLE MANDATE above for all structure, notation, and voice decisions.\n` +
+        `WAY OF REASONING\n` +
+        `• Study HOW the book builds understanding: does it start with a concrete physical\n` +
+        `  scenario, then formalise? Does it pose a problem, show why naive solutions fail,\n` +
+        `  then refine? Does it use geometric intuition before algebra? Apply that exact\n` +
+        `  same intellectual journey to "${topic}".\n` +
+        `• When the book proves something, study the TYPE of argument it uses (approximation\n` +
+        `  + refinement? contradiction? explicit construction? graphical argument?). Use\n` +
+        `  the same type of argument for analogous results in "${topic}".\n` +
+        `• If the book motivates a concept with a real-world story, invent an equivalent\n` +
+        `  motivating story for "${topic}" — same rhetorical structure, different scenario.\n` +
         `\n` +
-        `The goal: a reader who has the book open to the relevant chapter should see the\n` +
-        `same content, same examples, same order, same words in your output.`
+        `WAY OF CHOOSING EXAMPLES\n` +
+        `• Study the KIND of examples the book favours: concrete numerical sequences?\n` +
+        `  geometric constructions? algorithmic computations? Pick examples of the same\n` +
+        `  KIND for "${topic}", including any numerical tables or step-by-step computations\n` +
+        `  the book's style calls for.\n` +
+        `• If the book's excerpts contain specific examples directly about "${topic}", use\n` +
+        `  those exact examples (same numbers, same steps) — they are the reference.\n` +
+        `\n` +
+        `WAY OF WRITING\n` +
+        `• Follow the STYLE MANDATE above for every structural and notational decision.\n` +
+        `• The reader should feel they are reading a chapter of the same book — not because\n` +
+        `  the words are copied, but because the thinking feels identical.`
       : `Generate a complete course lesson on the topic: "${topic}". The theory section must be thorough and pedagogically sound for the ${country} curriculum.`,
     `Include at least 2 key concepts and 2 worked examples with full solutions.`,
     ``,
@@ -312,14 +322,17 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — EXTRACT, DON'T INVENT:\n` +
-        `Extract exactly ${count} ${difficulty}-difficulty exercises from the CONTENT REFERENCE\n` +
-        `excerpts above. These exercises must come directly from the book — use the book's own\n` +
-        `problem statements, its own solution method, and its own worked steps verbatim.\n` +
-        `Do not invent problems or solutions that are not in the excerpts.\n` +
-        `If the excerpts contain fewer than ${count} exercises, use all available and fill the\n` +
-        `remaining slots only with problems strictly inspired by the book's exact examples\n` +
-        `(same structure, same numbers if possible). Follow the STYLE MANDATE for all notation.`
+      ? `PRIMARY RULE — MIMIC THE SOUL:\n` +
+        `Generate ${count} ${difficulty}-difficulty exercises that have the SAME SOUL as the\n` +
+        `book's own exercises. "Same soul" means:\n` +
+        `• If the book's exercises contain problems directly on "${topic}", use those exact\n` +
+        `  problems (same wording, same numbers) as your first priority.\n` +
+        `• For any remaining exercises, construct NEW problems that follow the same PATTERN\n` +
+        `  as the book's exercises: same type of question, same level of abstraction, same\n` +
+        `  kind of reasoning required — not a copy, but a sibling.\n` +
+        `• Solutions must be worked out using the SAME METHOD the book uses for similar\n` +
+        `  problems — same argument type, same level of rigour, same intermediate steps.\n` +
+        `• Follow the STYLE MANDATE for all notation, vocabulary, and solution structure.`
       : `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}". Difficulty: ${difficultyDesc}.`,
     `Each exercise must have a complete, step-by-step solution following the "passage between steps" approach — explain WHY each step follows from the previous one.`,
     `Include 1–3 hints per exercise to guide students without revealing the answer.`,
@@ -390,13 +403,19 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — USE THE BOOK'S CONTENT:\n` +
-        `Build exam questions from the concepts, definitions, theorems, and worked examples\n` +
-        `found in the CONTENT REFERENCE excerpts above. Each question must test something\n` +
-        `explicitly present in the excerpts — do not test knowledge that is not there.\n` +
-        `Use the book's exact notation and vocabulary in every question and solution.\n` +
-        `Solutions must follow the same reasoning method the book uses for similar problems.\n` +
-        `Follow the STYLE MANDATE for all structure and voice decisions.`
+      ? `PRIMARY RULE — MIMIC THE SOUL:\n` +
+        `Create an exam that tests the same REASONING SKILLS the book trains — not just\n` +
+        `the facts it states. "Same soul" means:\n` +
+        `• Direct questions should ask students to apply the same type of argument or\n` +
+        `  computation the book uses in its simplest examples.\n` +
+        `• Indirect questions should require combining concepts the way the book combines\n` +
+        `  them in its worked problems.\n` +
+        `• Synthesis questions should demand the same kind of creative or generalising\n` +
+        `  thinking the book demonstrates in its hardest results.\n` +
+        `• Every solution must be worked out using the SAME METHOD and level of rigour\n` +
+        `  the book uses for similar problems.\n` +
+        `• Use the book's exact notation and vocabulary throughout.\n` +
+        `• Follow the STYLE MANDATE for all structure and voice decisions.`
       : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ``,
     `MANDATORY point distribution (total = ${totalPoints} pts):`,
