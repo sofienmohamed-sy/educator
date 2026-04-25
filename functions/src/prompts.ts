@@ -72,6 +72,9 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
     curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
     ``,
+    ragContext
+      ? `If REFERENCE MATERIAL is provided above, use the EXACT notation, vocabulary, and reasoning style from those excerpts throughout your solution. The student's textbook is the ultimate authority on notation and method.`
+      : "",
     `Your objective is to make the PATH TO THE ANSWER understandable, not just the answer itself. For every step, you MUST explain WHY the step follows from the previous one (the "passage between two steps") — name the rule, identity, theorem, or algebraic manipulation used. Never skip steps a student at this level would find non-obvious. Do not use any tool the curriculum does not expect at this level.`,
     ``,
     `If the input contains multiple problems, solve each as a separate entry in \`steps\` grouped with clear \`title\`s, or — if clearer — answer only the first problem and note that others were skipped.`,
@@ -86,15 +89,97 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
 
 // ── RAG context block ─────────────────────────────────────────────────────────
 
-export function buildRagContextBlock(chunks: RagChunk[]): string {
-  if (chunks.length === 0) return "";
-  const entries = chunks
-    .map(
-      (c, i) =>
-        `[Excerpt ${i + 1}${c.pageHint ? ` — approx. page ${c.pageHint}` : ""}]\n${c.text}`,
-    )
-    .join("\n\n");
-  return `REFERENCE MATERIAL (from uploaded textbooks — cite by excerpt number when relevant):\n\n${entries}`;
+/**
+ * Builds the RAG context block injected into every generation prompt.
+ *
+ * @param contentChunks - Topically relevant chunks (from vector search)
+ * @param styleChunks   - Opening chunks of the book (for style/notation sampling)
+ *
+ * When style chunks are provided the block is split into two labeled sections
+ * and a STYLE MANDATE is added so Claude knows it must mirror the book's
+ * notation, vocabulary, and pedagogical approach — not just use it as a
+ * factual reference.
+ */
+export function buildRagContextBlock(
+  contentChunks: RagChunk[],
+  styleChunks: RagChunk[] = [],
+): string {
+  if (contentChunks.length === 0 && styleChunks.length === 0) return "";
+
+  const parts: string[] = ["REFERENCE MATERIAL (from uploaded textbooks):"];
+
+  if (styleChunks.length > 0) {
+    const styleEntries = styleChunks
+      .map(
+        (c, i) =>
+          `[Style Sample ${i + 1}${c.bookTitle ? ` — ${c.bookTitle}` : ""}]\n${c.text}`,
+      )
+      .join("\n\n");
+    parts.push(
+      `── STYLE GUIDE (opening pages of the textbook)\n` +
+      `   Study these to learn the book's notation, vocabulary, and pedagogical approach.\n\n` +
+      styleEntries,
+    );
+  }
+
+  if (contentChunks.length > 0) {
+    const contentEntries = contentChunks
+      .map(
+        (c, i) =>
+          `[Excerpt ${i + 1}${c.pageHint ? ` — p.${c.pageHint}` : ""}${c.bookTitle ? ` — ${c.bookTitle}` : ""}]\n${c.text}`,
+      )
+      .join("\n\n");
+    parts.push(
+      `── CONTENT REFERENCE (topically relevant — cite by excerpt number when relevant)\n\n` +
+      contentEntries,
+    );
+  }
+
+  if (styleChunks.length > 0) {
+    parts.push(
+      `── STYLE MANDATE — READ THIS BEFORE WRITING ANYTHING ──\n` +
+      `\n` +
+      `Study the STYLE GUIDE excerpts above. Before you write a single word of output,\n` +
+      `mentally answer each question below about the book's style, then apply your answers\n` +
+      `rigidly throughout every sentence you write.\n` +
+      `\n` +
+      `APPROACH & STRUCTURE\n` +
+      `• Does the book open a topic with a concrete real-world story or motivating scenario\n` +
+      `  BEFORE any formal definition? → If yes, your output MUST do the same. Start with\n` +
+      `  a concrete, engaging scenario. Never open with a definition box.\n` +
+      `• Does the book use §-numbered paragraphs (§1, §2, §3...) rather than Roman-numeral\n` +
+      `  sections (I., II., I.1, I.2...)? → Mirror the exact heading/paragraph structure.\n` +
+      `• Does the book write flowing prose rather than bullet-list theory? → Never use\n` +
+      `  bullet lists or numbered lists inside explanations; write full prose paragraphs.\n` +
+      `• Does the book pose questions to the reader ("Quel est le remède ?" "Pourquoi ?")\n` +
+      `  and answer them inline? → Reproduce this Socratic dialogue style.\n` +
+      `• Does the book include worked numerical examples inline (tables of values, explicit\n` +
+      `  computations)? → Include the same kind of concrete illustrations.\n` +
+      `\n` +
+      `NOTATION & VOCABULARY\n` +
+      `• Use the EXACT same symbols for every mathematical object (vectors, derivatives,\n` +
+      `  integrals, limits, sets — whatever notation the book uses, even if unusual).\n` +
+      `• Use the book's own words for every concept. Never substitute a synonym.\n` +
+      `• Copy the book's punctuation conventions (e.g. ⩾ vs ≥, semicolons in sets, etc.).\n` +
+      `\n` +
+      `LEVEL & RIGOUR\n` +
+      `• Match the assumed prior knowledge exactly — do not introduce or skip prerequisites\n` +
+      `  that the book treats differently.\n` +
+      `• Match the level of proof rigour: if the book gives informal geometric arguments\n` +
+      `  alongside formal proofs, do the same; if it is purely formal, be purely formal.\n` +
+      `\n` +
+      `VOICE & TONE\n` +
+      `• Match the authorial voice (formal? conversational? first-person plural "nous"?).\n` +
+      `• If the book uses footnotes for technical asides, signal them with "(cf. note)" in\n` +
+      `  the text (you cannot produce actual footnotes in plain text).\n` +
+      `\n` +
+      `HARD RULE: A reader familiar with the textbook must not be able to tell that the\n` +
+      `generated content was not written by the book's own author. Any deviation from the\n` +
+      `book's style is a failure, even if the mathematics is correct.`,
+    );
+  }
+
+  return parts.join("\n\n");
 }
 
 // ── Course generation prompt ──────────────────────────────────────────────────
@@ -140,8 +225,25 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     curriculumNote,
     ragContext ? `\n${ragContext}` : "",
     ``,
-    `Generate a complete course lesson on the topic: "${topic}".`,
-    `The theory section must be thorough, pedagogically sound, and written in the same "soul of thinking" as the reference textbooks for this curriculum.`,
+    ragContext
+      ? `PRIMARY RULE — EXTRACT, DON'T INVENT:\n` +
+        `The CONTENT REFERENCE excerpts above are your ONLY source of content. Your task is\n` +
+        `NOT to write a course about "${topic}" from your general knowledge. Your task is to\n` +
+        `EXTRACT and ORGANISE the book's own content on this topic into the JSON structure.\n` +
+        `\n` +
+        `• Use the book's exact sentences, examples, proofs, and computations wherever\n` +
+        `  possible — reproduce them faithfully, do not paraphrase.\n` +
+        `• Preserve every example and numerical result from the excerpts (e.g. if the book\n` +
+        `  has a table of values or a specific calculation, include it verbatim).\n` +
+        `• Only add the minimum connecting prose needed to bridge gaps between excerpts.\n` +
+        `• If an excerpt is not directly about "${topic}" but provides context the book uses\n` +
+        `  to introduce the topic, include that context — it is part of the soul.\n` +
+        `• Do NOT add examples, definitions, or theorems that are not in the excerpts.\n` +
+        `• Follow the STYLE MANDATE above for all structure, notation, and voice decisions.\n` +
+        `\n` +
+        `The goal: a reader who has the book open to the relevant chapter should see the\n` +
+        `same content, same examples, same order, same words in your output.`
+      : `Generate a complete course lesson on the topic: "${topic}". The theory section must be thorough and pedagogically sound for the ${country} curriculum.`,
     `Include at least 2 key concepts and 2 worked examples with full solutions.`,
     ``,
     COURSE_JSON_CONTRACT,
@@ -209,8 +311,16 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     `Answer language: ${language_}.`,
     ragContext ? `\n${ragContext}` : "",
     ``,
-    `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}".`,
-    `Difficulty descriptor: ${difficultyDesc}.`,
+    ragContext
+      ? `PRIMARY RULE — EXTRACT, DON'T INVENT:\n` +
+        `Extract exactly ${count} ${difficulty}-difficulty exercises from the CONTENT REFERENCE\n` +
+        `excerpts above. These exercises must come directly from the book — use the book's own\n` +
+        `problem statements, its own solution method, and its own worked steps verbatim.\n` +
+        `Do not invent problems or solutions that are not in the excerpts.\n` +
+        `If the excerpts contain fewer than ${count} exercises, use all available and fill the\n` +
+        `remaining slots only with problems strictly inspired by the book's exact examples\n` +
+        `(same structure, same numbers if possible). Follow the STYLE MANDATE for all notation.`
+      : `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}". Difficulty: ${difficultyDesc}.`,
     `Each exercise must have a complete, step-by-step solution following the "passage between steps" approach — explain WHY each step follows from the previous one.`,
     `Include 1–3 hints per exercise to guide students without revealing the answer.`,
     ``,
@@ -279,7 +389,15 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     `Answer language: ${language_}.`,
     ragContext ? `\n${ragContext}` : "",
     ``,
-    `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
+    ragContext
+      ? `PRIMARY RULE — USE THE BOOK'S CONTENT:\n` +
+        `Build exam questions from the concepts, definitions, theorems, and worked examples\n` +
+        `found in the CONTENT REFERENCE excerpts above. Each question must test something\n` +
+        `explicitly present in the excerpts — do not test knowledge that is not there.\n` +
+        `Use the book's exact notation and vocabulary in every question and solution.\n` +
+        `Solutions must follow the same reasoning method the book uses for similar problems.\n` +
+        `Follow the STYLE MANDATE for all structure and voice decisions.`
+      : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ``,
     `MANDATORY point distribution (total = ${totalPoints} pts):`,
     `  - DIRECT questions: exactly ${directPts} pts total (60%). Single-step recall or direct application of a formula/definition. Lower points per question.`,

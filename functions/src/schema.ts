@@ -158,6 +158,7 @@ export interface RagChunk {
   text: string;
   bookTitle: string;
   pageHint?: number;
+  chunkIndex?: number;
 }
 
 // ── Course generation ─────────────────────────────────────────────────────────

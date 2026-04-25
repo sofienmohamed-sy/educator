@@ -63,10 +63,26 @@ describe("buildRagContextBlock", () => {
       { text: "First chunk", bookTitle: "Book A" },
       { text: "Second chunk", bookTitle: "Book B", pageHint: 42 },
     ]);
-    expect(block).toContain("[Excerpt 1]");
+    expect(block).toContain("[Excerpt 1 — Book A]");
     expect(block).toContain("[Excerpt 2");
-    expect(block).toContain("page 42");
+    expect(block).toContain("p.42");
     expect(block).toContain("REFERENCE MATERIAL");
+  });
+
+  it("adds STYLE GUIDE and STYLE MANDATE when style chunks are provided", () => {
+    const block = buildRagContextBlock(
+      [{ text: "Content chunk", bookTitle: "Book A" }],
+      [{ text: "Opening chapter text", bookTitle: "Book A" }],
+    );
+    expect(block).toContain("STYLE GUIDE");
+    expect(block).toContain("STYLE MANDATE");
+    expect(block).toContain("Style Sample 1");
+    expect(block).toContain("CONTENT REFERENCE");
+    expect(block).toContain("Excerpt 1");
+  });
+
+  it("returns empty string when both arrays are empty", () => {
+    expect(buildRagContextBlock([], [])).toBe("");
   });
 });
 
