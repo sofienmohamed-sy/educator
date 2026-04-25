@@ -137,14 +137,45 @@ export function buildRagContextBlock(
 
   if (styleChunks.length > 0) {
     parts.push(
-      `── STYLE MANDATE ──\n` +
-      `Before writing, study the STYLE GUIDE excerpts above and apply throughout:\n` +
-      `1. Use the EXACT same mathematical/scientific notation (symbols for vectors, derivatives,\n` +
-      `   integrals, units, functions — whatever the book uses).\n` +
-      `2. Mirror the pedagogical order (definition-first? example-first? motivation-first?).\n` +
-      `3. Use the book's own vocabulary and terminology — never substitute synonyms.\n` +
-      `4. Match the same depth, rigour, and level of assumed prior knowledge.\n` +
-      `The generated content must feel like it was written by the same author as the textbook.`,
+      `── STYLE MANDATE — READ THIS BEFORE WRITING ANYTHING ──\n` +
+      `\n` +
+      `Study the STYLE GUIDE excerpts above. Before you write a single word of output,\n` +
+      `mentally answer each question below about the book's style, then apply your answers\n` +
+      `rigidly throughout every sentence you write.\n` +
+      `\n` +
+      `APPROACH & STRUCTURE\n` +
+      `• Does the book open a topic with a concrete real-world story or motivating scenario\n` +
+      `  BEFORE any formal definition? → If yes, your output MUST do the same. Start with\n` +
+      `  a concrete, engaging scenario. Never open with a definition box.\n` +
+      `• Does the book use §-numbered paragraphs (§1, §2, §3...) rather than Roman-numeral\n` +
+      `  sections (I., II., I.1, I.2...)? → Mirror the exact heading/paragraph structure.\n` +
+      `• Does the book write flowing prose rather than bullet-list theory? → Never use\n` +
+      `  bullet lists or numbered lists inside explanations; write full prose paragraphs.\n` +
+      `• Does the book pose questions to the reader ("Quel est le remède ?" "Pourquoi ?")\n` +
+      `  and answer them inline? → Reproduce this Socratic dialogue style.\n` +
+      `• Does the book include worked numerical examples inline (tables of values, explicit\n` +
+      `  computations)? → Include the same kind of concrete illustrations.\n` +
+      `\n` +
+      `NOTATION & VOCABULARY\n` +
+      `• Use the EXACT same symbols for every mathematical object (vectors, derivatives,\n` +
+      `  integrals, limits, sets — whatever notation the book uses, even if unusual).\n` +
+      `• Use the book's own words for every concept. Never substitute a synonym.\n` +
+      `• Copy the book's punctuation conventions (e.g. ⩾ vs ≥, semicolons in sets, etc.).\n` +
+      `\n` +
+      `LEVEL & RIGOUR\n` +
+      `• Match the assumed prior knowledge exactly — do not introduce or skip prerequisites\n` +
+      `  that the book treats differently.\n` +
+      `• Match the level of proof rigour: if the book gives informal geometric arguments\n` +
+      `  alongside formal proofs, do the same; if it is purely formal, be purely formal.\n` +
+      `\n` +
+      `VOICE & TONE\n` +
+      `• Match the authorial voice (formal? conversational? first-person plural "nous"?).\n` +
+      `• If the book uses footnotes for technical asides, signal them with "(cf. note)" in\n` +
+      `  the text (you cannot produce actual footnotes in plain text).\n` +
+      `\n` +
+      `HARD RULE: A reader familiar with the textbook must not be able to tell that the\n` +
+      `generated content was not written by the book's own author. Any deviation from the\n` +
+      `book's style is a failure, even if the mathematics is correct.`,
     );
   }
 
@@ -196,7 +227,10 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     ``,
     `Generate a complete course lesson on the topic: "${topic}".`,
     ragContext
-      ? `Your writing must feel like a chapter of the provided textbook — same notation, same vocabulary, same pedagogical approach. A reader should not notice any difference in style.`
+      ? `CRITICAL: Follow the STYLE MANDATE above without exception. Your output must be\n` +
+        `indistinguishable in style from the provided textbook. Do NOT fall back to a\n` +
+        `generic textbook format (numbered sections, definition boxes, bullet-list theory).\n` +
+        `Adopt the book's exact structure, voice, and pedagogical approach as your template.`
       : `The theory section must be thorough and pedagogically sound for the ${country} curriculum.`,
     `Include at least 2 key concepts and 2 worked examples with full solutions.`,
     ``,
@@ -268,7 +302,9 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}".`,
     `Difficulty descriptor: ${difficultyDesc}.`,
     ragContext
-      ? `Each exercise and its solution must use the SAME notation, vocabulary, and reasoning style as the provided textbook excerpts.`
+      ? `CRITICAL: Follow the STYLE MANDATE above. Each exercise problem statement and\n` +
+        `solution must use the book's exact notation, vocabulary, and reasoning style.\n` +
+        `Problems must be phrased in the same register and structural style as the textbook.`
       : "",
     `Each exercise must have a complete, step-by-step solution following the "passage between steps" approach — explain WHY each step follows from the previous one.`,
     `Include 1–3 hints per exercise to guide students without revealing the answer.`,
@@ -340,7 +376,9 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     ``,
     `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ragContext
-      ? `All questions and solutions must use the SAME notation, vocabulary, and reasoning style as the provided textbook — as if the exam was written by the book's author.`
+      ? `CRITICAL: Follow the STYLE MANDATE above. Every question and solution must use\n` +
+        `the book's exact notation, vocabulary, and reasoning style — as if the exam\n` +
+        `were an official companion assessment written by the book's own author.`
       : "",
     ``,
     `MANDATORY point distribution (total = ${totalPoints} pts):`,

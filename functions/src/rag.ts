@@ -262,7 +262,7 @@ async function doSearchRelevantChunks(
  */
 export async function fetchEarlyChunks(
   bookIds: string[],
-  chunksPerBook = 2,
+  chunksPerBook = 5,
 ): Promise<RagChunk[]> {
   if (!bookIds.length) return [];
   const db = getFirestore();
