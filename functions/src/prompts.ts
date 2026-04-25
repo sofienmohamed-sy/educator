@@ -403,18 +403,26 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — MIMIC THE SOUL:\n` +
-        `Create an exam that tests the same REASONING SKILLS the book trains — not just\n` +
-        `the facts it states. "Same soul" means:\n` +
-        `• Direct questions should ask students to apply the same type of argument or\n` +
-        `  computation the book uses in its simplest examples.\n` +
-        `• Indirect questions should require combining concepts the way the book combines\n` +
-        `  them in its worked problems.\n` +
-        `• Synthesis questions should demand the same kind of creative or generalising\n` +
-        `  thinking the book demonstrates in its hardest results.\n` +
-        `• Every solution must be worked out using the SAME METHOD and level of rigour\n` +
-        `  the book uses for similar problems.\n` +
-        `• Use the book's exact notation and vocabulary throughout.\n` +
+      ? `PRIMARY RULE — MIMIC THE SOUL, MATCH THE DIFFICULTY:\n` +
+        `Create an exam at EXACTLY the same intellectual level as the book excerpts.\n` +
+        `\n` +
+        `ANTI-PATTERN — do NOT do this:\n` +
+        `  Generating generic textbook questions (compute this limit, evaluate this integral)\n` +
+        `  that any standard textbook would ask. Those are NOT what this book trains.\n` +
+        `\n` +
+        `CORRECT APPROACH:\n` +
+        `• Read the excerpts carefully and identify the ACTUAL intellectual challenges the\n` +
+        `  book puts in front of students (convergence proofs, fixed-point arguments,\n` +
+        `  algorithm analysis, bounding techniques, etc.).\n` +
+        `• DIRECT questions: the same kind of single-step argument the book does in its\n` +
+        `  simplest worked examples — at the book's level, not a dumbed-down version.\n` +
+        `• INDIRECT questions: combine 2–3 ideas the way the book does in its mid-level\n` +
+        `  problems — same sophistication, different specific instance.\n` +
+        `• SYNTHESIS questions: demand the same creative generalisation or proof the book\n` +
+        `  demonstrates in its hardest results — e.g. if the book proves convergence of an\n` +
+        `  iterative algorithm, ask students to prove convergence of a similar algorithm.\n` +
+        `• Every solution uses the SAME METHOD and level of rigour as the book.\n` +
+        `• Use the book's exact notation, vocabulary, and reasoning conventions throughout.\n` +
         `• Follow the STYLE MANDATE for all structure and voice decisions.`
       : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ``,
