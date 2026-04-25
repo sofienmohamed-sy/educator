@@ -1,7 +1,8 @@
-import { useState, useRef, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import ExerciseList from "../components/ExerciseList";
+import StreamProgress from "../components/StreamProgress";
 import BookList from "../components/BookList";
 import { listBooksFn } from "../lib/callables";
 import { streamGenerate } from "../lib/streamClient";
@@ -27,7 +28,6 @@ export default function GenerateExercises() {
   const [streamText, setStreamText] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const streamRef = useRef<HTMLPreElement>(null);
 
   async function loadBooks() {
     setBooksLoading(true);
@@ -69,15 +69,7 @@ export default function GenerateExercises() {
 
       for await (const event of gen) {
         if (event.type === "delta") {
-          setStreamText((prev) => {
-            const next = prev + event.text;
-            requestAnimationFrame(() => {
-              if (streamRef.current) {
-                streamRef.current.scrollTop = streamRef.current.scrollHeight;
-              }
-            });
-            return next;
-          });
+          setStreamText((prev) => prev + event.text);
         } else if (event.type === "result") {
           setExercises(event.exercises);
           setStreamText("");
@@ -167,28 +159,17 @@ export default function GenerateExercises() {
         </button>
       </form>
 
-      {busy && streamText && (
-        <div className="card" style={{ marginTop: "1rem" }}>
-          <p className="muted" style={{ marginBottom: "0.5rem", fontSize: "0.85rem" }}>
-            Claude is generating your exercises…
-          </p>
-          <pre
-            ref={streamRef}
-            style={{
-              fontFamily: "monospace",
-              fontSize: "0.78rem",
-              color: "var(--muted, #6b7280)",
-              whiteSpace: "pre-wrap",
-              wordBreak: "break-word",
-              maxHeight: "300px",
-              overflowY: "auto",
-              margin: 0,
-              lineHeight: 1.5,
-            }}
-          >
-            {streamText}▌
-          </pre>
-        </div>
+      {busy && (
+        <StreamProgress
+          streamText={streamText}
+          label="Claude is generating your exercises…"
+          stages={[
+            { key: "exercises",  label: "Starting up…" },
+            { key: "problem",    label: "Writing problems…" },
+            { key: "solution",   label: "Solving exercises…" },
+            { key: "hint",       label: "Adding hints…" },
+          ]}
+        />
       )}
 
       {exercises.length > 0 && (

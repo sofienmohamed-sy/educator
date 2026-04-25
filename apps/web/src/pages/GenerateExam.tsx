@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import ExamViewer from "../components/ExamViewer";
+import StreamProgress from "../components/StreamProgress";
 import BookList from "../components/BookList";
 import { listBooksFn, getProfileFn } from "../lib/callables";
 import { streamGenerate } from "../lib/streamClient";
@@ -28,7 +29,6 @@ export default function GenerateExam() {
   const [streamText, setStreamText] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const streamRef = useRef<HTMLPreElement>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -89,15 +89,7 @@ export default function GenerateExam() {
 
       for await (const event of gen) {
         if (event.type === "delta") {
-          setStreamText((prev) => {
-            const next = prev + event.text;
-            requestAnimationFrame(() => {
-              if (streamRef.current) {
-                streamRef.current.scrollTop = streamRef.current.scrollHeight;
-              }
-            });
-            return next;
-          });
+          setStreamText((prev) => prev + event.text);
         } else if (event.type === "result") {
           setExam(event.exam);
           setStreamText("");
@@ -199,28 +191,17 @@ export default function GenerateExam() {
         </button>
       </form>
 
-      {busy && streamText && (
-        <div className="card" style={{ marginTop: "1rem" }}>
-          <p className="muted" style={{ marginBottom: "0.5rem", fontSize: "0.85rem" }}>
-            Claude is generating your exam…
-          </p>
-          <pre
-            ref={streamRef}
-            style={{
-              fontFamily: "monospace",
-              fontSize: "0.78rem",
-              color: "var(--muted, #6b7280)",
-              whiteSpace: "pre-wrap",
-              wordBreak: "break-word",
-              maxHeight: "300px",
-              overflowY: "auto",
-              margin: 0,
-              lineHeight: 1.5,
-            }}
-          >
-            {streamText}▌
-          </pre>
-        </div>
+      {busy && (
+        <StreamProgress
+          streamText={streamText}
+          label="Claude is generating your exam…"
+          stages={[
+            { key: "subject",   label: "Starting up…" },
+            { key: "questions", label: "Writing questions…" },
+            { key: "choices",   label: "Building answer choices…" },
+            { key: "rubric",    label: "Writing rubric…" },
+          ]}
+        />
       )}
 
       {exam && (
