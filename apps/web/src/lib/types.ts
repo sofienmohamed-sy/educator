@@ -39,19 +39,32 @@ export interface Exercise {
   solution: Solution;
 }
 
-export interface ExamQuestion {
-  type: "direct" | "indirect" | "synthesis";
+export interface ExamSubpart {
+  letter: string;
   question: string;
   points: number;
   solution: Solution;
   rubric?: string;
 }
 
+export interface ExamPart {
+  number: string;
+  subparts: ExamSubpart[];
+}
+
+export interface ExamExercise {
+  title: string;
+  totalPoints: number;
+  type: "direct" | "indirect" | "synthesis";
+  context: string;
+  parts: ExamPart[];
+}
+
 export interface Exam {
   title: string;
   durationMinutes?: number;
-  questions: ExamQuestion[];
   totalPoints: number;
+  exercises: ExamExercise[];
 }
 
 // ── Writing ───────────────────────────────────────────────────────────────────

@@ -1,15 +1,15 @@
 import { useState } from "react";
 import StepList from "./StepList";
 import { renderMarkdown } from "../lib/renderRichText";
-import type { Exam, ExamQuestion } from "../lib/types";
+import type { Exam, ExamExercise } from "../lib/types";
 
-const TYPE_LABELS: Record<ExamQuestion["type"], string> = {
+const TYPE_LABELS: Record<ExamExercise["type"], string> = {
   direct: "Direct",
   indirect: "Indirect",
   synthesis: "Synthesis",
 };
 
-const TYPE_COLORS: Record<ExamQuestion["type"], string> = {
+const TYPE_COLORS: Record<ExamExercise["type"], string> = {
   direct: "#2563eb",
   indirect: "#d97706",
   synthesis: "#7c3aed",
@@ -23,15 +23,15 @@ interface Props {
 export default function ExamViewer({ exam, showRubric = false }: Props) {
   const [answerKeyOpen, setAnswerKeyOpen] = useState(false);
 
-  const directPts = exam.questions
-    .filter((q) => q.type === "direct")
-    .reduce((s, q) => s + q.points, 0);
-  const indirectPts = exam.questions
-    .filter((q) => q.type === "indirect")
-    .reduce((s, q) => s + q.points, 0);
-  const synthPts = exam.questions
-    .filter((q) => q.type === "synthesis")
-    .reduce((s, q) => s + q.points, 0);
+  const directPts = exam.exercises
+    .filter((e) => e.type === "direct")
+    .reduce((s, e) => s + e.totalPoints, 0);
+  const indirectPts = exam.exercises
+    .filter((e) => e.type === "indirect")
+    .reduce((s, e) => s + e.totalPoints, 0);
+  const synthPts = exam.exercises
+    .filter((e) => e.type === "synthesis")
+    .reduce((s, e) => s + e.totalPoints, 0);
 
   return (
     <div>
@@ -47,7 +47,7 @@ export default function ExamViewer({ exam, showRubric = false }: Props) {
             </span>
           )}
           <span>
-            <strong>Questions:</strong> {exam.questions.length}
+            <strong>Exercises:</strong> {exam.exercises.length}
           </span>
         </div>
         <div className="row" style={{ gap: "1rem", marginTop: "0.75rem", flexWrap: "wrap" }}>
@@ -66,27 +66,49 @@ export default function ExamViewer({ exam, showRubric = false }: Props) {
         </div>
       </div>
 
-      {exam.questions.map((q, i) => (
-        <div key={i} className="card" style={{ marginBottom: "0.75rem" }}>
+      {exam.exercises.map((exercise, ei) => (
+        <div key={ei} className="card" style={{ marginBottom: "0.75rem" }}>
           <div className="row" style={{ justifyContent: "space-between", marginBottom: "0.5rem" }}>
             <div className="row" style={{ gap: "0.5rem" }}>
-              <span style={{ fontWeight: 600 }}>Q{i + 1}</span>
+              <span style={{ fontWeight: 600 }}>{exercise.title}</span>
               <span
                 style={{
                   fontSize: "0.75rem",
                   fontWeight: 700,
-                  color: TYPE_COLORS[q.type],
-                  background: `${TYPE_COLORS[q.type]}18`,
+                  color: TYPE_COLORS[exercise.type],
+                  background: `${TYPE_COLORS[exercise.type]}18`,
                   padding: "2px 8px",
                   borderRadius: "999px",
                 }}
               >
-                {TYPE_LABELS[q.type]}
+                {TYPE_LABELS[exercise.type]}
               </span>
             </div>
-            <span style={{ fontWeight: 700 }}>{q.points} pts</span>
+            <span style={{ fontWeight: 700 }}>{exercise.totalPoints} pts</span>
           </div>
-          <div style={{ margin: 0 }}>{renderMarkdown(q.question)}</div>
+
+          <div style={{ marginBottom: "0.75rem", fontStyle: "italic" }}>
+            {renderMarkdown(exercise.context)}
+          </div>
+
+          {exercise.parts.map((part) => (
+            <div key={part.number} style={{ marginBottom: "0.5rem" }}>
+              <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>
+                {part.number})
+              </div>
+              {part.subparts.map((subpart) => (
+                <div
+                  key={subpart.letter}
+                  className="row"
+                  style={{ gap: "0.5rem", alignItems: "flex-start", marginBottom: "0.25rem", paddingLeft: "1rem" }}
+                >
+                  <span style={{ fontWeight: 500, minWidth: "1.25rem" }}>{subpart.letter})</span>
+                  <span style={{ flex: 1 }}>{renderMarkdown(subpart.question)}</span>
+                  <span style={{ fontWeight: 700, whiteSpace: "nowrap" }}>{subpart.points} pts</span>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       ))}
 
@@ -103,32 +125,46 @@ export default function ExamViewer({ exam, showRubric = false }: Props) {
       {answerKeyOpen && (
         <div>
           <h3>Answer Key</h3>
-          {exam.questions.map((q, i) => (
-            <div key={i} style={{ marginBottom: "1.5rem" }}>
+          {exam.exercises.map((exercise, ei) => (
+            <div key={ei} style={{ marginBottom: "2rem" }}>
               <div className="row" style={{ gap: "0.5rem", marginBottom: "0.5rem" }}>
-                <span style={{ fontWeight: 600 }}>Q{i + 1} — {q.points} pts</span>
+                <span style={{ fontWeight: 600 }}>{exercise.title} — {exercise.totalPoints} pts</span>
                 <span
                   style={{
                     fontSize: "0.75rem",
                     fontWeight: 700,
-                    color: TYPE_COLORS[q.type],
+                    color: TYPE_COLORS[exercise.type],
                   }}
                 >
-                  [{TYPE_LABELS[q.type]}]
+                  [{TYPE_LABELS[exercise.type]}]
                 </span>
               </div>
-              <div className="muted" style={{ marginBottom: "0.5rem" }}>
-                {renderMarkdown(q.question)}
+              <div className="muted" style={{ marginBottom: "0.5rem", fontStyle: "italic" }}>
+                {renderMarkdown(exercise.context)}
               </div>
-              <StepList solution={q.solution} />
-              {showRubric && q.rubric && (
-                <div
-                  className="card"
-                  style={{ background: "var(--bg-alt, #fef9c3)", marginTop: "0.5rem" }}
-                >
-                  <strong>Grading rubric:</strong> {renderMarkdown(q.rubric!)}
+              {exercise.parts.map((part) => (
+                <div key={part.number} style={{ marginBottom: "1rem" }}>
+                  <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>{part.number})</div>
+                  {part.subparts.map((subpart) => (
+                    <div key={subpart.letter} style={{ marginBottom: "1rem", paddingLeft: "1rem" }}>
+                      <div className="row" style={{ gap: "0.5rem", marginBottom: "0.25rem" }}>
+                        <span style={{ fontWeight: 500 }}>{subpart.letter})</span>
+                        <span style={{ flex: 1 }}>{renderMarkdown(subpart.question)}</span>
+                        <span style={{ fontWeight: 700 }}>{subpart.points} pts</span>
+                      </div>
+                      <StepList solution={subpart.solution} />
+                      {showRubric && subpart.rubric && (
+                        <div
+                          className="card"
+                          style={{ background: "var(--bg-alt, #fef9c3)", marginTop: "0.5rem" }}
+                        >
+                          <strong>Grading rubric:</strong> {renderMarkdown(subpart.rubric!)}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              )}
+              ))}
             </div>
           ))}
         </div>

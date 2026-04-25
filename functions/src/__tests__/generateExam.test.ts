@@ -10,17 +10,26 @@ const minSolution = {
 };
 
 function makeExam(
-  questions: Array<{ type: "direct" | "indirect" | "synthesis"; points: number }>,
+  exercises: Array<{ type: "direct" | "indirect" | "synthesis"; points: number }>,
 ): Exam {
   return {
     title: "Test Exam",
     durationMinutes: 60,
-    totalPoints: questions.reduce((s, q) => s + q.points, 0),
-    questions: questions.map((q) => ({
-      type: q.type,
-      question: "Question text",
-      points: q.points,
-      solution: minSolution,
+    totalPoints: exercises.reduce((s, e) => s + e.points, 0),
+    exercises: exercises.map((e) => ({
+      title: "Exercice",
+      totalPoints: e.points,
+      type: e.type,
+      context: "Soit (u_n) une suite.",
+      parts: [{
+        number: "1",
+        subparts: [{
+          letter: "a",
+          question: "Question",
+          points: e.points,
+          solution: minSolution,
+        }],
+      }],
     })),
   };
 }
