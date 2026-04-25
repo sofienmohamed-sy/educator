@@ -1,10 +1,13 @@
-import { useState, type FormEvent } from "react";
+import { useState, useRef, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import CourseViewer from "../components/CourseViewer";
-import { generateCourseFn, listBooksFn } from "../lib/callables";
-import type { Course, Subject, BookMeta } from "../lib/types";
 import BookList from "../components/BookList";
+import { listBooksFn } from "../lib/callables";
+import { streamGenerate } from "../lib/streamClient";
+import type { Course, Subject, BookMeta } from "../lib/types";
+
+type CourseResult = { course: Course };
 
 export default function GenerateCourse() {
   const [subject, setSubject] = useState<Subject>("math");
@@ -19,14 +22,16 @@ export default function GenerateCourse() {
   const [booksLoading, setBooksLoading] = useState(false);
 
   const [course, setCourse] = useState<Course | null>(null);
+  const [streamText, setStreamText] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const streamRef = useRef<HTMLPreElement>(null);
 
   async function loadBooks() {
     setBooksLoading(true);
     try {
       const { data } = await listBooksFn({ subject });
-      setBooks(data.books.filter((b) => b.status === "ready"));
+      setBooks(data.books.filter((b) => b.status === "ready" && (b.chunkCount ?? 0) > 0));
       setBooksLoaded(true);
     } catch (err) {
       setError((err as Error).message);
@@ -46,9 +51,11 @@ export default function GenerateCourse() {
     if (!topic.trim()) return;
     setError(null);
     setCourse(null);
+    setStreamText("");
     setBusy(true);
+
     try {
-      const { data } = await generateCourseFn({
+      const gen = streamGenerate<CourseResult>("generateCourseStream", {
         subject,
         topic: topic.trim(),
         country,
@@ -56,7 +63,25 @@ export default function GenerateCourse() {
         language: language || undefined,
         bookIds: selectedBookIds.length ? selectedBookIds : undefined,
       });
-      setCourse(data.course);
+
+      for await (const event of gen) {
+        if (event.type === "delta") {
+          setStreamText((prev) => {
+            const next = prev + event.text;
+            requestAnimationFrame(() => {
+              if (streamRef.current) {
+                streamRef.current.scrollTop = streamRef.current.scrollHeight;
+              }
+            });
+            return next;
+          });
+        } else if (event.type === "result") {
+          setCourse(event.course);
+          setStreamText("");
+        } else if (event.type === "error") {
+          setError(event.message);
+        }
+      }
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -111,12 +136,7 @@ export default function GenerateCourse() {
             </button>
           </div>
           {booksLoaded && books.length > 0 && (
-            <BookList
-              books={books}
-              role="student"
-              selectedIds={selectedBookIds}
-              onToggle={toggleBook}
-            />
+            <BookList books={books} role="student" selectedIds={selectedBookIds} onToggle={toggleBook} />
           )}
           {booksLoaded && books.length === 0 && (
             <p className="muted">No ready books for this subject.</p>
@@ -129,6 +149,30 @@ export default function GenerateCourse() {
           {busy ? "Generating…" : "Generate course"}
         </button>
       </form>
+
+      {busy && streamText && (
+        <div className="card" style={{ marginTop: "1rem" }}>
+          <p className="muted" style={{ marginBottom: "0.5rem", fontSize: "0.85rem" }}>
+            Claude is generating your course…
+          </p>
+          <pre
+            ref={streamRef}
+            style={{
+              fontFamily: "monospace",
+              fontSize: "0.78rem",
+              color: "var(--muted, #6b7280)",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              maxHeight: "300px",
+              overflowY: "auto",
+              margin: 0,
+              lineHeight: 1.5,
+            }}
+          >
+            {streamText}▌
+          </pre>
+        </div>
+      )}
 
       {course && (
         <div style={{ marginTop: "1rem" }}>

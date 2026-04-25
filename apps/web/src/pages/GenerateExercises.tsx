@@ -1,12 +1,14 @@
-import { useState, type FormEvent } from "react";
+import { useState, useRef, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import ExerciseList from "../components/ExerciseList";
 import BookList from "../components/BookList";
-import { generateExercisesFn, listBooksFn } from "../lib/callables";
+import { listBooksFn } from "../lib/callables";
+import { streamGenerate } from "../lib/streamClient";
 import type { Exercise, Subject, BookMeta } from "../lib/types";
 
 type Difficulty = "easy" | "medium" | "hard";
+type ExercisesResult = { exercises: Exercise[] };
 
 export default function GenerateExercises() {
   const [subject, setSubject] = useState<Subject>("math");
@@ -22,14 +24,16 @@ export default function GenerateExercises() {
   const [booksLoading, setBooksLoading] = useState(false);
 
   const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [streamText, setStreamText] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const streamRef = useRef<HTMLPreElement>(null);
 
   async function loadBooks() {
     setBooksLoading(true);
     try {
       const { data } = await listBooksFn({ subject });
-      setBooks(data.books.filter((b) => b.status === "ready"));
+      setBooks(data.books.filter((b) => b.status === "ready" && (b.chunkCount ?? 0) > 0));
       setBooksLoaded(true);
     } catch (err) {
       setError((err as Error).message);
@@ -49,9 +53,11 @@ export default function GenerateExercises() {
     if (!topic.trim()) return;
     setError(null);
     setExercises([]);
+    setStreamText("");
     setBusy(true);
+
     try {
-      const { data } = await generateExercisesFn({
+      const gen = streamGenerate<ExercisesResult>("generateExercisesStream", {
         subject,
         topic: topic.trim(),
         country,
@@ -60,7 +66,25 @@ export default function GenerateExercises() {
         count,
         bookIds: selectedBookIds.length ? selectedBookIds : undefined,
       });
-      setExercises(data.exercises);
+
+      for await (const event of gen) {
+        if (event.type === "delta") {
+          setStreamText((prev) => {
+            const next = prev + event.text;
+            requestAnimationFrame(() => {
+              if (streamRef.current) {
+                streamRef.current.scrollTop = streamRef.current.scrollHeight;
+              }
+            });
+            return next;
+          });
+        } else if (event.type === "result") {
+          setExercises(event.exercises);
+          setStreamText("");
+        } else if (event.type === "error") {
+          setError(event.message);
+        }
+      }
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -132,12 +156,7 @@ export default function GenerateExercises() {
             </button>
           </div>
           {booksLoaded && books.length > 0 && (
-            <BookList
-              books={books}
-              role="student"
-              selectedIds={selectedBookIds}
-              onToggle={toggleBook}
-            />
+            <BookList books={books} role="student" selectedIds={selectedBookIds} onToggle={toggleBook} />
           )}
         </div>
 
@@ -147,6 +166,30 @@ export default function GenerateExercises() {
           {busy ? "Generating…" : "Generate exercises"}
         </button>
       </form>
+
+      {busy && streamText && (
+        <div className="card" style={{ marginTop: "1rem" }}>
+          <p className="muted" style={{ marginBottom: "0.5rem", fontSize: "0.85rem" }}>
+            Claude is generating your exercises…
+          </p>
+          <pre
+            ref={streamRef}
+            style={{
+              fontFamily: "monospace",
+              fontSize: "0.78rem",
+              color: "var(--muted, #6b7280)",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              maxHeight: "300px",
+              overflowY: "auto",
+              margin: 0,
+              lineHeight: 1.5,
+            }}
+          >
+            {streamText}▌
+          </pre>
+        </div>
+      )}
 
       {exercises.length > 0 && (
         <div style={{ marginTop: "1rem" }}>
