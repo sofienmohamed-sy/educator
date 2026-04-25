@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MathRenderer from "./MathRenderer";
+import { renderRichText } from "../lib/renderRichText";
 
 export interface SolutionStep {
   title: string;
@@ -27,13 +28,13 @@ export default function StepList({ solution }: Props) {
     <div>
       <div className="card">
         <h3 style={{ marginTop: 0 }}>Problem</h3>
-        <p>{solution.restatement}</p>
+        <p>{renderRichText(solution.restatement)}</p>
         {solution.assumptions && solution.assumptions.length > 0 ? (
           <>
             <h4>Assumptions</h4>
             <ul>
               {solution.assumptions.map((a, i) => (
-                <li key={i}>{a}</li>
+                <li key={i}>{renderRichText(a)}</li>
               ))}
             </ul>
           </>
@@ -64,12 +65,12 @@ export default function StepList({ solution }: Props) {
             </div>
             {s.ruleOrTheorem ? (
               <p className="muted" style={{ margin: "0.25rem 0 0" }}>
-                <em>Rule / theorem:</em> {s.ruleOrTheorem}
+                <em>Rule / theorem:</em> {renderRichText(s.ruleOrTheorem)}
               </p>
             ) : null}
             {showExplanations ? (
               <p className="explanation">
-                <strong>Why this follows:</strong> {s.explanation}
+                <strong>Why this follows:</strong> {renderRichText(s.explanation)}
               </p>
             ) : null}
           </div>
@@ -81,7 +82,7 @@ export default function StepList({ solution }: Props) {
         <MathRenderer tex={solution.finalAnswer} displayMode />
         {solution.verification ? (
           <p className="muted" style={{ marginTop: "0.75rem" }}>
-            <strong>Check:</strong> {solution.verification}
+            <strong>Check:</strong> {renderRichText(solution.verification)}
           </p>
         ) : null}
       </div>
