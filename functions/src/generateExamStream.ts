@@ -5,7 +5,7 @@ import { defineSecret } from "firebase-functions/params";
 import { onRequest } from "firebase-functions/v2/https";
 import { logger } from "firebase-functions/v2";
 
-import { streamWithClaude } from "./claude";
+import { streamWithClaude, MAX_TOKENS_EXAM } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildExamPrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
@@ -86,6 +86,7 @@ export const generateExamStream = onRequest(
         userMessage: `Create a ${data.subject} exam on: ${data.topics.join(", ")}. Total points: ${data.totalPoints}. Return only the JSON object.`,
         schema: examSchema,
         onDelta: (text) => sendSSE(res, { type: "delta", text }),
+        maxTokens: MAX_TOKENS_EXAM,
       });
 
       const ref = await getFirestore()

@@ -28,6 +28,7 @@ export interface MultimodalUserInstructions {
 const DEFAULT_MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 4096;
 const MAX_TOKENS_GENERATION = 8192;
+export const MAX_TOKENS_EXAM = 16384;
 
 /** Lazy client — created on first use so unit tests can mock the module. */
 let cachedClient: Anthropic | null = null;
@@ -109,16 +110,18 @@ export async function streamWithClaude<T>(args: {
   userMessage: string;
   schema: ZodType<T, ZodTypeDef, unknown>;
   onDelta: (text: string) => void;
+  maxTokens?: number;
 }): Promise<T> {
   const { apiKey, systemPrompt, userMessage, schema, onDelta } = args;
   const model = args.model ?? DEFAULT_MODEL;
+  const maxTokens = args.maxTokens ?? MAX_TOKENS_GENERATION;
   const anthropic = client(apiKey);
 
   let fullText = "";
 
   const stream = anthropic.messages.stream({
     model,
-    max_tokens: MAX_TOKENS_GENERATION,
+    max_tokens: maxTokens,
     system: [{ type: "text", text: systemPrompt, cache_control: { type: "ephemeral" } }],
     messages: [{ role: "user", content: [{ type: "text", text: userMessage }] }],
   });
