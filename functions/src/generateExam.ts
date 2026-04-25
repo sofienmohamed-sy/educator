@@ -87,7 +87,7 @@ export const generateExam = onCall(
     let ragContext = "";
     if (req.bookIds?.length) {
       const [contentChunks, styleChunks] = await Promise.all([
-        searchRelevantChunks(req.topics.join(", "), req.bookIds, GCP_PROJECT_ID.value()),
+        searchRelevantChunks(req.topics.join(", "), req.bookIds, GCP_PROJECT_ID.value(), 20),
         fetchEarlyChunks(req.bookIds),
       ]);
       ragContext = buildRagContextBlock(contentChunks, styleChunks);

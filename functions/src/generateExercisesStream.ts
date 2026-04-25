@@ -64,7 +64,7 @@ export const generateExercisesStream = onRequest(
       let ragContext = "";
       if (data.bookIds?.length) {
         const [contentChunks, styleChunks] = await Promise.all([
-          searchRelevantChunks(data.topic, data.bookIds, GCP_PROJECT_ID.value()),
+          searchRelevantChunks(data.topic, data.bookIds, GCP_PROJECT_ID.value(), 20),
           fetchEarlyChunks(data.bookIds),
         ]);
         ragContext = buildRagContextBlock(contentChunks, styleChunks);

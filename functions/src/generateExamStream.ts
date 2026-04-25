@@ -60,7 +60,7 @@ export const generateExamStream = onRequest(
       let ragContext = "";
       if (data.bookIds?.length) {
         const [contentChunks, styleChunks] = await Promise.all([
-          searchRelevantChunks(data.topics.join(", "), data.bookIds, GCP_PROJECT_ID.value()),
+          searchRelevantChunks(data.topics.join(", "), data.bookIds, GCP_PROJECT_ID.value(), 20),
           fetchEarlyChunks(data.bookIds),
         ]);
         ragContext = buildRagContextBlock(contentChunks, styleChunks);

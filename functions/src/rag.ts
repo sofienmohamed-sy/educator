@@ -191,6 +191,7 @@ async function doSearchRelevantChunks(
   query: string,
   bookIds: string[],
   projectId: string,
+  limit: number,
 ): Promise<RagChunk[]> {
   let queryEmbedding: number[];
   try {
@@ -201,7 +202,11 @@ async function doSearchRelevantChunks(
   }
 
   const db = getFirestore();
-  const results: Array<{ text: string; bookId: string; pageHint?: number; distance: number }> = [];
+  // Per-book limit: fetch more per book so after global dedup we still hit `limit`
+  const perBook = Math.ceil(limit / Math.min(bookIds.length, 5)) + 5;
+  const results: Array<{
+    text: string; bookId: string; pageHint?: number; chunkIndex: number; distance: number;
+  }> = [];
 
   await Promise.all(
     bookIds.slice(0, 5).map(async (bookId) => {
@@ -213,7 +218,7 @@ async function doSearchRelevantChunks(
           .findNearest({
             vectorField: "embedding",
             queryVector: FieldValue.vector(queryEmbedding),
-            limit: TOP_K,
+            limit: perBook,
             distanceMeasure: "COSINE",
             distanceResultField: "_distance",
           });
@@ -225,6 +230,7 @@ async function doSearchRelevantChunks(
             text: data.text as string,
             bookId,
             pageHint: data.pageHint as number | undefined,
+            chunkIndex: data.chunkIndex as number ?? 0,
             distance: (data._distance as number | undefined) ?? 1,
           });
         }
@@ -234,8 +240,12 @@ async function doSearchRelevantChunks(
     }),
   );
 
+  // Pick the `limit` most relevant chunks across all books
   results.sort((a, b) => a.distance - b.distance);
-  const top = results.slice(0, TOP_K);
+  const top = results.slice(0, limit);
+
+  // Re-sort by book order so Claude reads them in the same sequence as the book
+  top.sort((a, b) => a.chunkIndex - b.chunkIndex);
 
   const uniqueBookIds = [...new Set(top.map((r) => r.bookId))];
   const bookTitles: Record<string, string> = {};
@@ -249,6 +259,7 @@ async function doSearchRelevantChunks(
   return top.map((r) => ({
     text: r.text,
     bookTitle: bookTitles[r.bookId] ?? r.bookId,
+    chunkIndex: r.chunkIndex,
     ...(r.pageHint !== undefined ? { pageHint: r.pageHint } : {}),
   }));
 }
@@ -311,6 +322,7 @@ export async function searchRelevantChunks(
   query: string,
   bookIds: string[],
   projectId: string,
+  limit = TOP_K,
   timeoutMs = 30_000,
 ): Promise<RagChunk[]> {
   if (!bookIds.length || !query.trim()) return [];
@@ -322,5 +334,5 @@ export async function searchRelevantChunks(
     }, timeoutMs),
   );
 
-  return Promise.race([doSearchRelevantChunks(query, bookIds, projectId), timeout]);
+  return Promise.race([doSearchRelevantChunks(query, bookIds, projectId, limit), timeout]);
 }
