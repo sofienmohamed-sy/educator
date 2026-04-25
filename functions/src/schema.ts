@@ -222,20 +222,37 @@ export const generateExamRequestSchema = z.object({
 });
 export type GenerateExamRequest = z.infer<typeof generateExamRequestSchema>;
 
-export const examQuestionSchema = z.object({
-  type: z.enum(["direct", "indirect", "synthesis"]),
+export const examSubpartSchema = z.object({
+  letter: z.string().min(1),
   question: z.string().min(1),
-  points: z.number().int().min(1),
+  points: z.number().int().min(0),
   solution: solutionSchema,
   rubric: rspOptStr(),
 });
+
+export const examPartSchema = z.object({
+  number: z.string().min(1),
+  subparts: z.array(examSubpartSchema).min(1),
+});
+
+export const examExerciseSchema = z.object({
+  title: z.string().min(1),
+  totalPoints: z.number().int().positive(),
+  type: z.enum(["direct", "indirect", "synthesis"]),
+  context: z.string().min(1),
+  parts: z.array(examPartSchema).min(1),
+});
+
 export const examSchema = z.object({
   title: z.string().min(1),
   durationMinutes: z.number().int().positive().nullish().transform((v) => v ?? undefined),
-  questions: z.array(examQuestionSchema).min(1),
   totalPoints: z.number().int().positive(),
+  exercises: z.array(examExerciseSchema).min(1),
 });
-export type ExamQuestion = z.infer<typeof examQuestionSchema>;
+
+export type ExamSubpart = z.infer<typeof examSubpartSchema>;
+export type ExamPart = z.infer<typeof examPartSchema>;
+export type ExamExercise = z.infer<typeof examExerciseSchema>;
 export type Exam = z.infer<typeof examSchema>;
 
 // ── Writing subject ───────────────────────────────────────────────────────────

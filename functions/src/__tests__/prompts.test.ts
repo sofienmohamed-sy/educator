@@ -137,7 +137,7 @@ describe("buildExamPrompt", () => {
     expect(prompt).toContain("DIRECT");
     expect(prompt).toContain("INDIRECT");
     expect(prompt).toContain("SYNTHESIS");
-    expect(prompt).toContain("sum(questions.points) MUST equal 100");
+    expect(prompt).toContain("sum(exercises[i].totalPoints) MUST equal 100");
   });
 
   it("scales point allocations with totalPoints", () => {

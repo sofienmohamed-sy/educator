@@ -200,12 +200,21 @@ describe("examSchema — 60/20/20 distribution validator", () => {
     return {
       title: "Test Exam",
       durationMinutes: 60,
-      totalPoints: distribution.reduce((s, q) => s + q.points, 0),
-      questions: distribution.map((q) => ({
-        type: q.type,
-        question: "Question text",
-        points: q.points,
-        solution: minSolution,
+      totalPoints: distribution.reduce((s, e) => s + e.points, 0),
+      exercises: distribution.map((e) => ({
+        title: "Exercice",
+        totalPoints: e.points,
+        type: e.type,
+        context: "Soit (u_n) une suite.",
+        parts: [{
+          number: "1",
+          subparts: [{
+            letter: "a",
+            question: "Question text",
+            points: e.points,
+            solution: minSolution,
+          }],
+        }],
       })),
     };
   }
@@ -219,12 +228,12 @@ describe("examSchema — 60/20/20 distribution validator", () => {
     expect(examSchema.safeParse(exam).success).toBe(true);
   });
 
-  it("rejects exam with no questions", () => {
+  it("rejects exam with no exercises", () => {
     expect(
       examSchema.safeParse({
         title: "Empty",
         totalPoints: 100,
-        questions: [],
+        exercises: [],
       }).success,
     ).toBe(false);
   });

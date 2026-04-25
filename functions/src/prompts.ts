@@ -345,25 +345,41 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
 
 // ── Exam generation prompt ────────────────────────────────────────────────────
 
-const EXAM_JSON_CONTRACT = `Return ONLY a single JSON object matching:
+const EXAM_JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no prose) matching:
 
 type Exam = {
   title: string;
   durationMinutes?: number;
-  questions: Array<{
-    type: "direct" | "indirect" | "synthesis";
-    question: string;
-    points: number;
-    solution: {
-      restatement: string;
-      assumptions: string[];
-      steps: Array<{ title: string; expression: string; explanation: string; ruleOrTheorem?: string }>;
-      finalAnswer: string;
-      verification?: string;
-    };
-    rubric?: string;
-  }>;
   totalPoints: number;
+  exercises: Array<{
+    title: string;          // "Exercice 01", "Exercice 02", etc.
+    totalPoints: number;    // total points for this exercise
+    type: "direct" | "indirect" | "synthesis";
+    context: string;        // the shared setup: all definitions, sequences, functions
+                            // given for this exercise — written as in the book
+    parts: Array<{
+      number: string;       // "1", "2", "3", ...
+      subparts: Array<{
+        letter: string;     // "a", "b", "c", ...
+        question: string;   // question text; may reference earlier results
+                            // ("En déduire...", "En utilisant 1a)...")
+        points: number;
+        solution: {
+          restatement: string;
+          assumptions: string[];
+          steps: Array<{
+            title: string;
+            expression: string;   // LaTeX, no surrounding $
+            explanation: string;
+            ruleOrTheorem?: string;
+          }>;
+          finalAnswer: string;
+          verification?: string;
+        };
+        rubric?: string;
+      }>;
+    }>;
+  }>;
 };`;
 
 export interface BuildExamPromptArgs {
@@ -403,39 +419,52 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — MIMIC THE SOUL, MATCH THE DIFFICULTY:\n` +
-        `Create an exam at EXACTLY the same intellectual level as the book excerpts.\n` +
+      ? `PRIMARY RULE — EXTRACT EXERCISES FROM THE BOOK, DO NOT INVENT:\n` +
         `\n` +
-        `ANTI-PATTERN — do NOT do this:\n` +
-        `  Generating generic textbook questions (compute this limit, evaluate this integral)\n` +
-        `  that any standard textbook would ask. Those are NOT what this book trains.\n` +
+        `The CONTENT REFERENCE excerpts above contain the actual exercises and problems from\n` +
+        `the book. Your task is to extract them and structure them into the JSON format.\n` +
         `\n` +
-        `CORRECT APPROACH:\n` +
-        `• Read the excerpts carefully and identify the ACTUAL intellectual challenges the\n` +
-        `  book puts in front of students (convergence proofs, fixed-point arguments,\n` +
-        `  algorithm analysis, bounding techniques, etc.).\n` +
-        `• DIRECT questions: the same kind of single-step argument the book does in its\n` +
-        `  simplest worked examples — at the book's level, not a dumbed-down version.\n` +
-        `• INDIRECT questions: combine 2–3 ideas the way the book does in its mid-level\n` +
-        `  problems — same sophistication, different specific instance.\n` +
-        `• SYNTHESIS questions: demand the same creative generalisation or proof the book\n` +
-        `  demonstrates in its hardest results — e.g. if the book proves convergence of an\n` +
-        `  iterative algorithm, ask students to prove convergence of a similar algorithm.\n` +
-        `• Every solution uses the SAME METHOD and level of rigour as the book.\n` +
-        `• Use the book's exact notation, vocabulary, and reasoning conventions throughout.\n` +
-        `• Follow the STYLE MANDATE for all structure and voice decisions.`
+        `STEP 1 — FIND THE BOOK'S ACTUAL EXERCISES:\n` +
+        `• Scan every excerpt for existing exercises, problems, or questions the book poses.\n` +
+        `• Extract the EXACT context (sequence definition, function definition, setup) as\n` +
+        `  written in the book — same notation, same wording, same conditions.\n` +
+        `• Extract the EXACT sub-questions in their original order — they are already\n` +
+        `  enchained by the book's author, preserve that chain.\n` +
+        `• If the book's question says "En déduire...", "Montrer que...", "En utilisant 1a)",\n` +
+        `  keep that exact phrasing — it carries the logical dependency.\n` +
+        `\n` +
+        `STEP 2 — CLASSIFY AND DISTRIBUTE:\n` +
+        `• Assign each extracted exercise a type (direct/indirect/synthesis) based on its\n` +
+        `  actual complexity: single-step = direct, multi-concept chain = indirect,\n` +
+        `  deep investigation with 4+ parts = synthesis.\n` +
+        `• Adjust points to meet the 60/20/20 distribution (scale exercise points if needed).\n` +
+        `\n` +
+        `STEP 3 — SOLVE:\n` +
+        `• Solve every sub-question using the SAME METHOD and level of rigour the book uses.\n` +
+        `\n` +
+        `ANTI-PATTERN — FORBIDDEN:\n` +
+        `  Do NOT create new exercises. Do NOT invent sequences or functions not in the\n` +
+        `  excerpts. Do NOT ask generic questions (compute a limit, evaluate an integral)\n` +
+        `  unless the book itself asks exactly that. The exercises COME FROM THE BOOK.`
       : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ``,
-    `MANDATORY point distribution (total = ${totalPoints} pts):`,
-    `  - DIRECT questions: exactly ${directPts} pts total (60%). Single-step recall or direct application of a formula/definition. Lower points per question.`,
-    `  - INDIRECT questions: exactly ${indirectPts} pts total (20%). Multi-step problems requiring combination of 2–3 concepts. Medium points per question.`,
-    `  - SYNTHESIS questions: exactly ${synthPts} pts total (20%). Cross-topic, open-ended, proof or design; require deep understanding. Higher points per question.`,
+    `MANDATORY point distribution across exercises (total = ${totalPoints} pts):`,
+    `  - DIRECT exercises: exactly ${directPts} pts total (60%). Each exercise tests direct`,
+    `    recall/application. Typically 2–4 parts with straightforward subparts.`,
+    `  - INDIRECT exercises: exactly ${indirectPts} pts total (20%). Each exercise requires`,
+    `    combining 2–3 ideas, often with "En déduire..." chains.`,
+    `  - SYNTHESIS exercises: exactly ${synthPts} pts total (20%). Each exercise is a deep`,
+    `    investigation of ONE object (sequence, function, algorithm), with 4–6 numbered`,
+    `    parts that build on each other, culminating in a hard generalisation.`,
     ``,
     `Constraints:`,
-    `  - sum(questions.points) MUST equal ${totalPoints} exactly.`,
-    `  - Each question MUST have type "direct", "indirect", or "synthesis".`,
-    `  - Each question MUST include a full step-by-step solution.`,
-    `  - Include an optional rubric string with grading guidance (partial credit criteria).`,
+    `  - sum(exercises[i].totalPoints) MUST equal ${totalPoints} exactly.`,
+    `  - Each exercise MUST have type "direct", "indirect", or "synthesis".`,
+    `  - Each exercise MUST have at least 2 numbered parts.`,
+    `  - Each part MUST have at least 1 lettered subpart.`,
+    `  - CHAIN the subparts: later subparts must explicitly use results from earlier ones.`,
+    `    Signal this with phrases like "En déduire...", "En utilisant 1a)...", "Montrer`,
+    `    ensuite que..." — exactly as in the book's style.`,
     `  - Set a realistic durationMinutes for this exam.`,
     ``,
     EXAM_JSON_CONTRACT,

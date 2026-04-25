@@ -26,20 +26,14 @@ export function validateExamDistribution(
   exam: Exam,
   totalPoints: number,
 ): string | null {
-  const sum = exam.questions.reduce((acc, q) => acc + q.points, 0);
+  const sum = exam.exercises.reduce((acc, e) => acc + e.totalPoints, 0);
   if (Math.abs(sum - totalPoints) > 1) {
     return `Point sum ${sum} does not equal ${totalPoints}.`;
   }
 
-  const directPts = exam.questions
-    .filter((q) => q.type === "direct")
-    .reduce((acc, q) => acc + q.points, 0);
-  const indirectPts = exam.questions
-    .filter((q) => q.type === "indirect")
-    .reduce((acc, q) => acc + q.points, 0);
-  const synthPts = exam.questions
-    .filter((q) => q.type === "synthesis")
-    .reduce((acc, q) => acc + q.points, 0);
+  const directPts = exam.exercises.filter((e) => e.type === "direct").reduce((acc, e) => acc + e.totalPoints, 0);
+  const indirectPts = exam.exercises.filter((e) => e.type === "indirect").reduce((acc, e) => acc + e.totalPoints, 0);
+  const synthPts = exam.exercises.filter((e) => e.type === "synthesis").reduce((acc, e) => acc + e.totalPoints, 0);
 
   const directRatio = directPts / totalPoints;
   const indirectRatio = indirectPts / totalPoints;
