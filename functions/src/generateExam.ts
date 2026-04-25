@@ -8,7 +8,7 @@ import { generateWithClaude } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildExamPrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
-import { searchRelevantChunks } from "./rag";
+import { searchRelevantChunks, fetchEarlyChunks } from "./rag";
 import {
   generateExamRequestSchema,
   examSchema,
@@ -86,12 +86,11 @@ export const generateExam = onCall(
 
     let ragContext = "";
     if (req.bookIds?.length) {
-      const chunks = await searchRelevantChunks(
-        req.topics.join(", "),
-        req.bookIds,
-        GCP_PROJECT_ID.value(),
-      );
-      ragContext = buildRagContextBlock(chunks);
+      const [contentChunks, styleChunks] = await Promise.all([
+        searchRelevantChunks(req.topics.join(", "), req.bookIds, GCP_PROJECT_ID.value()),
+        fetchEarlyChunks(req.bookIds),
+      ]);
+      ragContext = buildRagContextBlock(contentChunks, styleChunks);
     }
 
     const systemPrompt = buildExamPrompt({

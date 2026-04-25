@@ -10,7 +10,7 @@ import { solveWithClaude } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildSystemPrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
-import { searchRelevantChunks } from "./rag";
+import { searchRelevantChunks, fetchEarlyChunks } from "./rag";
 import { solveRequestSchema, type SolveRequest } from "./schema";
 
 if (getApps().length === 0) initializeApp();
@@ -53,12 +53,11 @@ export const solveProblem = onCall(
         req.input.kind === "text"
           ? req.input.text.slice(0, 500)
           : `${req.subject ?? "science"} problem`;
-      const chunks = await searchRelevantChunks(
-        query,
-        req.bookIds,
-        GCP_PROJECT_ID.value(),
-      );
-      ragContext = buildRagContextBlock(chunks);
+      const [contentChunks, styleChunks] = await Promise.all([
+        searchRelevantChunks(query, req.bookIds, GCP_PROJECT_ID.value()),
+        fetchEarlyChunks(req.bookIds),
+      ]);
+      ragContext = buildRagContextBlock(contentChunks, styleChunks);
     }
 
     const systemPrompt = buildSystemPrompt({

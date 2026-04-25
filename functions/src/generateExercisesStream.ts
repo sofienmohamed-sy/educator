@@ -9,7 +9,7 @@ import { streamWithClaude } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildExercisesPrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
-import { searchRelevantChunks } from "./rag";
+import { searchRelevantChunks, fetchEarlyChunks } from "./rag";
 import { verifyFirebaseToken, startSSE, sendSSE, endSSE } from "./streamHelpers";
 import {
   generateExercisesRequestSchema,
@@ -63,8 +63,11 @@ export const generateExercisesStream = onRequest(
       const profile = await getCurriculumProfile(data.country);
       let ragContext = "";
       if (data.bookIds?.length) {
-        const chunks = await searchRelevantChunks(data.topic, data.bookIds, GCP_PROJECT_ID.value());
-        ragContext = buildRagContextBlock(chunks);
+        const [contentChunks, styleChunks] = await Promise.all([
+          searchRelevantChunks(data.topic, data.bookIds, GCP_PROJECT_ID.value()),
+          fetchEarlyChunks(data.bookIds),
+        ]);
+        ragContext = buildRagContextBlock(contentChunks, styleChunks);
       }
 
       const systemPrompt = buildExercisesPrompt({

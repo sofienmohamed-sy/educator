@@ -7,7 +7,7 @@ import { generateWithClaude } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildExercisesPrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
-import { searchRelevantChunks } from "./rag";
+import { searchRelevantChunks, fetchEarlyChunks } from "./rag";
 import {
   generateExercisesRequestSchema,
   exercisesResponseSchema,
@@ -48,12 +48,11 @@ export const generateExercises = onCall(
 
     let ragContext = "";
     if (req.bookIds?.length) {
-      const chunks = await searchRelevantChunks(
-        req.topic,
-        req.bookIds,
-        GCP_PROJECT_ID.value(),
-      );
-      ragContext = buildRagContextBlock(chunks);
+      const [contentChunks, styleChunks] = await Promise.all([
+        searchRelevantChunks(req.topic, req.bookIds, GCP_PROJECT_ID.value()),
+        fetchEarlyChunks(req.bookIds),
+      ]);
+      ragContext = buildRagContextBlock(contentChunks, styleChunks);
     }
 
     const systemPrompt = buildExercisesPrompt({

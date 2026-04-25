@@ -72,6 +72,9 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
     curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
     ``,
+    ragContext
+      ? `If REFERENCE MATERIAL is provided above, use the EXACT notation, vocabulary, and reasoning style from those excerpts throughout your solution. The student's textbook is the ultimate authority on notation and method.`
+      : "",
     `Your objective is to make the PATH TO THE ANSWER understandable, not just the answer itself. For every step, you MUST explain WHY the step follows from the previous one (the "passage between two steps") — name the rule, identity, theorem, or algebraic manipulation used. Never skip steps a student at this level would find non-obvious. Do not use any tool the curriculum does not expect at this level.`,
     ``,
     `If the input contains multiple problems, solve each as a separate entry in \`steps\` grouped with clear \`title\`s, or — if clearer — answer only the first problem and note that others were skipped.`,
@@ -86,15 +89,66 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
 
 // ── RAG context block ─────────────────────────────────────────────────────────
 
-export function buildRagContextBlock(chunks: RagChunk[]): string {
-  if (chunks.length === 0) return "";
-  const entries = chunks
-    .map(
-      (c, i) =>
-        `[Excerpt ${i + 1}${c.pageHint ? ` — approx. page ${c.pageHint}` : ""}]\n${c.text}`,
-    )
-    .join("\n\n");
-  return `REFERENCE MATERIAL (from uploaded textbooks — cite by excerpt number when relevant):\n\n${entries}`;
+/**
+ * Builds the RAG context block injected into every generation prompt.
+ *
+ * @param contentChunks - Topically relevant chunks (from vector search)
+ * @param styleChunks   - Opening chunks of the book (for style/notation sampling)
+ *
+ * When style chunks are provided the block is split into two labeled sections
+ * and a STYLE MANDATE is added so Claude knows it must mirror the book's
+ * notation, vocabulary, and pedagogical approach — not just use it as a
+ * factual reference.
+ */
+export function buildRagContextBlock(
+  contentChunks: RagChunk[],
+  styleChunks: RagChunk[] = [],
+): string {
+  if (contentChunks.length === 0 && styleChunks.length === 0) return "";
+
+  const parts: string[] = ["REFERENCE MATERIAL (from uploaded textbooks):"];
+
+  if (styleChunks.length > 0) {
+    const styleEntries = styleChunks
+      .map(
+        (c, i) =>
+          `[Style Sample ${i + 1}${c.bookTitle ? ` — ${c.bookTitle}` : ""}]\n${c.text}`,
+      )
+      .join("\n\n");
+    parts.push(
+      `── STYLE GUIDE (opening pages of the textbook)\n` +
+      `   Study these to learn the book's notation, vocabulary, and pedagogical approach.\n\n` +
+      styleEntries,
+    );
+  }
+
+  if (contentChunks.length > 0) {
+    const contentEntries = contentChunks
+      .map(
+        (c, i) =>
+          `[Excerpt ${i + 1}${c.pageHint ? ` — p.${c.pageHint}` : ""}${c.bookTitle ? ` — ${c.bookTitle}` : ""}]\n${c.text}`,
+      )
+      .join("\n\n");
+    parts.push(
+      `── CONTENT REFERENCE (topically relevant — cite by excerpt number when relevant)\n\n` +
+      contentEntries,
+    );
+  }
+
+  if (styleChunks.length > 0) {
+    parts.push(
+      `── STYLE MANDATE ──\n` +
+      `Before writing, study the STYLE GUIDE excerpts above and apply throughout:\n` +
+      `1. Use the EXACT same mathematical/scientific notation (symbols for vectors, derivatives,\n` +
+      `   integrals, units, functions — whatever the book uses).\n` +
+      `2. Mirror the pedagogical order (definition-first? example-first? motivation-first?).\n` +
+      `3. Use the book's own vocabulary and terminology — never substitute synonyms.\n` +
+      `4. Match the same depth, rigour, and level of assumed prior knowledge.\n` +
+      `The generated content must feel like it was written by the same author as the textbook.`,
+    );
+  }
+
+  return parts.join("\n\n");
 }
 
 // ── Course generation prompt ──────────────────────────────────────────────────
@@ -141,7 +195,9 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     `Generate a complete course lesson on the topic: "${topic}".`,
-    `The theory section must be thorough, pedagogically sound, and written in the same "soul of thinking" as the reference textbooks for this curriculum.`,
+    ragContext
+      ? `Your writing must feel like a chapter of the provided textbook — same notation, same vocabulary, same pedagogical approach. A reader should not notice any difference in style.`
+      : `The theory section must be thorough and pedagogically sound for the ${country} curriculum.`,
     `Include at least 2 key concepts and 2 worked examples with full solutions.`,
     ``,
     COURSE_JSON_CONTRACT,
@@ -211,6 +267,9 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     ``,
     `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}".`,
     `Difficulty descriptor: ${difficultyDesc}.`,
+    ragContext
+      ? `Each exercise and its solution must use the SAME notation, vocabulary, and reasoning style as the provided textbook excerpts.`
+      : "",
     `Each exercise must have a complete, step-by-step solution following the "passage between steps" approach — explain WHY each step follows from the previous one.`,
     `Include 1–3 hints per exercise to guide students without revealing the answer.`,
     ``,
@@ -280,6 +339,9 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
+    ragContext
+      ? `All questions and solutions must use the SAME notation, vocabulary, and reasoning style as the provided textbook — as if the exam was written by the book's author.`
+      : "",
     ``,
     `MANDATORY point distribution (total = ${totalPoints} pts):`,
     `  - DIRECT questions: exactly ${directPts} pts total (60%). Single-step recall or direct application of a formula/definition. Lower points per question.`,

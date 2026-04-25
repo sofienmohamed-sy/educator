@@ -253,6 +253,60 @@ async function doSearchRelevantChunks(
   }));
 }
 
+// ── Style sampling ────────────────────────────────────────────────────────────
+
+/**
+ * Fetches the first `chunksPerBook` chunks of each book (ordered by chunkIndex).
+ * These opening pages are where textbooks establish their notation, vocabulary,
+ * and pedagogical approach — used as a style reference for generation.
+ */
+export async function fetchEarlyChunks(
+  bookIds: string[],
+  chunksPerBook = 2,
+): Promise<RagChunk[]> {
+  if (!bookIds.length) return [];
+  const db = getFirestore();
+  const results: Array<{ text: string; bookId: string; chunkIndex: number }> = [];
+
+  await Promise.all(
+    bookIds.slice(0, 5).map(async (bookId) => {
+      try {
+        const snap = await db
+          .collection("books")
+          .doc(bookId)
+          .collection("chunks")
+          .orderBy("chunkIndex")
+          .limit(chunksPerBook)
+          .get();
+        for (const doc of snap.docs) {
+          const data = doc.data();
+          results.push({
+            text: data.text as string,
+            bookId,
+            chunkIndex: data.chunkIndex as number,
+          });
+        }
+      } catch (err) {
+        logger.warn("fetchEarlyChunks failed for book", { bookId, err });
+      }
+    }),
+  );
+
+  const uniqueBookIds = [...new Set(results.map((r) => r.bookId))];
+  const bookTitles: Record<string, string> = {};
+  await Promise.all(
+    uniqueBookIds.map(async (id) => {
+      const snap = await db.collection("books").doc(id).get();
+      bookTitles[id] = (snap.data()?.title as string | undefined) ?? id;
+    }),
+  );
+
+  return results.map((r) => ({
+    text: r.text,
+    bookTitle: bookTitles[r.bookId] ?? r.bookId,
+  }));
+}
+
 export async function searchRelevantChunks(
   query: string,
   bookIds: string[],
