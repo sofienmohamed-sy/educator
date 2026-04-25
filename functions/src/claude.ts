@@ -27,6 +27,7 @@ export interface MultimodalUserInstructions {
 
 const DEFAULT_MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 4096;
+const MAX_TOKENS_GENERATION = 8192;
 
 /** Lazy client — created on first use so unit tests can mock the module. */
 let cachedClient: Anthropic | null = null;
@@ -62,16 +63,18 @@ export async function generateWithClaude<T>(args: {
   systemPrompt: string;
   userMessage: string;
   schema: ZodType<T, ZodTypeDef, unknown>;
+  maxTokens?: number;
 }): Promise<T> {
   const { apiKey, systemPrompt, userMessage, schema } = args;
   const model = args.model ?? DEFAULT_MODEL;
+  const maxTokens = args.maxTokens ?? MAX_TOKENS_GENERATION;
   const anthropic = client(apiKey);
 
   const userContent: Anthropic.Messages.ContentBlockParam[] = [
     { type: "text", text: userMessage },
   ];
 
-  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent);
+  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent, maxTokens);
   const firstParse = tryParseAs(firstReply, schema);
   if (firstParse.ok) return firstParse.value;
 
@@ -86,7 +89,7 @@ export async function generateWithClaude<T>(args: {
       text: `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`,
     },
   ];
-  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent);
+  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent, maxTokens);
   const secondParse = tryParseAs(secondReply, schema);
   if (secondParse.ok) return secondParse.value;
 
@@ -159,7 +162,7 @@ export async function analyzeWithClaude<T>(args: AnalyzeArgs<T>): Promise<T> {
     instructions,
   );
 
-  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent);
+  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent, MAX_TOKENS_GENERATION);
   const firstParse = tryParseAs(firstReply, schema);
   if (firstParse.ok) return firstParse.value;
 
@@ -174,7 +177,7 @@ export async function analyzeWithClaude<T>(args: AnalyzeArgs<T>): Promise<T> {
       text: `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`,
     },
   ];
-  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent);
+  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent, MAX_TOKENS_GENERATION);
   const secondParse = tryParseAs(secondReply, schema);
   if (secondParse.ok) return secondParse.value;
 
@@ -188,10 +191,11 @@ async function callClaude(
   model: string,
   systemPrompt: string,
   userContent: Anthropic.Messages.ContentBlockParam[],
+  maxTokens: number = MAX_TOKENS,
 ): Promise<string> {
   const response = await anthropic.messages.create({
     model,
-    max_tokens: MAX_TOKENS,
+    max_tokens: maxTokens,
     // Prompt-cache the static system prompt for repeat callers.
     system: [
       {
