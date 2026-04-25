@@ -25,7 +25,7 @@ export const generateExercises = onCall(
     region: "us-central1",
     secrets: [ANTHROPIC_API_KEY, GCP_PROJECT_ID],
     memory: "512MiB",
-    timeoutSeconds: 180,
+    timeoutSeconds: 300,
   },
   async (request) => {
     if (!request.auth) {

@@ -23,7 +23,7 @@ export const generateWriting = onCall(
     region: "us-central1",
     secrets: [ANTHROPIC_API_KEY],
     memory: "512MiB",
-    timeoutSeconds: 180,
+    timeoutSeconds: 300,
   },
   async (request) => {
     if (!request.auth) {
