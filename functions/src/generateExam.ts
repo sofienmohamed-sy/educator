@@ -90,7 +90,7 @@ export const generateExam = onCall(
 
     await enforceRateLimit(uid, "generateExam", 5);
 
-    const profile = await getCurriculumProfile(req.country);
+    const profile = await getCurriculumProfile(req.country, req.subject);
 
     let ragContext = "";
     if (req.bookIds?.length) {

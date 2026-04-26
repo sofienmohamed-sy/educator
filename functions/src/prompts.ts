@@ -32,6 +32,38 @@ const SUBJECT_LABELS: Record<Subject, string> = {
   informatics: "computer science / informatics",
 };
 
+/**
+ * Render the curriculum profile as a prompt-injection block.
+ * Used by every prompt builder so curriculum rules reach Claude consistently.
+ */
+function renderCurriculumBlock(
+  profile: CurriculumProfile | null | undefined,
+  country: string,
+  subjectLabel: string,
+  gradeLevel?: string,
+): string {
+  if (!profile) {
+    return `No curated profile is provided. Use your best knowledge of the ${country} ${subjectLabel} curriculum — the official notation, conventions, pedagogical order, and widely adopted textbooks — and follow it faithfully. Prefer methods and vocabulary that a student in ${country}${gradeLevel ? ` at ${gradeLevel} level` : ""} would recognise.`;
+  }
+  return [
+    `A curated curriculum profile is provided for ${profile.countryName ?? country}${profile.subject ? ` (${profile.subject})` : ""}. Follow it strictly.`,
+    profile.notation ? `Notation conventions: ${profile.notation}` : null,
+    profile.conventions ? `Conventions: ${profile.conventions}` : null,
+    profile.stepStyle ? `Step style: ${profile.stepStyle}` : null,
+    profile.examFormat ? `Exam format: ${profile.examFormat}` : null,
+    profile.exerciseStyle ? `Exercise style: ${profile.exerciseStyle}` : null,
+    profile.referenceBooks?.length
+      ? `Reference books (cite when relevant): ${profile.referenceBooks.join("; ")}`
+      : null,
+    profile.notes ? `Additional notes: ${profile.notes}` : null,
+    profile.specialRules?.length
+      ? `NON-NEGOTIABLE RULES for this curriculum:\n${profile.specialRules.map((r) => `  • ${r}`).join("\n")}`
+      : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
 export interface BuildSystemPromptArgs {
   country: string;
   gradeLevel?: string;
@@ -53,20 +85,12 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
 
-  const curriculumBlock = profile
-    ? [
-        `A curated curriculum profile is provided for ${profile.countryName ?? country}. Follow it strictly.`,
-        profile.notation ? `Notation conventions: ${profile.notation}` : null,
-        profile.conventions ? `Conventions: ${profile.conventions}` : null,
-        profile.stepStyle ? `Step style: ${profile.stepStyle}` : null,
-        profile.referenceBooks?.length
-          ? `Reference books (cite when relevant): ${profile.referenceBooks.join("; ")}`
-          : null,
-        profile.notes ? `Additional notes: ${profile.notes}` : null,
-      ]
-        .filter(Boolean)
-        .join("\n")
-    : `No curated profile is provided. Use your best knowledge of the ${country} ${subjectLabel} curriculum — the official notation, conventions, pedagogical order, and widely adopted textbooks — and follow it faithfully. Prefer methods and vocabulary that a student in ${country}${gradeLevel ? ` at ${gradeLevel} level` : ""} would recognise.`;
+  const curriculumBlock = renderCurriculumBlock(
+    profile,
+    country,
+    subjectLabel,
+    gradeLevel,
+  );
 
   return [
     `You are a patient, rigorous ${subjectLabel} tutor.`,
@@ -218,16 +242,20 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     language ?? profile?.defaultLanguage ?? "the student's language";
   const audienceDesc = `${country}${gradeLevel ? ` grade ${gradeLevel}` : ""} students`;
 
-  const curriculumNote = profile
-    ? `Follow the ${profile.countryName ?? country} curriculum strictly. Notation: ${profile.notation ?? "standard"}. Conventions: ${profile.conventions ?? "standard"}.`
-    : `Follow the official ${country} ${subjectLabel} curriculum — use the notation, vocabulary, and pedagogical order that ${audienceDesc} would recognise.`;
+  const curriculumBlock = renderCurriculumBlock(
+    profile,
+    country,
+    subjectLabel,
+    gradeLevel,
+  );
 
   return [
     `You are an expert ${subjectLabel} educator preparing a course lesson.`,
     `Audience: ${audienceDesc}.`,
     `Answer language: ${language_}.`,
     ``,
-    curriculumNote,
+    `Curriculum:`,
+    curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
@@ -335,10 +363,20 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
       "helpers are SUBTLE — the link between sub-questions and the final objective is hidden. The student must discover the path themselves. The difficulty is in the non-obviousness of the chain, NOT in formula complexity.",
   }[difficulty];
 
+  const curriculumBlock = renderCurriculumBlock(
+    profile,
+    country,
+    subjectLabel,
+    gradeLevel,
+  );
+
   return [
     `You are an expert ${subjectLabel} educator.`,
     `Audience: ${country}${gradeLevel ? ` grade ${gradeLevel}` : ""} students.`,
     `Answer language: ${language_}.`,
+    ``,
+    `Curriculum:`,
+    curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
@@ -471,10 +509,20 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
 
+  const curriculumBlock = renderCurriculumBlock(
+    profile,
+    country,
+    subjectLabel,
+    gradeLevel,
+  );
+
   return [
     `You are an expert ${subjectLabel} educator creating an exam.`,
     `Audience: ${country}${gradeLevel ? ` grade ${gradeLevel}` : ""} students.`,
     `Answer language: ${language_}.`,
+    ``,
+    `Curriculum:`,
+    curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
