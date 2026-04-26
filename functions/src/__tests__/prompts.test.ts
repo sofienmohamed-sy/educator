@@ -147,9 +147,11 @@ describe("buildExamPrompt", () => {
       totalPoints: 50,
       country: "US",
     });
-    expect(prompt).toContain("HELPERS that are EXPLICIT");
-    expect(prompt).toContain("HELPERS that are SEMI-HIDDEN");
-    expect(prompt).toContain("THE OBJECTIVE");
+    expect(prompt).toContain("direct");
+    expect(prompt).toContain("indirect");
+    expect(prompt).toContain("synthesis");
+    expect(prompt).toContain("WHAT IS A HELPER");
+    expect(prompt).toContain("ORDER RULE");
   });
 });
 
