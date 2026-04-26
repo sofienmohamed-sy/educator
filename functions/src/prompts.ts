@@ -399,11 +399,21 @@ type Exam = {
   title: string;
   durationMinutes?: number;
   totalPoints: number;
-  exercises: Array<{
-    title: string;          // "Exercice 01", "Exercice 02", etc.
-    totalPoints: number;    // total points for this exercise
-    context: string;        // the shared setup: all definitions, sequences, functions
-                            // given for this exercise — written as in the book
+  exercises: Array<{            // EXACTLY 4 exercises
+    title: string;              // "Exercice 01", "Exercice 02", etc.
+    totalPoints: number;        // total points for this exercise (multiple of 0.25)
+    context: string;            // the shared setup: all definitions, sequences, functions
+                                // given for this exercise — written as in the book
+    graphs?: Array<{            // include when exercise involves a function to visualise
+      functions: Array<{
+        expression: string;     // JS-evaluable: "x**2 - 3*x + 2", "Math.sin(x)", etc.
+        label?: string;         // "f", "g", "C_f"
+        color?: string;
+      }>;
+      xMin: number;
+      xMax: number;
+      caption?: string;
+    }>;
     parts: Array<{
       number: string;       // "1", "2", "3", ...
       subparts: Array<{
@@ -565,12 +575,20 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     `  ✗ BAD:  "En utilisant la factorisation de 2b), étudier le signe de f(x)."`,
     `  ✓ GOOD: "Étudier le signe de f(x) sur ℝ."`,
     ``,
-    `POINTS PER SUB-QUESTION:`,
-    `  Scale: 0.25 pt = minimum · 0.5 pt = typical · 1 pt = maximum (for a ${totalPoints}-pt exam).`,
-    `  Use values: ${(totalPoints / 80).toFixed(2)}, ${(totalPoints / 40).toFixed(2)}, ${(totalPoints / 27).toFixed(2)}, or ${(totalPoints / 20).toFixed(2)} pts per sub-question.`,
-    `  Each exercise must have ENOUGH sub-questions to reach its totalPoints using only these values.`,
+    `POINTS PER SUB-QUESTION — NON-NEGOTIABLE:`,
+    `  Every point value MUST be a multiple of 0.25.`,
+    `  Allowed values (scale with the exam total): 0.25 · 0.50 · 0.75 · 1.00 · 1.25 · 1.50 · 2.00`,
+    `  The sum of all subpart points in each exercise MUST equal that exercise's totalPoints exactly.`,
+    ``,
+    `GRAPH RULE:`,
+    `  When an exercise involves a function study (courbe représentative, tableau de variations,`,
+    `  graphical reading), include a "graphs" field on the exercise with the function(s) to plot.`,
+    `  The app renders the graph automatically — DO NOT add "Tracer la courbe de f" as a sub-question.`,
+    `  expression syntax: valid JavaScript (use ** for powers, Math.sin, Math.exp, Math.abs, etc.)`,
+    `  Example: { expression: "x**2 - 3*x + 2", label: "f", xMin: -1, xMax: 4 }`,
     ``,
     `Structural constraints:`,
+    `  - The exam MUST have EXACTLY 4 exercises.`,
     `  - sum(exercises[i].totalPoints) MUST equal ${totalPoints} exactly.`,
     `  - Each exercise MUST have ONE synthesis sub-question (the objective).`,
     `  - Each exercise MUST have at least 2 numbered parts, each with at least 1 sub-question.`,

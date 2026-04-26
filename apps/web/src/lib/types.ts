@@ -53,10 +53,24 @@ export interface ExamPart {
   subparts: ExamSubpart[];
 }
 
+export interface GraphFunction {
+  expression: string;
+  label?: string;
+  color?: string;
+}
+
+export interface GraphSpec {
+  functions: GraphFunction[];
+  xMin: number;
+  xMax: number;
+  caption?: string;
+}
+
 export interface ExamExercise {
   title: string;
   totalPoints: number;
   context: string;
+  graphs?: GraphSpec[];
   parts: ExamPart[];
 }
 

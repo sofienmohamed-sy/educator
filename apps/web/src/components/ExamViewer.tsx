@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FunctionGraph from "./FunctionGraph";
 import StepList from "./StepList";
 import { renderMarkdown } from "../lib/renderRichText";
 import type { Exam, ExamSubpart } from "../lib/types";
@@ -68,6 +69,9 @@ export default function ExamViewer({ exam, showRubric = false }: Props) {
           <div style={{ marginBottom: "0.75rem", fontStyle: "italic" }}>
             {renderMarkdown(exercise.context)}
           </div>
+          {exercise.graphs?.map((g, gi) => (
+            <FunctionGraph key={gi} spec={g} />
+          ))}
 
           {exercise.parts.map((part) => (
             <div key={part.number} style={{ marginBottom: "0.5rem" }}>

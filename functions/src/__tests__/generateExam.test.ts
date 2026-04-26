@@ -17,7 +17,16 @@ function makeSubpart(
   return { letter, type, question: "Q?", points, solution: minSolution };
 }
 
-/** Build an exam with one exercise whose subparts have the given type/point pairs. */
+// Dummy exercise with 0 pts used to pad to exactly 4 exercises.
+// validateExamDistribution skips exercises with 0 exercisePts, so these are inert.
+const DUMMY_EXERCISE = {
+  title: "Exercice dummy",
+  totalPoints: 0,
+  context: "Context.",
+  parts: [{ number: "1", subparts: [makeSubpart("a", "direct", 0)] }],
+};
+
+/** Build an exam with one real exercise plus 3 inert fillers (totalPoints = 4 always). */
 function makeExamOneExercise(
   subpartDefs: Array<{ type: ExamSubpart["type"]; points: number }>,
   totalPoints?: number,
@@ -30,16 +39,21 @@ function makeExamOneExercise(
     title: "Test Exam",
     durationMinutes: 60,
     totalPoints: totalPoints ?? exercisePts,
-    exercises: [{
-      title: "Exercice 01",
-      totalPoints: exercisePts,
-      context: "Soit (u_n) une suite.",
-      parts: [{ number: "1", subparts }],
-    }],
+    exercises: [
+      {
+        title: "Exercice 01",
+        totalPoints: exercisePts,
+        context: "Soit (u_n) une suite.",
+        parts: [{ number: "1", subparts }],
+      },
+      DUMMY_EXERCISE,
+      DUMMY_EXERCISE,
+      DUMMY_EXERCISE,
+    ],
   };
 }
 
-/** Build an exam with two exercises, each with its own subpart distribution. */
+/** Build an exam with two real exercises plus 2 inert fillers (totalPoints = 4 always). */
 function makeExamTwoExercises(
   ex1: Array<{ type: ExamSubpart["type"]; points: number }>,
   ex2: Array<{ type: ExamSubpart["type"]; points: number }>,
@@ -55,7 +69,7 @@ function makeExamTwoExercises(
       parts: [{ number: "1", subparts }],
     };
   };
-  const exercises = [mk(ex1, "Exercice 01"), mk(ex2, "Exercice 02")];
+  const exercises = [mk(ex1, "Exercice 01"), mk(ex2, "Exercice 02"), DUMMY_EXERCISE, DUMMY_EXERCISE];
   return {
     title: "Test Exam",
     totalPoints: exercises.reduce((s, e) => s + e.totalPoints, 0),

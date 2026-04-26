@@ -194,6 +194,9 @@ describe("examSchema — 60/20/20 distribution validator", () => {
     finalAnswer: "42",
   };
 
+  const dummySubpart = { letter: "a", type: "direct" as const, question: "Q?", points: 1, solution: minSolution };
+  const dummyExercise = { title: "Exercice", totalPoints: 1, context: "Context.", parts: [{ number: "1", subparts: [dummySubpart] }] };
+
   function makeExam(
     subpartDefs: Array<{ type: "direct" | "indirect" | "synthesis"; points: number }>,
   ) {
@@ -204,16 +207,17 @@ describe("examSchema — 60/20/20 distribution validator", () => {
       points: d.points,
       solution: minSolution,
     }));
+    const exercisePts = subpartDefs.reduce((s, d) => s + d.points, 0);
     return {
       title: "Test Exam",
       durationMinutes: 60,
-      totalPoints: subpartDefs.reduce((s, d) => s + d.points, 0),
-      exercises: [{
-        title: "Exercice 01",
-        totalPoints: subpartDefs.reduce((s, d) => s + d.points, 0),
-        context: "Soit (u_n) une suite.",
-        parts: [{ number: "1", subparts }],
-      }],
+      totalPoints: exercisePts + 3,  // 3 dummy exercises × 1 pt
+      exercises: [
+        { title: "Exercice 01", totalPoints: exercisePts, context: "Soit (u_n) une suite.", parts: [{ number: "1", subparts }] },
+        dummyExercise,
+        dummyExercise,
+        dummyExercise,
+      ],
     };
   }
 
