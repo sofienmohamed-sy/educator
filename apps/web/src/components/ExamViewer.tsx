@@ -81,20 +81,6 @@ export default function ExamViewer({ exam, showRubric = false }: Props) {
                   style={{ gap: "0.5rem", alignItems: "flex-start", marginBottom: "0.25rem", paddingLeft: "1rem" }}
                 >
                   <span style={{ fontWeight: 500, minWidth: "1.25rem" }}>{subpart.letter})</span>
-                  <span
-                    style={{
-                      fontSize: "0.7rem",
-                      fontWeight: 700,
-                      color: TYPE_COLORS[subpart.type],
-                      background: `${TYPE_COLORS[subpart.type]}18`,
-                      padding: "1px 6px",
-                      borderRadius: "999px",
-                      whiteSpace: "nowrap",
-                      alignSelf: "center",
-                    }}
-                  >
-                    {TYPE_LABELS[subpart.type]}
-                  </span>
                   <span style={{ flex: 1 }}>{renderMarkdown(subpart.question)}</span>
                   <span style={{ fontWeight: 700, whiteSpace: "nowrap" }}>{subpart.points} pts</span>
                 </div>
