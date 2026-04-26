@@ -49,6 +49,7 @@ export const solveRequestSchema = z.object({
     .max(8)
     .describe("ISO-3166 alpha-2 country code, e.g. 'FR', 'US', 'MA'."),
   gradeLevel: nullishString({ max: 64 }),
+  section: nullishString({ max: 96 }),
   language: nullishString({ min: 2, max: 16 }),
   model: z
     .enum(["claude-opus-4-7", "claude-sonnet-4-6"])
@@ -193,6 +194,7 @@ export const generateCourseRequestSchema = z.object({
   topic: z.string().trim().min(1).max(256),
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
+  section: nullishString({ max: 96 }),
   language: nullishString({ min: 2, max: 16 }),
   bookIds: nullishArray(z.string().min(1), 5),
 });
@@ -215,6 +217,7 @@ export const generateExercisesRequestSchema = z.object({
   topic: z.string().trim().min(1).max(256),
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
+  section: nullishString({ max: 96 }),
   language: nullishString({ min: 2, max: 16 }),
   difficulty: z.enum(["easy", "medium", "hard"]),
   count: z.number().int().min(1).max(20).default(5),
@@ -241,6 +244,7 @@ export const generateExamRequestSchema = z.object({
   topics: z.array(z.string().trim().min(1)).min(1).max(10),
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
+  section: nullishString({ max: 96 }),
   language: nullishString({ min: 2, max: 16 }),
   totalPoints: z.number().min(10).max(200).default(20),
   bookIds: nullishArray(z.string().min(1), 5),
@@ -322,6 +326,7 @@ export const solveWritingRequestSchema = z.object({
     .max(8)
     .describe("ISO-3166 alpha-2 country code, e.g. 'FR', 'US', 'MA'."),
   gradeLevel: nullishString({ max: 64 }),
+  section: nullishString({ max: 96 }),
   language: nullishString({ min: 2, max: 16 }),
   model: z
     .enum(["claude-opus-4-7", "claude-sonnet-4-6"])
@@ -376,6 +381,7 @@ export const generateWritingRequestSchema = z.object({
   topic: z.string().trim().min(1).max(256),
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
+  section: nullishString({ max: 96 }),
   language: nullishString({ min: 2, max: 16 }),
   difficulty: z
     .enum(["easy", "medium", "hard"])

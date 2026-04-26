@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import GradeLevelPicker from "../components/GradeLevelPicker";
+import SectionPicker from "../components/SectionPicker";
 import WritingSubjectPicker from "../components/WritingSubjectPicker";
 import { generateWritingFn } from "../lib/callables";
 import type { WritingSubject, WritingContent, WritingItem } from "../lib/types";
@@ -140,6 +141,7 @@ export default function WritingGenerator() {
   const [topic, setTopic] = useState("");
   const [country, setCountry] = useState("US");
   const [gradeLevel, setGradeLevel] = useState("");
+  const [section, setSection] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [count, setCount] = useState(5);
   const [content, setContent] = useState<WritingContent | null>(null);
@@ -162,6 +164,7 @@ export default function WritingGenerator() {
         topic: topic.trim(),
         country,
         gradeLevel: gradeLevel || undefined,
+        section: section || undefined,
         difficulty: showDifficultyAndCount ? difficulty : undefined,
         count: showDifficultyAndCount ? count : undefined,
       });
@@ -200,6 +203,12 @@ export default function WritingGenerator() {
             <label>Grade / level (optional)</label>
             <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
+          <SectionPicker
+            country={country}
+            gradeLevel={gradeLevel}
+            value={section}
+            onChange={setSection}
+          />
         </div>
 
         <div style={{ marginBottom: "0.75rem" }}>

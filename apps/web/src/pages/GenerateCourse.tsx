@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import GradeLevelPicker from "../components/GradeLevelPicker";
+import SectionPicker from "../components/SectionPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import TopicPicker from "../components/TopicPicker";
 import CourseViewer from "../components/CourseViewer";
@@ -17,6 +18,7 @@ export default function GenerateCourse() {
   const [topic, setTopic] = useState("");
   const [country, setCountry] = useState("US");
   const [gradeLevel, setGradeLevel] = useState("");
+  const [section, setSection] = useState("");
   const [language, setLanguage] = useState("");
 
   const [books, setBooks] = useState<BookMeta[]>([]);
@@ -62,6 +64,7 @@ export default function GenerateCourse() {
         topic: topic.trim(),
         country,
         gradeLevel: gradeLevel || undefined,
+        section: section || undefined,
         language: language || undefined,
         bookIds: selectedBookIds.length ? selectedBookIds : undefined,
       });
@@ -98,6 +101,12 @@ export default function GenerateCourse() {
             <label>Grade / level (optional)</label>
             <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
+          <SectionPicker
+            country={country}
+            gradeLevel={gradeLevel}
+            value={section}
+            onChange={setSection}
+          />
           <div>
             <label>Language (optional)</label>
             <input

@@ -104,6 +104,7 @@ export const generateExam = onCall(
     const systemPrompt = buildExamPrompt({
       subject: req.subject,
       topics: req.topics,
+      section: req.section,
       totalPoints: req.totalPoints,
       country: req.country,
       gradeLevel: req.gradeLevel,

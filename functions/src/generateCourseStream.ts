@@ -69,6 +69,7 @@ export const generateCourseStream = onRequest(
       const systemPrompt = buildCoursePrompt({
         subject: data.subject,
         topic: data.topic,
+        section: data.section,
         country: data.country,
         gradeLevel: data.gradeLevel,
         language: data.language,

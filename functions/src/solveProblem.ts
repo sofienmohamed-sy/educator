@@ -63,6 +63,7 @@ export const solveProblem = onCall(
     const systemPrompt = buildSystemPrompt({
       country: req.country,
       gradeLevel: req.gradeLevel,
+      section: req.section,
       language: req.language,
       subject: req.subject,
       profile,

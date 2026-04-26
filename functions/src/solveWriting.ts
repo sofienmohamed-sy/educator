@@ -57,6 +57,7 @@ export const solveWriting = onCall(
     const systemPrompt = buildWritingAnalysisPrompt({
       country: req.country,
       gradeLevel: req.gradeLevel,
+      section: req.section,
       language: req.language,
       writingSubject: req.writingSubject,
       profile,

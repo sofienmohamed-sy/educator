@@ -6,6 +6,7 @@ import type { Subject } from "./types";
 export interface SolveRequest {
   country: string;
   gradeLevel?: string;
+  section?: string;
   language?: string;
   subject?: Subject;
   bookIds?: string[];

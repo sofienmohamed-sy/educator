@@ -3,6 +3,7 @@ import { useAuth } from "../auth/AuthProvider";
 import CountryPicker from "../components/CountryPicker";
 import GradeLevelPicker from "../components/GradeLevelPicker";
 import ProblemInput, { type InputValue } from "../components/ProblemInput";
+import SectionPicker from "../components/SectionPicker";
 import WritingSubjectPicker from "../components/WritingSubjectPicker";
 import { solveWritingFn } from "../lib/callables";
 import { uploadProblemFile, fileContentType } from "../lib/upload";
@@ -75,6 +76,7 @@ export default function WritingSolver() {
   const { user } = useAuth();
   const [country, setCountry] = useState("US");
   const [gradeLevel, setGradeLevel] = useState("");
+  const [section, setSection] = useState("");
   const [writingSubject, setWritingSubject] = useState<WritingSubject>("grammar");
   const [input, setInput] = useState<InputValue>({ kind: "text", text: "" });
   const [analysis, setAnalysis] = useState<WritingAnalysis | null>(null);
@@ -95,6 +97,7 @@ export default function WritingSolver() {
         const { data } = await solveWritingFn({
           country,
           gradeLevel: gradeLevel || undefined,
+          section: section || undefined,
           writingSubject,
           input: { kind: "text", text: input.text.trim() },
         });
@@ -105,6 +108,7 @@ export default function WritingSolver() {
         const { data } = await solveWritingFn({
           country,
           gradeLevel: gradeLevel || undefined,
+          section: section || undefined,
           writingSubject,
           input: { kind: "storage", path, contentType: fileContentType(input.file) },
         });
@@ -133,6 +137,12 @@ export default function WritingSolver() {
             <label>Grade / level (optional)</label>
             <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
+          <SectionPicker
+            country={country}
+            gradeLevel={gradeLevel}
+            value={section}
+            onChange={setSection}
+          />
         </div>
 
         <div style={{ marginBottom: "0.75rem" }}>

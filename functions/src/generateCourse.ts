@@ -60,6 +60,7 @@ export const generateCourse = onCall(
     const systemPrompt = buildCoursePrompt({
       subject: req.subject,
       topic: req.topic,
+      section: req.section,
       country: req.country,
       gradeLevel: req.gradeLevel,
       language: req.language,

@@ -32,6 +32,7 @@ export const createBookFn = httpsCallable<
     subject: Subject;
     country: string;
     gradeLevel?: string;
+    section?: string;
     language?: string;
   },
   { bookId: string; uploadPath: string }
@@ -55,6 +56,7 @@ export const generateCourseFn = httpsCallable<
     topic: string;
     country: string;
     gradeLevel?: string;
+    section?: string;
     language?: string;
     bookIds?: string[];
   },
@@ -67,6 +69,7 @@ export const generateExercisesFn = httpsCallable<
     topic: string;
     country: string;
     gradeLevel?: string;
+    section?: string;
     language?: string;
     difficulty: "easy" | "medium" | "hard";
     count: number;
@@ -81,6 +84,7 @@ export const generateExamFn = httpsCallable<
     topics: string[];
     country: string;
     gradeLevel?: string;
+    section?: string;
     language?: string;
     totalPoints: number;
     bookIds?: string[];
@@ -94,6 +98,7 @@ export const solveWritingFn = httpsCallable<
   {
     country: string;
     gradeLevel?: string;
+    section?: string;
     language?: string;
     writingSubject: WritingSubject;
     input:
@@ -110,6 +115,7 @@ export const generateWritingFn = httpsCallable<
     topic: string;
     country: string;
     gradeLevel?: string;
+    section?: string;
     language?: string;
     difficulty?: "easy" | "medium" | "hard";
     count?: number;
