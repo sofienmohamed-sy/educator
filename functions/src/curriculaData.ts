@@ -1707,6 +1707,124 @@ export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
     ],
   },
 
+  // ── India · Class 12 (CBSE/NCERT) · PCM — math view ──────────────────────
+  "IN_Class 12 (CBSE/NCERT)_Science (PCM — Physics, Chemistry, Math)_math": {
+    notation:
+      "CBSE Class 12 Mathematics (Subject Code 041). Decimal point (3.14, NOT comma). Standard interval notation (a, b) for open and [a, b] for closed. Use ln for natural log; log without base means log₁₀ in many older NCERT contexts but for calculus log = ln. Vectors written in bold or with arrow.",
+    conventions:
+      "CBSE/NCERT 2025-26 syllabus: 80 marks theory + 20 marks internal assessment. Six units : (1) Relations and Functions — types of relations (reflexive, symmetric, transitive, equivalence), one-one and onto functions, inverse trigonometric functions (definition, domain, range, principal value branch, graphs, properties) ; (2) Algebra — matrices (types, transpose, symmetric/skew-symmetric, operations, invertible matrices), determinants (minors, cofactors, adjoint, inverse via adjoint, system of linear equations using matrix method) ; (3) Calculus (35 marks — highest weightage) — continuity and differentiability (chain rule, derivatives of inverse trig and logarithmic functions, logarithmic differentiation, derivatives of functions in parametric forms, second order derivatives), applications of derivatives (rate of change, increasing/decreasing functions, maxima and minima — both first and second derivative tests), integrals (integration by substitution, partial fractions, by parts, definite integrals as a limit of sum, fundamental theorem of calculus, properties of definite integrals), applications of integrals (area under curves, between two curves), differential equations (formation, order, degree, solving by separation of variables, homogeneous DEs, linear DEs of first order with integrating factor) ; (4) Vectors and 3D Geometry — vectors (position, dot product, cross product, scalar/vector triple product NOT in CBSE since 2024), 3D geometry (direction cosines/ratios, equation of line in space, equation of plane, angle between lines/planes, distance from point to plane) ; (5) Linear Programming — LP problems with two variables, graphical method, feasible region ; (6) Probability — conditional probability, multiplication theorem, independent events, Bayes' theorem, random variables and probability distributions, mean of random variables.",
+    stepStyle:
+      "Show every step explicitly. State theorems by name (Mean Value Theorem, Rolle's Theorem, Bayes' Theorem). For matrix problems: write out matrices in full at each step. For integration: show substitution explicitly (let u = …). For probability: write event definitions and Bayes' formula before substituting.",
+    examFormat:
+      "Board exam: 3 hours, 80 marks theory. Section A: 18 MCQs (1 mark) + 2 Assertion-Reason (1 mark). Section B: 5 short answers (2 marks). Section C: 6 short answers (3 marks). Section D: 4 long answers (5 marks). Section E: 3 case-study questions (4 marks each, with sub-parts). Internal choices in some questions. Calculator NOT allowed.",
+    referenceBooks: [
+      "NCERT Mathematics Textbook for Class 12 (Part I & II)",
+      "R.D. Sharma Mathematics Class 12",
+      "R.S. Aggarwal Senior Secondary Mathematics",
+      "Cengage Mathematics for JEE (advanced reference)",
+      "Arihant All-in-One Mathematics Class 12",
+    ],
+    specialRules: [
+      "NO calculator allowed in the board exam — all computations by hand",
+      "Vector triple product / scalar triple product REMOVED from CBSE syllabus since 2024",
+      "Statistics chapter (PMF, mean of random variable) is part of probability — variance and standard deviation REMOVED for board exam",
+      "Linear programming kept but limited to 2-variable problems with graphical solution",
+      "Determinant of 3×3 matrix expected — by cofactor expansion or properties of determinants",
+      "Integration by partial fractions: cover all cases — distinct linear, repeated linear, irreducible quadratic",
+      "Bayes' theorem ALWAYS in the exam — write it before applying",
+      "First derivative test AND second derivative test both expected for maxima/minima",
+    ],
+  },
+
+  // ── India · Class 12 (CBSE/NCERT) · PCM — physics view ───────────────────
+  "IN_Class 12 (CBSE/NCERT)_Science (PCM — Physics, Chemistry, Math)_physics": {
+    notation:
+      "CBSE Class 12 Physics (Subject Code 042). SI units strictly. g = 9.8 m/s² unless specified. Use ε₀ = 8.85×10⁻¹² C²/N·m² (or 1/4πε₀ = 9×10⁹). Decimal point. Vectors with arrow or bold.",
+    conventions:
+      "CBSE/NCERT 2025-26 syllabus: 70 marks theory + 30 marks practical. NCERT covers 14 chapters in two parts. Units: (1) Electrostatics (16 marks) — Coulomb's law, electric field, dipole, Gauss's law and applications, electric potential, capacitors, energy stored ; (2) Current Electricity (10 marks) — Ohm's law, drift velocity, resistivity, Kirchhoff's laws, Wheatstone bridge, internal resistance, EMF, cells in series/parallel, potentiometer ; (3) Magnetic Effects of Current and Magnetism (8 marks) — Biot-Savart law, Ampere's circuital law, force on current-carrying conductor, torque on current loop, moving coil galvanometer, Lorentz force, magnetic dipole moment, Earth's magnetism (basic) ; (4) Electromagnetic Induction and Alternating Current (8 marks) — Faraday's laws, Lenz's law, self/mutual inductance, AC circuits (RC, RL, RLC), resonance, transformer, generator ; (5) Electromagnetic Waves (3 marks) — Maxwell's displacement current concept, EM spectrum ; (6) Optics (10 marks) — ray optics (reflection, refraction, lenses, lens-maker's formula, prism, optical instruments — microscope, telescope), wave optics (Huygens' principle, Young's double slit, single slit diffraction, polarisation by reflection — Brewster's angle) ; (7) Dual Nature of Matter (4 marks) — photoelectric effect, Einstein's equation, de Broglie wavelength, Davisson-Germer experiment ; (8) Atoms and Nuclei (6 marks) — Bohr's atomic model, hydrogen spectrum (Lyman, Balmer, Paschen series), nuclear binding energy, mass-energy relation, radioactivity, half-life, nuclear fission and fusion ; (9) Electronic Devices (7 marks) — semiconductors (intrinsic + extrinsic), p-n junction diode, rectifiers (half/full-wave), Zener diode, photodiode, LED, solar cell, transistor (basic concept).",
+    stepStyle:
+      "Always: given data, formula/principle, substitution, answer with units, significant figures. State laws by name (Faraday's law, Lenz's law, Ampere's law, Gauss's law, Bohr's postulates). Diagrams expected for ray optics, circuits, and Wheatstone bridge.",
+    examFormat:
+      "Board exam: 3 hours, 70 marks. Section A: 16 MCQs (1 mark each). Section B: 5 very short (2 marks). Section C: 7 short (3 marks). Section D: 2 case-study (4 marks). Section E: 3 long-answer with internal choice (5 marks). Practical exam: 30 marks (experiments + activities + project).",
+    referenceBooks: [
+      "NCERT Physics Class 12 (Part I & II)",
+      "H.C. Verma Concepts of Physics",
+      "DC Pandey Understanding Physics (for JEE/NEET)",
+      "S.L. Arora Physics Class 12",
+    ],
+    specialRules: [
+      "NO calculator — all arithmetic by hand; common values (e=1.6×10⁻¹⁹, h=6.63×10⁻³⁴, c=3×10⁸) memorised",
+      "Communication Systems chapter REMOVED from CBSE syllabus since 2023",
+      "All numerical answers MUST include units and use significant figures appropriately",
+      "Practical-related questions appear in Section A — graph interpretation, experimental setup",
+      "Derivations are tested: e.g., expression for capacitance of parallel plate, lens-maker's formula, expression for fringe width in YDSE, Bohr radius",
+      "Diagrams must be neatly drawn with labels — circuit symbols standardised",
+      "Magnetism (chapter 5) was REDUCED in 2023 — Earth's magnetism now only conceptual",
+    ],
+  },
+
+  // ── India · Class 12 (CBSE/NCERT) · PCM — chemistry view ─────────────────
+  "IN_Class 12 (CBSE/NCERT)_Science (PCM — Physics, Chemistry, Math)_chemistry": {
+    notation:
+      "CBSE Class 12 Chemistry (Subject Code 043). SI units; concentration usually mol/L (M). Use Kelvin for temperature in thermodynamics/kinetics. Standard NCERT IUPAC nomenclature.",
+    conventions:
+      "CBSE/NCERT 2025-26 syllabus: 70 marks theory + 30 marks practical. NCERT divided into 10 chapters (post-2023 reduction). Units: (1) Solutions — types, concentration units (mole fraction, molality, molarity, ppm), Raoult's law, ideal/non-ideal solutions, colligative properties (relative lowering of vapour pressure, elevation of BP, depression of FP, osmotic pressure, van't Hoff factor) ; (2) Electrochemistry — redox, galvanic cells, electrode potential, Nernst equation, conductivity, Kohlrausch's law, electrolysis, Faraday's laws, batteries (primary/secondary), fuel cells, corrosion ; (3) Chemical Kinetics — rate, order, molecularity, integrated rate equations (zero and first order), half-life, Arrhenius equation, collision theory ; (4) d- and f-Block Elements — properties of transition elements, KMnO₄, K₂Cr₂O₇ preparations and properties, lanthanoids and actinoids ; (5) Coordination Compounds — Werner's theory, IUPAC nomenclature, isomerism (geometrical, optical), bonding (VBT, CFT, splitting of d-orbitals), magnetic moment ; (6) Haloalkanes and Haloarenes — nomenclature, preparation, physical/chemical properties, SN1/SN2 mechanisms, environmental effects ; (7) Alcohols, Phenols and Ethers — preparation, properties, mechanisms ; (8) Aldehydes, Ketones and Carboxylic Acids — preparation, nucleophilic addition, oxidation/reduction, acidity ; (9) Amines — preparation, basicity, diazonium salts, reactions ; (10) Biomolecules — carbohydrates (mono/di/polysaccharides), proteins (α-amino acids, structure), nucleic acids, vitamins (basic).",
+    stepStyle:
+      "For organic mechanisms: use curved arrows showing electron pair movement, label intermediates (carbocation, carbanion, free radical), show transition states. For numerical problems: identify quantities, apply formula (e.g., Nernst, Arrhenius, ΔTf = Kf·m·i), substitute with units. For inorganic: balance equations, state colour changes.",
+    examFormat:
+      "Board exam: 3 hours, 70 marks. Sections A-E mirroring physics. Section A 16 MCQs, Section B 5 short (2m), Section C 7 short (3m), Section D 2 case-study (4m), Section E 3 long with internal choice (5m). Practical 30 marks (salt analysis, titrations, viva, project).",
+    referenceBooks: [
+      "NCERT Chemistry Class 12 (Part I & II)",
+      "Pradeep's New Course Chemistry Class 12",
+      "Modern's ABC of Chemistry",
+      "O.P. Tandon Inorganic / Organic / Physical (JEE prep)",
+    ],
+    specialRules: [
+      "REMOVED from syllabus 2023+: Solid State (Chapter 1), Surface Chemistry (Chapter 5), p-Block Elements (Group 15-18), Polymers, Chemistry in Everyday Life",
+      "NO calculator — log tables provided in physical chemistry numerical questions",
+      "Organic mechanisms: SN1, SN2, E1, E2, electrophilic addition/substitution, nucleophilic addition expected with curved arrows",
+      "Coordination compounds: must give IUPAC name AND draw structure with stereochemistry",
+      "For colligative properties: always identify whether van't Hoff factor i is needed (electrolyte vs. non-electrolyte)",
+      "Nernst equation: E = E° - (0.0591/n) log Q at 298 K — memorise this form",
+      "Practical: salt analysis (cations + anions), volumetric titrations (KMnO₄, K₂Cr₂O₇)",
+    ],
+  },
+
+  // ── India · Class 12 (CBSE/NCERT) · PCB — physics view (same as PCM) ─────
+  "IN_Class 12 (CBSE/NCERT)_Science (PCB — Physics, Chemistry, Biology)_physics": {
+    notation:
+      "CBSE Class 12 Physics (Subject Code 042) — IDENTICAL syllabus to PCM stream.",
+    conventions:
+      "Identical to PCM physics: same 9 units, same NCERT chapters, same exam pattern. The only difference between PCM and PCB at school level is that PCB students take Biology instead of Mathematics — physics syllabus is shared.",
+    specialRules: [
+      "Physics syllabus IDENTICAL to PCM — same chapters, same exam, same marking",
+      "PCB students typically aim for NEET (medical entrance) — physics questions in NEET are still based on NCERT",
+    ],
+  },
+
+  // ── India · Class 12 (CBSE/NCERT) · PCB — chemistry view (same as PCM) ───
+  "IN_Class 12 (CBSE/NCERT)_Science (PCB — Physics, Chemistry, Biology)_chemistry": {
+    notation:
+      "CBSE Class 12 Chemistry (Subject Code 043) — IDENTICAL syllabus to PCM stream.",
+    conventions:
+      "Identical to PCM chemistry: same 10 chapters, same exam pattern.",
+    specialRules: [
+      "Chemistry syllabus IDENTICAL to PCM — only the third subject (Biology vs Math) differs",
+    ],
+  },
+
+  // Note on PCB Biology: the current Subject enum is {math, physics,
+  // chemistry, informatics}. Biology has no dedicated profile yet — when
+  // subject==chemistry is used for a PCB student, the chemistry overlay
+  // above applies (same NCERT chemistry as PCM). A future enum extension
+  // can add a Biology overlay covering: Reproduction (sexual reproduction
+  // in flowering plants, human reproduction, reproductive health), Genetics
+  // & Evolution (Mendelian inheritance, molecular basis — DNA replication/
+  // transcription/translation, genetic code, Human Genome Project, evolution
+  // theories), Biology in Human Welfare (human health and disease, microbes),
+  // Biotechnology (principles, recombinant DNA, applications), Ecology
+  // (organisms/populations, ecosystem, biodiversity & conservation).
+
   // ── France · Terminale · Spécialité NSI (6h/sem) ─────────────────────────
   "FR_Terminale_Spécialité NSI_informatics": {
     notation:
