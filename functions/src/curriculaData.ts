@@ -1366,6 +1366,115 @@ export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
     ],
   },
 
+  // ── Maroc · 2ème Bac · Sciences Mathématiques A ──────────────────────────
+  "MA_2ème Bac_Sciences Mathématiques A_math": {
+    notation:
+      "Filière Sciences Mathématiques A (SM A) — la filière la plus exigeante en mathématiques au Maroc, parallèle à SM B mais avec SVT au lieu de Sciences de l'Ingénieur. Conventions FR maths (virgule décimale, ]a,b[, ln). g = 10 m·s⁻² en physique.",
+    conventions:
+      "Programme officiel du Ministère de l'Éducation (BIOF — Baccalauréat International Option Français). Couverture exhaustive : (1) Limites et continuité (théorème des valeurs intermédiaires, théorème de Bolzano, prolongement par continuité) ; (2) Dérivabilité, étude de fonctions, théorème de Rolle, théorème des accroissements finis (TAF) ; (3) Suites numériques (récurrentes, monotones, adjacentes, théorème de la convergence monotone) ; (4) Fonctions logarithme népérien et exponentielle ; (5) Équations différentielles du premier ordre y'+ay=b et second ordre y''+ay'+by=0 ; (6) Nombres complexes (deux parties — algébrique/exponentielle et applications géométriques : transformations, équations) ; (7) Primitives et calcul intégral (intégration par parties, changement de variable) ; (8) Arithmétique (divisibilité, division euclidienne, congruences, PGCD/PPCM, théorème de Bézout, théorème de Gauss, nombres premiers, théorème de Fermat) ; (9) Structures algébriques (lois de composition internes, groupes, anneaux, corps) ; (10) Espaces vectoriels (sous-espaces, bases, dimension, applications linéaires) ; (11) Probabilités (variables aléatoires, lois discrètes).",
+    stepStyle:
+      "Style très formel, proche des classes préparatoires françaises. Définitions rigoureuses, démonstrations attendues, structures algébriques abordées de manière abstraite. Pour les structures : vérifier les axiomes (associativité, élément neutre, symétrique, distributivité). Pour l'arithmétique : citer les théorèmes par leur nom.",
+    examFormat:
+      "Examen national : 4 heures, coefficient 9 (le plus élevé). 4 exercices indépendants couvrant analyse, algèbre, arithmétique/structures, complexes. Calculatrice non programmable autorisée.",
+    referenceBooks: [
+      "Maths 2 Bac SM A (Al Madariss / Dar Errachad)",
+      "Etincelle Maths 2 Bac SM",
+      "Le compagnon en Mathématiques 2BAC SM",
+      "Manuels Xriadiat",
+    ],
+    specialRules: [
+      "Niveau le plus haut au Maroc — comparable à la spécialité maths FR + l'option Maths Expertes",
+      "Structures algébriques (groupes, anneaux, corps) sont AU programme — démontrer en partant des axiomes",
+      "Espaces vectoriels formels — bases, dimension, noyau/image d'application linéaire",
+      "Équations différentielles d'ordre 2 à coefficients constants AU programme",
+      "Toujours invoquer Rolle, TAF, Bézout, Gauss, Fermat par leur nom",
+      "Justifier la convergence avant de calculer une limite ou intégrale impropre",
+    ],
+  },
+
+  // ── Maroc · 2ème Bac · Sciences Mathématiques B ──────────────────────────
+  "MA_2ème Bac_Sciences Mathématiques B_math": {
+    notation:
+      "Filière Sciences Mathématiques B (SM B) — programme de mathématiques IDENTIQUE à SM A ; la différence porte sur la matière secondaire (Sciences de l'Ingénieur en SM B au lieu de SVT en SM A). Conventions FR maths.",
+    conventions:
+      "Programme officiel BIOF identique à SM A : limites/continuité, dérivabilité (Rolle, TAF), suites, ln/exp, équations différentielles 1er et 2nd ordre, nombres complexes (algébriques + géométriques), primitives/calcul intégral, arithmétique (Bézout, Gauss, Fermat), structures algébriques (groupes, anneaux, corps), espaces vectoriels, probabilités.",
+    stepStyle:
+      "Identique à SM A — style formel, démonstrations rigoureuses. La différence avec SM A se voit surtout dans les exercices contextualisés (SI/ingénierie en SM B vs biologie/SVT en SM A) mais le programme math reste le même.",
+    examFormat:
+      "Examen national : 4 heures, coefficient 9. Sujet identique ou très similaire à SM A — souvent même épreuve.",
+    referenceBooks: [
+      "Maths 2 Bac SM B (Al Madariss)",
+      "Etincelle Maths 2 Bac SM",
+      "Manuels Xriadiat",
+    ],
+    specialRules: [
+      "Programme math IDENTIQUE à SM A — mêmes outils, mêmes exigences",
+      "Élève suit Sciences de l'Ingénieur (SI) en parallèle — s'attendre à des exercices applicatifs ingénierie",
+      "Structures algébriques + espaces vectoriels formels au programme",
+      "Équations différentielles d'ordre 2 à coefficients constants au programme",
+    ],
+  },
+
+  // ── Maroc · 2ème Bac · Sciences Physiques (PC) — math view ───────────────
+  "MA_2ème Bac_Sciences Physiques (PC)_math": {
+    notation:
+      "Filière Sciences Physiques (PC, BIOF) — niveau math intermédiaire (entre SM et SVT). Conventions FR maths (virgule, ]a,b[, ln).",
+    conventions:
+      "Programme math 2 Bac PC : limites/continuité, dérivabilité, étude de fonctions, suites, ln/exp, primitives et calcul intégral, équations différentielles simples (y'+ay=b), nombres complexes (algébrique + module/argument + applications géométriques), arithmétique de base (divisibilité, congruences, PGCD), probabilités. PAS de structures algébriques abstraites, PAS d'espaces vectoriels formels, PAS de Rolle/TAF formellement.",
+    stepStyle:
+      "Approche moins formelle que SM — privilégier les calculs et applications. Démonstrations attendues sur les théorèmes principaux (TVI, dérivabilité) mais sans la rigueur structurelle de SM.",
+    examFormat:
+      "Examen national : 3 heures, coefficient 7. 3 à 4 exercices couvrant analyse, complexes, arithmétique et probabilités.",
+    specialRules: [
+      "PAS de structures algébriques (groupes/anneaux/corps) — réservé à SM",
+      "PAS d'espaces vectoriels formels — réservé à SM",
+      "Équations différentielles limitées au 1er ordre — pas d'ordre 2",
+      "Arithmétique limitée à divisibilité, congruences, PGCD — sans Bézout/Gauss/Fermat formels",
+    ],
+  },
+
+  // ── Maroc · 2ème Bac · Sciences Physiques (PC) — physics view ────────────
+  "MA_2ème Bac_Sciences Physiques (PC)_physics": {
+    notation:
+      "Filière Sciences Physiques (PC, BIOF). g = 10 m·s⁻² (sauf indication contraire). Concentrations en mol·L⁻¹. Vecteurs avec flèche →.",
+    conventions:
+      "Programme officiel : (1) Ondes — propagation, ondes mécaniques périodiques, ondes lumineuses, diffraction ; (2) Transformations nucléaires — décroissance radioactive, masse et énergie des noyaux, réactions nucléaires ; (3) Électricité — dipôle RC (charge/décharge), dipôle RL (établissement du courant), oscillations libres et forcées dans RLC, modulation/démodulation d'amplitude ; (4) Mécanique — lois de Newton (deux/trois lois selon contexte), chute libre, mouvement de projectiles, mouvement de satellites/planètes (gravitation, lois de Kepler), pendule pesant/élastique, mouvement de rotation ; (5) Chimie — transformations rapides/lentes, vitesse de réaction, équilibres chimiques (Q_r, K), acide-base (pH, dosage), pile et électrolyse, polymères, contrôle de qualité.",
+    stepStyle:
+      "Toujours commencer par : système, référentiel, bilan des forces, schéma. Pour la cinétique : équation différentielle de la vitesse. Mécanismes en chimie organique abordés de manière simplifiée (sans flèches courbes formelles comme en France).",
+    examFormat:
+      "Examen national : 3h30, coefficient 7. 4 à 5 exercices couvrant les 5 thèmes obligatoires (ondes, nucléaire, électricité RC/RL/RLC, mécanique, chimie). Calculatrice non programmable autorisée. Formulaire NON fourni — formules à connaître.",
+    specialRules: [
+      "g = 10 m·s⁻² par défaut (sauf indication contraire)",
+      "Formules à apprendre par cœur — pas de formulaire en examen",
+      "Pour les ondes : distinguer ondes mécaniques (transversales/longitudinales) et lumineuses",
+      "Mécanismes organiques : approche descriptive (substitution, addition, élimination) sans flèches courbes formelles",
+      "Vérifier l'homogénéité dimensionnelle de chaque résultat",
+    ],
+  },
+
+  // ── Maroc · 2ème Bac · SVT — chemistry/biology view ──────────────────────
+  "MA_2ème Bac_Sciences de la Vie et de la Terre (SVT)_chemistry": {
+    notation:
+      "Filière SVT (BIOF) — sciences naturelles dominantes : biologie, géologie, physiologie. Vocabulaire scientifique français standard.",
+    conventions:
+      "Programme officiel : (1) Génétique et information héréditaire — nature de l'information génétique (ADN, gène, chromosome), expression de l'information génétique (transcription, traduction), génie génétique (techniques, OGM) ; (2) Transmission de l'information génétique — reproduction sexuée, méiose, fécondation, lois statistiques chez les diploïdes (Mendel), hérédité humaine (arbres généalogiques, maladies génétiques) ; (3) Immunologie — soi/non-soi, moyens de défense (immunité innée + adaptative humorale et cellulaire), dysfonctionnements (allergie, auto-immunité, SIDA), aides au système immunitaire (vaccination, sérothérapie) ; (4) Géologie — chaînes de montagnes récentes et tectonique des plaques, métamorphisme et tectonique, granitisation et métamorphisme, déformations tectoniques.",
+    stepStyle:
+      "Démarche scientifique : observation/document → hypothèse → expérience → résultat → interprétation → conclusion. Toujours s'appuyer sur les documents fournis dans l'exercice (graphiques, photos, schémas). Vocabulaire technique précis exigé.",
+    examFormat:
+      "Examen national : 3 heures, coefficient 7. 2 ou 3 exercices avec documents : restitution organisée des connaissances + raisonnement scientifique + lecture de documents (caryotype, électrophorèse, courbes immunologiques, coupes géologiques).",
+    referenceBooks: [
+      "Khaymasvt 2 Bac SVT",
+      "NéoSvt manuel 2 Bac SVT BIOF",
+    ],
+    specialRules: [
+      "Vocabulaire technique strict : gène/allèle/locus, phénotype/génotype, méiose I/méiose II, immunité innée/adaptative",
+      "Pour la génétique : toujours commencer par établir le génotype des parents, puis appliquer Mendel",
+      "Pour l'immunologie : distinguer les phases (reconnaissance, amplification, effectrice)",
+      "Pour la géologie : citer les preuves (fossiles, isotopes, structures tectoniques) qui supportent chaque hypothèse",
+      "Schémas annotés exigés (cellule en méiose, structure d'une chaîne de montagnes, etc.)",
+    ],
+  },
+
   // ── France · Terminale · Spécialité NSI (6h/sem) ─────────────────────────
   "FR_Terminale_Spécialité NSI_informatics": {
     notation:
