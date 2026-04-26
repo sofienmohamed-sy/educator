@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
+import GradeLevelPicker from "../components/GradeLevelPicker";
 import WritingSubjectPicker from "../components/WritingSubjectPicker";
 import { generateWritingFn } from "../lib/callables";
 import type { WritingSubject, WritingContent, WritingItem } from "../lib/types";
@@ -197,11 +198,7 @@ export default function WritingGenerator() {
           </div>
           <div>
             <label>Grade / level (optional)</label>
-            <input
-              value={gradeLevel}
-              onChange={(e) => setGradeLevel(e.target.value)}
-              placeholder="e.g. Grade 9, Year 11"
-            />
+            <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
         </div>
 

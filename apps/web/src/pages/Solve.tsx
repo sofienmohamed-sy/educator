@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useAuth } from "../auth/AuthProvider";
 import CountryPicker from "../components/CountryPicker";
+import GradeLevelPicker from "../components/GradeLevelPicker";
 import ProblemInput, { type InputValue } from "../components/ProblemInput";
 import SubjectPicker from "../components/SubjectPicker";
 import StepList, { type Solution } from "../components/StepList";
@@ -72,11 +73,7 @@ export default function Solve() {
           </div>
           <div>
             <label>Grade / level (optional)</label>
-            <input
-              value={gradeLevel}
-              onChange={(e) => setGradeLevel(e.target.value)}
-              placeholder="e.g. Terminale S, Grade 10"
-            />
+            <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
         </div>
 

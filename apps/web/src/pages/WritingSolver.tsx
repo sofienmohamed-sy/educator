@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useAuth } from "../auth/AuthProvider";
 import CountryPicker from "../components/CountryPicker";
+import GradeLevelPicker from "../components/GradeLevelPicker";
 import ProblemInput, { type InputValue } from "../components/ProblemInput";
 import WritingSubjectPicker from "../components/WritingSubjectPicker";
 import { solveWritingFn } from "../lib/callables";
@@ -130,11 +131,7 @@ export default function WritingSolver() {
           </div>
           <div>
             <label>Grade / level (optional)</label>
-            <input
-              value={gradeLevel}
-              onChange={(e) => setGradeLevel(e.target.value)}
-              placeholder="e.g. Grade 9, Year 11"
-            />
+            <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
         </div>
 
