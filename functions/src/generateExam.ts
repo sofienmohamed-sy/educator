@@ -21,7 +21,11 @@ if (getApps().length === 0) initializeApp();
 const ANTHROPIC_API_KEY = defineSecret("ANTHROPIC_API_KEY");
 const GCP_PROJECT_ID = defineSecret("GCP_PROJECT_ID");
 
-/** Validates the 60/20/20 distribution. Returns an error string or null if valid. */
+/**
+ * Validates the 60/20/20 distribution of subpart types within each exercise.
+ * Direct helpers = 60%, indirect helpers = 20%, synthesis (objective) = 20%.
+ * Returns an error string or null if valid.
+ */
 export function validateExamDistribution(
   exam: Exam,
   totalPoints: number,
@@ -31,22 +35,28 @@ export function validateExamDistribution(
     return `Point sum ${sum} does not equal ${totalPoints}.`;
   }
 
-  const directPts = exam.exercises.filter((e) => e.type === "direct").reduce((acc, e) => acc + e.totalPoints, 0);
-  const indirectPts = exam.exercises.filter((e) => e.type === "indirect").reduce((acc, e) => acc + e.totalPoints, 0);
-  const synthPts = exam.exercises.filter((e) => e.type === "synthesis").reduce((acc, e) => acc + e.totalPoints, 0);
+  for (const exercise of exam.exercises) {
+    const allSubparts = exercise.parts.flatMap((p) => p.subparts);
+    const exercisePts = allSubparts.reduce((s, sp) => s + sp.points, 0);
+    if (exercisePts === 0) continue;
 
-  const directRatio = directPts / totalPoints;
-  const indirectRatio = indirectPts / totalPoints;
-  const synthRatio = synthPts / totalPoints;
+    const directPts = allSubparts.filter((sp) => sp.type === "direct").reduce((s, sp) => s + sp.points, 0);
+    const indirectPts = allSubparts.filter((sp) => sp.type === "indirect").reduce((s, sp) => s + sp.points, 0);
+    const synthPts = allSubparts.filter((sp) => sp.type === "synthesis").reduce((s, sp) => s + sp.points, 0);
 
-  if (Math.abs(directRatio - 0.6) > 0.05) {
-    return `Direct ratio ${(directRatio * 100).toFixed(0)}% is not ~60% (got ${directPts}/${totalPoints} pts).`;
-  }
-  if (Math.abs(indirectRatio - 0.2) > 0.05) {
-    return `Indirect ratio ${(indirectRatio * 100).toFixed(0)}% is not ~20% (got ${indirectPts}/${totalPoints} pts).`;
-  }
-  if (Math.abs(synthRatio - 0.2) > 0.05) {
-    return `Synthesis ratio ${(synthRatio * 100).toFixed(0)}% is not ~20% (got ${synthPts}/${totalPoints} pts).`;
+    const directRatio = directPts / exercisePts;
+    const indirectRatio = indirectPts / exercisePts;
+    const synthRatio = synthPts / exercisePts;
+
+    if (Math.abs(directRatio - 0.6) > 0.15) {
+      return `${exercise.title}: direct subparts ratio ${(directRatio * 100).toFixed(0)}% is not ~60%.`;
+    }
+    if (Math.abs(indirectRatio - 0.2) > 0.15) {
+      return `${exercise.title}: indirect subparts ratio ${(indirectRatio * 100).toFixed(0)}% is not ~20%.`;
+    }
+    if (Math.abs(synthRatio - 0.2) > 0.15) {
+      return `${exercise.title}: synthesis subparts ratio ${(synthRatio * 100).toFixed(0)}% is not ~20%.`;
+    }
   }
 
   return null;

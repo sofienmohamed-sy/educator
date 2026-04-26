@@ -132,23 +132,24 @@ describe("buildExamPrompt", () => {
       totalPoints: 100,
       country: "FR",
     });
-    expect(prompt).toContain("60 pts");
-    expect(prompt).toContain("20 pts");
-    expect(prompt).toContain("DIRECT");
-    expect(prompt).toContain("INDIRECT");
-    expect(prompt).toContain("SYNTHESIS");
+    expect(prompt).toContain("60%");
+    expect(prompt).toContain("20%");
+    expect(prompt).toContain("direct");
+    expect(prompt).toContain("indirect");
+    expect(prompt).toContain("synthesis");
     expect(prompt).toContain("sum(exercises[i].totalPoints) MUST equal 100");
   });
 
-  it("scales point allocations with totalPoints", () => {
+  it("contains type rules for subparts", () => {
     const prompt = buildExamPrompt({
       subject: "physics",
       topics: ["Mechanics"],
       totalPoints: 50,
       country: "US",
     });
-    expect(prompt).toContain("30 pts");
-    expect(prompt).toContain("10 pts");
+    expect(prompt).toContain("HELPERS that are EXPLICIT");
+    expect(prompt).toContain("HELPERS that are SEMI-HIDDEN");
+    expect(prompt).toContain("THE OBJECTIVE");
   });
 });
 

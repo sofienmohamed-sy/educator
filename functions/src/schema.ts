@@ -224,6 +224,7 @@ export type GenerateExamRequest = z.infer<typeof generateExamRequestSchema>;
 
 export const examSubpartSchema = z.object({
   letter: z.string().min(1),
+  type: z.enum(["direct", "indirect", "synthesis"]),
   question: z.string().min(1),
   points: z.number().int().min(0),
   solution: solutionSchema,
@@ -238,7 +239,6 @@ export const examPartSchema = z.object({
 export const examExerciseSchema = z.object({
   title: z.string().min(1),
   totalPoints: z.number().int().positive(),
-  type: z.enum(["direct", "indirect", "synthesis"]),
   context: z.string().min(1),
   parts: z.array(examPartSchema).min(1),
 });

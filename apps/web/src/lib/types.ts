@@ -41,6 +41,7 @@ export interface Exercise {
 
 export interface ExamSubpart {
   letter: string;
+  type: "direct" | "indirect" | "synthesis";
   question: string;
   points: number;
   solution: Solution;
@@ -55,7 +56,6 @@ export interface ExamPart {
 export interface ExamExercise {
   title: string;
   totalPoints: number;
-  type: "direct" | "indirect" | "synthesis";
   context: string;
   parts: ExamPart[];
 }
