@@ -226,45 +226,46 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — ASSEMBLE FROM THE BOOK, DO NOT GENERATE FROM SCRATCH:\n` +
-        `Your task is NOT to write a new course on "${topic}". Your task is to ASSEMBLE a\n` +
-        `course from the material already present in the CONTENT REFERENCE excerpts above,\n` +
-        `so that the result is indiscernible from a chapter of the same textbook.\n` +
+      ? `PRIMARY RULE — GENERATE FOLLOWING THE BOOK'S EXACT PEDAGOGICAL PATTERN:\n` +
+        `Your task is to generate a course on "${topic}" that is INDISCERNIBLE from a\n` +
+        `real chapter of the same textbook. A professor who knows the book must not be\n` +
+        `able to tell the difference.\n` +
         `\n` +
-        `STEP 1 — EXTRACT THEORY FROM THE EXCERPTS:\n` +
-        `• Scan every CONTENT REFERENCE excerpt for definitions, theorems, properties, and\n` +
-        `  proofs about "${topic}".\n` +
-        `• Use those definitions and theorems VERBATIM in your theory section — same notation,\n` +
-        `  same statement, same proof argument.\n` +
-        `• DO NOT paraphrase a definition or theorem that appears in the excerpts. Use it\n` +
-        `  word for word.\n` +
+        `BEFORE WRITING — ANALYSE THE BOOK (mandatory internal step):\n` +
+        `Read all CONTENT REFERENCE and STYLE GUIDE excerpts. Identify:\n` +
+        `  • How does the book introduce a new topic? (concrete scenario first? formal\n` +
+        `    definition first? motivating problem first? historical note?)\n` +
+        `  • What level of proof rigor does the book use? (formal ε-δ? informal geometric?\n` +
+        `    both together?)\n` +
+        `  • What type of examples does the book favour? (numerical tables? graphical\n` +
+        `    constructions? algebraic chains? explicit computations?)\n` +
+        `  • What prerequisites does the book assume the reader already knows?\n` +
+        `Apply this EXACT pattern — not a similar one — to "${topic}".\n` +
         `\n` +
-        `STEP 2 — EXTRACT EXAMPLES FROM THE EXCERPTS:\n` +
-        `• Scan every CONTENT REFERENCE excerpt for worked examples, applications, and\n` +
-        `  numerical illustrations about "${topic}".\n` +
-        `• Use those exact examples (same numbers, same steps, same commentary) as your\n` +
-        `  workedExamples.\n` +
-        `• DO NOT invent new examples when the book already provides them.\n` +
+        `CONTENT MANDATE:\n` +
+        `• If the excerpts contain definitions, theorems, or proofs on "${topic}", reproduce\n` +
+        `  their EXACT wording and proof structure. Do not paraphrase.\n` +
+        `• If the excerpts contain worked examples on "${topic}", use those exact examples\n` +
+        `  (same numbers, same steps). If you need additional examples, generate ones that\n` +
+        `  are indiscernible siblings of those in the book.\n` +
+        `• Never simplify, skip prerequisites, or lower the mathematical bar relative to\n` +
+        `  what the book establishes.\n` +
         `\n` +
-        `STEP 3 — BRIDGE ONLY GENUINE GAPS:\n` +
-        `• Only write original sentences where a transition or connection is genuinely missing\n` +
-        `  from the excerpts and is needed for coherence.\n` +
-        `• These bridges must follow the STYLE MANDATE exactly — same voice, same structure,\n` +
-        `  same level of rigour as the surrounding extracted text.\n` +
-        `• The proportion of bridge text must be small. If a section is mostly bridge text,\n` +
-        `  that means the excerpts did not contain enough material — in that case, say so in\n` +
-        `  the theory field rather than inventing content.\n` +
+        `METHOD MANDATE (proofs and solutions):\n` +
+        `• Identify the proof techniques the book uses (induction, contradiction, direct\n` +
+        `  computation, ε-δ, comparison, construction, ...).\n` +
+        `• Use those EXACT techniques for analogous results on "${topic}".\n` +
+        `• Never substitute a simpler technique that the book explicitly avoids.\n` +
         `\n` +
         `LEARNING LEVEL MANDATE:\n` +
-        `• The learning level is defined ENTIRELY by the book. Do not simplify, do not\n` +
-        `  add prerequisites, do not raise the difficulty bar.\n` +
-        `• If the book uses ε-δ arguments, use ε-δ. If it uses geometric intuition, use\n` +
-        `  geometric intuition. If it assumes the reader knows topology, assume that.\n` +
-        `• A reader who knows the book must not notice any difference in depth or rigour\n` +
-        `  between the extracted content and any bridge text you write.\n` +
+        `• The level is defined 100% by the book — not by the difficulty label, not by a\n` +
+        `  generic curriculum. If the book is a university analysis textbook, write at that\n` +
+        `  level. If it is a high-school textbook, write at that level.\n` +
+        `• A student who has studied ONLY this book must recognize every concept, notation,\n` +
+        `  and technique you use as familiar from the book.\n` +
         `\n` +
-        `HARD RULE: A reader familiar with the textbook must not be able to tell that the\n` +
-        `generated content was not written by the book's own author.`
+        `HARD RULE: A reader familiar with the textbook must not be able to tell that\n` +
+        `the generated content was not written by the book's own author.`
       : `Generate a complete course lesson on the topic: "${topic}". The theory section must be thorough and pedagogically sound for the ${country} curriculum.`,
     `Include at least 2 key concepts and 2 worked examples with full solutions.`,
     ``,
@@ -334,38 +335,50 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — TAKE EXERCISES FROM THE BOOK, SOLVE THEM:\n` +
-        `Your task is NOT to generate new exercises. Your task is to find the book's own\n` +
-        `exercises on "${topic}" in the CONTENT REFERENCE excerpts and produce their solutions.\n` +
+      ? `PRIMARY RULE — GENERATE AT THE BOOK'S EXACT COMPLEXITY LEVEL:\n` +
+        `Your task is to generate ${count} exercises on "${topic}" that are INDISCERNIBLE\n` +
+        `from the exercises in the uploaded textbook. The most common failure is generating\n` +
+        `exercises that are TOO SIMPLE. This is strictly forbidden.\n` +
         `\n` +
-        `STEP 1 — FIND THE BOOK'S EXERCISES:\n` +
-        `• Scan every CONTENT REFERENCE excerpt for exercises, problems, or practice\n` +
-        `  questions on "${topic}".\n` +
-        `• Extract them EXACTLY as written — same wording, same numbers, same conditions.\n` +
-        `• Keep the original exercise numbering if present.\n` +
+        `BEFORE WRITING — ANALYSE THE BOOK'S EXERCISES (mandatory internal step):\n` +
+        `Read every CONTENT REFERENCE excerpt. For each exercise you find, identify:\n` +
+        `  • How many distinct reasoning steps does it require? (count them)\n` +
+        `  • How many concepts must be combined in a single question?\n` +
+        `  • What type of mathematical act does it demand? (prove, compute, classify,\n` +
+        `    construct, deduce, give a counter-example, generalise, ...)\n` +
+        `  • Which specific theorems or techniques are required to solve it?\n` +
+        `  • Are sub-questions chained? (does b) depend on a)? does c) use the result of b)?)\n` +
+        `Your generated exercises MUST match these same counts, acts, and techniques.\n` +
         `\n` +
-        `STEP 2 — SOLVE THEM AS THE BOOK WOULD:\n` +
-        `• Solve each extracted exercise using the SAME METHOD and level of rigour the book\n` +
-        `  uses for similar problems (follow the STYLE MANDATE for notation and structure).\n` +
-        `• The solution should look like it was written by the book's own author.\n` +
+        `COMPLEXITY MANDATE — NON-NEGOTIABLE:\n` +
+        `  ✗ FORBIDDEN: single-step computations if the book's exercises require multi-step reasoning\n` +
+        `  ✗ FORBIDDEN: direct formula application if the book requires deriving or proving first\n` +
+        `  ✗ FORBIDDEN: simple numerical inputs if the book works with general parameters (n, a, f, ...)\n` +
+        `  ✗ FORBIDDEN: isolated questions if the book chains sub-questions a) → b) → c)\n` +
+        `  ✗ FORBIDDEN: exercises that a student could solve without having read the book\n` +
+        `  ✓ REQUIRED: same number of sub-steps, same type of reasoning, same level of abstraction\n` +
+        `  ✓ REQUIRED: if the book's exercises end with a hard generalisation, yours must too\n` +
         `\n` +
-        `STEP 3 — FILL REMAINING SLOTS WITH SIBLINGS:\n` +
-        `• If after scanning all excerpts you cannot find ${count} exercises, construct\n` +
-        `  additional exercises that are SIBLINGS of the book's exercises: same question\n` +
-        `  type, same level of abstraction, same structure — only the specific values or\n` +
-        `  function differ.\n` +
-        `• A sibling is NOT a generic exercise. It must replicate the exact question\n` +
-        `  pattern of a specific exercise found in the excerpts.\n` +
+        `METHOD MANDATE (solutions):\n` +
+        `• Identify which technique the book uses to solve each type of problem on "${topic}"\n` +
+        `  (ε-δ, induction, comparison, algebraic manipulation, geometric argument, ...).\n` +
+        `• Solve your exercises using that EXACT technique — same argument structure, same\n` +
+        `  intermediate steps, same level of rigour.\n` +
+        `• Never use a shortcut the book does not use. Never use a more advanced method either.\n` +
+        `\n` +
+        `EXERCISE GENERATION STRATEGY:\n` +
+        `• FIRST priority: if the excerpts contain exercises on "${topic}", use them exactly\n` +
+        `  (same wording, same numbers). They are already at the right level.\n` +
+        `• SECOND priority: generate SIBLINGS — keep the exact question structure, change\n` +
+        `  only the specific function, sequence, or numerical values.\n` +
+        `• NEVER generate generic exercises ("compute the derivative of...", "find the limit\n` +
+        `  of...") unless the book asks exactly that question type.\n` +
         `\n` +
         `LEARNING LEVEL MANDATE:\n` +
-        `• The difficulty level "${difficulty}" applies only to the SELECTION of exercises\n` +
-        `  from the book. Do not adjust the mathematical content or method — the book's\n` +
-        `  level is the only reference.\n` +
-        `• Never introduce tools, concepts, or notation not present in the excerpts.\n` +
-        `\n` +
-        `ANTI-PATTERN — FORBIDDEN:\n` +
-        `  Do NOT generate generic exercises ("compute the limit of f(x) as x→a") unless\n` +
-        `  the book asks exactly that type of question. The exercises come from the book.`
+        `• The level is defined 100% by the book. "${difficulty}" means: pick the ${difficulty}\n` +
+        `  exercises from within the book's own range — do not lower the floor.\n` +
+        `• A student who has studied ONLY this book must recognize the exercises as typical\n` +
+        `  of their curriculum — neither too easy nor alien.`
       : `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}". Difficulty: ${difficultyDesc}.`,
     `Each exercise must have a complete, step-by-step solution following the "passage between steps" approach — explain WHY each step follows from the previous one.`,
     `Include 1–3 hints per exercise to guide students without revealing the answer.`,
@@ -452,39 +465,54 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — EXTRACT EXERCISES FROM THE BOOK, DO NOT INVENT:\n` +
+      ? `PRIMARY RULE — GENERATE AN EXAM INDISCERNIBLE FROM THE BOOK'S OWN EXAMS:\n` +
+        `The most common failure is generating exercises that are TOO SIMPLE. This is\n` +
+        `strictly forbidden. Every exercise must match the book's complexity exactly.\n` +
         `\n` +
-        `The CONTENT REFERENCE excerpts above contain the actual exercises and problems from\n` +
-        `the book. Your task is to extract them and structure them into the JSON format.\n` +
+        `BEFORE WRITING — ANALYSE THE BOOK'S EXERCISES (mandatory internal step):\n` +
+        `Read every CONTENT REFERENCE excerpt. For each exercise or problem you find:\n` +
+        `  • Count its numbered parts and lettered sub-questions.\n` +
+        `  • Identify the CHAIN: which sub-question depends on a previous result?\n` +
+        `  • Identify the mathematical acts demanded (prove, deduce, compute, classify,\n` +
+        `    construct, generalise, find a counter-example, ...).\n` +
+        `  • Identify the specific theorems, techniques, or definitions required.\n` +
+        `  • Note the exact wording of enchaining phrases ("En déduire...", "Montrer que...",\n` +
+        `    "En utilisant la question précédente...", etc.).\n` +
+        `Your generated exercises MUST replicate this exact structure.\n` +
         `\n` +
-        `STEP 1 — FIND THE BOOK'S ACTUAL EXERCISES:\n` +
-        `• Scan every excerpt for existing exercises, problems, or questions the book poses.\n` +
-        `• Extract the EXACT context (sequence definition, function definition, setup) as\n` +
-        `  written in the book — same notation, same wording, same conditions.\n` +
-        `• Extract the EXACT sub-questions in their original order — they are already\n` +
-        `  enchained by the book's author, preserve that chain.\n` +
-        `• If the book's question says "En déduire...", "Montrer que...", "En utilisant 1a)",\n` +
-        `  keep that exact phrasing — it carries the logical dependency.\n` +
+        `EXERCISE GENERATION STRATEGY:\n` +
+        `• FIRST PRIORITY: if the CONTENT REFERENCE excerpts contain complete exercises\n` +
+        `  (context + numbered parts + sub-questions), use them EXACTLY — same notation,\n` +
+        `  same wording, same chain. They are already at the right complexity.\n` +
+        `• SECOND PRIORITY: if the excerpts contain partial exercises or theory that\n` +
+        `  implies exercises, construct exercises in the exact same style, at the same\n` +
+        `  depth, with the same type of chain.\n` +
+        `• The context (shared setup) must read like a real textbook preamble — same\n` +
+        `  density of notation, same level of assumption, same mathematical objects.\n` +
         `\n` +
-        `STEP 2 — CLASSIFY AND DISTRIBUTE:\n` +
-        `• Assign each extracted exercise a type (direct/indirect/synthesis) based on its\n` +
-        `  actual complexity: single-step = direct, multi-concept chain = indirect,\n` +
-        `  deep investigation with 4+ parts = synthesis.\n` +
-        `• Adjust points to meet the 60/20/20 distribution (scale exercise points if needed).\n` +
+        `METHOD MANDATE (solutions):\n` +
+        `• Identify which technique the book uses for each type of question on these topics.\n` +
+        `• Solve EVERY sub-question using that EXACT technique — same argument, same\n` +
+        `  intermediate steps, same level of formal rigour.\n` +
+        `• Never use a shortcut or a more advanced method the book does not use.\n` +
         `\n` +
-        `STEP 3 — SOLVE:\n` +
-        `• Solve every sub-question using the SAME METHOD and level of rigour the book uses.\n` +
+        `COMPLEXITY MANDATE — NON-NEGOTIABLE:\n` +
+        `  ✗ FORBIDDEN: generic questions ("compute the limit of f(x)") with no specific setup\n` +
+        `  ✗ FORBIDDEN: isolated sub-questions that do not chain into each other\n` +
+        `  ✗ FORBIDDEN: synthesis exercises with fewer than 4 substantive sub-questions\n` +
+        `  ✗ FORBIDDEN: direct exercises that require only one formula application\n` +
+        `  ✓ REQUIRED: every synthesis exercise ends with a hard generalisation or open question\n` +
+        `  ✓ REQUIRED: indirect exercises chain at least 3 results from 2 different concepts\n` +
         `\n` +
         `LEARNING LEVEL MANDATE:\n` +
-        `• The exam level is defined ENTIRELY by the book. Do not simplify, do not raise\n` +
-        `  the bar, do not add tools absent from the book.\n` +
-        `• A student who has studied this textbook — and only this textbook — must be able\n` +
-        `  to answer every question. If the book does not cover a method, do not use it.\n` +
+        `• The level is defined 100% by the book. A student who has studied ONLY this book\n` +
+        `  must be able to attempt every question — using only what the book teaches.\n` +
+        `• Do not introduce any tool, theorem, or notation absent from the book.\n` +
         `\n` +
-        `ANTI-PATTERN — FORBIDDEN:\n` +
-        `  Do NOT create new exercises. Do NOT invent sequences or functions not in the\n` +
-        `  excerpts. Do NOT ask generic questions (compute a limit, evaluate an integral)\n` +
-        `  unless the book itself asks exactly that. The exercises COME FROM THE BOOK.`
+        `STEP — CLASSIFY AND DISTRIBUTE:\n` +
+        `• Assign type based on actual complexity: single-concept chain = direct,\n` +
+        `  multi-concept chain = indirect, deep 4+ part investigation = synthesis.\n` +
+        `• Scale points to meet the 60/20/20 distribution.`
       : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ``,
     `MANDATORY point distribution across exercises (total = ${totalPoints} pts):`,
