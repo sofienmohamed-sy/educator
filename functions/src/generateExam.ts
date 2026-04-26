@@ -8,7 +8,7 @@ import { generateWithClaude, MAX_TOKENS_EXAM } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildExamPrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
-import { searchRelevantChunks, fetchEarlyChunks } from "./rag";
+import { searchRelevantChunks, fetchStyleChunks } from "./rag";
 import {
   generateExamRequestSchema,
   examSchema,
@@ -91,8 +91,8 @@ export const generateExam = onCall(
     let ragContext = "";
     if (req.bookIds?.length) {
       const [contentChunks, styleChunks] = await Promise.all([
-        searchRelevantChunks(req.topics.join(", "), req.bookIds, GCP_PROJECT_ID.value(), 20),
-        fetchEarlyChunks(req.bookIds),
+        searchRelevantChunks(`exercice problème ${req.topics.join(", ")}`, req.bookIds, GCP_PROJECT_ID.value(), 20),
+        fetchStyleChunks(req.bookIds, GCP_PROJECT_ID.value()),
       ]);
       ragContext = buildRagContextBlock(contentChunks, styleChunks);
     }

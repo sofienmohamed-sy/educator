@@ -267,55 +267,25 @@ async function doSearchRelevantChunks(
 // ── Style sampling ────────────────────────────────────────────────────────────
 
 /**
- * Fetches the first `chunksPerBook` chunks of each book (ordered by chunkIndex).
- * These opening pages are where textbooks establish their notation, vocabulary,
- * and pedagogical approach — used as a style reference for generation.
+ * Fetches style-representative chunks using vector search on mathematical
+ * structure keywords. This finds actual definitions, theorems, proofs, and
+ * worked examples — NOT the opening pages (TOC/preface) which contain no
+ * useful mathematical style information.
+ *
+ * The query is language-agnostic: it uses terms present in most math textbooks
+ * regardless of language (many are universal or close cognates).
  */
-export async function fetchEarlyChunks(
+export async function fetchStyleChunks(
   bookIds: string[],
-  chunksPerBook = 5,
+  projectId: string,
+  limit = 10,
 ): Promise<RagChunk[]> {
   if (!bookIds.length) return [];
-  const db = getFirestore();
-  const results: Array<{ text: string; bookId: string; chunkIndex: number }> = [];
-
-  await Promise.all(
-    bookIds.slice(0, 5).map(async (bookId) => {
-      try {
-        const snap = await db
-          .collection("books")
-          .doc(bookId)
-          .collection("chunks")
-          .orderBy("chunkIndex")
-          .limit(chunksPerBook)
-          .get();
-        for (const doc of snap.docs) {
-          const data = doc.data();
-          results.push({
-            text: data.text as string,
-            bookId,
-            chunkIndex: data.chunkIndex as number,
-          });
-        }
-      } catch (err) {
-        logger.warn("fetchEarlyChunks failed for book", { bookId, err });
-      }
-    }),
-  );
-
-  const uniqueBookIds = [...new Set(results.map((r) => r.bookId))];
-  const bookTitles: Record<string, string> = {};
-  await Promise.all(
-    uniqueBookIds.map(async (id) => {
-      const snap = await db.collection("books").doc(id).get();
-      bookTitles[id] = (snap.data()?.title as string | undefined) ?? id;
-    }),
-  );
-
-  return results.map((r) => ({
-    text: r.text,
-    bookTitle: bookTitles[r.bookId] ?? r.bookId,
-  }));
+  // Search for chunks containing actual mathematical structure
+  const styleQuery =
+    "définition théorème démonstration preuve exemple propriété corollaire" +
+    " definition theorem proof example property";
+  return searchRelevantChunks(styleQuery, bookIds, projectId, limit);
 }
 
 export async function searchRelevantChunks(

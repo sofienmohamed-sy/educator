@@ -9,7 +9,7 @@ import { generateWithClaude } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildCoursePrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
-import { searchRelevantChunks, fetchEarlyChunks } from "./rag";
+import { searchRelevantChunks, fetchStyleChunks } from "./rag";
 import {
   generateCourseRequestSchema,
   courseSchema,
@@ -52,7 +52,7 @@ export const generateCourse = onCall(
     if (req.bookIds?.length) {
       const [contentChunks, styleChunks] = await Promise.all([
         searchRelevantChunks(req.topic, req.bookIds, GCP_PROJECT_ID.value(), 20),
-        fetchEarlyChunks(req.bookIds),
+        fetchStyleChunks(req.bookIds, GCP_PROJECT_ID.value()),
       ]);
       ragContext = buildRagContextBlock(contentChunks, styleChunks);
     }
