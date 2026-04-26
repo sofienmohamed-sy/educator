@@ -226,33 +226,45 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — MIMIC THE SOUL, NOT THE WORDS:\n` +
-        `Your task is to generate a course on "${topic}" that has the SAME SOUL as the book.\n` +
-        `"Same soul" means:\n` +
+      ? `PRIMARY RULE — ASSEMBLE FROM THE BOOK, DO NOT GENERATE FROM SCRATCH:\n` +
+        `Your task is NOT to write a new course on "${topic}". Your task is to ASSEMBLE a\n` +
+        `course from the material already present in the CONTENT REFERENCE excerpts above,\n` +
+        `so that the result is indiscernible from a chapter of the same textbook.\n` +
         `\n` +
-        `WAY OF REASONING\n` +
-        `• Study HOW the book builds understanding: does it start with a concrete physical\n` +
-        `  scenario, then formalise? Does it pose a problem, show why naive solutions fail,\n` +
-        `  then refine? Does it use geometric intuition before algebra? Apply that exact\n` +
-        `  same intellectual journey to "${topic}".\n` +
-        `• When the book proves something, study the TYPE of argument it uses (approximation\n` +
-        `  + refinement? contradiction? explicit construction? graphical argument?). Use\n` +
-        `  the same type of argument for analogous results in "${topic}".\n` +
-        `• If the book motivates a concept with a real-world story, invent an equivalent\n` +
-        `  motivating story for "${topic}" — same rhetorical structure, different scenario.\n` +
+        `STEP 1 — EXTRACT THEORY FROM THE EXCERPTS:\n` +
+        `• Scan every CONTENT REFERENCE excerpt for definitions, theorems, properties, and\n` +
+        `  proofs about "${topic}".\n` +
+        `• Use those definitions and theorems VERBATIM in your theory section — same notation,\n` +
+        `  same statement, same proof argument.\n` +
+        `• DO NOT paraphrase a definition or theorem that appears in the excerpts. Use it\n` +
+        `  word for word.\n` +
         `\n` +
-        `WAY OF CHOOSING EXAMPLES\n` +
-        `• Study the KIND of examples the book favours: concrete numerical sequences?\n` +
-        `  geometric constructions? algorithmic computations? Pick examples of the same\n` +
-        `  KIND for "${topic}", including any numerical tables or step-by-step computations\n` +
-        `  the book's style calls for.\n` +
-        `• If the book's excerpts contain specific examples directly about "${topic}", use\n` +
-        `  those exact examples (same numbers, same steps) — they are the reference.\n` +
+        `STEP 2 — EXTRACT EXAMPLES FROM THE EXCERPTS:\n` +
+        `• Scan every CONTENT REFERENCE excerpt for worked examples, applications, and\n` +
+        `  numerical illustrations about "${topic}".\n` +
+        `• Use those exact examples (same numbers, same steps, same commentary) as your\n` +
+        `  workedExamples.\n` +
+        `• DO NOT invent new examples when the book already provides them.\n` +
         `\n` +
-        `WAY OF WRITING\n` +
-        `• Follow the STYLE MANDATE above for every structural and notational decision.\n` +
-        `• The reader should feel they are reading a chapter of the same book — not because\n` +
-        `  the words are copied, but because the thinking feels identical.`
+        `STEP 3 — BRIDGE ONLY GENUINE GAPS:\n` +
+        `• Only write original sentences where a transition or connection is genuinely missing\n` +
+        `  from the excerpts and is needed for coherence.\n` +
+        `• These bridges must follow the STYLE MANDATE exactly — same voice, same structure,\n` +
+        `  same level of rigour as the surrounding extracted text.\n` +
+        `• The proportion of bridge text must be small. If a section is mostly bridge text,\n` +
+        `  that means the excerpts did not contain enough material — in that case, say so in\n` +
+        `  the theory field rather than inventing content.\n` +
+        `\n` +
+        `LEARNING LEVEL MANDATE:\n` +
+        `• The learning level is defined ENTIRELY by the book. Do not simplify, do not\n` +
+        `  add prerequisites, do not raise the difficulty bar.\n` +
+        `• If the book uses ε-δ arguments, use ε-δ. If it uses geometric intuition, use\n` +
+        `  geometric intuition. If it assumes the reader knows topology, assume that.\n` +
+        `• A reader who knows the book must not notice any difference in depth or rigour\n` +
+        `  between the extracted content and any bridge text you write.\n` +
+        `\n` +
+        `HARD RULE: A reader familiar with the textbook must not be able to tell that the\n` +
+        `generated content was not written by the book's own author.`
       : `Generate a complete course lesson on the topic: "${topic}". The theory section must be thorough and pedagogically sound for the ${country} curriculum.`,
     `Include at least 2 key concepts and 2 worked examples with full solutions.`,
     ``,
@@ -322,17 +334,38 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — MIMIC THE SOUL:\n` +
-        `Generate ${count} ${difficulty}-difficulty exercises that have the SAME SOUL as the\n` +
-        `book's own exercises. "Same soul" means:\n` +
-        `• If the book's exercises contain problems directly on "${topic}", use those exact\n` +
-        `  problems (same wording, same numbers) as your first priority.\n` +
-        `• For any remaining exercises, construct NEW problems that follow the same PATTERN\n` +
-        `  as the book's exercises: same type of question, same level of abstraction, same\n` +
-        `  kind of reasoning required — not a copy, but a sibling.\n` +
-        `• Solutions must be worked out using the SAME METHOD the book uses for similar\n` +
-        `  problems — same argument type, same level of rigour, same intermediate steps.\n` +
-        `• Follow the STYLE MANDATE for all notation, vocabulary, and solution structure.`
+      ? `PRIMARY RULE — TAKE EXERCISES FROM THE BOOK, SOLVE THEM:\n` +
+        `Your task is NOT to generate new exercises. Your task is to find the book's own\n` +
+        `exercises on "${topic}" in the CONTENT REFERENCE excerpts and produce their solutions.\n` +
+        `\n` +
+        `STEP 1 — FIND THE BOOK'S EXERCISES:\n` +
+        `• Scan every CONTENT REFERENCE excerpt for exercises, problems, or practice\n` +
+        `  questions on "${topic}".\n` +
+        `• Extract them EXACTLY as written — same wording, same numbers, same conditions.\n` +
+        `• Keep the original exercise numbering if present.\n` +
+        `\n` +
+        `STEP 2 — SOLVE THEM AS THE BOOK WOULD:\n` +
+        `• Solve each extracted exercise using the SAME METHOD and level of rigour the book\n` +
+        `  uses for similar problems (follow the STYLE MANDATE for notation and structure).\n` +
+        `• The solution should look like it was written by the book's own author.\n` +
+        `\n` +
+        `STEP 3 — FILL REMAINING SLOTS WITH SIBLINGS:\n` +
+        `• If after scanning all excerpts you cannot find ${count} exercises, construct\n` +
+        `  additional exercises that are SIBLINGS of the book's exercises: same question\n` +
+        `  type, same level of abstraction, same structure — only the specific values or\n` +
+        `  function differ.\n` +
+        `• A sibling is NOT a generic exercise. It must replicate the exact question\n` +
+        `  pattern of a specific exercise found in the excerpts.\n` +
+        `\n` +
+        `LEARNING LEVEL MANDATE:\n` +
+        `• The difficulty level "${difficulty}" applies only to the SELECTION of exercises\n` +
+        `  from the book. Do not adjust the mathematical content or method — the book's\n` +
+        `  level is the only reference.\n` +
+        `• Never introduce tools, concepts, or notation not present in the excerpts.\n` +
+        `\n` +
+        `ANTI-PATTERN — FORBIDDEN:\n` +
+        `  Do NOT generate generic exercises ("compute the limit of f(x) as x→a") unless\n` +
+        `  the book asks exactly that type of question. The exercises come from the book.`
       : `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}". Difficulty: ${difficultyDesc}.`,
     `Each exercise must have a complete, step-by-step solution following the "passage between steps" approach — explain WHY each step follows from the previous one.`,
     `Include 1–3 hints per exercise to guide students without revealing the answer.`,
@@ -441,6 +474,12 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
         `\n` +
         `STEP 3 — SOLVE:\n` +
         `• Solve every sub-question using the SAME METHOD and level of rigour the book uses.\n` +
+        `\n` +
+        `LEARNING LEVEL MANDATE:\n` +
+        `• The exam level is defined ENTIRELY by the book. Do not simplify, do not raise\n` +
+        `  the bar, do not add tools absent from the book.\n` +
+        `• A student who has studied this textbook — and only this textbook — must be able\n` +
+        `  to answer every question. If the book does not cover a method, do not use it.\n` +
         `\n` +
         `ANTI-PATTERN — FORBIDDEN:\n` +
         `  Do NOT create new exercises. Do NOT invent sequences or functions not in the\n` +
