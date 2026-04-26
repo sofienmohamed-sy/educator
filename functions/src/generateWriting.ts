@@ -44,7 +44,7 @@ export const generateWriting = onCall(
 
     await enforceRateLimit(uid, "generateWriting", 10);
 
-    const profile = await getCurriculumProfile(req.country);
+    const profile = await getCurriculumProfile(req.country, undefined, req.gradeLevel, req.section);
 
     const systemPrompt = buildWritingGenerationPrompt({
       writingSubject: req.writingSubject,

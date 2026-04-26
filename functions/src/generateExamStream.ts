@@ -56,7 +56,7 @@ export const generateExamStream = onRequest(
     startSSE(res);
 
     try {
-      const profile = await getCurriculumProfile(data.country, data.subject);
+      const profile = await getCurriculumProfile(data.country, data.subject, data.gradeLevel, data.section);
       let ragContext = "";
       if (data.bookIds?.length) {
         const [contentChunks, styleChunks] = await Promise.all([

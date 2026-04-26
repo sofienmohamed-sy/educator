@@ -1228,24 +1228,120 @@ export const STATIC_CURRICULUM_PROFILES: Record<string, ProfileData> = {
 };
 
 /**
- * Look up a static curriculum profile.
- * Returns the subject-specific entry if it exists, otherwise the country-level
- * entry, otherwise null (caller falls back to Firestore).
+ * Section / track / filière overlays.
+ *
+ * Lookup key (most specific wins):
+ *   "{COUNTRY}_{LEVEL}_{SECTION}_{subject}"  → section + subject specific
+ *   "{COUNTRY}_{LEVEL}_{SECTION}"            → section level (any subject)
+ *
+ * The overlay is merged onto the base country (or country_subject) profile.
+ * Single-value fields override; text fields are appended after the base text;
+ * array fields (specialRules, referenceBooks) are concatenated.
+ */
+export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
+  // ── France · Terminale · Spécialité Maths ────────────────────────────────
+  "FR_Terminale_Spécialité Maths_math": {
+    notation:
+      "Section Spécialité Maths (BAC Général). Toutes les conventions FR maths s'appliquent (virgule décimale, ]a,b[, ln, →u, ℝ).",
+    conventions:
+      "Programme officiel BO spécial n°8 du 25 juillet 2019. Quatre blocs : (1) Algèbre & géométrie — combinatoire et dénombrement, vecteurs/droites/plans de l'espace, orthogonalité et distances dans l'espace, produit scalaire dans l'espace, représentations paramétriques, équations cartésiennes ; (2) Analyse — suites (limites, raisonnement par récurrence, suites monotones, théorème de convergence monotone, théorème des gendarmes), limites de fonctions, compléments sur la dérivation (composition, dérivée seconde), continuité (TVI et corollaire avec stricte monotonie), fonction logarithme népérien, fonctions sinus/cosinus, primitives, équations différentielles y'=ay et y'=ay+b, calcul intégral ; (3) Probabilités — variables aléatoires, espérance, variance, loi binomiale (déjà 1ère), inégalité de Bienaymé-Tchebychev, loi (faible) des grands nombres, concentration ; (4) Algorithmique & programmation — Python.",
+    stepStyle:
+      "Récurrence est LE schéma de preuve central — initialisation, hérédité, conclusion. Pour le TVI : énoncer le théorème, vérifier continuité et changement de signe (ou stricte monotonie), conclure. Pour les limites : utiliser opérations sur limites, gendarmes, ou comparaison.",
+    examFormat:
+      "Épreuve de spécialité (mars de Terminale dans l'ancien calendrier ; en juin depuis 2024) : 4 heures, 20 points, coefficient 16. 3 à 5 exercices indépendants notés 4 à 8 points. Calculatrice graphique autorisée mais souvent non décisive.",
+    referenceBooks: [
+      "Hyperbole Terminale Spécialité (Nathan)",
+      "Barbazo Terminale Spécialité (Hachette)",
+      "Indice Terminale Spécialité (Bordas)",
+      "Déclic Terminale Spécialité (Hachette)",
+    ],
+    specialRules: [
+      "Pas de matrices au programme — supprimées en 2019",
+      "Pas de nombres complexes — déplacés en option Maths Expertes",
+      "Pas d'arithmétique (PGCD, congruences) — déplacée en option Maths Expertes",
+      "Équations différentielles limitées à y'=ay et y'=ay+b (pas de second membre général)",
+      "Toujours justifier l'existence et l'unicité avec TVI + stricte monotonie",
+      "Récurrence obligatoire pour toute propriété indexée par n ∈ ℕ",
+    ],
+    notes:
+      "L'épreuve écrite teste systématiquement : un exercice probabilités, un sur les suites/récurrence, un sur fonction (étude complète : limites, dérivée, variations, équation), un sur géométrie dans l'espace.",
+  },
+};
+
+/** Apply a section overlay onto a base profile, merging text/array fields. */
+function mergeOverlay(
+  base: CurriculumProfile,
+  overlay: Partial<ProfileData>,
+): CurriculumProfile {
+  const out: CurriculumProfile = { ...base };
+  for (const k of Object.keys(overlay) as Array<keyof ProfileData>) {
+    const v = (overlay as Record<string, unknown>)[k];
+    if (v === undefined) continue;
+    if (k === "specialRules" || k === "referenceBooks" || k === "gradeLevels") {
+      const baseArr = (base[k] as string[] | undefined) ?? [];
+      (out as Record<string, unknown>)[k] = [...baseArr, ...(v as string[])];
+    } else if (
+      k === "notation" ||
+      k === "conventions" ||
+      k === "stepStyle" ||
+      k === "examFormat" ||
+      k === "exerciseStyle" ||
+      k === "notes"
+    ) {
+      const baseTxt = (base[k] as string | undefined) ?? "";
+      (out as Record<string, unknown>)[k] = baseTxt
+        ? `${baseTxt}\n— Section : ${v as string}`
+        : (v as string);
+    } else {
+      (out as Record<string, unknown>)[k] = v;
+    }
+  }
+  return out;
+}
+
+/**
+ * Look up a static curriculum profile, optionally narrowed by grade level
+ * and section (filière / Spécialité / Leistungskurs / PCM-PCB / etc.).
+ *
+ * Resolution order:
+ *   1. Base profile = `{COUNTRY}_{subject}` if available, else `{COUNTRY}`.
+ *   2. If gradeLevel + section provided, look for a section overlay
+ *      `{COUNTRY}_{LEVEL}_{SECTION}_{subject}` then `{COUNTRY}_{LEVEL}_{SECTION}`
+ *      and merge it onto the base.
+ *   3. Returns null if neither base nor overlay matches (caller falls back to
+ *      Firestore, then to Claude's built-in knowledge).
  */
 export function lookupStaticProfile(
   countryCode: string,
   subject?: Subject,
+  gradeLevel?: string,
+  section?: string,
 ): CurriculumProfile | null {
   const normalized = countryCode.trim().toUpperCase();
   if (!normalized) return null;
 
+  let base: CurriculumProfile | null = null;
   if (subject) {
-    const subjectEntry = STATIC_CURRICULUM_PROFILES[`${normalized}_${subject}`];
-    if (subjectEntry) return { countryCode: normalized, ...subjectEntry };
+    const e = STATIC_CURRICULUM_PROFILES[`${normalized}_${subject}`];
+    if (e) base = { countryCode: normalized, ...e };
+  }
+  if (!base) {
+    const e = STATIC_CURRICULUM_PROFILES[normalized];
+    if (e) base = { countryCode: normalized, ...e };
   }
 
-  const countryEntry = STATIC_CURRICULUM_PROFILES[normalized];
-  if (countryEntry) return { countryCode: normalized, ...countryEntry };
+  if (gradeLevel && section) {
+    const lvl = gradeLevel.trim();
+    const sec = section.trim();
+    const key1 = subject ? `${normalized}_${lvl}_${sec}_${subject}` : null;
+    const key2 = `${normalized}_${lvl}_${sec}`;
+    const overlay =
+      (key1 && STATIC_SECTION_PROFILES[key1]) || STATIC_SECTION_PROFILES[key2];
+    if (overlay) {
+      const root = base ?? { countryCode: normalized };
+      return mergeOverlay(root, overlay);
+    }
+  }
 
-  return null;
+  return base;
 }

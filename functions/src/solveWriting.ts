@@ -52,7 +52,7 @@ export const solveWriting = onCall(
 
     await enforceRateLimit(uid, "solveWriting", 30);
 
-    const profile = await getCurriculumProfile(req.country);
+    const profile = await getCurriculumProfile(req.country, undefined, req.gradeLevel, req.section);
 
     const systemPrompt = buildWritingAnalysisPrompt({
       country: req.country,
