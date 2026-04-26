@@ -341,15 +341,16 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
         `\n` +
         `Every exercise has:\n` +
         `  1. ONE OBJECTIVE: a specific mathematical result to prove, compute, or construct.\n` +
-        `     This is the destination. The student only understands the full scope by\n` +
-        `     reaching the last sub-question.\n` +
-        `  2. A HELPER CHAIN: sub-questions a), b), c), ... embedded in the question text.\n` +
-        `     Each helper is a stepping stone. Each uses the result of the previous one.\n` +
+        `     This is the destination — the final synthesis question.\n` +
+        `  2. HELPER QUESTIONS: instead of writing "Hint: first show X", you pose a question\n` +
+        `     "Show that X." That IS the helper. The student answers it and uses the result\n` +
+        `     in the next question. Helpers can be type "direct" (method stated) or\n` +
+        `     "indirect" (method unstated). NEVER type "synthesis".\n` +
         `  3. DIFFICULTY = HOW HIDDEN THE HELPERS ARE:\n` +
-        `     • easy   → helpers explicit; path visible from sub-question 1\n` +
-        `     • medium → 1–2 helpers semi-hidden; non-trivial connections required\n` +
-        `     • hard   → helpers subtle; student must discover the path; objective\n` +
-        `                only revealed by the final sub-question\n` +
+        `     • easy   → direct helpers only; path is visible from sub-question 1\n` +
+        `     • medium → mix of direct and indirect helpers; 1–2 non-trivial connections\n` +
+        `     • hard   → mostly indirect helpers; student must discover the path;\n` +
+        `                synthesis objective only revealed at the last sub-question\n` +
         `\n` +
         `TARGET DIFFICULTY — "${difficulty.toUpperCase()}":\n` +
         `${difficultyHelperDesc}\n` +
@@ -467,24 +468,23 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
         `Every exercise has:\n` +
         `  1. ONE OBJECTIVE: a specific mathematical result to prove, compute, or construct.\n` +
         `     The student only discovers the full scope of the objective at the last sub-question.\n` +
-        `  2. A HELPER CHAIN: numbered parts 1), 2), 3), ... each subdivided into lettered\n` +
-        `     sub-questions a), b), c), ... Every helper uses the result of the previous one.\n` +
-        `  3. DIFFICULTY = HOW VISIBLE THE HELPERS ARE:\n` +
-        `     The three exercise TYPES reflect this:\n` +
-        `     • DIRECT    → helpers EXPLICIT. The student sees the path immediately.\n` +
-        `                   Sub-questions directly state what to do.\n` +
-        `     • INDIRECT  → helpers SEMI-HIDDEN. The student must make 1–2 non-trivial\n` +
-        `                   connections between sub-questions to reach the objective.\n` +
-        `     • SYNTHESIS → helpers SUBTLE. The connection between sub-questions and the\n` +
-        `                   objective is hidden. The student must discover the path.\n` +
-        `                   The objective is only revealed by the final sub-question,\n` +
-        `                   which is a hard generalisation or unexpected result.\n` +
+        `  2. HELPER QUESTIONS: instead of writing "Hint: first show X", you pose a question\n` +
+        `     "Show that X." — that IS the helper. The student answers it and the result\n` +
+        `     becomes available for the next question. Helpers are of type "direct" or\n` +
+        `     "indirect". They are NEVER of type "synthesis".\n` +
+        `  3. THE SYNTHESIS QUESTION: the final sub-question — the objective the helpers\n` +
+        `     were building toward. Requires combining all previous results.\n` +
+        `\n` +
+        `  QUESTION TYPES:\n` +
+        `     • direct    → the question wording explicitly states the method to use\n` +
+        `     • indirect  → the question names the target, but NOT the method\n` +
+        `     • synthesis → the final objective; method and path are both hidden\n` +
         `\n` +
         `BOOK ANALYSIS — MANDATORY BEFORE WRITING:\n` +
         `Scan every CONTENT REFERENCE excerpt. For each exercise found:\n` +
         `  • Identify its objective (what mathematical result does it lead to?)\n` +
-        `  • Map the helper chain: which sub-question enables the next?\n` +
-        `  • Classify its type (direct/indirect/synthesis) based on helper visibility.\n` +
+        `  • Map the helper questions: which one enables the next? what type is each?\n` +
+        `  • Classify each sub-question as direct, indirect, or synthesis.\n` +
         `  • Note the exact enchaining phrases ("En déduire...", "Montrer que...",\n` +
         `    "En utilisant 1a)...", "En déduire ensuite que...", etc.).\n` +
         `\n` +
@@ -507,32 +507,42 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
         `• Do not introduce any tool, theorem, or notation absent from the book.`
       : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ``,
-    `SUBPART TYPE RULES (applied within EACH exercise individually):`,
-    `  Each exercise must have its own 60/20/20 distribution of subpart types:`,
+    `SUBPART TYPE DEFINITIONS (60/20/20 within EACH exercise):`,
+    ``,
+    `  WHAT IS A HELPER?`,
+    `  A helper is a question posed to the student — not a written hint or indication.`,
+    `  Instead of saying "Hint: first show that u_n is bounded", you ask:`,
+    `  "Show that (u_n) is bounded above." That question IS the helper.`,
+    `  Helpers exist to make the final synthesis question reachable step by step.`,
+    `  Helper questions are of type "direct" or "indirect" — NEVER "synthesis".`,
     ``,
     `  "direct"    (60% of subpart points per exercise):`,
-    `      HELPERS that are EXPLICIT. The question states exactly what to do and how.`,
+    `      A helper question where the method is explicit in the wording.`,
+    `      The student can see exactly what to do and how from the question itself.`,
     `      Example: "Using the definition of the limit, show that u_n → L."`,
-    `      The student can see the method directly from the question wording.`,
+    `               "Apply the mean value theorem to f on [a, b]."`,
     ``,
     `  "indirect"  (20% of subpart points per exercise):`,
-    `      HELPERS that are SEMI-HIDDEN. The question names the target but not the method.`,
-    `      Example: "Show that the sequence (u_n) is bounded above."`,
-    `      The student must choose the method themselves, but the target is clear.`,
+    `      A helper question where the method is NOT stated — only the target.`,
+    `      The student must choose the method themselves.`,
+    `      Example: "Show that (u_n) is monotone and bounded."`,
+    `               "Determine the sign of f'(x) on ℝ."`,
     ``,
     `  "synthesis" (20% of subpart points per exercise):`,
-    `      THE OBJECTIVE — NOT a helper. This is the final question the exercise is`,
-    `      building toward. The connection to all previous helpers is non-obvious.`,
-    `      The student must have understood everything to reach this answer.`,
-    `      ALWAYS placed LAST. Example: "Deduce the general behaviour of (u_n) as n→∞."`,
+    `      THE FINAL OBJECTIVE of the exercise — NOT a helper.`,
+    `      This is the question that the helpers have been building toward.`,
+    `      It requires combining ALL previous results. Without having answered`,
+    `      the helpers, the student cannot answer this.`,
+    `      ALWAYS placed LAST in the exercise.`,
+    `      Example: "Deduce that (u_n) converges and find its limit."`,
+    `               "Conclude about the global behaviour of f."`,
     ``,
-    `  CRITICAL RULE: helpers are ONLY "direct" or "indirect". "synthesis" is reserved`,
-    `  EXCLUSIVELY for the final sub-question(s) that reveal the exercise's objective.`,
-    `  A "synthesis" subpart NEVER comes before a "direct" or "indirect" one.`,
+    `  ORDER RULE: direct helpers → indirect helpers → synthesis`,
+    `  The synthesis question NEVER appears before a direct or indirect question.`,
     ``,
     `Structural constraints:`,
     `  - sum(exercises[i].totalPoints) MUST equal ${totalPoints} exactly.`,
-    `  - Each exercise MUST have ONE clear objective (the synthesis sub-question).`,
+    `  - Each exercise MUST have ONE synthesis sub-question (the objective).`,
     `  - Each exercise MUST have at least 2 numbered parts, each with at least 1 sub-question.`,
     `  - ALL sub-questions must chain: each uses the result of the previous.`,
     `    Use enchaining phrases: "En déduire...", "En utilisant 1a)...",`,
