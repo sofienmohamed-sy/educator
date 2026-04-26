@@ -1475,6 +1475,143 @@ export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
     ],
   },
 
+  // ── Tunisie · 4ème (Bac) · Section Mathématiques ─────────────────────────
+  "TN_4ème (Bac)_Mathématiques_math": {
+    notation:
+      "Section Mathématiques (la plus exigeante en math au Bac tunisien). Notation FR (virgule décimale, ]a,b[, ln, →u). Coefficient maths : 4.",
+    conventions:
+      "Programme officiel Ministère de l'Éducation — réforme 2008 et mises à jour. Couvre : (1) Continuité et limites (théorème des valeurs intermédiaires, prolongement par continuité) ; (2) Suites réelles (récurrentes, monotones, adjacentes, théorème de la convergence monotone, suites particulières — arithmétiques, géométriques) ; (3) Dérivabilité (théorème de Rolle, théorème des accroissements finis, sens de variation, optimisation) ; (4) Fonctions réciproques (continuité, dérivabilité, dérivée de la fonction réciproque) ; (5) Primitives et calcul intégral (intégration par parties, changement de variable) ; (6) Fonctions logarithme népérien et exponentielle, fonctions puissances ; (7) Équations différentielles y'+ay=b, y'+ay=f(x), y''+ay'+by=0 ; (8) Nombres complexes (forme algébrique, trigonométrique, exponentielle, équations dans ℂ, applications géométriques) ; (9) Géométrie : isométries du plan (translations, rotations, symétries, déplacements, antidéplacements) ET similitudes ; (10) Arithmétique (divisibilité, congruences, PGCD, théorème de Bézout, théorème de Gauss) ; (11) Probabilités (variables aléatoires, lois discrètes, espérance, variance).",
+    stepStyle:
+      "Style FR formel hérité du système français. Démonstrations rigoureuses attendues, en particulier pour Rolle, TAF, TVI. Pour les isométries : préciser éléments caractéristiques (axe, centre, angle). Pour les similitudes : donner forme z' = az + b avec |a| = rapport, arg(a) = angle.",
+    examFormat:
+      "Bac : 4 heures, 20 points, coefficient 4. 4 exercices : analyse (avec étude de fonction complète), complexes/géométrie, arithmétique, probabilités. Calculatrice non programmable autorisée.",
+    referenceBooks: [
+      "Manuels Ministère Education TN 4ème Math",
+      "Sigmaths exercices et corrigés",
+    ],
+    specialRules: [
+      "Géométrie plane : isométries (déplacements/antidéplacements) ET similitudes au programme — particulier à la TN",
+      "Arithmétique : Bézout et Gauss attendus avec leurs noms",
+      "Équations différentielles d'ordre 2 à coefficients constants au programme",
+      "Pour les fonctions réciproques : justifier l'existence par continuité + stricte monotonie",
+      "Pas de structures algébriques abstraites (groupes/anneaux) — moins formel que le SM marocain",
+    ],
+  },
+
+  // ── Tunisie · 4ème (Bac) · Sciences expérimentales — math view ───────────
+  "TN_4ème (Bac)_Sciences expérimentales_math": {
+    notation:
+      "Section Sciences expérimentales — niveau math intermédiaire (entre Mathématiques et Eco-Gestion). Coefficient maths : 3.",
+    conventions:
+      "Programme math allégé par rapport à la section Mathématiques : limites/continuité, suites, dérivabilité (sans Rolle/TAF formel), fonctions ln/exp, primitives et calcul intégral, équations différentielles simples (1er ordre uniquement), nombres complexes (forme algébrique + module/argument, applications géométriques limitées), probabilités. PAS d'arithmétique avec Bézout/Gauss formels, PAS d'isométries/similitudes, PAS d'équations différentielles d'ordre 2.",
+    stepStyle:
+      "Style FR mais moins formel que la section Math. Privilégier les calculs et applications. Démonstrations concises.",
+    examFormat:
+      "Bac : 3 heures, coefficient 3. 3 exercices : analyse (étude de fonction), complexes, probabilités.",
+    specialRules: [
+      "Programme math allégé — pas d'arithmétique avec Bézout/Gauss",
+      "Pas d'isométries/similitudes",
+      "Équations différentielles limitées au 1er ordre",
+      "Étudier la matière principale (SVT/PC) en parallèle — exercices souvent contextualisés sciences naturelles",
+    ],
+  },
+
+  // ── Tunisie · 4ème (Bac) · Sciences expérimentales — physics view ────────
+  "TN_4ème (Bac)_Sciences expérimentales_physics": {
+    notation:
+      "Section Sciences expérimentales en physique-chimie. g = 10 m·s⁻². Concentrations en mol·L⁻¹. Vecteurs avec flèche →.",
+    conventions:
+      "Programme physique-chimie : (1) Mécanique — lois de Newton, mouvement de translation, mouvement de rotation autour d'un axe fixe, oscillations mécaniques libres et forcées (pendule), gravitation universelle ; (2) Électricité — dipôle RC, dipôle RL, dipôle RLC (oscillations libres et forcées, résonance), modulation/démodulation ; (3) Optique et ondes — propagation des ondes mécaniques, ondes lumineuses ; (4) Atomistique et nucléaire — décroissance radioactive, masse-énergie ; (5) Chimie — cinétique chimique, équilibres chimiques, acide-base (pH, dosages), pile et électrolyse, chimie organique simplifiée (alcools, acides carboxyliques, esters, savons).",
+    stepStyle:
+      "Démarche standard : système, référentiel, bilan des forces, schéma. Pour les équations différentielles d'oscillateur : poser la solution, identifier pulsation/période, conditions initiales.",
+    examFormat:
+      "Bac : 3h30, coefficient 4. 3 exercices : un mécanique, un électricité, un chimie. Formulaire NON fourni — formules à connaître.",
+    specialRules: [
+      "g = 10 m·s⁻² par défaut",
+      "Pas de formulaire en examen — formules apprises par cœur",
+      "Mécanismes en chimie organique abordés de manière descriptive (sans flèches courbes formelles)",
+      "Travail pratique évalué : protocoles, courbes, exploitation",
+    ],
+  },
+
+  // ── Tunisie · 4ème (Bac) · Informatique (Sciences de l'informatique) ─────
+  "TN_4ème (Bac)_Informatique_informatics": {
+    notation:
+      "Section Sciences de l'Informatique (SI). Pseudocode formel TN (DEBUT/FIN/TANTQUE/SI/FINSI/POUR) ET langage Python (depuis 2022). Coefficient informatique : 4.",
+    conventions:
+      "Programme officiel 2022/2023 (réforme — Pascal remplacé par Python comme langage cible). Six axes : (1) Algorithmique — analyse d'un problème, structures de contrôle, structures de données (tableaux, enregistrements, fichiers), procédures et fonctions, récursivité ; (2) Programmation — implémentation Python des algorithmes (anciennement Pascal) ; (3) Bases de données — modèle relationnel, SQL (CREATE TABLE, SELECT, INSERT, UPDATE, DELETE, JOIN), normalisation, MERISE (modèle conceptuel/logique/physique de données) ; (4) Systèmes, technologies et Internet — réseaux locaux, Internet, services web ; (5) Pensée computationnelle — décomposition, abstraction, généralisation ; (6) Robotique et IoT (introduction).",
+    stepStyle:
+      "TOUJOURS commencer par : (a) analyse du problème (entrées/sorties/traitement), (b) algorithme en pseudocode TN (DEBUT/FIN), (c) tableau de déclaration des objets (TDO), (d) traduction en Python (ou Pascal pour anciens cursus). Les types doivent être déclarés explicitement : ENTIER, REEL, CHAINE DE CARACTERES, BOOLEEN, TABLEAU, ENREGISTREMENT.",
+    examFormat:
+      "Bac : épreuve théorique 3 heures (algorithmique, programmation, BDD, MCD/MLD) coefficient 1.5 + épreuve pratique sur ordinateur 2 heures (programmation Python + SQL) coefficient 1.5. Bac pratique tunisien célèbre — on construit une appli complète à partir d'un cahier des charges.",
+    referenceBooks: [
+      "Manuels MEN TN 4ème SI (Algorithmique et programmation)",
+      "Manuels MEN TN 4ème SI (Bases de données)",
+    ],
+    specialRules: [
+      "CRITIQUE : pseudocode TN avec DEBUT/FIN — NE PAS utiliser le style Python pseudocode FR",
+      "Tableau de déclaration des objets (TDO) OBLIGATOIRE avant tout algorithme",
+      "Bac pratique sur ordinateur — Python + SQLite/MySQL",
+      "Pour la BDD : MCD (Merise) avec entités/associations/cardinalités, puis MLD relationnel, puis SQL",
+      "Récursivité au programme — toujours identifier cas de base + cas récursif",
+      "Anciennement Pascal — depuis 2022 c'est Python 3 ; certaines questions peuvent rester en Pascal",
+      "Pas de notation Big-O formelle — analyse de complexité descriptive",
+    ],
+  },
+
+  // ── Tunisie · 4ème (Bac) · Section Technique — math view ─────────────────
+  "TN_4ème (Bac)_Technique_math": {
+    notation:
+      "Section Technique — programme math proche des Sciences expérimentales mais avec applications ingénierie. Coefficient maths : 3.",
+    conventions:
+      "Programme math identique à Sciences expérimentales pour l'essentiel : analyse (limites, dérivabilité, primitives, intégrales), suites, ln/exp, équations différentielles simples, nombres complexes, probabilités. Applications fréquentes en mécanique/électricité.",
+    stepStyle:
+      "Calculs et applications privilégiés. Exercices souvent contextualisés (transmission de mouvement, circuits RC/RL, signaux).",
+    examFormat:
+      "Bac : 3 heures, coefficient 3. 3 exercices.",
+    specialRules: [
+      "Programme math identique à Sciences expérimentales",
+      "Élève suit Génie Mécanique + Génie Électrique en parallèle",
+    ],
+  },
+
+  // ── Tunisie · 4ème (Bac) · Section Technique — physics view ──────────────
+  "TN_4ème (Bac)_Technique_physics": {
+    notation:
+      "Section Technique en physique : focus sur les applications en génie mécanique et génie électrique. g = 10 m·s⁻².",
+    conventions:
+      "Programme physique-chimie identique à Sciences expérimentales (mécanique, électricité, ondes, nucléaire, chimie). MAIS l'élève suit aussi : (a) Génie Mécanique — analyse fonctionnelle (FAST), transmission de mouvement (poulies, chaînes, engrenages, came, excentrique, pignon-crémaillère, bielle-manivelle), guidage en translation, liaisons mécaniques ; (b) Génie Électrique — logique combinatoire et séquentielle, compteurs, unité arithmétique et logique (UAL), automates programmables (API), microcontrôleurs.",
+    stepStyle:
+      "Pour génie mécanique : schéma cinématique ou diagramme FAST. Pour génie électrique : table de vérité, équation logique simplifiée (Karnaugh), schéma logique.",
+    examFormat:
+      "Bac : 3h30 physique-chimie + épreuves spécifiques génie mécanique et génie électrique.",
+    specialRules: [
+      "Génie mécanique au programme — pas en Sciences expérimentales",
+      "Génie électrique au programme — logique numérique, API, microcontrôleurs",
+      "Pour les transmissions : calculer rapport de transmission, vitesse de sortie",
+    ],
+  },
+
+  // ── Tunisie · 4ème (Bac) · Économie & Gestion — math view ────────────────
+  "TN_4ème (Bac)_Économie & Gestion_math": {
+    notation:
+      "Section Économie & Gestion — programme math le plus allégé du Bac scientifique tunisien. Coefficient maths : 2.",
+    conventions:
+      "Programme math allégé : (1) Analyse — limites, dérivabilité, primitives, intégrales (sans intégration par parties complexe) ; (2) Fonctions ln/exp (focus applications économiques : intérêt composé, croissance exponentielle, fonctions de coût/recette/profit) ; (3) Suites arithmétiques et géométriques (applications financières) ; (4) Statistiques à deux variables (régression linéaire, ajustement affine, méthode des moindres carrés, coefficient de corrélation) ; (5) Probabilités (variables aléatoires, espérance, variance) ; (6) Théorie des graphes (graphes orientés, matrice d'adjacence, plus court chemin).",
+    stepStyle:
+      "Approche orientée applications économiques et gestion. Calculs financiers, optimisation économique. Démonstrations limitées.",
+    examFormat:
+      "Bac : 2 heures, coefficient 2. 2 ou 3 exercices : analyse appliquée, statistiques, probabilités/graphes.",
+    specialRules: [
+      "PAS de nombres complexes au programme — particulier à cette section",
+      "PAS d'arithmétique abstraite",
+      "PAS d'équations différentielles",
+      "Statistiques à 2 variables et régression linéaire au programme — central",
+      "Théorie des graphes au programme (orientés, plus court chemin)",
+      "Exercices contextualisés économie/gestion : coûts, recettes, profits, intérêts composés, démographie",
+    ],
+  },
+
   // ── France · Terminale · Spécialité NSI (6h/sem) ─────────────────────────
   "FR_Terminale_Spécialité NSI_informatics": {
     notation:
