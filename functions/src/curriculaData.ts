@@ -1612,6 +1612,101 @@ export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
     ],
   },
 
+  // ── Deutschland · Abitur · Leistungskurs (LK) — math view ────────────────
+  "DE_Abitur_Leistungskurs (LK)_math": {
+    notation:
+      "Leistungskurs Mathematik (5 Wochenstunden, erhöhtes Anforderungsniveau). Komma als Dezimaltrennzeichen (3,14 nicht 3.14). Standardnotation für Intervalle: [a;b] geschlossen, ]a;b[ offen (deutsche Variante mit Semikolon). Vektoren mit Pfeil oder fettgedruckt: →v oder v.",
+    conventions:
+      "KMK-Bildungsstandards 2012 für die Allgemeine Hochschulreife. Drei Leitideen: (1) Analysis — Folgen und Grenzwerte, Differentialrechnung (e-Funktion, Logarithmus, trigonometrische Funktionen, ihre Verkettungen), Kurvendiskussion (Extrema, Wendepunkte, Asymptoten), Integralrechnung (bestimmtes/unbestimmtes Integral, Hauptsatz der Differential- und Integralrechnung, Substitutionsregel, partielle Integration im LK), Anwendungen (Volumen, Mittelwert) ; (2) Lineare Algebra / Analytische Geometrie — Vektoren im ℝ³, Skalarprodukt, Vektorprodukt (Kreuzprodukt) im LK, Geraden und Ebenen (Parameter-, Normalen- und Koordinatenform), Lagebeziehungen, Abstände, Winkel, lineare Gleichungssysteme (Gauß-Verfahren), Matrizen und Übergangsmatrizen (Markow-Ketten) im LK ; (3) Stochastik — Zufallsgrößen, Wahrscheinlichkeitsverteilungen, Bernoulli-Ketten und Binomialverteilung, Erwartungswert, Varianz, Standardabweichung, Hypothesentests (einseitig + zweiseitig im LK), Normalverteilung als stetige Verteilung im LK.",
+    stepStyle:
+      "Sehr formaler Stil, präzise Begründungen erforderlich. Sätze beim Namen nennen (Mittelwertsatz, Fundamentalsatz der Analysis, Hauptsatz). Bei Funktionsuntersuchungen vollständige Kurvendiskussion: Definitionsbereich, Symmetrie, Nullstellen, Achsenschnitte, Extrempunkte, Wendepunkte, Verhalten im Unendlichen, Skizze.",
+    examFormat:
+      "Schriftliche Abiturprüfung LK: 240–300 Minuten (je nach Bundesland), erhöhtes Anforderungsniveau, max. 120 Punkte. Zwei Teile: (A) hilfsmittelfreier Teil — kurze Aufgaben ohne Taschenrechner, (B) Hauptteil mit GTR/CAS oder Tabellenkalkulation, mehrere komplexe Aufgaben mit Teilaufgaben. Je mindestens ein Drittel Analysis. Stochastik und Geometrie ergänzen.",
+    referenceBooks: [
+      "Lambacher Schweizer Mathematik Qualifikationsphase LK (Klett)",
+      "Bigalke/Köhler Mathematik Sekundarstufe II (Cornelsen)",
+      "Elemente der Mathematik LK (Schroedel/Westermann)",
+    ],
+    specialRules: [
+      "Erhöhtes Anforderungsniveau — Komplexität, Tiefe, Eigenständigkeit höher als im GK",
+      "Vektorprodukt (Kreuzprodukt) NUR im LK — im GK nicht enthalten",
+      "Übergangsmatrizen / Markow-Ketten NUR im LK",
+      "Normalverteilung als stetige Verteilung NUR im LK (im GK nur diskret)",
+      "Partielle Integration NUR im LK",
+      "Beim Hypothesentest: zweiseitige Tests im LK, einseitige im GK",
+      "Hilfsmittelfreier Teil A obligatorisch — keine Rechner, kein Tafelwerk",
+    ],
+  },
+
+  // ── Deutschland · Abitur · Grundkurs (GK) — math view ────────────────────
+  "DE_Abitur_Grundkurs (GK)_math": {
+    notation:
+      "Grundkurs Mathematik (3 Wochenstunden, grundlegendes Anforderungsniveau). Komma als Dezimaltrennzeichen, [a;b] / ]a;b[, →v.",
+    conventions:
+      "KMK-Bildungsstandards 2012, grundlegendes Anforderungsniveau. Selbe drei Leitideen wie LK aber reduzierte Tiefe: (1) Analysis — Differentialrechnung (e-Funktion, Logarithmus, trigonometrische Funktionen), Kurvendiskussion, Integralrechnung (Hauptsatz, einfache Substitution — KEINE partielle Integration), Anwendungen ; (2) Analytische Geometrie — Vektoren im ℝ³, Skalarprodukt (KEIN Kreuzprodukt), Geraden und Ebenen, Lagebeziehungen, Abstände, lineare Gleichungssysteme ; (3) Stochastik — Zufallsgrößen, Bernoulli-Ketten, Binomialverteilung, Erwartungswert, einseitiger Hypothesentest, Normalverteilung NUR als Näherung der Binomialverteilung (nicht als eigenständige stetige Verteilung).",
+    stepStyle:
+      "Formaler Stil aber mit weniger Tiefe als im LK. Begründungen erforderlich, aber knapper. Vollständige Kurvendiskussion erwartet, jedoch ohne den abstraktesten Anteil.",
+    examFormat:
+      "Schriftliche Abiturprüfung GK: 180–240 Minuten, grundlegendes Anforderungsniveau, max. 90 Punkte. Auch hier Teil A (hilfsmittelfrei) + Teil B (mit GTR). Aufgaben weniger komplex als im LK, Vorstrukturierung höher.",
+    referenceBooks: [
+      "Lambacher Schweizer Mathematik Qualifikationsphase GK (Klett)",
+      "Bigalke/Köhler GK (Cornelsen)",
+    ],
+    specialRules: [
+      "Grundlegendes Anforderungsniveau — Komplexität reduziert",
+      "KEIN Vektorprodukt / Kreuzprodukt",
+      "KEINE Übergangsmatrizen / Markow-Ketten",
+      "KEINE partielle Integration — nur einfache Substitution",
+      "Hypothesentest: nur einseitig",
+      "Normalverteilung: nur als Näherung der Binomialverteilung (Stichwort Sigma-Regeln)",
+      "Hilfsmittelfreier Teil A obligatorisch wie im LK",
+    ],
+  },
+
+  // ── Deutschland · Abitur · Leistungskurs (LK) — physics view ─────────────
+  "DE_Abitur_Leistungskurs (LK)_physics": {
+    notation:
+      "Leistungskurs Physik (5 Wochenstunden, erhöhtes Anforderungsniveau). g ≈ 9,81 m·s⁻². SI-Einheiten strikt. Vektoren mit Pfeil →F oder fettgedruckt F.",
+    conventions:
+      "KMK-Bildungsstandards. Themengebiete (LK-Tiefe): (1) Mechanik — Kinematik (gleichförmige + gleichmäßig beschleunigte Bewegung), Dynamik (Newtonsche Gesetze, Impuls und Impulserhaltung, Arbeit/Energie/Leistung, Energieerhaltung), Schwingungen (harmonische Schwingung, Pendel, gedämpfte/erzwungene Schwingung), Wellen (longitudinal/transversal, Interferenz, stehende Wellen) ; (2) Elektrodynamik — elektrische und magnetische Felder, Coulomb-Gesetz, elektrisches Feld im Plattenkondensator, Bewegung geladener Teilchen in Feldern, Lorentzkraft, Induktion (Faradaysches Gesetz, Selbstinduktion), Wechselstromkreise, elektromagnetische Schwingungen und Wellen ; (3) Quantenphysik — Photoeffekt (Einstein), de-Broglie-Materiewellen, Welle-Teilchen-Dualismus, Heisenbergsche Unschärferelation, Atommodelle, Energiequantelung ; (4) Atom- und Kernphysik — Atomspektren, Kernumwandlungen, Radioaktivität, Bindungsenergie, Massendefekt.",
+    stepStyle:
+      "Sätze und Gesetze beim Namen nennen. Schritte: Skizze, gegebene Größen, gesuchte Größe, physikalisches Gesetz, Formel, Einheitenkontrolle, Ergebnis mit Einheit. Diagramme (s-t-, v-t-, F-s-, U-I-, U-t-Diagramme) korrekt beschriften und auswerten.",
+    examFormat:
+      "Schriftliche Abiturprüfung Physik LK: 240–300 Minuten. Aufgaben kombinieren Mechanik, Elektrodynamik, Quantenphysik. Auswertung von Experimenten häufig zentral.",
+    referenceBooks: [
+      "Metzler Physik Sekundarstufe II (Schroedel)",
+      "Dorn-Bader Physik Sek II (Schroedel/Westermann)",
+      "Cornelsen Physik LK Oberstufe",
+    ],
+    specialRules: [
+      "Relativitätstheorie ist seit 2025 NICHT mehr Pflichtinhalt im Zentralabitur",
+      "Quantenphysik im LK quantitativ — Photoeffekt mit hf = W_A + E_kin",
+      "Im LK formal: Schwingungsdifferentialgleichung lösen",
+      "Lorentzkraft mit Vektorprodukt im LK (im GK qualitativ)",
+      "Induktion quantitativ mit Faradayschem Gesetz",
+      "SI-Einheiten konsequent — Einheitenkontrolle bei jedem Endergebnis",
+    ],
+  },
+
+  // ── Deutschland · Abitur · Grundkurs (GK) — physics view ─────────────────
+  "DE_Abitur_Grundkurs (GK)_physics": {
+    notation:
+      "Grundkurs Physik (3 Wochenstunden, grundlegendes Anforderungsniveau). g ≈ 9,81 m·s⁻². SI-Einheiten.",
+    conventions:
+      "KMK-Bildungsstandards, GK-Tiefe: Themen (1) Wellen und Teilchen in Feldern — Bewegung in elektrischen und magnetischen Feldern, Lorentzkraft (qualitativ), Wellenphänomene ; (2) Quantenobjekte — Photoeffekt qualitativ, Doppelspaltexperiment, Welle-Teilchen-Dualismus, einfache Atommodelle ; (3) Elektrodynamik und Energieübertragung — elektrische und magnetische Felder, Induktion (qualitativ und einfache quantitative Anwendungen), Wechselstrom, Transformator ; (4) Strahlung und Materie — Atomspektren, Radioaktivität, Kernumwandlungen, Halbwertszeit.",
+    stepStyle:
+      "Weniger formal als LK. Begründungen mit physikalischen Gesetzen, aber komplexe Differentialgleichungen werden nicht vollständig hergeleitet. Auswertung von Experimenten und Diagrammen weiterhin wichtig.",
+    examFormat:
+      "Schriftliche Abiturprüfung Physik GK: 180–240 Minuten. Drei Aufgabenfelder kombinierend.",
+    specialRules: [
+      "Quantenphysik im GK qualitativ — Formel hf = W_A + E_kin als gegebene Beziehung",
+      "Lorentzkraft im GK qualitativ — Skalarbetrag F = qvB ohne Vektorprodukt",
+      "Schwingungs-DGL nicht gelöst — nur Ergebnisse genutzt (sin/cos-Form)",
+      "Induktion qualitativ + einfache U_ind-Berechnungen",
+      "Relativitätstheorie nicht mehr Pflicht (wie LK)",
+    ],
+  },
+
   // ── France · Terminale · Spécialité NSI (6h/sem) ─────────────────────────
   "FR_Terminale_Spécialité NSI_informatics": {
     notation:
