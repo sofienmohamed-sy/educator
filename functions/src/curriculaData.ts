@@ -2031,6 +2031,149 @@ export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
   // Biology subject not yet in our enum — when subject==chemistry is used by
   // Sciences-section students, the chemistry overlay above applies.
 
+  // ── USA · Grade 12 (AP) · AP track — math view ────────────────────────────
+  // Most common Grade-12 math AP courses: AP Calculus BC (recommended for STEM),
+  // AP Calculus AB (one-semester equivalent), AP Statistics, AP Precalculus.
+  "US_Grade 12 (AP)_AP track_math": {
+    notation:
+      "AP track Mathematics. Decimal point (3.14). Standard interval notation: (a,b) open, [a,b] closed. AP scoring scale 1-5. College Board CED (Course and Exam Description) is the canonical source.",
+    conventions:
+      "AP Calculus BC syllabus (CED 2024-25): superset of AP Calculus AB. Ten units: (1) Limits and Continuity (squeeze theorem, IVT) ; (2) Differentiation: Definition and Fundamental Properties (derivative as limit, basic rules) ; (3) Differentiation: Composite, Implicit, and Inverse Functions (chain rule, implicit differentiation, inverse trig derivatives) ; (4) Contextual Applications of Differentiation (rates of change, related rates, linearization, L'Hôpital's rule) ; (5) Analytical Applications of Differentiation (MVT, EVT, monotonicity, concavity, optimization) ; (6) Integration and Accumulation of Change (Riemann sums, FTC parts I & II, basic antiderivatives, u-substitution, integration by parts — BC only) ; (7) Differential Equations (separation of variables, slope fields, exponential models, logistic models — BC only, Euler's method — BC only) ; (8) Applications of Integration (area between curves, volumes by disks/washers/shells, arc length — BC only) ; (9) BC-only — Parametric, Polar, and Vector-valued Functions (derivatives and integrals of parametric/polar curves, motion along a curve) ; (10) BC-only — Infinite Sequences and Series (convergence tests: nth-term, integral, ratio, alternating, comparison; Taylor and Maclaurin series, error bounds, interval and radius of convergence). AP Calculus AB stops at unit 8 with simpler integration techniques.",
+    stepStyle:
+      "Show all work for free-response questions (60 minutes part B). State theorems by name (Mean Value Theorem, Intermediate Value Theorem, Fundamental Theorem of Calculus parts I and II). For convergence: name which test is used and verify hypotheses. AP graders look for justification, not just answers.",
+    examFormat:
+      "AP Calculus BC exam: 3h15min. Section I — Multiple choice, 45 questions, 105 min: Part A 30 questions (no calculator) + Part B 15 questions (graphing calculator REQUIRED). Section II — Free response, 6 questions, 90 min: Part A 2 questions (calculator) + Part B 4 questions (no calculator). Score 1-5; many universities give credit for 4-5. AB subscore reported on BC exam.",
+    referenceBooks: [
+      "Stewart Calculus: Early Transcendentals (8th-9th ed.)",
+      "Larson, Edwards Calculus (12th ed.)",
+      "Sullivan & Miranda Calculus for AP",
+      "Princeton Review / Barron's AP Calculus BC review books",
+      "AP Classroom (College Board official platform)",
+    ],
+    specialRules: [
+      "L'Hôpital's rule IS in the AP curriculum (unlike France Terminale Générale)",
+      "Graphing calculator (TI-84/TI-Nspire) REQUIRED — 4 specific functionalities tested: graph, find roots, numerical derivative, numerical integral",
+      "BC-exclusive topics: series (~17%), parametric/polar (~12%), Euler's method, logistic models, integration by parts, partial fractions",
+      "FTC must be invoked by name on free-response questions",
+      "For series: ALWAYS state which test is used (ratio, comparison, etc.) and verify conditions",
+      "AP units have specific weighting — see official CED for percentages",
+      "AB exam is shorter; BC includes AB content + extras",
+    ],
+  },
+
+  // ── USA · Grade 12 (AP) · AP track — physics view ────────────────────────
+  // AP Physics C: Mechanics + E&M (calculus-based) is typical for STEM-bound seniors.
+  "US_Grade 12 (AP)_AP track_physics": {
+    notation:
+      "AP track Physics. SI units strictly. AP Physics C is calculus-based; AP Physics 1/2 are algebra-based. Vectors with arrow.",
+    conventions:
+      "AP Physics C: Mechanics — 7 units: (1) Kinematics ; (2) Force and Translational Dynamics (Newton's laws, friction) ; (3) Work, Energy, and Power (work-energy theorem, conservation of energy) ; (4) Linear Momentum (impulse, conservation, collisions) ; (5) Torque and Rotational Dynamics (angular kinematics, moment of inertia) ; (6) Energy and Momentum of Rotating Systems (rotational KE, angular momentum, conservation) ; (7) Oscillations (SHM, pendulum, energy in oscillation). USES CALCULUS — derivatives for velocity/acceleration, integrals for work and centre of mass. AP Physics C: Electricity and Magnetism — 5 units: (1) Electric Charges, Fields, and Gauss's Law ; (2) Electric Potential ; (3) Conductors and Capacitors ; (4) Electric Circuits (resistive, RC) ; (5) Magnetic Fields and Electromagnetism (Biot-Savart, Ampère's law, Faraday's law, RL, LC, RLC).",
+    stepStyle:
+      "Free-body diagrams REQUIRED for mechanics. For E&M: identify symmetry, choose Gaussian surface or Amperian loop, set up integral, evaluate. Show calculus explicitly when used.",
+    examFormat:
+      "AP Physics C: Mechanics — 1h30min: 35 MC (45 min) + 3 free-response (45 min). Same format for AP Physics C: E&M. Some schools take both as separate exams. Calculator allowed throughout. Equation sheet provided.",
+    referenceBooks: [
+      "Halliday, Resnick & Walker Fundamentals of Physics (calculus-based)",
+      "Serway & Jewett Physics for Scientists and Engineers",
+      "Tipler & Mosca Physics for Scientists and Engineers",
+      "Princeton Review / Barron's AP Physics C",
+    ],
+    specialRules: [
+      "AP Physics C uses calculus — students should be in or have completed Calculus BC",
+      "Equation sheet PROVIDED in the exam — but students must know how to apply formulas",
+      "Gauss's law and Ampère's law: choose symmetric surface/loop and evaluate the integral",
+      "For oscillations: derive ω from differential equation d²x/dt² = -ω²x",
+      "Mechanics and E&M are often taken as TWO separate AP exams",
+      "Algebra-based AP Physics 1 and 2 cover broader topics with less mathematical depth",
+    ],
+  },
+
+  // ── USA · Grade 12 (AP) · AP track — chemistry view ──────────────────────
+  "US_Grade 12 (AP)_AP track_chemistry": {
+    notation:
+      "AP Chemistry. SI units; concentrations in mol/L (M); temperatures in Kelvin for thermodynamics/kinetics. IUPAC nomenclature.",
+    conventions:
+      "AP Chemistry CED: 9 units. (1) Atomic Structure and Properties (atomic models, electron configuration, periodic trends, mass spectroscopy) ; (2) Molecular and Ionic Compound Structure and Properties (Lewis structures, VSEPR, hybridization, IMFs basics) ; (3) Intermolecular Forces and Properties (gas laws, ideal/real gases, kinetic molecular theory, solutions) ; (4) Chemical Reactions (types, stoichiometry, limiting reagent, percent yield, redox) ; (5) Kinetics (rate laws, integrated rate laws, Arrhenius, mechanisms, catalysts, reaction coordinate diagrams) ; (6) Thermodynamics (enthalpy, calorimetry, Hess's law, entropy, Gibbs free energy, spontaneity) ; (7) Equilibrium (Kc, Kp, ICE tables, Le Chatelier, solubility Ksp) ; (8) Acids and Bases (Brønsted-Lowry, pH, weak acid/base equilibria, buffers, titrations) ; (9) Applications of Thermodynamics (galvanic and electrolytic cells, electrolysis, Faraday's laws, Nernst equation).",
+    stepStyle:
+      "Inquiry-based: connect data, models, and reasoning. For free-response: justify with chemical principles, not just calculations. ICE tables for equilibria. Mechanisms drawn as elementary steps.",
+    examFormat:
+      "AP Chemistry exam: 3h15min. Section I — 60 MC (90 min, no calculator). Section II — 7 free-response (105 min, calculator allowed): 3 long + 4 short. Periodic table and equation sheet provided.",
+    referenceBooks: [
+      "Zumdahl Chemistry (or Chemical Principles)",
+      "Chang & Goldsby Chemistry",
+      "Atkins Chemical Principles",
+      "Princeton Review / Barron's AP Chemistry",
+    ],
+    specialRules: [
+      "Calculator allowed only in Section II (free-response)",
+      "MC section is no-calculator — practice mental arithmetic, log tables, estimation",
+      "Use kJ/mol consistently for ΔH, ΔG; J/(mol·K) for ΔS",
+      "Equilibrium problems: ICE table, write Kc/Kp, check small-x approximation validity",
+      "Buffers: Henderson-Hasselbalch pH = pKa + log([A⁻]/[HA])",
+      "Quantitative MC questions often involve 2-3 step reasoning under time pressure",
+    ],
+  },
+
+  // ── USA · Grade 12 (AP) · AP track — informatics view ────────────────────
+  // AP Computer Science A is the typical CS AP at Grade 12.
+  "US_Grade 12 (AP)_AP track_informatics": {
+    notation:
+      "AP Computer Science A — Java is the official language. AP CSA exam uses Java syntax exclusively. Conventions: PascalCase for class names, camelCase for methods/variables.",
+    conventions:
+      "AP CSA CED: 10 units. (1) Primitive Types (int, double, boolean, casting) ; (2) Using Objects (String, Math class methods, wrapper classes Integer/Double) ; (3) Boolean Expressions and if Statements ; (4) Iteration (for, while, nested loops) ; (5) Writing Classes (constructors, methods, encapsulation, static vs. instance) ; (6) Array (1D arrays) ; (7) ArrayList (Java Collections Framework basics) ; (8) 2D Array ; (9) Inheritance (superclass, subclass, polymorphism, super keyword) ; (10) Recursion. AP COMPUTER SCIENCE PRINCIPLES (alternative AP) is more conceptual: Big Idea 1 Creative Development, BI 2 Data, BI 3 Algorithms and Programming, BI 4 Computer Systems and Networks, BI 5 Impact of Computing.",
+    stepStyle:
+      "Java syntax strictly — semicolons, braces, types declared. Code that is asked to be 'written' must compile. Trace tables expected for some MC. For free-response: write methods that satisfy preconditions/postconditions; sometimes given a class skeleton.",
+    examFormat:
+      "AP CSA exam: 3 hours. Section I — 40 MC (90 min, no calculator). Section II — 4 free-response (90 min, no calculator): typically Methods/Classes, Class Design, Array/ArrayList, 2D Array. Quick reference Java subset card provided.",
+    referenceBooks: [
+      "Building Java Programs (Reges & Stepp)",
+      "Java for AP Computer Science (Lewis & Loftus subset)",
+      "Princeton Review / Barron's AP Computer Science A",
+      "CodingBat (free practice)",
+    ],
+    specialRules: [
+      "Language: Java ONLY — no Python, no C++, no JavaScript",
+      "Java subset: not all of Java is on the exam — students learn the AP Java Subset (no exceptions, no generics beyond basics, no advanced features)",
+      "ArrayList<T> generic syntax tested — distinguish from primitive arrays int[]",
+      "2D arrays as int[][]; iteration with nested for loops",
+      "Recursion: identify base case, recursive case, ensure progress toward base",
+      "Inheritance: super(), method overriding vs. overloading distinction",
+      "AP CSP is a different exam — more conceptual, language-flexible",
+    ],
+  },
+
+  // ── USA · Grade 12 · Honors track — math view ────────────────────────────
+  "US_Grade 12 (AP)_Honors_math": {
+    notation:
+      "Honors Calculus or Honors Precalculus — depends on student's pace. Generally precedes or parallels AP Calculus AB. Decimal point. Standard intervals.",
+    conventions:
+      "Honors track is more rigorous than Regular but stops short of AP exam preparation. Topics typically: precalculus deep (sequences/series, conic sections, polar coordinates introduced), introduction to calculus concepts (limits, derivatives at the rule level, basic integration). Pace and depth higher than regular but no AP exam at the end.",
+    examFormat:
+      "No standardized national exam — final exams set by district/teacher; SAT II Math Subject Test (discontinued by College Board in 2021) used to be common.",
+    specialRules: [
+      "Honors math varies significantly by school district — no single national curriculum",
+      "Many honors seniors take AP Calculus AB or BC concurrently or instead",
+      "Common standards: state-specific (e.g., California Common Core math, Texas TEKS)",
+      "Use rigorous proof for some theorems (especially limit properties) but less than AP",
+    ],
+  },
+
+  // ── USA · Grade 12 · Regular track — math view ───────────────────────────
+  "US_Grade 12 (AP)_Regular_math": {
+    notation:
+      "Regular Grade 12 math — typically Precalculus or Algebra II (depending on student progression). Standard US notation.",
+    conventions:
+      "Regular track follows Common Core State Standards (most states) or state-specific standards (TX, CA, FL with their own variations). Senior-year math often: Precalculus (functions, trigonometry, sequences, conics, polar, complex numbers, intro to limits) OR for students who completed Precalculus earlier, Calculus (non-AP) or Statistics (non-AP).",
+    examFormat:
+      "Final exam set by teacher/district. Many states have standardized assessments (e.g., Regents in NY, FSA in FL).",
+    specialRules: [
+      "Calculator (TI-84) routinely used in instruction and assessment",
+      "Formulas often provided rather than memorized",
+      "Less proof-heavy than honors/AP — focus on procedures and applications",
+      "Topics may overlap with what other countries cover earlier (e.g., logarithms, basic trig in 1ère/Première in France)",
+    ],
+  },
+
   // ── France · Terminale · Spécialité NSI (6h/sem) ─────────────────────────
   "FR_Terminale_Spécialité NSI_informatics": {
     notation:
