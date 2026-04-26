@@ -1,6 +1,7 @@
 import { useState, useEffect, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import GradeLevelPicker from "../components/GradeLevelPicker";
+import SectionPicker from "../components/SectionPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import TopicPicker from "../components/TopicPicker";
 import ExamViewer from "../components/ExamViewer";
@@ -20,6 +21,7 @@ export default function GenerateExam() {
   const [topics, setTopics] = useState<string[]>(["", ""]);
   const [country, setCountry] = useState("US");
   const [gradeLevel, setGradeLevel] = useState("");
+  const [section, setSection] = useState("");
   const [totalPoints, setTotalPoints] = useState(100);
 
   const [books, setBooks] = useState<BookMeta[]>([]);
@@ -85,6 +87,7 @@ export default function GenerateExam() {
         topics: validTopics,
         country,
         gradeLevel: gradeLevel || undefined,
+        section: section || undefined,
         totalPoints,
         bookIds: selectedBookIds.length ? selectedBookIds : undefined,
       });
@@ -124,6 +127,12 @@ export default function GenerateExam() {
             <label>Grade / level (optional)</label>
             <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
+          <SectionPicker
+            country={country}
+            gradeLevel={gradeLevel}
+            value={section}
+            onChange={setSection}
+          />
           <div>
             <label>Total points ({totalPoints})</label>
             <input

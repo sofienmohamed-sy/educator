@@ -52,6 +52,7 @@ export const generateWriting = onCall(
       topic: req.topic,
       country: req.country,
       gradeLevel: req.gradeLevel,
+      section: req.section,
       language: req.language,
       difficulty: req.difficulty,
       count: req.count ?? 5,

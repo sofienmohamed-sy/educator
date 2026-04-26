@@ -58,6 +58,7 @@ export const generateExercises = onCall(
     const systemPrompt = buildExercisesPrompt({
       subject: req.subject,
       topic: req.topic,
+      section: req.section,
       difficulty: req.difficulty,
       count: req.count,
       country: req.country,

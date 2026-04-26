@@ -35,18 +35,33 @@ const SUBJECT_LABELS: Record<Subject, string> = {
 /**
  * Render the curriculum profile as a prompt-injection block.
  * Used by every prompt builder so curriculum rules reach Claude consistently.
+ *
+ * `section` (filière / track / Spécialité / Leistungskurs / PCM-PCB / etc.)
+ * narrows the audience within a level — e.g., FR Terminale "Spécialité Maths"
+ * vs "NSI", MA 2ème Bac "Sciences Mathématiques A" vs "Physique-Chimie".
  */
 function renderCurriculumBlock(
   profile: CurriculumProfile | null | undefined,
   country: string,
   subjectLabel: string,
   gradeLevel?: string,
+  section?: string,
 ): string {
+  const sectionLine = section
+    ? `Section / track: ${section} — adapt the topic depth, expected prior knowledge, and exam style to this filière exactly. A student in another track at the same level would receive a different treatment.`
+    : null;
+
   if (!profile) {
-    return `No curated profile is provided. Use your best knowledge of the ${country} ${subjectLabel} curriculum — the official notation, conventions, pedagogical order, and widely adopted textbooks — and follow it faithfully. Prefer methods and vocabulary that a student in ${country}${gradeLevel ? ` at ${gradeLevel} level` : ""} would recognise.`;
+    return [
+      `No curated profile is provided. Use your best knowledge of the ${country} ${subjectLabel} curriculum — the official notation, conventions, pedagogical order, and widely adopted textbooks — and follow it faithfully. Prefer methods and vocabulary that a student in ${country}${gradeLevel ? ` at ${gradeLevel} level` : ""}${section ? ` (${section})` : ""} would recognise.`,
+      sectionLine,
+    ]
+      .filter(Boolean)
+      .join("\n");
   }
   return [
     `A curated curriculum profile is provided for ${profile.countryName ?? country}${profile.subject ? ` (${profile.subject})` : ""}. Follow it strictly.`,
+    sectionLine,
     profile.notation ? `Notation conventions: ${profile.notation}` : null,
     profile.conventions ? `Conventions: ${profile.conventions}` : null,
     profile.stepStyle ? `Step style: ${profile.stepStyle}` : null,
@@ -67,6 +82,7 @@ function renderCurriculumBlock(
 export interface BuildSystemPromptArgs {
   country: string;
   gradeLevel?: string;
+  section?: string;
   language?: string;
   subject?: Subject;
   profile?: CurriculumProfile | null;
@@ -79,7 +95,7 @@ export interface BuildSystemPromptArgs {
  * of the requested country's curriculum and best practices.
  */
 export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
-  const { country, gradeLevel, language, subject, profile, ragContext } = args;
+  const { country, gradeLevel, section, language, subject, profile, ragContext } = args;
 
   const subjectLabel = subject ? SUBJECT_LABELS[subject] : "mathematics";
   const language_ =
@@ -90,11 +106,12 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
     country,
     subjectLabel,
     gradeLevel,
+    section,
   );
 
   return [
     `You are a patient, rigorous ${subjectLabel} tutor.`,
-    `Audience: a student in ${country}${gradeLevel ? `, grade ${gradeLevel}` : ""}.`,
+    `Audience: a student in ${country}${gradeLevel ? `, grade ${gradeLevel}` : ""}${section ? ` (${section})` : ""}.`,
     `Answer language: ${language_}.`,
     ``,
     `Curriculum:`,
@@ -229,24 +246,26 @@ export interface BuildCoursePromptArgs {
   topic: string;
   country: string;
   gradeLevel?: string;
+  section?: string;
   language?: string;
   profile?: CurriculumProfile | null;
   ragContext?: string;
 }
 
 export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
-  const { subject, topic, country, gradeLevel, language, profile, ragContext } =
+  const { subject, topic, country, gradeLevel, section, language, profile, ragContext } =
     args;
   const subjectLabel = SUBJECT_LABELS[subject];
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
-  const audienceDesc = `${country}${gradeLevel ? ` grade ${gradeLevel}` : ""} students`;
+  const audienceDesc = `${country}${gradeLevel ? ` grade ${gradeLevel}` : ""}${section ? ` (${section})` : ""} students`;
 
   const curriculumBlock = renderCurriculumBlock(
     profile,
     country,
     subjectLabel,
     gradeLevel,
+    section,
   );
 
   return [
@@ -333,6 +352,7 @@ export interface BuildExercisesPromptArgs {
   count: number;
   country: string;
   gradeLevel?: string;
+  section?: string;
   language?: string;
   profile?: CurriculumProfile | null;
   ragContext?: string;
@@ -346,6 +366,7 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     count,
     country,
     gradeLevel,
+    section,
     language,
     profile,
     ragContext,
@@ -368,11 +389,12 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     country,
     subjectLabel,
     gradeLevel,
+    section,
   );
 
   return [
     `You are an expert ${subjectLabel} educator.`,
-    `Audience: ${country}${gradeLevel ? ` grade ${gradeLevel}` : ""} students.`,
+    `Audience: ${country}${gradeLevel ? ` grade ${gradeLevel}` : ""}${section ? ` (${section})` : ""} students.`,
     `Answer language: ${language_}.`,
     ``,
     `Curriculum:`,
@@ -489,6 +511,7 @@ export interface BuildExamPromptArgs {
   totalPoints: number;
   country: string;
   gradeLevel?: string;
+  section?: string;
   language?: string;
   profile?: CurriculumProfile | null;
   ragContext?: string;
@@ -501,6 +524,7 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     totalPoints,
     country,
     gradeLevel,
+    section,
     language,
     profile,
     ragContext,
@@ -514,11 +538,12 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     country,
     subjectLabel,
     gradeLevel,
+    section,
   );
 
   return [
     `You are an expert ${subjectLabel} educator creating an exam.`,
-    `Audience: ${country}${gradeLevel ? ` grade ${gradeLevel}` : ""} students.`,
+    `Audience: ${country}${gradeLevel ? ` grade ${gradeLevel}` : ""}${section ? ` (${section})` : ""} students.`,
     `Answer language: ${language_}.`,
     ``,
     `Curriculum:`,
@@ -700,6 +725,7 @@ type WritingAnalysis = {
 export interface BuildWritingAnalysisPromptArgs {
   country: string;
   gradeLevel?: string;
+  section?: string;
   language?: string;
   writingSubject: WritingSubject;
   profile?: CurriculumProfile | null;
@@ -709,7 +735,7 @@ export interface BuildWritingAnalysisPromptArgs {
 export function buildWritingAnalysisPrompt(
   args: BuildWritingAnalysisPromptArgs,
 ): string {
-  const { country, gradeLevel, language, writingSubject, profile, ragContext } =
+  const { country, gradeLevel, section, language, writingSubject, profile, ragContext } =
     args;
 
   const subjectLabel = WRITING_SUBJECT_LABELS[writingSubject];
@@ -717,9 +743,14 @@ export function buildWritingAnalysisPrompt(
     language ?? profile?.defaultLanguage ?? "the student's language";
   const subjectInstruction = WRITING_SUBJECT_INSTRUCTIONS[writingSubject];
 
+  const sectionLine = section
+    ? `Section / track: ${section} — adapt vocabulary, register, and examples to this filière.`
+    : null;
+
   const curriculumBlock = profile
     ? [
         `A curated curriculum profile is provided for ${profile.countryName ?? country}. Follow it strictly.`,
+        sectionLine,
         profile.notation ? `Language conventions: ${profile.notation}` : null,
         profile.conventions ? `Conventions: ${profile.conventions}` : null,
         profile.referenceBooks?.length
@@ -729,11 +760,16 @@ export function buildWritingAnalysisPrompt(
       ]
         .filter(Boolean)
         .join("\n")
-    : `No curated profile is provided. Use your best knowledge of the ${country} language arts curriculum — the official standards, conventions, and pedagogical expectations — for a student${gradeLevel ? ` at ${gradeLevel} level` : ""}.`;
+    : [
+        `No curated profile is provided. Use your best knowledge of the ${country} language arts curriculum — the official standards, conventions, and pedagogical expectations — for a student${gradeLevel ? ` at ${gradeLevel} level` : ""}${section ? ` (${section})` : ""}.`,
+        sectionLine,
+      ]
+        .filter(Boolean)
+        .join("\n");
 
   return [
     `You are a patient, expert ${subjectLabel} tutor.`,
-    `Audience: a student in ${country}${gradeLevel ? `, grade ${gradeLevel}` : ""}.`,
+    `Audience: a student in ${country}${gradeLevel ? `, grade ${gradeLevel}` : ""}${section ? ` (${section})` : ""}.`,
     `Answer language: ${language_}.`,
     ``,
     `Curriculum:`,
@@ -797,6 +833,7 @@ export interface BuildWritingGenerationPromptArgs {
   topic: string;
   country: string;
   gradeLevel?: string;
+  section?: string;
   language?: string;
   difficulty?: "easy" | "medium" | "hard";
   count?: number;
@@ -813,6 +850,7 @@ export function buildWritingGenerationPrompt(
     topic,
     country,
     gradeLevel,
+    section,
     language,
     difficulty,
     count,
@@ -824,11 +862,18 @@ export function buildWritingGenerationPrompt(
   const contentTypeLabel = WRITING_CONTENT_TYPE_LABELS[contentType];
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
-  const audienceDesc = `${country}${gradeLevel ? ` grade ${gradeLevel}` : ""} students`;
+  const audienceDesc = `${country}${gradeLevel ? ` grade ${gradeLevel}` : ""}${section ? ` (${section})` : ""} students`;
 
-  const curriculumNote = profile
-    ? `Follow the ${profile.countryName ?? country} language arts curriculum strictly.`
-    : `Follow the official ${country} language arts curriculum and use vocabulary, examples, and conventions that ${audienceDesc} would recognise.`;
+  const curriculumNote = [
+    profile
+      ? `Follow the ${profile.countryName ?? country} language arts curriculum strictly.`
+      : `Follow the official ${country} language arts curriculum and use vocabulary, examples, and conventions that ${audienceDesc} would recognise.`,
+    section
+      ? `Section / track: ${section} — adapt vocabulary, register, and examples to this filière.`
+      : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const contentTypeInstruction = {
     lesson: `Generate a complete lesson on "${topic}". Include a thorough theory section, at least 3 key concepts with definitions, and a summary.`,

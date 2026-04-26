@@ -3,6 +3,7 @@ import { useAuth } from "../auth/AuthProvider";
 import CountryPicker from "../components/CountryPicker";
 import GradeLevelPicker from "../components/GradeLevelPicker";
 import ProblemInput, { type InputValue } from "../components/ProblemInput";
+import SectionPicker from "../components/SectionPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import StepList, { type Solution } from "../components/StepList";
 import { fileContentType, uploadProblemFile } from "../lib/upload";
@@ -13,6 +14,7 @@ export default function Solve() {
   const { user } = useAuth();
   const [country, setCountry] = useState("US");
   const [gradeLevel, setGradeLevel] = useState("");
+  const [section, setSection] = useState("");
   const [subject, setSubject] = useState<Subject>("math");
   const [input, setInput] = useState<InputValue>({ kind: "text", text: "" });
   const [solution, setSolution] = useState<Solution | null>(null);
@@ -33,6 +35,7 @@ export default function Solve() {
         const res = await solveProblem({
           country,
           gradeLevel: gradeLevel || undefined,
+          section: section || undefined,
           subject,
           input: { kind: "text", text: input.text.trim() },
         });
@@ -43,6 +46,7 @@ export default function Solve() {
         const res = await solveProblem({
           country,
           gradeLevel: gradeLevel || undefined,
+          section: section || undefined,
           subject,
           input: {
             kind: "storage",
@@ -75,6 +79,12 @@ export default function Solve() {
             <label>Grade / level (optional)</label>
             <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
+          <SectionPicker
+            country={country}
+            gradeLevel={gradeLevel}
+            value={section}
+            onChange={setSection}
+          />
         </div>
 
         <div style={{ marginBottom: "0.75rem" }}>

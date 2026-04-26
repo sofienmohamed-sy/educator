@@ -73,6 +73,7 @@ export const generateExercisesStream = onRequest(
       const systemPrompt = buildExercisesPrompt({
         subject: data.subject,
         topic: data.topic,
+        section: data.section,
         difficulty: data.difficulty,
         count: data.count,
         country: data.country,

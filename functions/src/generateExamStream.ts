@@ -69,6 +69,7 @@ export const generateExamStream = onRequest(
       const systemPrompt = buildExamPrompt({
         subject: data.subject,
         topics: data.topics,
+        section: data.section,
         totalPoints: data.totalPoints,
         country: data.country,
         gradeLevel: data.gradeLevel,
