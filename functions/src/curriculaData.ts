@@ -1266,6 +1266,131 @@ export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
     notes:
       "L'épreuve écrite teste systématiquement : un exercice probabilités, un sur les suites/récurrence, un sur fonction (étude complète : limites, dérivée, variations, équation), un sur géométrie dans l'espace.",
   },
+
+  // ── France · Terminale · Maths Expertes (option, 3h/sem) ─────────────────
+  "FR_Terminale_Maths Expertes (option)_math": {
+    notation:
+      "Option Maths Expertes (3h/sem) — RÉSERVÉE aux élèves qui suivent ALSO la Spécialité Maths. Public : visant CPGE / Maths Sup / écoles d'ingénieurs / classes prépas scientifiques.",
+    conventions:
+      "Programme BO spécial n°8 du 25 juillet 2019. Trois thèmes uniquement : (1) Nombres complexes — point de vue algébrique (forme algébrique a+ib, conjugué, module, argument) ET géométrique (image d'un complexe, affixe, transformations du plan : translations, rotations, homothéties, similitudes), forme exponentielle e^{iθ}, équations dans ℂ, racines n-ièmes de l'unité, racines carrées, équations du 2nd degré à coefficients réels ou complexes ; (2) Arithmétique — divisibilité dans ℤ, division euclidienne, congruences (arithmétique modulaire), PGCD, théorème de Bézout, théorème de Gauss, nombres premiers (infinité, théorème fondamental), petit théorème de Fermat ; (3) Graphes et matrices — matrices (somme, produit, puissances, inverses pour 2×2 et 3×3), graphes orientés et non orientés, matrice d'adjacence, chaînes de Markov (vecteur de probabilité, distribution stationnaire).",
+    stepStyle:
+      "Pour les complexes : préciser l'écriture utilisée (algébrique, trigonométrique, exponentielle) avant de calculer ; justifier le passage entre formes. Pour l'arithmétique : invoquer Bézout, Gauss, ou Fermat par leur nom. Pour les chaînes de Markov : matrice de transition explicite, état stationnaire πM = π.",
+    examFormat:
+      "Pas d'épreuve écrite séparée pour l'option — la note est intégrée dans le bulletin (contrôle continu). Visée principale : préparer aux concours et CPGE.",
+    referenceBooks: [
+      "Maths Expertes Terminale (Hachette)",
+      "Maths Expertes Terminale (Nathan)",
+      "Maths Expertes Terminale (Bordas)",
+    ],
+    specialRules: [
+      "Forme exponentielle e^{iθ} obligatoire dès qu'on travaille en module/argument",
+      "Pour les congruences, invoquer les théorèmes par leur nom (Bézout, Gauss, Fermat, Wilson)",
+      "Matrices uniquement de tailles 2×2 ou 3×3 — pas de cas général n×n",
+      "Chaînes de Markov à nombre fini d'états seulement",
+      "Élève suit en parallèle Spé Maths : peut utiliser tout le programme de Spé sans le redémontrer",
+    ],
+  },
+
+  // ── France · Terminale · Maths Complémentaires (option, 3h/sem) ──────────
+  "FR_Terminale_Maths Complémentaires (option)_math": {
+    notation:
+      "Option Maths Complémentaires (3h/sem) — pour élèves ayant ABANDONNÉ la spécialité maths après la Première mais ayant besoin de bases mathématiques en post-bac (médecine, économie, sciences sociales, IUT, BUT, écoles de commerce post-bac).",
+    conventions:
+      "Programme BO spécial n°8 du 25 juillet 2019. Reprend et approfondit la Première : (1) Analyse — fonctions de référence (exponentielle, logarithme népérien), continuité, dérivation et compléments (composée, dérivée seconde, convexité, points d'inflexion), limites de fonctions, primitives, calcul intégral, équations différentielles simples y'=ay+b ; (2) Probabilités et statistiques — variables aléatoires (loi, espérance, variance), loi binomiale, échantillonnage, intervalles de fluctuation/confiance ; (3) Algorithmique — implémentations Python simples.",
+    stepStyle:
+      "Approche plus appliquée que la spécialité : insister sur l'interprétation (taux de variation, croissance/décroissance, sens concret de l'intégrale comme aire), moins sur la rigueur des preuves. Le raisonnement par récurrence n'est PAS au programme.",
+    examFormat:
+      "Pas d'épreuve écrite — note de contrôle continu uniquement.",
+    referenceBooks: [
+      "Maths Complémentaires Terminale (Hachette)",
+      "Maths Complémentaires Terminale (Nathan)",
+      "Maths Complémentaires Terminale (Bordas)",
+    ],
+    specialRules: [
+      "PAS de raisonnement par récurrence (réservé à la spécialité)",
+      "PAS de géométrie dans l'espace — supprimée du programme Compl",
+      "PAS de combinatoire/dénombrement avancé — supprimée",
+      "PAS de suites compliquées — limites de suites étudiées sans formalisme ε",
+      "Approche orientée applications (modèles économiques, biologiques, sociaux)",
+      "L'élève n'a PAS suivi la spécialité maths en Terminale — n'utiliser que des outils de Première",
+    ],
+  },
+
+  // ── France · Terminale · Spécialité Physique-Chimie (6h/sem) ─────────────
+  "FR_Terminale_Spécialité Physique-Chimie_physics": {
+    notation:
+      "Section Spécialité Physique-Chimie (BAC Général, 6h/sem). g = 9,8 m·s⁻² (souvent arrondi à 10 dans les exercices). Vecteurs avec flèche →. Concentrations en mol·L⁻¹.",
+    conventions:
+      "Programme BO spécial n°8 du 25 juillet 2019. Quatre thèmes : (1) Constitution et transformations de la matière — structure des entités chimiques, modélisation des transformations (acide-base, oxydoréduction), évolution temporelle (cinétique, vitesse de réaction, loi de vitesse), équilibres chimiques (Q_r vs K), titrages avec suivi pH ou conductimétrique, chimie organique (formules topologiques, familles fonctionnelles, mécanismes par flèches courbes — substitution nucléophile, addition, élimination), polymères ; (2) Mouvement et interactions — 2ᵉ loi de Newton, mouvement dans des champs uniformes (poids, électrique), mouvements de satellites (Kepler), pendule, oscillations ; (3) L'énergie : conversions et transferts — premier principe, énergie interne, capacité thermique, transferts thermiques (conduction, convection, rayonnement), bilan énergétique, rendement ; (4) Ondes et signaux — modèle ondulatoire, lunette astronomique, lentilles, diffraction et interférences, effet Doppler, dispositifs optiques, modèles ondulatoire et particulaire de la lumière (photon, énergie hν).",
+    stepStyle:
+      "Toujours commencer par : système, référentiel, bilan des forces, schéma. Pour la cinétique : tracer ln(C) ou 1/C selon l'ordre. Pour la chimie : tableau d'avancement, équation bilan, calcul de la quantité limitante. Mécanismes organiques : flèches courbes (mouvement de doublets), pas de symboles « → » pour les déplacements d'électrons.",
+    examFormat:
+      "BAC : 3h30, 16 points (en juin de Terminale depuis 2024). 2 à 3 exercices, dont au moins une analyse documentaire et une expérimentation. Calculatrice autorisée. Formulaire FOURNI (pas d'apprentissage par cœur des formules secondaires).",
+    referenceBooks: [
+      "Bordas Physique-Chimie Terminale Spécialité",
+      "Hachette Physique-Chimie Terminale Spécialité",
+      "Nathan Physique-Chimie Terminale Spécialité",
+      "Hatier Physique-Chimie Terminale Spécialité",
+    ],
+    specialRules: [
+      "Toujours préciser système + référentiel avant tout bilan de forces",
+      "Mécanismes réactionnels : utiliser EXCLUSIVEMENT les flèches courbes (doublets d'électrons)",
+      "Concentrations en mol·L⁻¹ — jamais mol/dm³ ni g/L sans conversion",
+      "g = 9,8 m·s⁻² (parfois 9,81 ou 10 selon la précision demandée)",
+      "Formulaire fourni en examen — utiliser exactement les notations du formulaire officiel",
+      "Pour les titrages, identifier l'équivalence par changement de pente (volume V_E)",
+    ],
+  },
+
+  // ── France · Terminale · Spécialité SVT (6h/sem) ─────────────────────────
+  "FR_Terminale_Spécialité SVT_chemistry": {
+    notation:
+      "Section Spécialité SVT (Sciences de la Vie et de la Terre, 6h/sem). Bien que classée chimie ici (proximité disciplinaire), la SVT couvre biologie, géologie et écologie — utiliser le vocabulaire scientifique français standard.",
+    conventions:
+      "Programme BO spécial n°8 du 25 juillet 2019. Trois grands thèmes : (1) La Terre, la vie et l'organisation du vivant — génétique et évolution (stabilité du génome lors de la mitose, brassage génétique lors de la méiose et fécondation, mutations, sélection naturelle, dérive génétique, coévolution, spéciation), géologie (dynamique interne de la Terre : tectonique des plaques, magmatisme, géothermie) ; (2) Les enjeux contemporains de la planète — climats du passé (paléoclimats, isotopes ¹⁸O/¹⁶O, cycle du carbone), réchauffement actuel et conséquences, écosystèmes et services écosystémiques ; (3) Le corps humain et la santé — comportements, mouvement et système nerveux, glycémie et diabète, immunité (innée, adaptative, vaccination, anticorps).",
+    stepStyle:
+      "Approche scientifique exigée : observation → hypothèse → expérience → résultat → interprétation → conclusion. Justifier chaque affirmation par un document, une expérience historique ou un mécanisme biologique précis.",
+    examFormat:
+      "BAC : 3h30, 16 points. 2 exercices : (1) restitution organisée de connaissances avec documents ; (2) raisonnement scientifique. Au moins un exercice doit porter sur Terre/vie/organisation, l'autre alterne entre enjeux planétaires et corps humain.",
+    referenceBooks: [
+      "Bordas SVT Terminale Spécialité",
+      "Belin SVT Terminale Spécialité",
+      "Nathan SVT Terminale Spécialité",
+      "Hatier SVT Terminale Spécialité",
+    ],
+    specialRules: [
+      "Vocabulaire précis : ne pas confondre « gène »/« allèle », « caryotype »/« génotype », « espèce »/« population »",
+      "Toujours faire référence aux mécanismes moléculaires (ADN, ARN, protéines) quand pertinent",
+      "Pour le climat : citer les proxies (isotopes, foraminifères, pollens) et les échelles de temps appropriées",
+      "Pour l'immunité : distinguer innée vs adaptative, primaire vs secondaire",
+    ],
+  },
+
+  // ── France · Terminale · Spécialité NSI (6h/sem) ─────────────────────────
+  "FR_Terminale_Spécialité NSI_informatics": {
+    notation:
+      "Section Spécialité NSI (Numérique et Sciences Informatiques, 6h/sem). Langage : Python 3 exclusivement. Convention de nommage Python (snake_case). Indentation 4 espaces.",
+    conventions:
+      "Programme BO spécial n°8 du 25 juillet 2019. Six parties : (1) Histoire de l'informatique — repères historiques, machines emblématiques ; (2) Structures de données — listes, piles, files, dictionnaires, arbres binaires (parcours préfixe/infixe/postfixe), arbres binaires de recherche, graphes (matrice d'adjacence, liste d'adjacence) ; (3) Bases de données — modèle relationnel, SQL (SELECT, JOIN, WHERE, GROUP BY), opérations CRUD, contraintes d'intégrité, transactions ACID ; (4) Architectures matérielles, systèmes d'exploitation, réseaux — composants d'un OS, processus, ordonnancement, gestion mémoire, modèle TCP/IP, routage, commandes Unix de base ; (5) Langages et programmation — POO (classes, attributs, méthodes, héritage, encapsulation), récursivité, modularité, mise au point (debug), tests unitaires ; (6) Algorithmique — diviser pour régner (tri fusion, tri rapide), recherche dichotomique, programmation dynamique (sac à dos, sous-suite commune), parcours de graphes (DFS, BFS), algorithme de Dijkstra (plus court chemin), méthode gloutonne, complexité (notation O grand).",
+    stepStyle:
+      "Pour les algorithmes : énoncer le principe (diviser/régner, glouton, programmation dynamique), tracer la complexité (O), justifier la terminaison et la correction. Code Python complet avec docstrings et types optionnels (typing module).",
+    examFormat:
+      "BAC : épreuve écrite 3h30 (12 points) + épreuve pratique sur ordinateur 1h (8 points = 2 exercices de programmation). Total 20 points, coefficient 16.",
+    referenceBooks: [
+      "NSI Terminale (Ellipses)",
+      "NSI Terminale (Hachette)",
+      "NSI Terminale (Bordas)",
+      "Documentation officielle Python 3",
+    ],
+    specialRules: [
+      "Langage : Python 3 strictement — pas de Python 2, pas d'autres langages",
+      "Pour les graphes, choisir explicitement entre matrice d'adjacence et liste d'adjacence selon la complexité",
+      "Énoncer la complexité (O) de tout algorithme proposé",
+      "Récursivité : toujours identifier cas de base + cas récursif + preuve de terminaison",
+      "POO : utiliser self comme premier paramètre des méthodes d'instance",
+      "SQL : majuscules pour les mots-clés (SELECT, FROM, WHERE)",
+    ],
+  },
 };
 
 /** Apply a section overlay onto a base profile, merging text/array fields. */
