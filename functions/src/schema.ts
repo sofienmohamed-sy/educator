@@ -82,6 +82,25 @@ export const solveRequestSchema = z.object({
 
 export type SolveRequest = z.infer<typeof solveRequestSchema>;
 
+// ── Graph spec (shared by solutions, exercises, and exams) ───────────────────
+
+export const graphFunctionSchema = z.object({
+  expression: z.string().min(1),
+  label: rspOptStr(),
+  color: rspOptStr(),
+});
+
+export const graphSpecSchema = z.object({
+  functions: z.array(graphFunctionSchema).min(1),
+  xMin: z.number().default(-5),
+  xMax: z.number().default(5),
+  caption: rspOptStr(),
+});
+export type GraphFunction = z.infer<typeof graphFunctionSchema>;
+export type GraphSpec = z.infer<typeof graphSpecSchema>;
+
+// ── Solution ──────────────────────────────────────────────────────────────────
+
 /** Shape Claude is asked to return. */
 export const solutionStepSchema = z.object({
   title: z.string(),
@@ -96,6 +115,7 @@ export const solutionSchema = z.object({
   steps: z.array(solutionStepSchema).min(1),
   finalAnswer: z.string(),
   verification: rspOptStr(),
+  graphs: rspOptArr(graphSpecSchema),
 });
 
 export type Solution = z.infer<typeof solutionSchema>;
@@ -269,21 +289,6 @@ export const examPartSchema = z.object({
   number: z.string().min(1),
   subparts: z.array(examSubpartSchema).min(1),
 });
-
-export const graphFunctionSchema = z.object({
-  expression: z.string().min(1),
-  label: rspOptStr(),
-  color: rspOptStr(),
-});
-
-export const graphSpecSchema = z.object({
-  functions: z.array(graphFunctionSchema).min(1),
-  xMin: z.number().default(-5),
-  xMax: z.number().default(5),
-  caption: rspOptStr(),
-});
-export type GraphFunction = z.infer<typeof graphFunctionSchema>;
-export type GraphSpec = z.infer<typeof graphSpecSchema>;
 
 export const examExerciseSchema = z.object({
   title: z.string().min(1),

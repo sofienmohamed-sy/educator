@@ -7,12 +7,21 @@ import type { CurriculumProfile, RagChunk, Subject, WritingSubject } from "./sch
  */
 const JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no prose before or after) matching this TypeScript type:
 
+type GraphFunction = { expression: string; label?: string; color?: string };
+type GraphSpec = { functions: GraphFunction[]; xMin: number; xMax: number; caption?: string };
+
 type Solution = {
   restatement: string;              // the problem restated in your own words
   assumptions: string[];            // any assumptions you make; [] if none
   steps: Array<{
     title: string;                  // leave empty "" — do not number or label steps
-    expression: string;             // the mathematical result of this step, in LaTeX (no surrounding $)
+    expression: string;             // ONLY the LaTeX expression — no surrounding words or sentences.
+                                    // Must be valid LaTeX (parseable by KaTeX). Examples:
+                                    //   "f(x) = x^2 - 2x + 3"
+                                    //   "\\begin{cases} x^2 & x \\geq 0 \\\\ -x & x < 0 \\end{cases}"
+                                    //   "\\lim_{x \\to 1^-} f(x) = 2"
+                                    // NEVER write prose here ("finie sur R par :", "On calcule…").
+                                    // If the step has no single expression, use "" (empty string).
     explanation: string;            // a single flowing sentence of mathematical reasoning —
                                     // write as a natural continuation, not a declaration
                                     // ("On a donc...", "Il s'ensuit que...", "D'où...")
@@ -21,8 +30,19 @@ type Solution = {
                                     // NEVER include for: standard derivatives, algebra, arithmetic,
                                     // or any operation that does not require invoking a theorem.
   }>;                               // at least 1 element
-  finalAnswer: string;              // the final answer, LaTeX
+  finalAnswer: string;              // the final result as LaTeX if it is a formula or number
+                                    // (e.g. "x = \\frac{3}{2}", "\\emptyset", "\\mathbb{R}").
+                                    // If the answer is a prose conclusion write it as plain text
+                                    // (e.g. "Il n'existe aucune valeur de a rendant f continue en 1.").
+                                    // Do NOT force prose through \\text{} — just write it directly.
   verification?: string;            // optional sanity check (substitute back, check units, etc.)
+  graphs?: GraphSpec[];             // include when the solution involves a curve / function graph.
+                                    // expression: JS-evaluable string, e.g. "x**2 - 3*x + 2",
+                                    //   "Math.sin(x)", "Math.log(x)", "Math.exp(x)".
+                                    // Use ** for powers, Math.sqrt, Math.abs, Math.log, Math.exp.
+                                    // Set xMin/xMax to a range that shows the relevant behaviour.
+                                    // label: LaTeX label shown on the curve, e.g. "f", "g", "h".
+                                    // caption: optional description shown below the graph.
 };`;
 
 const SUBJECT_LABELS: Record<Subject, string> = {
