@@ -2,6 +2,7 @@ import { useState, useEffect, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import GradeLevelPicker from "../components/GradeLevelPicker";
 import SubjectPicker from "../components/SubjectPicker";
+import TopicPicker from "../components/TopicPicker";
 import ExamViewer from "../components/ExamViewer";
 import StreamProgress from "../components/StreamProgress";
 import BookList from "../components/BookList";
@@ -140,13 +141,21 @@ export default function GenerateExam() {
         <div style={{ marginBottom: "0.75rem" }}>
           <label>Topics (at least one)</label>
           {topics.map((t, i) => (
-            <div key={i} className="row" style={{ marginBottom: "0.4rem", gap: "0.5rem" }}>
-              <input
-                value={t}
-                onChange={(e) => updateTopic(i, e.target.value)}
-                placeholder={`Topic ${i + 1}`}
-                style={{ flex: 1 }}
-              />
+            <div
+              key={i}
+              className="row"
+              style={{ marginBottom: "0.4rem", gap: "0.5rem", alignItems: "flex-start" }}
+            >
+              <div style={{ flex: 1 }}>
+                <TopicPicker
+                  subject={subject}
+                  country={country}
+                  gradeLevel={gradeLevel}
+                  value={t}
+                  onChange={(v) => updateTopic(i, v)}
+                  placeholder={`Topic ${i + 1}`}
+                />
+              </div>
               {topics.length > 1 && (
                 <button
                   type="button"

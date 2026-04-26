@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
 import GradeLevelPicker from "../components/GradeLevelPicker";
 import SubjectPicker from "../components/SubjectPicker";
+import TopicPicker from "../components/TopicPicker";
 import ExerciseList from "../components/ExerciseList";
 import StreamProgress from "../components/StreamProgress";
 import BookList from "../components/BookList";
@@ -104,9 +105,12 @@ export default function GenerateExercises() {
 
         <div style={{ marginBottom: "0.75rem" }}>
           <label>Topic</label>
-          <input
+          <TopicPicker
+            subject={subject}
+            country={country}
+            gradeLevel={gradeLevel}
             value={topic}
-            onChange={(e) => setTopic(e.target.value)}
+            onChange={setTopic}
             placeholder="e.g. Integration by parts"
             required
           />
