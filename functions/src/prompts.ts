@@ -321,11 +321,13 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
 
-  const difficultyDesc = {
-    easy: "straightforward, single-concept, suitable for first practice",
+  const difficultyHelperDesc = {
+    easy:
+      "helpers are EXPLICIT — each sub-question directly states what to do and its link to the objective is obvious from question 1. The student can see the full path at a glance.",
     medium:
-      "requires combining 2–3 concepts or multi-step reasoning, suitable for regular homework",
-    hard: "challenging, requires deep understanding or creative reasoning, suitable for exam preparation",
+      "helpers are SEMI-HIDDEN — 1 to 2 sub-questions require a non-trivial connection that the student must discover. The objective becomes clear only mid-way through the exercise.",
+    hard:
+      "helpers are SUBTLE — the link between sub-questions and the final objective is hidden. The student must discover the path themselves. The difficulty is in the non-obviousness of the chain, NOT in formula complexity.",
   }[difficulty];
 
   return [
@@ -335,51 +337,45 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — GENERATE AT THE BOOK'S EXACT COMPLEXITY LEVEL:\n` +
-        `Your task is to generate ${count} exercises on "${topic}" that are INDISCERNIBLE\n` +
-        `from the exercises in the uploaded textbook. The most common failure is generating\n` +
-        `exercises that are TOO SIMPLE. This is strictly forbidden.\n` +
+      ? `EXERCISE DESIGN MODEL — UNDERSTAND THIS BEFORE WRITING ANYTHING:\n` +
         `\n` +
-        `BEFORE WRITING — ANALYSE THE BOOK'S EXERCISES (mandatory internal step):\n` +
-        `Read every CONTENT REFERENCE excerpt. For each exercise you find, identify:\n` +
-        `  • How many distinct reasoning steps does it require? (count them)\n` +
-        `  • How many concepts must be combined in a single question?\n` +
-        `  • What type of mathematical act does it demand? (prove, compute, classify,\n` +
-        `    construct, deduce, give a counter-example, generalise, ...)\n` +
-        `  • Which specific theorems or techniques are required to solve it?\n` +
-        `  • Are sub-questions chained? (does b) depend on a)? does c) use the result of b)?)\n` +
-        `Your generated exercises MUST match these same counts, acts, and techniques.\n` +
+        `Every exercise has:\n` +
+        `  1. ONE OBJECTIVE: a specific mathematical result to prove, compute, or construct.\n` +
+        `     This is the destination. The student only understands the full scope by\n` +
+        `     reaching the last sub-question.\n` +
+        `  2. A HELPER CHAIN: sub-questions a), b), c), ... embedded in the question text.\n` +
+        `     Each helper is a stepping stone. Each uses the result of the previous one.\n` +
+        `  3. DIFFICULTY = HOW HIDDEN THE HELPERS ARE:\n` +
+        `     • easy   → helpers explicit; path visible from sub-question 1\n` +
+        `     • medium → 1–2 helpers semi-hidden; non-trivial connections required\n` +
+        `     • hard   → helpers subtle; student must discover the path; objective\n` +
+        `                only revealed by the final sub-question\n` +
         `\n` +
-        `COMPLEXITY MANDATE — NON-NEGOTIABLE:\n` +
-        `  ✗ FORBIDDEN: single-step computations if the book's exercises require multi-step reasoning\n` +
-        `  ✗ FORBIDDEN: direct formula application if the book requires deriving or proving first\n` +
-        `  ✗ FORBIDDEN: simple numerical inputs if the book works with general parameters (n, a, f, ...)\n` +
-        `  ✗ FORBIDDEN: isolated questions if the book chains sub-questions a) → b) → c)\n` +
-        `  ✗ FORBIDDEN: exercises that a student could solve without having read the book\n` +
-        `  ✓ REQUIRED: same number of sub-steps, same type of reasoning, same level of abstraction\n` +
-        `  ✓ REQUIRED: if the book's exercises end with a hard generalisation, yours must too\n` +
+        `TARGET DIFFICULTY — "${difficulty.toUpperCase()}":\n` +
+        `${difficultyHelperDesc}\n` +
+        `Generate ${count} exercises following this exact helper-visibility level.\n` +
+        `\n` +
+        `BOOK ALIGNMENT:\n` +
+        `• Scan every CONTENT REFERENCE excerpt for exercises on "${topic}". If found,\n` +
+        `  use them EXACTLY (same wording, same numbers, same helper chain).\n` +
+        `• If not enough found in excerpts, generate SIBLINGS: same chain structure,\n` +
+        `  same helper type, same mathematical objects — only specific values change.\n` +
+        `• The book's exercises set the target level. Never fall below that level.\n` +
+        `• Never generate a generic isolated question ("compute the limit of f(x) as x→a")\n` +
+        `  unless the book itself uses exactly that question format.\n` +
         `\n` +
         `METHOD MANDATE (solutions):\n` +
-        `• Identify which technique the book uses to solve each type of problem on "${topic}"\n` +
-        `  (ε-δ, induction, comparison, algebraic manipulation, geometric argument, ...).\n` +
-        `• Solve your exercises using that EXACT technique — same argument structure, same\n` +
-        `  intermediate steps, same level of rigour.\n` +
-        `• Never use a shortcut the book does not use. Never use a more advanced method either.\n` +
-        `\n` +
-        `EXERCISE GENERATION STRATEGY:\n` +
-        `• FIRST priority: if the excerpts contain exercises on "${topic}", use them exactly\n` +
-        `  (same wording, same numbers). They are already at the right level.\n` +
-        `• SECOND priority: generate SIBLINGS — keep the exact question structure, change\n` +
-        `  only the specific function, sequence, or numerical values.\n` +
-        `• NEVER generate generic exercises ("compute the derivative of...", "find the limit\n` +
-        `  of...") unless the book asks exactly that question type.\n` +
+        `• Identify which technique the book uses for this type of problem (ε-δ, induction,\n` +
+        `  comparison, algebraic manipulation, geometric argument, ...).\n` +
+        `• Solve using that EXACT technique — same argument, same intermediate steps,\n` +
+        `  same level of formal rigour. Never use a simpler shortcut.\n` +
         `\n` +
         `LEARNING LEVEL MANDATE:\n` +
-        `• The level is defined 100% by the book. "${difficulty}" means: pick the ${difficulty}\n` +
-        `  exercises from within the book's own range — do not lower the floor.\n` +
-        `• A student who has studied ONLY this book must recognize the exercises as typical\n` +
-        `  of their curriculum — neither too easy nor alien.`
-      : `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}". Difficulty: ${difficultyDesc}.`,
+        `• Level defined 100% by the book. "${difficulty}" selects exercises at the\n` +
+        `  ${difficulty} end of the book's own range — do not lower the mathematical floor.\n` +
+        `• A student who has studied ONLY this book must recognise every technique used.`
+      : `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}".\n` +
+        `Difficulty "${difficulty}" means: ${difficultyHelperDesc}`,
     `Each exercise must have a complete, step-by-step solution following the "passage between steps" approach — explain WHY each step follows from the previous one.`,
     `Include 1–3 hints per exercise to guide students without revealing the answer.`,
     ``,
@@ -465,73 +461,70 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     ragContext ? `\n${ragContext}` : "",
     ``,
     ragContext
-      ? `PRIMARY RULE — GENERATE AN EXAM INDISCERNIBLE FROM THE BOOK'S OWN EXAMS:\n` +
-        `The most common failure is generating exercises that are TOO SIMPLE. This is\n` +
-        `strictly forbidden. Every exercise must match the book's complexity exactly.\n` +
+      ? `EXERCISE DESIGN MODEL — UNDERSTAND THIS BEFORE WRITING ANYTHING:\n` +
         `\n` +
-        `BEFORE WRITING — ANALYSE THE BOOK'S EXERCISES (mandatory internal step):\n` +
-        `Read every CONTENT REFERENCE excerpt. For each exercise or problem you find:\n` +
-        `  • Count its numbered parts and lettered sub-questions.\n` +
-        `  • Identify the CHAIN: which sub-question depends on a previous result?\n` +
-        `  • Identify the mathematical acts demanded (prove, deduce, compute, classify,\n` +
-        `    construct, generalise, find a counter-example, ...).\n` +
-        `  • Identify the specific theorems, techniques, or definitions required.\n` +
-        `  • Note the exact wording of enchaining phrases ("En déduire...", "Montrer que...",\n` +
-        `    "En utilisant la question précédente...", etc.).\n` +
-        `Your generated exercises MUST replicate this exact structure.\n` +
+        `Every exercise has:\n` +
+        `  1. ONE OBJECTIVE: a specific mathematical result to prove, compute, or construct.\n` +
+        `     The student only discovers the full scope of the objective at the last sub-question.\n` +
+        `  2. A HELPER CHAIN: numbered parts 1), 2), 3), ... each subdivided into lettered\n` +
+        `     sub-questions a), b), c), ... Every helper uses the result of the previous one.\n` +
+        `  3. DIFFICULTY = HOW VISIBLE THE HELPERS ARE:\n` +
+        `     The three exercise TYPES reflect this:\n` +
+        `     • DIRECT    → helpers EXPLICIT. The student sees the path immediately.\n` +
+        `                   Sub-questions directly state what to do.\n` +
+        `     • INDIRECT  → helpers SEMI-HIDDEN. The student must make 1–2 non-trivial\n` +
+        `                   connections between sub-questions to reach the objective.\n` +
+        `     • SYNTHESIS → helpers SUBTLE. The connection between sub-questions and the\n` +
+        `                   objective is hidden. The student must discover the path.\n` +
+        `                   The objective is only revealed by the final sub-question,\n` +
+        `                   which is a hard generalisation or unexpected result.\n` +
         `\n` +
-        `EXERCISE GENERATION STRATEGY:\n` +
-        `• FIRST PRIORITY: if the CONTENT REFERENCE excerpts contain complete exercises\n` +
-        `  (context + numbered parts + sub-questions), use them EXACTLY — same notation,\n` +
-        `  same wording, same chain. They are already at the right complexity.\n` +
-        `• SECOND PRIORITY: if the excerpts contain partial exercises or theory that\n` +
-        `  implies exercises, construct exercises in the exact same style, at the same\n` +
-        `  depth, with the same type of chain.\n` +
-        `• The context (shared setup) must read like a real textbook preamble — same\n` +
-        `  density of notation, same level of assumption, same mathematical objects.\n` +
+        `BOOK ANALYSIS — MANDATORY BEFORE WRITING:\n` +
+        `Scan every CONTENT REFERENCE excerpt. For each exercise found:\n` +
+        `  • Identify its objective (what mathematical result does it lead to?)\n` +
+        `  • Map the helper chain: which sub-question enables the next?\n` +
+        `  • Classify its type (direct/indirect/synthesis) based on helper visibility.\n` +
+        `  • Note the exact enchaining phrases ("En déduire...", "Montrer que...",\n` +
+        `    "En utilisant 1a)...", "En déduire ensuite que...", etc.).\n` +
+        `\n` +
+        `EXERCISE GENERATION:\n` +
+        `• FIRST: if the excerpts contain complete exercises, use them EXACTLY — same\n` +
+        `  context, same notation, same helper chain, same wording.\n` +
+        `• SECOND: generate exercises in the SAME STYLE — same type of objective,\n` +
+        `  same helper-chain depth, same mathematical objects.\n` +
+        `• Context must read like a real textbook preamble: same density of notation,\n` +
+        `  same level of assumptions, same mathematical objects as the book.\n` +
         `\n` +
         `METHOD MANDATE (solutions):\n` +
-        `• Identify which technique the book uses for each type of question on these topics.\n` +
-        `• Solve EVERY sub-question using that EXACT technique — same argument, same\n` +
-        `  intermediate steps, same level of formal rigour.\n` +
-        `• Never use a shortcut or a more advanced method the book does not use.\n` +
-        `\n` +
-        `COMPLEXITY MANDATE — NON-NEGOTIABLE:\n` +
-        `  ✗ FORBIDDEN: generic questions ("compute the limit of f(x)") with no specific setup\n` +
-        `  ✗ FORBIDDEN: isolated sub-questions that do not chain into each other\n` +
-        `  ✗ FORBIDDEN: synthesis exercises with fewer than 4 substantive sub-questions\n` +
-        `  ✗ FORBIDDEN: direct exercises that require only one formula application\n` +
-        `  ✓ REQUIRED: every synthesis exercise ends with a hard generalisation or open question\n` +
-        `  ✓ REQUIRED: indirect exercises chain at least 3 results from 2 different concepts\n` +
+        `• Identify which technique the book uses for each type of question.\n` +
+        `• Solve every sub-question with that EXACT technique — same argument structure,\n` +
+        `  same intermediate steps, same formal rigour. Never use a simpler shortcut.\n` +
         `\n` +
         `LEARNING LEVEL MANDATE:\n` +
-        `• The level is defined 100% by the book. A student who has studied ONLY this book\n` +
+        `• Level defined 100% by the book. A student who has studied ONLY this book\n` +
         `  must be able to attempt every question — using only what the book teaches.\n` +
-        `• Do not introduce any tool, theorem, or notation absent from the book.\n` +
-        `\n` +
-        `STEP — CLASSIFY AND DISTRIBUTE:\n` +
-        `• Assign type based on actual complexity: single-concept chain = direct,\n` +
-        `  multi-concept chain = indirect, deep 4+ part investigation = synthesis.\n` +
-        `• Scale points to meet the 60/20/20 distribution.`
+        `• Do not introduce any tool, theorem, or notation absent from the book.`
       : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ``,
-    `MANDATORY point distribution across exercises (total = ${totalPoints} pts):`,
-    `  - DIRECT exercises: exactly ${directPts} pts total (60%). Each exercise tests direct`,
-    `    recall/application. Typically 2–4 parts with straightforward subparts.`,
-    `  - INDIRECT exercises: exactly ${indirectPts} pts total (20%). Each exercise requires`,
-    `    combining 2–3 ideas, often with "En déduire..." chains.`,
-    `  - SYNTHESIS exercises: exactly ${synthPts} pts total (20%). Each exercise is a deep`,
-    `    investigation of ONE object (sequence, function, algorithm), with 4–6 numbered`,
-    `    parts that build on each other, culminating in a hard generalisation.`,
+    `MANDATORY POINT DISTRIBUTION across exercises (total = ${totalPoints} pts):`,
+    `  - DIRECT exercises:    exactly ${directPts} pts (60%). Helpers explicit. Student sees path from sub-question 1.`,
+    `    Typically 2–3 numbered parts, each with 1–2 lettered sub-questions.`,
+    `  - INDIRECT exercises:  exactly ${indirectPts} pts (20%). Helpers semi-hidden. Student must make`,
+    `    1–2 non-trivial connections. Typically 2–3 parts, each with 2–3 sub-questions.`,
+    `  - SYNTHESIS exercises: exactly ${synthPts} pts (20%). Helpers subtle. Student discovers the path.`,
+    `    Must have 4–6 numbered parts that build on each other. The final sub-question`,
+    `    must reveal a hard generalisation or unexpected result not obvious from the start.`,
     ``,
-    `Constraints:`,
+    `Structural constraints:`,
     `  - sum(exercises[i].totalPoints) MUST equal ${totalPoints} exactly.`,
-    `  - Each exercise MUST have type "direct", "indirect", or "synthesis".`,
-    `  - Each exercise MUST have at least 2 numbered parts.`,
-    `  - Each part MUST have at least 1 lettered subpart.`,
-    `  - CHAIN the subparts: later subparts must explicitly use results from earlier ones.`,
-    `    Signal this with phrases like "En déduire...", "En utilisant 1a)...", "Montrer`,
-    `    ensuite que..." — exactly as in the book's style.`,
+    `  - Each exercise MUST have ONE clear objective (stated implicitly via the context).`,
+    `  - Each exercise MUST have at least 2 numbered parts, each with at least 1 sub-question.`,
+    `  - ALL sub-questions must be chained: each one must use the result of the previous.`,
+    `    Use the book's enchaining phrases: "En déduire...", "En utilisant 1a)...",`,
+    `    "Montrer ensuite que...", "En déduire la valeur de...", etc.`,
+    `  - Direct exercises: helpers explicitly name the method (e.g. "Show using the`,
+    `    definition that..."). Indirect: helpers name the concept but not the method.`,
+    `    Synthesis: helpers only name the target ("Show that..."), the method is hidden.`,
     `  - Set a realistic durationMinutes for this exam.`,
     ``,
     EXAM_JSON_CONTRACT,
