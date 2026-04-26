@@ -44,7 +44,7 @@ export const generateExercises = onCall(
 
     await enforceRateLimit(uid, "generateExercises", 20);
 
-    const profile = await getCurriculumProfile(req.country);
+    const profile = await getCurriculumProfile(req.country, req.subject);
 
     let ragContext = "";
     if (req.bookIds?.length) {

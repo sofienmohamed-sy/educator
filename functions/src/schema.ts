@@ -100,17 +100,42 @@ export const solutionSchema = z.object({
 export type Solution = z.infer<typeof solutionSchema>;
 export type SolutionStep = z.infer<typeof solutionStepSchema>;
 
-/** Curriculum profile stored at `curricula/{countryCode}`. */
+/** Curriculum profile — static (curriculaData.ts) or Firestore override. */
 export const curriculumProfileSchema = z.object({
   countryCode: z.string(),
   countryName: z.string().optional(),
   defaultLanguage: z.string().optional(),
+  subject: subjectSchema.optional(),
+
+  // ── Math / notation structured fields ──────────────────────────────────────
+  decimalSeparator: z.enum(["comma", "dot"]).optional(),
+  intervalNotation: z.enum(["french", "standard"]).optional(),
+  logConvention: z.enum(["ln_only", "log_base10", "both"]).optional(),
+  derivativeNotation: z.enum(["prime", "leibniz", "both"]).optional(),
+  proofCulture: z.enum(["high", "medium", "low"]).optional(),
+  calculatorPolicy: z.enum(["forbidden", "scientific", "graphing"]).optional(),
+
+  // ── Physics structured fields ───────────────────────────────────────────────
+  gValue: z.number().optional(),
+  vectorNotation: z.enum(["arrow_only", "bold", "both"]).optional(),
+  formulaSheet: z.boolean().optional(),
+
+  // ── Chemistry structured fields ─────────────────────────────────────────────
+  waterIonizationConstant: z.enum(["Ke", "Kw"]).optional(),
+  concentrationUnit: z.enum(["mol_per_L", "mol_per_dm3"]).optional(),
+  arrowPushingMechanisms: z.boolean().optional(),
+  combinedPhysicsChem: z.boolean().optional(),
+
+  // ── Free-form curriculum text (injected verbatim into prompts) ──────────────
   notation: z.string().optional(),
   conventions: z.string().optional(),
   stepStyle: z.string().optional(),
+  examFormat: z.string().optional(),
+  exerciseStyle: z.string().optional(),
   referenceBooks: z.array(z.string()).optional(),
   gradeLevels: z.array(z.string()).optional(),
   notes: z.string().optional(),
+  specialRules: z.array(z.string()).optional(),
 });
 
 export type CurriculumProfile = z.infer<typeof curriculumProfileSchema>;

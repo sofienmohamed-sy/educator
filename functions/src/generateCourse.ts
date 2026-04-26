@@ -46,7 +46,7 @@ export const generateCourse = onCall(
 
     await enforceRateLimit(uid, "generateCourse", 10);
 
-    const profile = await getCurriculumProfile(req.country);
+    const profile = await getCurriculumProfile(req.country, req.subject);
 
     let ragContext = "";
     if (req.bookIds?.length) {
