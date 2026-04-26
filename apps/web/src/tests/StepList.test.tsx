@@ -26,15 +26,13 @@ describe("<StepList>", () => {
     render(<StepList solution={sample} />);
 
     expect(screen.getByText(/Solve 2x \+ 3 = 11/)).toBeInTheDocument();
-    expect(screen.getByText(/Step 1: Isolate the x term/)).toBeInTheDocument();
-    expect(screen.getByText(/Step 2: Solve for x/)).toBeInTheDocument();
     expect(
       screen.getByText(/Subtract 3 from both sides/),
     ).toBeInTheDocument();
     expect(
       screen.getByText(/Divide both sides by 2/),
     ).toBeInTheDocument();
-    expect(screen.getByText(/Final answer/)).toBeInTheDocument();
+    expect(screen.getByText(/Réponse/)).toBeInTheDocument();
     expect(screen.getByText(/2\(4\)\+3 = 11 ✓/)).toBeInTheDocument();
   });
 });

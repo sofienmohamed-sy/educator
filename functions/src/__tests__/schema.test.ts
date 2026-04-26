@@ -163,13 +163,13 @@ describe("generateExamRequestSchema", () => {
     ).toBe(true);
   });
 
-  it("rejects totalPoints < 20", () => {
+  it("rejects totalPoints < 10", () => {
     expect(
       generateExamRequestSchema.safeParse({
         subject: "math",
         topics: ["Derivatives"],
         country: "FR",
-        totalPoints: 10,
+        totalPoints: 5,
       }).success,
     ).toBe(false);
   });

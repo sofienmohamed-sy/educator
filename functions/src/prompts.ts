@@ -11,10 +11,15 @@ type Solution = {
   restatement: string;              // the problem restated in your own words
   assumptions: string[];            // any assumptions you make; [] if none
   steps: Array<{
-    title: string;                  // short label for this step
-    expression: string;             // the math for this step, in LaTeX (no surrounding $)
-    explanation: string;            // WHY this step follows from the previous one — the passage between step N-1 and step N
-    ruleOrTheorem?: string;         // name of the rule/theorem/identity used, cite curriculum sources when applicable
+    title: string;                  // leave empty "" — do not number or label steps
+    expression: string;             // the mathematical result of this step, in LaTeX (no surrounding $)
+    explanation: string;            // a single flowing sentence of mathematical reasoning —
+                                    // write as a natural continuation, not a declaration
+                                    // ("On a donc...", "Il s'ensuit que...", "D'où...")
+    ruleOrTheorem?: string;         // ONLY include when citing a NAMED theorem that a student must
+                                    // know by name (TVI, Rolle, Bolzano, d'Alembert, Abel, ...).
+                                    // NEVER include for: standard derivatives, algebra, arithmetic,
+                                    // or any operation that does not require invoking a theorem.
   }>;                               // at least 1 element
   finalAnswer: string;              // the final answer, LaTeX
   verification?: string;            // optional sanity check (substitute back, check units, etc.)
@@ -540,13 +545,27 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     `  ORDER RULE: direct helpers → indirect helpers → synthesis`,
     `  The synthesis question NEVER appears before a direct or indirect question.`,
     ``,
+    `QUESTION WORDING RULE — NON-NEGOTIABLE:`,
+    `  Each sub-question must state ONLY the mathematical target (what to prove, compute, or determine).`,
+    `  NEVER write in the question: "en utilisant X", "en appliquant Y", "à l'aide de 1a)",`,
+    `  "en vous aidant de...", "en déduire de la question précédente...", or any other explicit`,
+    `  method reference. The chaining is STRUCTURAL (it comes after the previous question) —`,
+    `  it must NOT be stated in the wording. The student deduces the connection themselves.`,
+    `  ✗ BAD:  "En utilisant la factorisation de 2b), étudier le signe de f(x)."`,
+    `  ✓ GOOD: "Étudier le signe de f(x) sur ℝ."`,
+    ``,
+    `POINTS PER SUB-QUESTION:`,
+    `  Scale: 0.25 pt = minimum · 0.5 pt = typical · 1 pt = maximum (for a ${totalPoints}-pt exam).`,
+    `  Use values: ${(totalPoints / 80).toFixed(2)}, ${(totalPoints / 40).toFixed(2)}, ${(totalPoints / 27).toFixed(2)}, or ${(totalPoints / 20).toFixed(2)} pts per sub-question.`,
+    `  Each exercise must have ENOUGH sub-questions to reach its totalPoints using only these values.`,
+    ``,
     `Structural constraints:`,
     `  - sum(exercises[i].totalPoints) MUST equal ${totalPoints} exactly.`,
     `  - Each exercise MUST have ONE synthesis sub-question (the objective).`,
     `  - Each exercise MUST have at least 2 numbered parts, each with at least 1 sub-question.`,
     `  - ALL sub-questions must chain: each uses the result of the previous.`,
-    `    Use enchaining phrases: "En déduire...", "En utilisant 1a)...",`,
-    `    "Montrer ensuite que...", "En déduire la valeur de...", etc.`,
+    `    Enchaining is shown through the STRUCTURE and the synthesis question ("En déduire...",`,
+    `    "Conclure...") — NOT through method references in individual question wordings.`,
     `  - Set a realistic durationMinutes for this exam.`,
     ``,
     EXAM_JSON_CONTRACT,

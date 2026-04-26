@@ -217,7 +217,7 @@ export const generateExamRequestSchema = z.object({
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
   language: nullishString({ min: 2, max: 16 }),
-  totalPoints: z.number().int().min(20).max(200).default(100),
+  totalPoints: z.number().min(10).max(200).default(20),
   bookIds: nullishArray(z.string().min(1), 5),
 });
 export type GenerateExamRequest = z.infer<typeof generateExamRequestSchema>;
@@ -226,7 +226,7 @@ export const examSubpartSchema = z.object({
   letter: z.string().min(1),
   type: z.enum(["direct", "indirect", "synthesis"]),
   question: z.string().min(1),
-  points: z.number().int().min(0),
+  points: z.number().min(0.25),
   solution: solutionSchema,
   rubric: rspOptStr(),
 });
