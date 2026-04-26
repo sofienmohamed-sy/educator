@@ -1,5 +1,6 @@
 import { useState, useEffect, type FormEvent } from "react";
 import CountryPicker from "../components/CountryPicker";
+import GradeLevelPicker from "../components/GradeLevelPicker";
 import SubjectPicker from "../components/SubjectPicker";
 import ExamViewer from "../components/ExamViewer";
 import StreamProgress from "../components/StreamProgress";
@@ -120,11 +121,7 @@ export default function GenerateExam() {
           </div>
           <div>
             <label>Grade / level (optional)</label>
-            <input
-              value={gradeLevel}
-              onChange={(e) => setGradeLevel(e.target.value)}
-              placeholder="e.g. Terminale"
-            />
+            <GradeLevelPicker country={country} value={gradeLevel} onChange={setGradeLevel} />
           </div>
           <div>
             <label>Total points ({totalPoints})</label>
