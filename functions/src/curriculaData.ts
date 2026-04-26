@@ -1825,6 +1825,130 @@ export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
   // Biotechnology (principles, recombinant DNA, applications), Ecology
   // (organisms/populations, ecosystem, biodiversity & conservation).
 
+  // ── España · 2º Bachillerato · Ciencias y Tecnología — math view ─────────
+  // Matemáticas II — modalidad de Ciencias y Tecnología (PAU/EVAU/EBAU).
+  "ES_2º Bachillerato_Ciencias y Tecnología_math": {
+    notation:
+      "Matemáticas II — modalidad Ciencias y Tecnología. Coma como separador decimal (3,14). Notación estándar de intervalos: (a, b) abierto, [a, b] cerrado. Vectores en negrita o con flecha.",
+    conventions:
+      "Currículo LOMLOE (Real Decreto 243/2022) y orientaciones PAU 2024-25 (CRUE armonizada). Cuatro bloques de contenido: (1) Álgebra lineal — matrices (operaciones, rango, inversa por adjunta y por Gauss), determinantes (3×3 por adjuntos y por Sarrus, propiedades), sistemas de ecuaciones lineales (Gauss-Jordan, regla de Cramer, teorema de Rouché-Frobenius — discusión y resolución según parámetro) ; (2) Geometría analítica en el espacio — vectores en ℝ³, producto escalar, producto vectorial, producto mixto, ecuaciones de la recta (vectorial, paramétrica, continua, implícita) y del plano (general, normal), incidencia/paralelismo/perpendicularidad, distancias (punto-recta, punto-plano, recta-recta), ángulos, áreas y volúmenes ; (3) Análisis — límites de funciones (indeterminaciones, infinitos, equivalentes), continuidad (TVI, Bolzano, Weierstrass), derivabilidad (regla de la cadena, derivada de inversa, regla de L'Hôpital), aplicación de la derivada (monotonía, extremos, concavidad, puntos de inflexión, problemas de optimización), integración (primitivas — racionales por descomposición, por partes, por cambio de variable, integrales trigonométricas), integral definida y aplicaciones (área entre curvas, regla de Barrow) ; (4) Estadística y probabilidad — probabilidad condicionada, teorema de la probabilidad total, teorema de Bayes, distribución binomial y normal, intervalos de confianza, contraste de hipótesis (introductorio).",
+    stepStyle:
+      "Estilo formal, demostraciones rigurosas para teoremas clave (Bolzano, Rolle, valor medio). Citar teoremas por su nombre (Rouché-Frobenius, regla de L'Hôpital — SÍ está en Bachillerato español, a diferencia de Francia). Para sistemas: discutir según el parámetro usando rangos (rg(A) vs rg(A|B) vs n).",
+    examFormat:
+      "PAU/EVAU Matemáticas II : 90 minutos, 4 ejercicios de 2,5 puntos cada uno (a partir de 2024-25 estructura común CRUE). Suelen cubrir álgebra lineal, geometría 3D, análisis (optimización o integral), probabilidad. Calculadora científica o gráfica permitida (sin CAS en general).",
+    referenceBooks: [
+      "Matemáticas II 2º Bachillerato (Anaya)",
+      "Matemáticas II 2º Bachillerato (Editorial Bruño)",
+      "Matemáticas II 2º Bachillerato (SM)",
+      "Matemáticas II 2º Bachillerato (Santillana)",
+    ],
+    specialRules: [
+      "Regla de L'Hôpital SÍ está en el currículo español (a diferencia de Francia)",
+      "Teorema de Rouché-Frobenius es el método estándar para discutir sistemas — SIEMPRE comparar rg(A) y rg(A|B)",
+      "Regla de Cramer para sistemas con matriz cuadrada y |A|≠0",
+      "Producto vectorial y producto mixto SÍ — usados para áreas/volúmenes y posiciones relativas",
+      "L'Hôpital y desarrollos limitados: el único país comparativo donde L'Hôpital está claramente al programa",
+      "Bayes y probabilidad condicionada centrales en el examen",
+      "Demostración de teoremas (Bolzano, Rolle, valor medio) puede pedirse explícitamente",
+    ],
+  },
+  "ES_2º Bachillerato (EVAU)_Ciencias y Tecnología_math": {
+    notation:
+      "Matemáticas II — modalidad Ciencias y Tecnología (año de preparación PAU/EVAU). Idéntico al currículo de 2º Bachillerato.",
+    conventions:
+      "Mismo programa que 2º Bachillerato Ciencias y Tecnología — bloques de Álgebra lineal, Geometría analítica en el espacio, Análisis, Estadística y probabilidad.",
+    specialRules: [
+      "Programa idéntico al 2º Bachillerato — etiqueta EVAU indica el énfasis en preparación de la prueba",
+      "Examen PAU 90 minutos, 4 ejercicios de 2,5 puntos",
+    ],
+  },
+
+  // ── España · 2º Bachillerato · Ciencias y Tecnología — physics view ──────
+  "ES_2º Bachillerato_Ciencias y Tecnología_physics": {
+    notation:
+      "Física 2º Bachillerato — modalidad Ciencias y Tecnología. Sistema Internacional estricto. g = 9,8 m/s² (a veces 9,81 o 10 según ejercicio). Vectores en negrita o con flecha.",
+    conventions:
+      "Currículo LOMLOE. Cuatro bloques: (1) Interacción gravitatoria — campo gravitatorio, leyes de Kepler, satélites y velocidades cósmicas, energía potencial gravitatoria, movimiento orbital ; (2) Interacción electromagnética — campo eléctrico (Ley de Coulomb, potencial, energía), campo magnético (Lorentz, Biot-Savart, ley de Ampère), inducción electromagnética (Faraday, Lenz, autoinducción), corriente alterna y transformador ; (3) Ondas — clasificación, ecuación de onda, ondas mecánicas (transversales/longitudinales), ondas electromagnéticas y espectro EM, fenómenos ondulatorios (reflexión, refracción, interferencias, difracción, polarización), óptica geométrica (espejos, lentes delgadas, instrumentos ópticos) ; (4) Física moderna — relatividad especial (postulados de Einstein, dilatación del tiempo, contracción de longitudes, equivalencia masa-energía E=mc²), física cuántica (efecto fotoeléctrico, hipótesis de Planck, dualidad onda-corpúsculo de Broglie, principio de incertidumbre Heisenberg), física nuclear (radiactividad, fisión, fusión, aplicaciones).",
+    stepStyle:
+      "Plantear: sistema, ley física, ecuación, sustitución con unidades, respuesta. Para problemas de campo: dibujar líneas de campo y vectores. Citar leyes por su nombre (Kepler, Coulomb, Faraday, Lenz, Einstein).",
+    examFormat:
+      "PAU Física: 90 minutos, generalmente 4 ejercicios (1 por bloque). Calculadora científica permitida. Formulario suele estar incluido en el examen (varía por comunidad autónoma).",
+    referenceBooks: [
+      "Física 2º Bachillerato (Anaya)",
+      "Física 2º Bachillerato (Edebé)",
+      "Física 2º Bachillerato (McGraw-Hill)",
+      "Física 2º Bachillerato (SM)",
+    ],
+    specialRules: [
+      "Relatividad especial SÍ en el programa — incluye E=mc², dilatación del tiempo, paradoja de los gemelos",
+      "Cuantos: efecto fotoeléctrico cuantitativo con E_cinética = hf - W",
+      "Inducción: ε = -dΦ/dt — siempre indicar el signo según Lenz",
+      "Para satélites: distinguir velocidad orbital, de escape y cósmicas (1ª, 2ª, 3ª)",
+      "El formulario varía según la comunidad autónoma — verificar antes del examen",
+    ],
+  },
+
+  // ── España · 2º Bachillerato · Ciencias y Tecnología — chemistry view ────
+  "ES_2º Bachillerato_Ciencias y Tecnología_chemistry": {
+    notation:
+      "Química 2º Bachillerato. Concentraciones en mol/L (M) o molalidad (mol/kg). Sistema Internacional. Nomenclatura IUPAC actualizada (2005).",
+    conventions:
+      "Currículo LOMLOE. Bloques: (1) Estructura atómica y enlace — modelo cuántico actual, números cuánticos, configuración electrónica, propiedades periódicas (radio atómico, energía de ionización, afinidad electrónica, electronegatividad), enlaces (iónico — ciclo de Born-Haber, covalente — Lewis, hibridación, geometría VSEPR/RPECV, polaridad, fuerzas intermoleculares, enlace metálico) ; (2) Reacciones químicas — termoquímica (entalpía, ley de Hess, energía libre de Gibbs ΔG, espontaneidad), cinética química (velocidad de reacción, factores, mecanismos, energía de activación, catalizadores), equilibrio químico (Kc, Kp, principio de Le Chatelier), equilibrios en disolución acuosa (ácido-base — Brønsted, pH, indicadores, valoraciones, hidrólisis, disoluciones reguladoras), redox (semirreacciones, ajuste por método del ion-electrón, pilas galvánicas y ecuación de Nernst, electrólisis, leyes de Faraday) ; (3) Química orgánica y nuevos materiales — funciones orgánicas (alcoholes, éteres, aldehídos, cetonas, ácidos, ésteres, aminas, amidas, nitrilos, nitrocompuestos), isomería (estructural y estereoisomería — geométrica, óptica con C asimétrico), síntesis y reacciones (sustitución, adición, eliminación, oxidación, esterificación, polimerización), polímeros y nuevos materiales.",
+    stepStyle:
+      "Para reacciones: ajustar siempre la ecuación, hacer balance de masa. Para equilibrios: tabla ICE (initial, change, equilibrium) o equivalente. Para redox: separar semirreacciones, ajustar por ion-electrón, escribir ecuación global. Para mecanismos orgánicos: SN1, SN2, E1, E2 con flechas curvas si se piden mecanismos.",
+    examFormat:
+      "PAU Química: 90 minutos, 4-5 ejercicios cubriendo estructura/enlace, termoquímica/cinética/equilibrio, ácido-base + redox, química orgánica. Formulario y tabla periódica suelen incluirse.",
+    referenceBooks: [
+      "Química 2º Bachillerato (Anaya)",
+      "Química 2º Bachillerato (Edebé)",
+      "Química 2º Bachillerato (Vicens Vives)",
+      "Química 2º Bachillerato (SM)",
+    ],
+    specialRules: [
+      "Mecanismos orgánicos: SN1/SN2/E1/E2 con flechas curvas (igual que en Francia y Reino Unido)",
+      "Para ajustar redox: método del ion-electrón en medio ácido o básico — dejar claro el medio",
+      "Ecuación de Nernst: E = E° - (0,059/n) log Q a 25°C — memorizar",
+      "Equilibrios ácido-base: distinguir Ka/Kb/Kw y pKa/pKb/pKw, hidrólisis de sales",
+      "Hibridación: sp³, sp², sp asociadas a geometría tetraédrica, plana trigonal, lineal",
+      "Polímeros y nuevos materiales: condensación vs adición, ejemplos industriales",
+    ],
+  },
+
+  // ── España · 2º Bachillerato · Humanidades y CCSS — math view ────────────
+  // Matemáticas Aplicadas a las Ciencias Sociales II (programa más aplicado).
+  "ES_2º Bachillerato_Humanidades y Ciencias Sociales_math": {
+    notation:
+      "Matemáticas Aplicadas a las Ciencias Sociales II (CCSS II) — modalidad Humanidades y Ciencias Sociales. Coma decimal, intervalos estándar.",
+    conventions:
+      "Currículo LOMLOE. Tres bloques principales: (1) Álgebra — matrices (operaciones, rango, inversa), sistemas de ecuaciones lineales (Gauss, Rouché-Frobenius), programación lineal (función objetivo, restricciones, región factible, vértices, optimización por método gráfico — central en CCSS) ; (2) Análisis — funciones (límites, continuidad, derivabilidad), aplicaciones de la derivada (problemas de optimización CON CONTEXTO ECONÓMICO/SOCIAL — costes, beneficios, ingresos), integral indefinida y definida, área bajo la curva ; (3) Estadística y probabilidad — distribuciones de probabilidad (binomial, normal — uso de tablas), inferencia estadística (estimación puntual e intervalos de confianza para la media y la proporción, contraste de hipótesis introductorio).",
+    stepStyle:
+      "Enfoque más aplicado y menos formal que Matemáticas II. Privilegiar interpretación contextual (modelos económicos, sociales, demográficos). Para programación lineal: planteamiento del modelo con variables, restricciones, función objetivo; resolución gráfica con identificación de vértices; cálculo de óptimo.",
+    examFormat:
+      "PAU Mat. CCSS II: 90 minutos, 4 ejercicios de 2,5 puntos. Cobertura típica: programación lineal, análisis (optimización), inferencia estadística, probabilidad (Bayes).",
+    referenceBooks: [
+      "Matemáticas Aplicadas a las CCSS II (Anaya)",
+      "Matemáticas Aplicadas a las CCSS II (SM)",
+      "Matemáticas Aplicadas a las CCSS II (Santillana)",
+    ],
+    specialRules: [
+      "Programación lineal SÍ en CCSS II — método gráfico con 2 variables, central en el examen",
+      "NO geometría 3D (vectores, rectas, planos) — reservada a Matemáticas II",
+      "NO álgebra lineal abstracta avanzada — sistemas con parámetro nivel medio",
+      "NO química/física aplicada — contextos económicos y sociales (oferta/demanda, ingresos, costes)",
+      "Inferencia estadística más profunda que en Mat II: estimación, contrastes con tablas",
+      "Para integrales: técnicas básicas (sustitución y partes simple), no integrales racionales complejas",
+    ],
+  },
+  "ES_2º Bachillerato (EVAU)_Humanidades y Ciencias Sociales_math": {
+    notation:
+      "Matemáticas Aplicadas a las CCSS II — año PAU/EVAU. Idéntico al currículo de 2º Bachillerato Humanidades y CCSS.",
+    conventions:
+      "Mismo programa: programación lineal, análisis aplicado, inferencia estadística.",
+    specialRules: [
+      "Programa idéntico al 2º Bachillerato — etiqueta EVAU indica preparación de la prueba",
+    ],
+  },
+
   // ── France · Terminale · Spécialité NSI (6h/sem) ─────────────────────────
   "FR_Terminale_Spécialité NSI_informatics": {
     notation:
