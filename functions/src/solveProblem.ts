@@ -45,7 +45,7 @@ export const solveProblem = onCall(
 
     await enforceRateLimit(uid, "solve", 30);
 
-    const profile = await getCurriculumProfile(req.country, req.subject);
+    const profile = await getCurriculumProfile(req.country, req.subject, req.gradeLevel, req.section);
 
     let ragContext = "";
     if (req.bookIds?.length) {
