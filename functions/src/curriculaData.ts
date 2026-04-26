@@ -1949,6 +1949,88 @@ export const STATIC_SECTION_PROFILES: Record<string, Partial<ProfileData>> = {
     ],
   },
 
+  // ── Egypt · Grade 12 (Thanaweya Amma) · Mathematics section — math view ──
+  "EG_Grade 12 (Thanaweya Amma)_Scientific — Mathematics section_math": {
+    notation:
+      "Thanaweya Amma — Mathematics section (شعبة الرياضيات). Arabic primary medium of instruction (English/French versions also available). Decimal point (3.14). International math notation. Pure & Applied Math consolidated into a single subject post-2024 reform.",
+    conventions:
+      "Egyptian Ministry of Education curriculum (post-2024 reform). Mathematics topics: (1) PURE MATH — Algebra: complex numbers (algebraic, polar, exponential forms, De Moivre's theorem, roots of equations in ℂ); matrices and determinants (operations, inverse, system of equations); permutations and combinations, mathematical induction, binomial theorem ; Solid Geometry / Analytic Geometry: equation of straight line in space, equation of plane, distance, angle between two planes, sphere; vectors in 3D (dot product, cross product, triple product) ; (2) CALCULUS — limits and continuity, derivatives (rules including chain rule, implicit, parametric), applications (rates of change, tangent/normal lines, maxima/minima, curve sketching), integration (techniques: substitution, by parts, partial fractions, trigonometric substitution), definite integrals and applications (area, volume of revolution, arc length) ; (3) APPLIED MATH — STATICS: vectors and forces, equilibrium of particle under coplanar forces, moments and couples, equilibrium of rigid body, friction, centre of gravity ; (4) APPLIED MATH — DYNAMICS: kinematics (uniform motion, uniformly accelerated motion, motion under gravity, projectile motion), Newton's laws of motion, work-energy theorem, impulse and momentum, conservation laws, simple harmonic motion (introductory).",
+    stepStyle:
+      "Detailed step-by-step solutions expected. State the rule/theorem being used (binomial theorem, De Moivre's theorem, Newton's second law). For dynamics: define system, draw free-body diagram, apply Newton's laws axis by axis. For statics: equilibrium equations ΣF=0 and ΣM=0. For complex numbers: specify which form (Cartesian a+bi, polar r(cos θ + i sin θ), or exponential re^{iθ}).",
+    examFormat:
+      "Thanaweya Amma exam: 3 hours per subject. Post-2024 reform: 85% multiple choice questions (MCQs) + 15% essay-style problems. Total mark out of 100 per subject. Mathematics section students take Math + Physics + Chemistry + Arabic + 1st Foreign Language (5 subjects total, reduced from 7).",
+    referenceBooks: [
+      "El-Moasser Pure Math Grade 12 (المعاصر)",
+      "El-Moasser Applied Math Grade 12 (statics + dynamics)",
+      "El-Adwaa Mathematics Series Grade 12",
+      "Ministry of Education official textbooks (Pure Math + Applied Math + Calculus)",
+    ],
+    specialRules: [
+      "Statics AND dynamics are AT the program — distinctive of Egyptian system (most countries omit applied mechanics from math)",
+      "De Moivre's theorem and roots of unity central — expected on exam",
+      "Mathematical induction is taught and tested",
+      "Free-body diagrams REQUIRED for all dynamics problems",
+      "Friction problems include both static and kinetic (μ_s, μ_k)",
+      "Vector triple product (a × (b × c)) IS in the syllabus (unlike post-2024 CBSE India)",
+      "Post-2024 reform: pure and applied math merged into single subject",
+      "85% MCQ format — practice quick computation and elimination strategies",
+    ],
+  },
+
+  // ── Egypt · Grade 12 · Mathematics section — physics view ────────────────
+  "EG_Grade 12 (Thanaweya Amma)_Scientific — Mathematics section_physics": {
+    notation:
+      "Thanaweya Amma — Math section, Physics. SI units; g = 9.8 m/s² (sometimes 10 for simplification). Arabic primary instruction (English/French versions exist).",
+    conventions:
+      "Egyptian MoE curriculum, Physics for Math section (more rigorous than Sciences section). Topics: (1) Mechanics (overlaps with applied math) — kinematics, Newton's laws, work-energy, momentum ; (2) Wave motion — properties, sound, Doppler effect ; (3) Light — wave nature (interference, diffraction, polarisation), particle nature (photoelectric effect) ; (4) Electricity — current, Ohm's law, Kirchhoff, capacitors, RC circuits ; (5) Magnetism — magnetic field, force on current-carrying conductor, electromagnetic induction (Faraday, Lenz) ; (6) Modern Physics — atomic structure (Bohr model, hydrogen spectrum), photoelectric effect quantitative, X-rays, lasers, basic quantum concepts, nuclear physics (radioactivity, fission, fusion).",
+    stepStyle:
+      "State law/principle, write formula, identify given quantities, substitute with units, answer with correct significant figures.",
+    examFormat:
+      "Thanaweya Amma Physics: 3 hours, 85% MCQ + 15% essay. Math section students take this same Physics paper.",
+    specialRules: [
+      "Mechanics taught in BOTH math (applied) and physics — expect overlap in kinematics/Newton's laws",
+      "Photoelectric effect quantitative: hf = W₀ + KE_max",
+      "Bohr model with E_n = -13.6/n² eV for hydrogen",
+      "Faraday's law for induction: ε = -dΦ/dt with sign",
+    ],
+  },
+
+  // ── Egypt · Grade 12 · Sciences section — physics view ───────────────────
+  "EG_Grade 12 (Thanaweya Amma)_Scientific — Sciences section_physics": {
+    notation:
+      "Thanaweya Amma — Sciences section (شعبة العلوم), Physics. Arabic primary instruction.",
+    conventions:
+      "Same Physics topics as Math section but with reduced mathematical depth. Focus on conceptual understanding, qualitative analysis, and applications. Mechanics, waves, light, electricity, magnetism, modern physics.",
+    specialRules: [
+      "Same syllabus as Math section but less mathematical rigour expected",
+      "Sciences section students focus more on Biology and Chemistry — Physics is secondary",
+      "Numerical calculations simpler than Math section",
+    ],
+  },
+
+  // ── Egypt · Grade 12 · Sciences section — chemistry view ─────────────────
+  "EG_Grade 12 (Thanaweya Amma)_Scientific — Sciences section_chemistry": {
+    notation:
+      "Thanaweya Amma — Sciences section, Chemistry. mol/L for concentrations. SI units. IUPAC nomenclature.",
+    conventions:
+      "Egyptian MoE Chemistry curriculum: (1) Periodic Table — atomic structure (modern atomic model, electron configurations), periodic trends, transition elements ; (2) Analytical Chemistry — qualitative and quantitative analysis, titrations (acid-base, redox), complexometric, identification of cations/anions ; (3) Electrochemistry — electrolysis, galvanic cells, electrode potentials, batteries ; (4) Organic Chemistry — hydrocarbons (alkanes, alkenes, alkynes, aromatic), functional groups (alcohols, aldehydes, ketones, carboxylic acids, esters, amines), reactions and mechanisms (substitution, addition, elimination), polymers.",
+    stepStyle:
+      "Write balanced chemical equations. For titrations: identify equivalence point, calculate molarity using n₁V₁/n₂V₂ relation. For organic: identify functional group, predict product, name with IUPAC.",
+    examFormat:
+      "Thanaweya Amma Chemistry: 3 hours, 85% MCQ + 15% essay.",
+    specialRules: [
+      "Sciences section students take Chemistry as primary, not secondary",
+      "Analytical chemistry given heavy weight — laboratory techniques expected",
+      "Organic chemistry mechanisms simpler than CBSE/EU — descriptive rather than electron-pushing",
+      "Periodic table of elements provided in the exam",
+    ],
+  },
+
+  // Note: Egypt Sciences section also includes Biology (genetics, molecular
+  // biology, anatomy/physiology) and previously Geology (now pass-fail).
+  // Biology subject not yet in our enum — when subject==chemistry is used by
+  // Sciences-section students, the chemistry overlay above applies.
+
   // ── France · Terminale · Spécialité NSI (6h/sem) ─────────────────────────
   "FR_Terminale_Spécialité NSI_informatics": {
     notation:
