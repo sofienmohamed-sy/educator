@@ -27,64 +27,59 @@ export default function StepList({ solution }: Props) {
   return (
     <div>
       <div className="card">
-        <h3 style={{ marginTop: 0 }}>Problem</h3>
-        <p>{renderRichText(solution.restatement)}</p>
-        {solution.assumptions && solution.assumptions.length > 0 ? (
-          <>
-            <h4>Assumptions</h4>
-            <ul>
-              {solution.assumptions.map((a, i) => (
-                <li key={i}>{renderRichText(a)}</li>
-              ))}
-            </ul>
-          </>
-        ) : null}
+        <p style={{ margin: 0, fontStyle: "italic" }}>{renderRichText(solution.restatement)}</p>
+        {solution.assumptions && solution.assumptions.length > 0 && (
+          <ul style={{ marginTop: "0.5rem", marginBottom: 0 }}>
+            {solution.assumptions.map((a, i) => (
+              <li key={i} className="muted">{renderRichText(a)}</li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="card">
         <div className="row" style={{ justifyContent: "space-between", marginBottom: "0.75rem" }}>
-          <h3 style={{ margin: 0 }}>Step-by-step solution</h3>
-          <label style={{ flex: "0 0 auto", margin: 0 }}>
+          <span style={{ fontWeight: 600 }}>Solution</span>
+          <label style={{ flex: "0 0 auto", margin: 0, fontSize: "0.85rem" }}>
             <input
               type="checkbox"
               checked={showExplanations}
               onChange={(e) => setShowExplanations(e.target.checked)}
               style={{ width: "auto", marginRight: "0.4rem" }}
             />
-            Show explanations
+            Commentaires
           </label>
         </div>
 
-        {solution.steps.map((s, i) => (
-          <div className="step" key={i}>
-            <h3>
-              Step {i + 1}: {s.title}
-            </h3>
-            <div>
+        <div style={{ lineHeight: 1.7 }}>
+          {solution.steps.map((s, i) => (
+            <div key={i} style={{ marginBottom: "0.75rem" }}>
               <MathRenderer tex={s.expression} displayMode />
+              {showExplanations && (
+                <p style={{ margin: "0.2rem 0 0", color: "var(--text-muted, #555)", fontSize: "0.9rem" }}>
+                  {renderRichText(s.explanation)}
+                  {s.ruleOrTheorem && (
+                    <em style={{ marginLeft: "0.4rem", color: "var(--accent, #7c3aed)" }}>
+                      ({s.ruleOrTheorem})
+                    </em>
+                  )}
+                </p>
+              )}
             </div>
-            {s.ruleOrTheorem ? (
-              <p className="muted" style={{ margin: "0.25rem 0 0" }}>
-                <em>Rule / theorem:</em> {renderRichText(s.ruleOrTheorem)}
-              </p>
-            ) : null}
-            {showExplanations ? (
-              <p className="explanation">
-                <strong>Why this follows:</strong> {renderRichText(s.explanation)}
-              </p>
-            ) : null}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div className="card">
-        <h3 style={{ marginTop: 0 }}>Final answer</h3>
-        <MathRenderer tex={solution.finalAnswer} displayMode />
-        {solution.verification ? (
-          <p className="muted" style={{ marginTop: "0.75rem" }}>
-            <strong>Check:</strong> {renderRichText(solution.verification)}
+        <span style={{ fontWeight: 600 }}>Réponse</span>
+        <div style={{ marginTop: "0.4rem" }}>
+          <MathRenderer tex={solution.finalAnswer} displayMode />
+        </div>
+        {solution.verification && (
+          <p className="muted" style={{ marginTop: "0.5rem", fontSize: "0.85rem" }}>
+            Vérification : {renderRichText(solution.verification)}
           </p>
-        ) : null}
+        )}
       </div>
     </div>
   );
