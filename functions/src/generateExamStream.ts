@@ -9,7 +9,7 @@ import { streamWithClaude, MAX_TOKENS_EXAM } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildExamPrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
-import { searchRelevantChunks, fetchEarlyChunks } from "./rag";
+import { searchRelevantChunks, fetchStyleChunks } from "./rag";
 import { verifyFirebaseToken, startSSE, sendSSE, endSSE } from "./streamHelpers";
 import { generateExamRequestSchema, examSchema, type Exam } from "./schema";
 
@@ -60,8 +60,8 @@ export const generateExamStream = onRequest(
       let ragContext = "";
       if (data.bookIds?.length) {
         const [contentChunks, styleChunks] = await Promise.all([
-          searchRelevantChunks(data.topics.join(", "), data.bookIds, GCP_PROJECT_ID.value(), 20),
-          fetchEarlyChunks(data.bookIds),
+          searchRelevantChunks(`exercice problème ${data.topics.join(", ")}`, data.bookIds, GCP_PROJECT_ID.value(), 20),
+          fetchStyleChunks(data.bookIds, GCP_PROJECT_ID.value()),
         ]);
         ragContext = buildRagContextBlock(contentChunks, styleChunks);
       }

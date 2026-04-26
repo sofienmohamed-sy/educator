@@ -9,7 +9,7 @@ import { streamWithClaude } from "./claude";
 import { getCurriculumProfile } from "./curriculum";
 import { buildCoursePrompt, buildRagContextBlock } from "./prompts";
 import { enforceRateLimit } from "./rateLimit";
-import { searchRelevantChunks, fetchEarlyChunks } from "./rag";
+import { searchRelevantChunks, fetchStyleChunks } from "./rag";
 import { verifyFirebaseToken, startSSE, sendSSE, endSSE } from "./streamHelpers";
 import { generateCourseRequestSchema, courseSchema, type Course } from "./schema";
 
@@ -61,7 +61,7 @@ export const generateCourseStream = onRequest(
       if (data.bookIds?.length) {
         const [contentChunks, styleChunks] = await Promise.all([
           searchRelevantChunks(data.topic, data.bookIds, GCP_PROJECT_ID.value(), 20),
-          fetchEarlyChunks(data.bookIds),
+          fetchStyleChunks(data.bookIds, GCP_PROJECT_ID.value()),
         ]);
         ragContext = buildRagContextBlock(contentChunks, styleChunks);
       }
