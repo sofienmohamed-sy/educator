@@ -226,7 +226,12 @@ export const examSubpartSchema = z.object({
   letter: z.string().min(1),
   type: z.enum(["direct", "indirect", "synthesis"]),
   question: z.string().min(1),
-  points: z.number().min(0.25),
+  points: z
+    .number()
+    .min(0.25)
+    .refine((v) => Math.abs(Math.round(v * 4) - v * 4) < 0.001, {
+      message: "points must be a multiple of 0.25",
+    }),
   solution: solutionSchema,
   rubric: rspOptStr(),
 });
@@ -236,10 +241,26 @@ export const examPartSchema = z.object({
   subparts: z.array(examSubpartSchema).min(1),
 });
 
+export const graphFunctionSchema = z.object({
+  expression: z.string().min(1),
+  label: rspOptStr(),
+  color: rspOptStr(),
+});
+
+export const graphSpecSchema = z.object({
+  functions: z.array(graphFunctionSchema).min(1),
+  xMin: z.number().default(-5),
+  xMax: z.number().default(5),
+  caption: rspOptStr(),
+});
+export type GraphFunction = z.infer<typeof graphFunctionSchema>;
+export type GraphSpec = z.infer<typeof graphSpecSchema>;
+
 export const examExerciseSchema = z.object({
   title: z.string().min(1),
-  totalPoints: z.number().int().positive(),
+  totalPoints: z.number().positive(),
   context: z.string().min(1),
+  graphs: rspOptArr(graphSpecSchema),
   parts: z.array(examPartSchema).min(1),
 });
 
@@ -247,7 +268,7 @@ export const examSchema = z.object({
   title: z.string().min(1),
   durationMinutes: z.number().int().positive().nullish().transform((v) => v ?? undefined),
   totalPoints: z.number().int().positive(),
-  exercises: z.array(examExerciseSchema).min(1),
+  exercises: z.array(examExerciseSchema).min(4).max(4),
 });
 
 export type ExamSubpart = z.infer<typeof examSubpartSchema>;

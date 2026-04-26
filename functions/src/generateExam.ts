@@ -30,8 +30,12 @@ export function validateExamDistribution(
   exam: Exam,
   totalPoints: number,
 ): string | null {
+  if (exam.exercises.length !== 4) {
+    return `Exam has ${exam.exercises.length} exercises; exactly 4 are required.`;
+  }
+
   const sum = exam.exercises.reduce((acc, e) => acc + e.totalPoints, 0);
-  if (Math.abs(sum - totalPoints) > 1) {
+  if (Math.abs(sum - totalPoints) > 0.01) {
     return `Point sum ${sum} does not equal ${totalPoints}.`;
   }
 
