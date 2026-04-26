@@ -195,35 +195,34 @@ describe("examSchema — 60/20/20 distribution validator", () => {
   };
 
   function makeExam(
-    distribution: Array<{ type: "direct" | "indirect" | "synthesis"; points: number }>,
+    subpartDefs: Array<{ type: "direct" | "indirect" | "synthesis"; points: number }>,
   ) {
+    const subparts = subpartDefs.map((d, i) => ({
+      letter: String.fromCharCode(97 + i),
+      type: d.type,
+      question: "Question text",
+      points: d.points,
+      solution: minSolution,
+    }));
     return {
       title: "Test Exam",
       durationMinutes: 60,
-      totalPoints: distribution.reduce((s, e) => s + e.points, 0),
-      exercises: distribution.map((e) => ({
-        title: "Exercice",
-        totalPoints: e.points,
-        type: e.type,
+      totalPoints: subpartDefs.reduce((s, d) => s + d.points, 0),
+      exercises: [{
+        title: "Exercice 01",
+        totalPoints: subpartDefs.reduce((s, d) => s + d.points, 0),
         context: "Soit (u_n) une suite.",
-        parts: [{
-          number: "1",
-          subparts: [{
-            letter: "a",
-            question: "Question text",
-            points: e.points,
-            solution: minSolution,
-          }],
-        }],
-      })),
+        parts: [{ number: "1", subparts }],
+      }],
     };
   }
 
-  it("accepts a valid 60/20/20 exam", () => {
+  it("accepts a valid 60/20/20 exam (subpart types)", () => {
     const exam = makeExam([
-      { type: "direct", points: 60 },
-      { type: "indirect", points: 20 },
-      { type: "synthesis", points: 20 },
+      { type: "direct", points: 3 },
+      { type: "direct", points: 3 },
+      { type: "indirect", points: 2 },
+      { type: "synthesis", points: 2 },
     ]);
     expect(examSchema.safeParse(exam).success).toBe(true);
   });

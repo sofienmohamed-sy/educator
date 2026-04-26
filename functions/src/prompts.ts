@@ -396,13 +396,18 @@ type Exam = {
   exercises: Array<{
     title: string;          // "Exercice 01", "Exercice 02", etc.
     totalPoints: number;    // total points for this exercise
-    type: "direct" | "indirect" | "synthesis";
     context: string;        // the shared setup: all definitions, sequences, functions
                             // given for this exercise — written as in the book
     parts: Array<{
       number: string;       // "1", "2", "3", ...
       subparts: Array<{
         letter: string;     // "a", "b", "c", ...
+        type: "direct" | "indirect" | "synthesis";
+                            // direct   = explicit helper (path is obvious)
+                            // indirect = semi-hidden helper (non-trivial connection needed)
+                            // synthesis= the final objective question (NOT a helper)
+                            //   RULE: helpers may only be "direct" or "indirect".
+                            //   "synthesis" is ONLY for the final sub-question(s).
         question: string;   // question text; may reference earlier results
                             // ("En déduire...", "En utilisant 1a)...")
         points: number;
@@ -449,10 +454,6 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
   const subjectLabel = SUBJECT_LABELS[subject];
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
-
-  const directPts = Math.round(totalPoints * 0.6);
-  const indirectPts = Math.round(totalPoints * 0.2);
-  const synthPts = totalPoints - directPts - indirectPts;
 
   return [
     `You are an expert ${subjectLabel} educator creating an exam.`,
@@ -506,25 +507,36 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
         `• Do not introduce any tool, theorem, or notation absent from the book.`
       : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
     ``,
-    `MANDATORY POINT DISTRIBUTION across exercises (total = ${totalPoints} pts):`,
-    `  - DIRECT exercises:    exactly ${directPts} pts (60%). Helpers explicit. Student sees path from sub-question 1.`,
-    `    Typically 2–3 numbered parts, each with 1–2 lettered sub-questions.`,
-    `  - INDIRECT exercises:  exactly ${indirectPts} pts (20%). Helpers semi-hidden. Student must make`,
-    `    1–2 non-trivial connections. Typically 2–3 parts, each with 2–3 sub-questions.`,
-    `  - SYNTHESIS exercises: exactly ${synthPts} pts (20%). Helpers subtle. Student discovers the path.`,
-    `    Must have 4–6 numbered parts that build on each other. The final sub-question`,
-    `    must reveal a hard generalisation or unexpected result not obvious from the start.`,
+    `SUBPART TYPE RULES (applied within EACH exercise individually):`,
+    `  Each exercise must have its own 60/20/20 distribution of subpart types:`,
+    ``,
+    `  "direct"    (60% of subpart points per exercise):`,
+    `      HELPERS that are EXPLICIT. The question states exactly what to do and how.`,
+    `      Example: "Using the definition of the limit, show that u_n → L."`,
+    `      The student can see the method directly from the question wording.`,
+    ``,
+    `  "indirect"  (20% of subpart points per exercise):`,
+    `      HELPERS that are SEMI-HIDDEN. The question names the target but not the method.`,
+    `      Example: "Show that the sequence (u_n) is bounded above."`,
+    `      The student must choose the method themselves, but the target is clear.`,
+    ``,
+    `  "synthesis" (20% of subpart points per exercise):`,
+    `      THE OBJECTIVE — NOT a helper. This is the final question the exercise is`,
+    `      building toward. The connection to all previous helpers is non-obvious.`,
+    `      The student must have understood everything to reach this answer.`,
+    `      ALWAYS placed LAST. Example: "Deduce the general behaviour of (u_n) as n→∞."`,
+    ``,
+    `  CRITICAL RULE: helpers are ONLY "direct" or "indirect". "synthesis" is reserved`,
+    `  EXCLUSIVELY for the final sub-question(s) that reveal the exercise's objective.`,
+    `  A "synthesis" subpart NEVER comes before a "direct" or "indirect" one.`,
     ``,
     `Structural constraints:`,
     `  - sum(exercises[i].totalPoints) MUST equal ${totalPoints} exactly.`,
-    `  - Each exercise MUST have ONE clear objective (stated implicitly via the context).`,
+    `  - Each exercise MUST have ONE clear objective (the synthesis sub-question).`,
     `  - Each exercise MUST have at least 2 numbered parts, each with at least 1 sub-question.`,
-    `  - ALL sub-questions must be chained: each one must use the result of the previous.`,
-    `    Use the book's enchaining phrases: "En déduire...", "En utilisant 1a)...",`,
+    `  - ALL sub-questions must chain: each uses the result of the previous.`,
+    `    Use enchaining phrases: "En déduire...", "En utilisant 1a)...",`,
     `    "Montrer ensuite que...", "En déduire la valeur de...", etc.`,
-    `  - Direct exercises: helpers explicitly name the method (e.g. "Show using the`,
-    `    definition that..."). Indirect: helpers name the concept but not the method.`,
-    `    Synthesis: helpers only name the target ("Show that..."), the method is hidden.`,
     `  - Set a realistic durationMinutes for this exam.`,
     ``,
     EXAM_JSON_CONTRACT,
