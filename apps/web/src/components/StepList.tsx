@@ -1,6 +1,8 @@
 import { useState } from "react";
 import MathRenderer from "./MathRenderer";
-import { renderRichText } from "../lib/renderRichText";
+import FunctionGraph from "./FunctionGraph";
+import { renderRichText, looksLikeProse } from "../lib/renderRichText";
+import type { GraphSpec } from "../lib/types";
 
 export interface SolutionStep {
   title: string;
@@ -15,10 +17,41 @@ export interface Solution {
   steps: SolutionStep[];
   finalAnswer: string;
   verification?: string;
+  graphs?: GraphSpec[];
 }
 
 interface Props {
   solution: Solution;
+}
+
+/**
+ * Render a step expression. The expression is supposed to be pure LaTeX, but
+ * Claude occasionally includes surrounding prose. When prose is detected we
+ * fall back to renderRichText so accented characters aren't garbled by KaTeX.
+ */
+function renderExpression(expr: string) {
+  if (!expr) return null;
+  // Already has explicit delimiters — let renderRichText dispatch
+  if (/\\\[|\\\(|\$/.test(expr)) return renderRichText(expr);
+  // Prose mixed in → don't feed through KaTeX
+  if (looksLikeProse(expr))
+    return <span style={{ whiteSpace: "pre-wrap", fontStyle: "italic" }}>{renderRichText(expr)}</span>;
+  // Pure LaTeX expression
+  return <MathRenderer tex={expr} displayMode />;
+}
+
+/**
+ * Render the final answer. Claude usually outputs LaTeX but may output a
+ * prose conclusion ("Il n'existe aucune valeur…"). Prose must NOT go through
+ * KaTeX — it garbles accented characters.
+ */
+function renderFinalAnswer(answer: string) {
+  if (!answer) return null;
+  if (looksLikeProse(answer)) return <p style={{ margin: 0 }}>{renderRichText(answer)}</p>;
+  // If it has delimiters, dispatch via renderRichText
+  if (/\\\[|\\\(|\$/.test(answer)) return <>{renderRichText(answer)}</>;
+  // Pure LaTeX
+  return <MathRenderer tex={answer} displayMode />;
 }
 
 export default function StepList({ solution }: Props) {
@@ -54,7 +87,7 @@ export default function StepList({ solution }: Props) {
         <div style={{ lineHeight: 1.7 }}>
           {solution.steps.map((s, i) => (
             <div key={i} style={{ marginBottom: "0.75rem" }}>
-              <MathRenderer tex={s.expression} displayMode />
+              {renderExpression(s.expression)}
               {showExplanations && (
                 <p style={{ margin: "0.2rem 0 0", color: "var(--text-muted, #555)", fontSize: "0.9rem" }}>
                   {renderRichText(s.explanation)}
@@ -70,10 +103,21 @@ export default function StepList({ solution }: Props) {
         </div>
       </div>
 
+      {solution.graphs && solution.graphs.length > 0 && (
+        <div className="card">
+          <span style={{ fontWeight: 600 }}>Représentation graphique</span>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+            {solution.graphs.map((g, i) => (
+              <FunctionGraph key={i} spec={g} />
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="card">
         <span style={{ fontWeight: 600 }}>Réponse</span>
         <div style={{ marginTop: "0.4rem" }}>
-          <MathRenderer tex={solution.finalAnswer} displayMode />
+          {renderFinalAnswer(solution.finalAnswer)}
         </div>
         {solution.verification && (
           <p className="muted" style={{ marginTop: "0.5rem", fontSize: "0.85rem" }}>

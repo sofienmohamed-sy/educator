@@ -1,17 +1,25 @@
 import type { ReactNode } from "react";
 import MathRenderer from "../components/MathRenderer";
 
-// Splits text on \(...\), $...$, and **...** markers
-const RICH_PATTERN = /(\\\([\s\S]+?\\\)|\$[^$\n]+\$|\*\*[^*]+\*\*)/g;
+// Splits text on display/inline math delimiters and **bold**
+// Order matters: longer/greedier patterns first
+const RICH_PATTERN =
+  /(\\\[[\s\S]+?\\\]|\$\$[\s\S]+?\$\$|\\\([\s\S]+?\\\)|\$[^$\n]+\$|\*\*[^*]+\*\*)/g;
 
 /**
- * Renders a mixed string containing inline LaTeX (\(...\) or $...$)
+ * Renders a mixed string containing LaTeX (\(...\), $...$, \[...\], $$...$$)
  * and Markdown bold (**text**) into React nodes.
  */
 export function renderRichText(text: string): ReactNode {
   if (!text) return null;
   const parts = text.split(RICH_PATTERN);
   return parts.map((part, i) => {
+    const displayBracket = part.match(/^\\\[([\s\S]+)\\\]$/u);
+    if (displayBracket) return <MathRenderer key={i} tex={displayBracket[1]} displayMode />;
+
+    const displayDollar = part.match(/^\$\$([\s\S]+)\$\$$/u);
+    if (displayDollar) return <MathRenderer key={i} tex={displayDollar[1]} displayMode />;
+
     const inlineParens = part.match(/^\\\(([\s\S]+)\\\)$/u);
     if (inlineParens) return <MathRenderer key={i} tex={inlineParens[1]} />;
 
@@ -23,6 +31,27 @@ export function renderRichText(text: string): ReactNode {
 
     return <span key={i}>{part}</span>;
   });
+}
+
+/**
+ * Returns true when a string looks like natural-language prose rather than
+ * a pure LaTeX expression. Used to decide whether to pass content through
+ * KaTeX or render it as rich text (preventing garbled accented characters).
+ *
+ * Signals detected:
+ *  - Ends with sentence-final punctuation (.!?)
+ *  - Contains " : " (narrative colon used in French explanations)
+ *  - Contains an unescaped apostrophe (French contractions: n', l', d'…)
+ *  - Starts with a capitalised prose word ("Il ", "On ", "Donc "…)
+ */
+export function looksLikeProse(text: string): boolean {
+  const t = text.trim();
+  if (!t) return false;
+  if (/[.!?]$/.test(t)) return true;
+  if (/\s:\s/.test(t)) return true;
+  if (/(?<!\\)'/.test(t)) return true;
+  if (/^[A-ZÀ-Ÿ][a-zà-ÿ]{2,}\s/.test(t)) return true;
+  return false;
 }
 
 /**
