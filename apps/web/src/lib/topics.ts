@@ -758,36 +758,140 @@ const TOPICS: Record<string, Topic[]> = {
     "Probabilités",
   ],
   "MA_physics_2ème Bac": [
-    "Mécanique : forces, champ de pesanteur",
-    "Lois de Newton, mouvements rectiligne et circulaire",
-    "Mouvements dans les champs (g = 10 m/s²)",
-    "Oscillateurs mécaniques",
-    "Ondes mécaniques",
-    "Ondes lumineuses, diffraction",
-    "Décroissance radioactive",
-    "Réactions nucléaires (fission, fusion)",
-    "Dipôle RC, RL et RLC",
-    "Modulation et démodulation",
+    {
+      label: "Mécanique : lois de Newton",
+      limits:
+        "Référentiel galiléen, 1re/2e/3e lois de Newton (g = 10 m/s² au Maroc) ; PFD vectoriel ; plan incliné, frottements f = μN ; PAS le repère de Frenet.",
+    },
+    {
+      label: "Mouvements dans les champs",
+      limits:
+        "Champ de pesanteur (projectile, trajectoire parabolique) et champ électrique uniforme (déflexion d'une particule chargée) ; énergie cinétique gagnée qU = ½mv².",
+    },
+    {
+      label: "Mouvement circulaire",
+      limits:
+        "Mouvement circulaire uniforme : accélération centripète ac = v²/r = ω²r ; force centripète, rotation de la Terre (notion). PAS le mouvement circulaire non-uniforme.",
+    },
+    {
+      label: "Oscillations mécaniques",
+      limits:
+        "Pendule élastique et pendule pesant (petites oscillations) ; équation différentielle ẍ + ω₀²x = 0 ; période T₀ ; énergie mécanique. Oscillations libres amorties (notion d'amortissement).",
+    },
+    {
+      label: "Ondes mécaniques progressives",
+      limits:
+        "Définition, célérité, longueur d'onde λ = cT, retard τ = d/c ; ondes transversales et longitudinales ; ondes à la surface de l'eau et sur corde. PAS les ondes stationnaires en détail.",
+    },
+    {
+      label: "Ondes lumineuses, diffraction et interférences",
+      limits:
+        "Diffraction par fente : écart angulaire θ = λ/a ; interférences (fentes de Young) : interfrange i = λD/a ; nature ondulatoire de la lumière. Réfraction (loi de Snell-Descartes).",
+    },
+    {
+      label: "Dipôle RC et RL",
+      limits:
+        "Charge/décharge d'un condensateur (τ = RC) ; établissement/rupture de courant dans une bobine (τ = L/R) ; bilans énergétiques Ec = ½Cu², EL = ½Li².",
+    },
+    {
+      label: "Circuit RLC — oscillations électriques",
+      limits:
+        "Régime libre : pseudo-période, amortissement, équation LC q̈ + q/LC = 0 (cas idéal) ; analogie mécanique. Régime forcé sinusoïdal : résonance d'intensité, facteur de qualité.",
+    },
+    {
+      label: "Modulation et démodulation",
+      limits:
+        "Modulation d'amplitude (AM) : signal modulé s(t) = (A + m·a(t))cos(2πf_p t) ; démodulation par détection d'enveloppe. Notion de modulation de fréquence (FM). Applications radio.",
+    },
+    {
+      label: "Décroissance radioactive et réactions nucléaires",
+      limits:
+        "Désintégrations α, β⁻, β⁺ ; loi N(t) = N₀e^(-λt), demi-vie ; énergie de liaison, défaut de masse, courbe d'Aston ; fission (U235) et fusion (H+H). Calcul Q = Δm·c².",
+    },
   ],
   "MA_chemistry_2ème Bac": [
-    "Cinétique chimique",
-    "Équilibre chimique, quotient de réaction",
-    "Réactions acide-base, pH",
-    "Constantes d'acidité Ka, diagrammes",
-    "Réactions d'oxydoréduction",
-    "Pile et électrolyse",
-    "Dosages",
-    "Chimie organique : groupes fonctionnels",
-    "Mécanismes réactionnels",
+    {
+      label: "Cinétique chimique",
+      limits:
+        "Vitesse volumique de réaction, facteurs cinétiques (concentration, T, catalyseur) ; temps de demi-réaction t₁/₂ ; loi d'ordre 1 et 0 (selon le programme MAR). Approche expérimentale ; PAS la loi d'Arrhenius formelle.",
+    },
+    {
+      label: "Équilibre chimique",
+      limits:
+        "Réactions limitées, quotient de réaction Qr, constante d'équilibre K ; loi de modération (Le Chatelier) appliquée à C, P, T ; calcul de taux d'avancement à l'équilibre.",
+    },
+    {
+      label: "Réactions acide-base, pH",
+      limits:
+        "Couple acide/base, autoprotolyse de l'eau Ke = 10⁻¹⁴ à 25°C, pH = -log[H₃O⁺] ; force des acides/bases (Ka, pKa) ; diagramme de prédominance ; solutions tampons. PAS les diagrammes E-pH.",
+    },
+    {
+      label: "Constantes d'acidité Ka et diagrammes de distribution",
+      limits:
+        "Ka, pKa ; diagramme de distribution (fractions molaires) ; calcul de pH d'acides/bases faibles ou forts ; mélange acide-base.",
+    },
+    {
+      label: "Réactions d'oxydoréduction",
+      limits:
+        "Couple Ox/Red, demi-équations électroniques ; équilibrage en milieu acide ou basique ; potentiel standard E° (notion qualitative).",
+    },
+    {
+      label: "Pile et électrolyse",
+      limits:
+        "Pile : anode/cathode, fem, prévision du sens spontané ; pile Daniell ; électrolyse : loi de Faraday Q = nFz (Q = It).",
+    },
+    {
+      label: "Dosages (titrages)",
+      limits:
+        "Titrage acide-base (pH-métrie, colorimétrie) et redox (permanganate, iode-thiosulfate) ; courbe de titrage, équivalence, choix de l'indicateur. Dosage conductimétrique (notion).",
+    },
+    {
+      label: "Chimie organique : groupes fonctionnels et réactions",
+      limits:
+        "Alcools (I, II, III) et leur oxydation ; acides carboxyliques et esters (estérification/saponification) ; amines et amides (notion) ; nomenclature IUPAC des composés organiques.",
+    },
+    {
+      label: "Mécanismes réactionnels",
+      limits:
+        "Sites électrophiles/nucléophiles, flèches courbes ; substitution nucléophile (SN2 simple), addition, élimination. PAS les calculs orbitalaires.",
+    },
   ],
   "MA_informatics_2ème Bac": [
-    "Algorithmique : structures de contrôle",
-    "Structures de données : tableaux, listes",
-    "Procédures et fonctions",
-    "Récursivité (introduction)",
-    "Tri et recherche",
-    "Bases de données, SQL (introduction)",
-    "Programmation Python",
+    {
+      label: "Algorithmique : structures de contrôle",
+      limits:
+        "Pseudo-code marocain (SI/SINON, TANT QUE, POUR) ; conditions composées, structures imbriquées ; validation d'entrées.",
+    },
+    {
+      label: "Structures de données : tableaux et listes",
+      limits:
+        "Tableaux 1D (déclaration, parcours, recherche, tri simple) ; tableaux 2D ; introduction aux listes chaînées (nœud, pointeur). PAS les piles et files en programme standard MA.",
+    },
+    {
+      label: "Procédures et fonctions",
+      limits:
+        "Sous-programmes : procédure (sans retour) vs fonction (avec retour) ; passage par valeur et par référence ; portée des variables locales/globales.",
+    },
+    {
+      label: "Récursivité",
+      limits:
+        "Cas de base et appel récursif ; exemples : factorielle, Fibonacci, PGCD d'Euclide, puissance rapide. PAS l'analyse formelle de la pile d'appels.",
+    },
+    {
+      label: "Algorithmes de tri et de recherche",
+      limits:
+        "Tri à bulles, tri par sélection, tri par insertion (complexité O(n²)) ; recherche séquentielle et dichotomique (tableau trié, O(log n)). PAS le tri fusion au programme standard MA.",
+    },
+    {
+      label: "Bases de données et SQL",
+      limits:
+        "Modèle relationnel ; SQL : CREATE/INSERT/SELECT/WHERE/UPDATE/DELETE ; jointures INNER JOIN ; GROUP BY basique. PAS les vues ni les procédures stockées.",
+    },
+    {
+      label: "Programmation Python",
+      limits:
+        "Variables, types, structures de contrôle, fonctions, listes, dictionnaires ; fichiers texte ; bibliothèques standard (math, random). Introduction à la programmation orientée objet (notion de classe).",
+    },
   ],
 
   // ── TUNISIA ────────────────────────────────────────────────────────────────
@@ -1541,6 +1645,107 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── GERMANY ────────────────────────────────────────────────────────────────
+  // Leistungskurs (LK) — 5h/Woche, vertieftes Niveau. Alle Themen mit
+  // formalen Beweisen; Kurvendiskussion mit Nachweis, nicht nur Rezept.
+  "DE_math_Abitur_Leistungskurs (LK)": [
+    {
+      label: "Analysis: Grenzwerte und Stetigkeit",
+      limits:
+        "Grenzwert einer Funktion an einer Stelle und im Unendlichen ; Regeln ; unbestimmte Formen (l'Hôpital im LK) ; Stetigkeit, Zwischenwertsatz mit Beweis. NICHT der ε-δ-Begriff in voller Strenge.",
+    },
+    {
+      label: "Differentialrechnung und Kurvendiskussion",
+      limits:
+        "Ableitungsregeln (Ketten-, Produkt-, Quotientenregel), Ableitungen von e^x, ln x, Trigonometrie ; Monotonie, lokale Extrema (1. und 2. Ableitung), Wendepunkte, Asymptoten ; vollständige Kurvendiskussion mit Begründung.",
+    },
+    {
+      label: "Exponential- und Logarithmusfunktionen",
+      limits:
+        "e^x und ln x : Eigenschaften, Ableitungen, Stammfunktionen ; allgemeine Exponentialfunktion a^x = e^(x ln a) ; Wachstumsmodelle (unbegrenzt, beschränkt, logistisch). Umkehrfunktion.",
+    },
+    {
+      label: "Integralrechnung",
+      limits:
+        "Stammfunktionen (auch per partieller Integration und einfacher Substitution im LK) ; Hauptsatz der Differential- und Integralrechnung ; Flächenberechnung (zwischen Kurven), Mittelwert einer Funktion, uneigentliche Integrale (Grenzwert).",
+    },
+    {
+      label: "Gleichgewichtspunkte und Differentialgleichungen",
+      limits:
+        "Separierbare DGL y' = f(x)g(y) ; Wachstums-/Zerfallsgleichung y' = ky ; Logistik y' = ay(1 - y/K). Richtungsfelder. PAS lineare DGL 2. Ordnung im LK-Standard.",
+    },
+    {
+      label: "Analytische Geometrie: Vektoren im Raum",
+      limits:
+        "Vektoren (Addition, Skalarmultiplikation) ; Betrag, Einheitsvektor ; Skalarprodukt und Orthogonalität ; Kreuzprodukt (im LK) ; lineare Abhängigkeit.",
+    },
+    {
+      label: "Geraden und Ebenen",
+      limits:
+        "Parameterdarstellung von Geraden und Ebenen ; Normalenvektor, Koordinatenform, Hessesche Normalform (HNF) ; Abstände (Punkt–Ebene, Punkt–Gerade, Gerade–Ebene) ; Schnittwinkel.",
+    },
+    {
+      label: "Stochastik: Wahrscheinlichkeit und Kombinatorik",
+      limits:
+        "Zufallsexperimente, bedingte Wahrscheinlichkeit, Satz von Bayes ; Bernoulli-Ketten ; Zufallsgrößen, Erwartungswert, Varianz, Standardabweichung.",
+    },
+    {
+      label: "Binomial- und Normalverteilung",
+      limits:
+        "Binomialverteilung B(n,p) ; Normalverteilung N(μ,σ²), Standardisierung, Tabelle ; Approximation Binomial → Normal (Faustregel σ ≥ 3). Kumulierte Verteilungsfunktion.",
+    },
+    {
+      label: "Hypothesentests",
+      limits:
+        "Einseitige und zweiseitige Signifikanztests für Binomialverteilung ; Fehler 1. und 2. Art, Signifikanzniveau α = 5 % oder 1 % ; kritischer Bereich. PAS Konfidenzintervalle für stetige Verteilungen im LK-Standard.",
+    },
+    {
+      label: "Matrizen (LK, je nach Bundesland)",
+      limits:
+        "Matrix-Operationen (Addition, Multiplikation) ; Inverse (2×2, 3×3) ; Anwendung auf lineare Gleichungssysteme (Gauß) und Übergangsmatrizen (Markov-Ketten). NICHT in jedem Bundesland Pflicht.",
+    },
+  ],
+
+  // Grundkurs (GK) — 3h/Woche, Grundniveau. Weniger formale Beweise;
+  // Kernthemen ohne spezifische LK-Vertiefungen.
+  "DE_math_Abitur_Grundkurs (GK)": [
+    {
+      label: "Analysis: Grenzwerte und Stetigkeit",
+      limits:
+        "Grenzwert und Stetigkeit auf Anwendungsebene, Zwischenwertsatz (ohne Beweis) ; PAS l'Hôpital, PAS ε-δ.",
+    },
+    {
+      label: "Differentialrechnung und Kurvendiskussion",
+      limits:
+        "Ableitungsregeln ; Monotonie, Extrema (notwendige und hinreichende Bedingungen), Wendepunkte ; Kurvendiskussion mit Skizze. PAS vollständige formale Begründung.",
+    },
+    {
+      label: "Exponential- und Logarithmusfunktionen",
+      limits:
+        "e^x und ln x : Eigenschaften, Ableitungen, einfache Stammfunktionen ; Wachstumsmodelle (unbegrenzt und begrenzt beschrieben).",
+    },
+    {
+      label: "Integralrechnung",
+      limits:
+        "Stammfunktionen, Hauptsatz (FTC) ; Flächenberechnung ; einfache Substitution. PAS Integration durch Teile im GK.",
+    },
+    {
+      label: "Analytische Geometrie: Vektoren im Raum",
+      limits:
+        "Vektoren, Skalarprodukt, Orthogonalität ; PAS Kreuzprodukt (typisch LK). Geraden- und Ebenengleichungen (Parameterform und Koordinatenform).",
+    },
+    {
+      label: "Geraden und Ebenen (Abstände)",
+      limits:
+        "Abstände Punkt–Ebene (HNF) ; Schnittmengen ; einfache Winkel. PAS Abstand Gerade–Ebene im GK.",
+    },
+    {
+      label: "Stochastik: Grundlagen und Verteilungen",
+      limits:
+        "Bedingte Wahrscheinlichkeit, Bayes (einfache Fälle), Binomialverteilung, Normalverteilung (Standardisierung) ; einseitiger Hypothesentest.",
+    },
+  ],
+
+  // Fallback ohne Kurs-Niveau.
   "DE_math_Abitur": [
     "Analysis: Funktionen, Grenzwerte",
     "Ableitungen und Kurvendiskussion",
@@ -1555,36 +1760,145 @@ const TOPICS: Record<string, Topic[]> = {
     "Matrizen (in einigen Bundesländern)",
   ],
   "DE_physics_Abitur": [
-    "Mechanik: Kinematik und Dynamik",
-    "Energie und Impuls",
-    "Schwingungen und Wellen",
-    "Elektromagnetismus, Felder",
-    "Induktion",
-    "Quantenphysik: Photoeffekt, Materiewellen",
-    "Atomphysik, Energieniveaus",
-    "Spezielle Relativitätstheorie",
-    "Kernphysik",
+    {
+      label: "Mechanik: Kinematik und Dynamik",
+      limits:
+        "Gleichförmige, gleichmäßig beschleunigte Bewegung, Kreisbewegung ; Kräfte, Reibung, Newtonsche Gesetze ; Impulserhaltung (elastischer und inelastischer Stoß). Im LK auch Variationsrechnung und Reibungsmodelle.",
+    },
+    {
+      label: "Energie, Arbeit und Impuls",
+      limits:
+        "Mechanische Energie (kinetisch, potentiell, elastisch), Energieerhaltung ; Arbeit W = F·d·cos θ, Leistung P = W/t ; Impuls p = mv, Impulserhaltung.",
+    },
+    {
+      label: "Schwingungen und Wellen",
+      limits:
+        "Harmonische Schwingung: x(t) = A cos(ωt+φ), ω₀ für Feder und Pendel ; gedämpfte Schwingung (Dämpfungskonstante) ; Resonanz ; Wellengleichung, Ausbreitung, Überlagerung (Schwebung, stehende Wellen).",
+    },
+    {
+      label: "Elektromagnetismus und Felder",
+      limits:
+        "Elektrisches Feld (Coulomb, Plattenkondensator E = U/d) ; magnetisches Feld (Spule, Lorentzkraft F = qv×B) ; Feld- und Potentiallinien, Kapazität C = Q/U.",
+    },
+    {
+      label: "Elektromagnetische Induktion",
+      limits:
+        "Faradaysches Induktionsgesetz |ε| = dΦ/dt ; Lenzsche Regel ; Selbstinduktion L (Energie EL = ½LI²) ; Wechselstromgenerator (qualitativ), Transformator.",
+    },
+    {
+      label: "Quantenphysik",
+      limits:
+        "Photoelektrischer Effekt : E = hf = W₀ + Ekin ; Photon (Energie und Impuls) ; De-Broglie-Wellenlänge λ = h/p ; Materiewellen, Wellennatur des Elektrons (Doppelspalt). PAS vollständige Schrödinger-Gleichung.",
+    },
+    {
+      label: "Atomphysik und Energieniveaus",
+      limits:
+        "Bohr-Modell (Energieniveaus En = -13,6 eV/n²) ; Emission und Absorption (Linienspektrum, hf = E2 - E1) ; Röntgenstrahlung (Bremsstrahlung und charakteristische Strahlung, Moseley-Gesetz in Grundzügen).",
+    },
+    {
+      label: "Spezielle Relativitätstheorie",
+      limits:
+        "Postulate Einsteins ; Zeitdilatation Δt' = γΔt ; Längenkontraktion ; relativistischer Impuls und Energie E = mc² ; Lorentz-Faktor γ = 1/√(1-v²/c²). PAS die allgemeine Relativitätstheorie.",
+    },
+    {
+      label: "Kernphysik",
+      limits:
+        "Radioaktiver Zerfall (α, β, γ) ; Zerfallsgesetz N(t) = N₀e^(-λt), Halbwertszeit ; Bindungsenergie, Massendefekt, E = Δmc² ; Kernspaltung (Kettenreaktion, Reaktorprinzip) ; Kernfusion (Sonne).",
+    },
   ],
   "DE_chemistry_Abitur": [
-    "Atombau und Periodensystem",
-    "Chemische Bindung",
-    "Reaktionen und Energetik",
-    "Säuren und Basen, pH",
-    "Redoxreaktionen, Elektrochemie",
-    "Chemisches Gleichgewicht",
-    "Kinetik",
-    "Organische Chemie: Funktionalitäten",
-    "Reaktionsmechanismen",
+    {
+      label: "Atombau und Periodensystem",
+      limits:
+        "Schalenmodell, Orbitalmodell (s, p, d-Orbitale) ; Elektronenkonfiguration, Periodengesetz ; Ionisierungsenergie, Elektronenaffinität, Atomradius als Periodentrendsn. PAS die f-Orbitale im Detail.",
+    },
+    {
+      label: "Chemische Bindung",
+      limits:
+        "Ionenbindung, kovalente Bindung (Elektronenpaar, polare Bindung, Dipolmoment) ; Metalldung ; VB-Modell (Hybridisierung sp, sp², sp³) ; VSEPR ; Molekülgeometrie ; Wasserstoffbrücken, Van-der-Waals-Kräfte.",
+    },
+    {
+      label: "Reaktionen und Energetik (Thermochemie)",
+      limits:
+        "Enthalpie ΔH, Satz von Hess, Bildungsenthalpien ; Gibbs-Energie ΔG = ΔH - TΔS, Spontanität. PAS die detaillierte Berechnung von Entropieänderungen aus Tabellen (GK).",
+    },
+    {
+      label: "Chemisches Gleichgewicht",
+      limits:
+        "Massenwirkungsgesetz (MWG) : Kc und Kp ; Prinzip von Le Chatelier ; Haber-Bosch-Verfahren als Beispiel. Gleichgewichtsberechnungen (Konzentration bei Gleichgewicht).",
+    },
+    {
+      label: "Säuren und Basen",
+      limits:
+        "Brønsted-Definition ; Ka, Kb, Kw ; pH-Berechnung (starke und schwache Säuren/Basen) ; Pufferlösungen (Henderson-Hasselbalch pH = pKa + log [A⁻]/[HA]) ; Titration und Indikatoren.",
+    },
+    {
+      label: "Redoxreaktionen und Elektrochemie",
+      limits:
+        "Oxidationszahlen ; galvanische Elemente (Daniell) ; Nernst-Gleichung (LK) : E = E° - (RT/nF)lnQ ; Standardpotentiale ; Elektrolyse, Faradaygesetze.",
+    },
+    {
+      label: "Kinetik",
+      limits:
+        "Reaktionsgeschwindigkeit, Aktivierungsenergie, Arrhenius-Gleichung k = A·e^(-Ea/RT) (LK) ; Reaktionsordnung 1 und 2 ; katalytische Wirkung.",
+    },
+    {
+      label: "Organische Chemie: Funktionalitäten",
+      limits:
+        "Alkane, Alkene (Addition), Alkine (Grundstruktur) ; Alkohole, Aldehyde, Ketone, Carbonsäuren, Ester, Amine ; Benennung nach IUPAC.",
+    },
+    {
+      label: "Reaktionsmechanismen",
+      limits:
+        "Radikalische Substitution (Halogenierung von Alkanen) ; elektrophile Addition (Alkene + Br₂, HX, Markovnikov-Regel) ; nukleophile Substitution (SN1, SN2) ; Kondensationsreaktionen (Ester, Amid).",
+    },
   ],
   "DE_informatics_Abitur": [
-    "Objektorientierte Programmierung (Java)",
-    "Datenstrukturen: Listen, Bäume, Graphen",
-    "Algorithmen und Komplexität",
-    "Relationale Datenbanken, SQL",
-    "Endliche Automaten",
-    "Formale Sprachen (Chomsky-Hierarchie)",
-    "Turingmaschinen",
-    "Netzwerke und Sicherheit",
+    {
+      label: "Objektorientierte Programmierung (Java/Python)",
+      limits:
+        "Klasse, Objekt, Attribut, Methode, Konstruktor ; Vererbung (extends), Polymorphismus ; Schnittstellen (Interface) ; abstrakte Klassen. Sprache je nach Bundesland (meist Java oder Python).",
+    },
+    {
+      label: "Datenstrukturen: Listen, Stapel, Schlangen",
+      limits:
+        "Verkettete Listen (einfach), Stapel (LIFO), Schlangen (FIFO) ; Operationen einfügen, entfernen, suchen. Implementierung mit Klassen.",
+    },
+    {
+      label: "Bäume und Graphen",
+      limits:
+        "Binärbaum (Knoten, Blatt, Tiefe, Höhe) ; binärer Suchbaum (Einfügen, Suchen, Traversierung: Pre-/In-/Postorder) ; Graphen (gerichtet/ungerichtet, Matrix- und Adjazenzlisten-Darstellung) ; BFS und DFS.",
+    },
+    {
+      label: "Algorithmen und Komplexität",
+      limits:
+        "Suche (linear, binär) ; Sortierung (Bubble, Selection, Insertion, Merge-Sort im LK) ; informelle Laufzeitanalyse O(n), O(n²), O(log n), O(n log n). PAS Master-Theorem.",
+    },
+    {
+      label: "Relationale Datenbanken und SQL",
+      limits:
+        "Relationsmodell, Primärschlüssel, Fremdschlüssel, Entity-Relationship-Modell ; SQL : SELECT/FROM/WHERE/GROUP BY/HAVING/JOIN. PAS Normalformen in voller Theorie.",
+    },
+    {
+      label: "Endliche Automaten (DEA, NEA)",
+      limits:
+        "Deterministischer und nicht-deterministischer endlicher Automat ; Zustandsübergangsfunktion, Akzeptierungssprache ; Reguläre Ausdrücke, Äquivalenz DEA–NEA (Potenzmengenkonstruktion). PAS das Pumping Lemma.",
+    },
+    {
+      label: "Formale Sprachen (Chomsky-Hierarchie)",
+      limits:
+        "Typ-0 bis Typ-3 Grammatiken ; reguläre, kontextfreie, kontextsensitive, unbeschränkte Sprachen ; Ableitungsbäume kontextfreier Sprachen. PAS CYK-Algorithmus.",
+    },
+    {
+      label: "Turingmaschinen",
+      limits:
+        "Aufbau und Funktionsweise ; Turingberechenbarkeit ; Halteproblem (nicht entscheidbar, Beweis durch Diagonalisierung — nur LK). PAS nichtdeterministische TM in voller Tiefe.",
+    },
+    {
+      label: "Netzwerke und Datensicherheit",
+      limits:
+        "TCP/IP-Schichtenmodell, IP-Adressen, Routing (Grundprinzip) ; HTTP/HTTPS ; symmetrische Verschlüsselung (AES) ; asymmetrische Verschlüsselung (RSA, Diffie-Hellman) ; digitale Signaturen.",
+    },
   ],
 
   // ── ITALY ──────────────────────────────────────────────────────────────────
@@ -1627,6 +1941,113 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── SPAIN ──────────────────────────────────────────────────────────────────
+  // Matemáticas II — solo para la modalidad Ciencias y Tecnología.
+  // Incluye álgebra lineal (matrices, determinantes, sistemas) y
+  // geometría vectorial en el espacio, que NO existen en Matemáticas CCSS.
+  "ES_math_2º Bachillerato_Ciencias y Tecnología": [
+    {
+      label: "Álgebra: matrices y determinantes",
+      limits:
+        "Operaciones con matrices (suma, producto, traspuesta, inversa por cofactores o por Gauss) ; determinantes hasta 3×3 (Sarrus, Laplace) ; rango de una matriz ; aplicación a sistemas lineales. Solo Matemáticas II (Ciencias), NO en CCSS.",
+    },
+    {
+      label: "Sistemas de ecuaciones lineales",
+      limits:
+        "Teorema de Rouché-Fröbenius ; sistemas compatibles determinados/indeterminados, incompatibles ; resolución por Gauss-Jordan y por Cramer (det ≠ 0) ; discusión paramétrica. NO en Matemáticas CCSS.",
+    },
+    {
+      label: "Geometría vectorial en el espacio",
+      limits:
+        "Vectores en ℝ³ (módulo, ángulo, producto escalar, vectorial y mixto) ; ecuaciones de recta y plano (vectorial, paramétrica, continua, implícita) ; posiciones relativas recta-recta, recta-plano, plano-plano ; distancias y ángulos. Solo Ciencias.",
+    },
+    {
+      label: "Límites y continuidad",
+      limits:
+        "Límites en un punto y en el infinito, operaciones, formas indeterminadas ; ramas infinitas (asíntotas horizontales, verticales, oblicuas) ; Teorema de Bolzano (TVI). PAS los límites en ℝⁿ.",
+    },
+    {
+      label: "Derivadas y aplicaciones",
+      limits:
+        "Derivadas de funciones elementales ; reglas (producto, cociente, cadena) ; diferencial ; crecimiento y decrecimiento, extremos relativos/absolutos ; regla de L'Hôpital (formas 0/0 y ∞/∞) ; tasa de variación y problemas de optimización.",
+    },
+    {
+      label: "Estudio completo de funciones",
+      limits:
+        "Dominio, continuidad, ramas infinitas, monotonía, curvatura (cóncava/convexa, puntos de inflexión), extremos ; representación gráfica completa. Funciones racional, exponencial, logarítmica, trigonométrica.",
+    },
+    {
+      label: "Integrales indefinidas",
+      limits:
+        "Primitivas inmediatas ; integración por partes ; cambio de variable ; descomposición en fracciones simples (denominador de 1er y 2º grado). PAS la integración de funciones trigonométricas complejas.",
+    },
+    {
+      label: "Integrales definidas y aplicaciones",
+      limits:
+        "Regla de Barrow (FTC) ; área entre dos curvas (eje X o Y como referencia) ; volumen de revolución (método del disco). PAS la longitud de arco.",
+    },
+    {
+      label: "Probabilidad condicionada y Bayes",
+      limits:
+        "Probabilidad condicionada P(A|B) ; regla de la multiplicación ; independencia ; teorema de la probabilidad total ; Bayes (fórmula y árbol). No confundir con Estadística inferencial.",
+    },
+    {
+      label: "Distribuciones: binomial y normal",
+      limits:
+        "Distribución binomial B(n,p): esperanza np, varianza npq ; distribución normal N(μ,σ²): propiedades, tipificación Z = (X-μ)/σ, tablas ; aproximación binomial→normal (criterio: np ≥ 5 y nq ≥ 5).",
+    },
+    {
+      label: "Inferencia estadística",
+      limits:
+        "Distribución de la media muestral (TCL) ; intervalo de confianza para la media (σ conocida, z) y para una proporción ; determinación del tamaño muestral. PAS los contrastes de hipótesis formales en Bachillerato estándar.",
+    },
+  ],
+
+  // Matemáticas Aplicadas a las CCSS II — Humanidades y Ciencias Sociales.
+  // Sin matrices, sin geometría vectorial en el espacio, sin límites avanzados.
+  "ES_math_2º Bachillerato_Humanidades y Ciencias Sociales": [
+    {
+      label: "Álgebra: programación lineal",
+      limits:
+        "Inecuaciones lineales, sistemas de inecuaciones en ℝ² ; método gráfico para optimización lineal (región factible, vértices) ; problemas aplicados (economía, logística). PAS matrices ni determinantes.",
+    },
+    {
+      label: "Funciones: estudio y representación",
+      limits:
+        "Dominio, continuidad (Bolzano) ; ramas infinitas (asíntotas) ; monotonía, extremos ; curvatura básica ; representación gráfica de funciones polinómicas, racionales simples, exponenciales, logarítmicas. Sin geometría en el espacio.",
+    },
+    {
+      label: "Derivadas y aplicaciones (CCSS)",
+      limits:
+        "Derivadas de funciones elementales, regla de la cadena ; crecimiento, mínimos y máximos ; elasticidad de la demanda (aplicación económica) ; interpretación de la derivada como tasa de variación instantánea.",
+    },
+    {
+      label: "Integrales definidas y aplicaciones (CCSS)",
+      limits:
+        "Primitivas inmediatas (sin técnicas avanzadas) ; regla de Barrow ; área entre curvas (figuras planas sencillas). PAS cambio de variable, PAS partes, PAS fracciones simples en detalle.",
+    },
+    {
+      label: "Estadística descriptiva bivariante",
+      limits:
+        "Nube de puntos, covarianza, coeficiente de correlación de Pearson r ; recta de regresión por mínimos cuadrados ; predicción ; interpretación de r² (coeficiente de determinación).",
+    },
+    {
+      label: "Probabilidad y Bayes (CCSS)",
+      limits:
+        "Probabilidad condicionada, regla de la multiplicación, independencia, Bayes ; con énfasis en aplicaciones sociales y económicas (sanidad, marketing).",
+    },
+    {
+      label: "Distribuciones: binomial y normal (CCSS)",
+      limits:
+        "Distribución binomial B(n,p) ; distribución normal N(μ,σ²), tipificación, tablas, propiedades de simetría ; aproximación de la binomial por la normal.",
+    },
+    {
+      label: "Inferencia estadística (CCSS)",
+      limits:
+        "Distribución de la media muestral, TCL ; intervalo de confianza para la media y para una proporción ; tamaño muestral necesario. PAS contrastes de hipótesis.",
+    },
+  ],
+
+  // Fallback genérico sin modalidad.
   "ES_math_2º Bachillerato": [
     "Álgebra: matrices y determinantes",
     "Sistemas de ecuaciones lineales",
@@ -1641,31 +2062,187 @@ const TOPICS: Record<string, Topic[]> = {
     "Inferencia estadística",
   ],
   "ES_physics_2º Bachillerato": [
-    "Gravitación universal",
-    "Campo gravitatorio",
-    "Movimiento ondulatorio",
-    "Óptica geométrica y física",
-    "Campo eléctrico, potencial",
-    "Campo magnético, inducción",
-    "Física cuántica (efecto fotoeléctrico, dualidad)",
-    "Relatividad especial",
-    "Física nuclear",
+    {
+      label: "Gravitación universal y campo gravitatorio",
+      limits:
+        "Ley de Newton, fuerza y campo gravitatorio g = GM/r² ; energía potencial gravitatoria Ep = -GMm/r ; leyes de Kepler ; satélites (velocidad, período) ; movimiento orbital circular. PAS mecánica celestial relativista.",
+    },
+    {
+      label: "Movimiento ondulatorio",
+      limits:
+        "Magnitudes (amplitud, período, frecuencia, longitud de onda, velocidad) ; ecuación de onda y = A sin(ωt - kx) ; energía de una onda ; efecto Doppler (fuente y observador en movimiento) ; ondas estacionarias.",
+    },
+    {
+      label: "Óptica geométrica y física",
+      limits:
+        "Reflexión y refracción (Snell), índice de refracción ; reflexión total interna ; espejos y lentes delgadas (ecuación de las lentes, distancia focal) ; difracción e interferencias (Young, condición de máximos/mínimos).",
+    },
+    {
+      label: "Campo eléctrico y potencial",
+      limits:
+        "Ley de Coulomb ; campo E y potencial V en cargas puntuales y distribuciones simétricas ; energía potencial eléctrica ; capacitor plano (E = σ/ε₀) ; trabajo W = qΔV. PAS la ecuación de Poisson.",
+    },
+    {
+      label: "Campo magnético e inducción",
+      limits:
+        "Fuerza de Lorentz F = qv×B ; campo de un hilo rectilíneo, espira, solenoide (B = μ₀nI) ; inducción: ley de Faraday |ε| = dΦ/dt, Lenz ; fem de movimiento.",
+    },
+    {
+      label: "Física cuántica (efecto fotoeléctrico, dualidad)",
+      limits:
+        "Cuerpo negro (catástrofe ultravioleta, ley de Wien, Stefan — cualitativamente) ; efecto fotoeléctrico: hf = W₀ + Ekin ; dualidad onda-corpúsculo, longitud de De Broglie λ = h/p. PAS la ecuación de Schrödinger.",
+    },
+    {
+      label: "Relatividad especial",
+      limits:
+        "Postulados de Einstein ; dilatación temporal Δt' = γΔt ; contracción espacial l' = l/γ ; masa relativista y energía E = mc² ; E² = (pc)² + (m₀c²)². PAS relatividad general.",
+    },
+    {
+      label: "Física nuclear",
+      limits:
+        "Composición del núcleo, número másico y atómico ; energía de enlace, defecto de masa ΔE = Δmc² ; radiactividad (α, β, γ), ley de desintegración N(t) = N₀e^(-λt) ; fisión y fusión (aplicaciones). PAS modelos nucleares de capas.",
+    },
   ],
   "ES_chemistry_2º Bachillerato": [
-    "Estructura atómica, configuración electrónica",
-    "Enlace químico",
-    "Termoquímica",
-    "Cinética química",
-    "Equilibrio químico",
-    "Reacciones ácido-base, pH",
-    "Reacciones de oxidación-reducción",
-    "Electroquímica",
-    "Química orgánica: nomenclatura, isomería",
-    "Reacciones orgánicas (tipos generales)",
-    "Polímeros y biomoléculas",
+    {
+      label: "Estructura atómica y configuración electrónica",
+      limits:
+        "Números cuánticos (n, l, m, s) ; orbitales (s, p, d, f) ; principio de Aufbau, Hund, Pauli ; configuración electrónica y propiedades periódicas (radio, energía de ionización, electronegatividad).",
+    },
+    {
+      label: "Enlace químico y geometría molecular",
+      limits:
+        "Enlace iónico, covalente, metálico ; energía de enlace ; VSEPR (geometría de Gillespie) ; hibridación (sp, sp², sp³) ; polaridad de enlace y molécula ; fuerzas intermoleculares.",
+    },
+    {
+      label: "Termoquímica",
+      limits:
+        "Entalpía ΔH : calor de reacción, formación, combustión ; ley de Hess ; energía de red (ciclo de Born-Haber en conceptual). PAS la entropía y la energía libre de Gibbs en detalle.",
+    },
+    {
+      label: "Cinética química",
+      limits:
+        "Velocidad de reacción, factores (concentración, T, catalizador, superficie) ; ley de velocidad (orden 0, 1, 2) ; t₁/₂ para orden 1 ; ecuación de Arrhenius k = Ae^(-Ea/RT) ; catálisis (homogénea, heterogénea, enzimática).",
+    },
+    {
+      label: "Equilibrio químico",
+      limits:
+        "Constante de equilibrio Kc y Kp (relación Kp = Kc(RT)^Δn) ; ley de Le Chatelier ; grado de disociación ; equilibrios heterogéneos (Kc solo con gases/disoluciones). PAS la termodinámica del equilibrio (ΔG = -RT ln K).",
+    },
+    {
+      label: "Equilibrios en disolución (ácido-base)",
+      limits:
+        "Ka, Kb, Kw ; pH de soluciones de ácidos/bases fuertes y débiles ; soluciones tampón (Henderson-Hasselbalch) ; hidrólisis de sales ; curvas de valoración (titulación) ; indicadores.",
+    },
+    {
+      label: "Reacciones de oxidación-reducción",
+      limits:
+        "Números de oxidación, ajuste por el método del ion-electrón (en medio ácido y básico). Identificación de oxidante/reductor.",
+    },
+    {
+      label: "Electroquímica",
+      limits:
+        "Celda galvánica (ánodo, cátodo) ; potenciales estándar de electrodo E° ; FEM = E°(cátodo) - E°(ánodo) ; predicción de reacciones espontáneas ; electrólisis, ley de Faraday Q = nFz.",
+    },
+    {
+      label: "Química orgánica: nomenclatura e isomería",
+      limits:
+        "Nomenclatura IUPAC de alcanos, alquenos, alquinos, ciclocompuestos, grupos funcionales (OH, CHO, CO, COOH, NH₂, halógenos) ; isomería constitucional y estereoisomería (geométrica cis/trans, quiral con C*). PAS nomenclatura IUPAC 2013 de prioridad R/S formal.",
+    },
+    {
+      label: "Reacciones orgánicas",
+      limits:
+        "Sustitución (SN1, SN2 básico) ; adición electrofílica (alquenos + HX, X₂, H₂O/Markovnikov) ; eliminación (regla de Zaitsev) ; sustitución aromática electrofílica (benceno) ; esterificación, saponificación.",
+    },
+    {
+      label: "Polímeros y biomoléculas",
+      limits:
+        "Polímeros de adición y condensación ; plásticos (polietileno, PVC, nylon, poliéster) ; gomas ; biomoléculas (glúcidos, lípidos, proteínas, ácidos nucleicos) — nivel descriptivo. PAS síntesis orgánica multietapa.",
+    },
   ],
 
   // ── EGYPT ──────────────────────────────────────────────────────────────────
+  // Scientific — Mathematics section: full mathematics program including
+  // complex numbers, 3D analytic geometry, and calculus.
+  "EG_math_Grade 12 (Thanaweya Amma)_Scientific — Mathematics section": [
+    {
+      label: "Algebra and complex numbers",
+      limits:
+        "Complex number z = a+bi: algebraic, trigonometric and exponential (Euler) forms; De Moivre; n-th roots of unity; solving equations in ℂ; geometric interpretation. Polynomials: remainder theorem, factor theorem, Vieta's formulas.",
+    },
+    {
+      label: "Trigonometry and identities",
+      limits:
+        "Sum/difference, double-angle, half-angle identities; solving trig equations on [0, 2π]; inverse trig (arcsin, arccos, arctan — principal values); trig form of complex numbers.",
+    },
+    {
+      label: "Analytic geometry (2D and 3D)",
+      limits:
+        "Conic sections (circle, parabola, ellipse, hyperbola) — standard forms, foci, directrices ; 3D: coordinates, distance, direction cosines, equation of a line and plane in space. NOT Bézier curves.",
+    },
+    {
+      label: "Differential calculus",
+      limits:
+        "Limits and continuity (IVT) ; derivatives (rules, chain, implicit) ; L'Hôpital ; higher-order derivatives ; Taylor expansion (first few terms). NOT formal ε-δ.",
+    },
+    {
+      label: "Applications of derivatives",
+      limits:
+        "Increasing/decreasing, extrema (FDT/SDT), concavity ; optimization problems ; related rates (selected). NOT calculus of variations.",
+    },
+    {
+      label: "Integral calculus",
+      limits:
+        "Antiderivatives ; FTC ; integration by substitution and by parts ; area between curves ; volume of revolution (disk method). NOT surface area of revolution.",
+    },
+    {
+      label: "Differential equations",
+      limits:
+        "Separable DE ; first-order linear DE (integrating factor) ; exponential growth/decay ; simple second-order DE with constant coefficients (ay'' + by' + cy = 0). NOT Laplace transforms.",
+    },
+    {
+      label: "Statistics and probability",
+      limits:
+        "Descriptive statistics (mean, variance, SD) ; frequency distributions ; permutations and combinations ; probability rules, Bayes ; binomial distribution ; introduction to normal distribution (z-scores).",
+    },
+  ],
+
+  // Scientific — Sciences section: lighter math; no complex numbers in
+  // exponential form and no 3D analytic geometry.
+  "EG_math_Grade 12 (Thanaweya Amma)_Scientific — Sciences section": [
+    {
+      label: "Algebra and functions",
+      limits:
+        "Polynomial functions, rational expressions, partial fractions ; quadratic equations and inequalities. Complex numbers: algebraic and trigonometric forms ONLY (NO exponential/Euler form).",
+    },
+    {
+      label: "Trigonometry",
+      limits:
+        "Core identities, solving equations ; inverse trig (arctan mainly) ; law of sines/cosines applied to triangles. Simpler scope than Mathematics section.",
+    },
+    {
+      label: "Analytic geometry (2D)",
+      limits:
+        "Conic sections (circle, parabola) in standard form ; basic locus problems. NO 3D geometry for the Sciences section.",
+    },
+    {
+      label: "Differential calculus",
+      limits:
+        "Limits (informal), derivatives (standard rules) ; relative extrema ; no L'Hôpital, no Taylor expansion. Applied focus (rate of change).",
+    },
+    {
+      label: "Integral calculus",
+      limits:
+        "Antiderivatives, FTC ; u-substitution ; area under a curve. NO integration by parts, NO volume of revolution in Sciences section.",
+    },
+    {
+      label: "Statistics and probability",
+      limits:
+        "Descriptive statistics ; permutations, combinations ; probability rules, Bayes (applied to science contexts) ; binomial distribution basics.",
+    },
+  ],
+
+  // Generic fallback — no section selected.
   "EG_math_Grade 12 (Thanaweya Amma)": [
     "Algebra and complex numbers",
     "Trigonometry and identities",
@@ -1677,28 +2254,161 @@ const TOPICS: Record<string, Topic[]> = {
     "Statistics and probability",
   ],
   "EG_physics_Grade 12 (Thanaweya Amma)": [
-    "Mechanics: dynamics and Newton's laws",
-    "Work, energy, power",
-    "Waves and sound",
-    "Geometric optics",
-    "Electrostatics, capacitors",
-    "Current electricity",
-    "Magnetism and electromagnetic induction",
-    "Modern physics (photoelectric, atomic models)",
-    "Nuclear physics",
+    {
+      label: "Mechanics: dynamics and Newton's laws",
+      limits:
+        "Newton's 3 laws (Arabic textbook: g ≈ 9.8 m/s² or 10 m/s²) ; kinematics (1D and 2D with vectors) ; work-energy theorem ; momentum and impulse ; circular motion (centripetal force).",
+    },
+    {
+      label: "Waves and sound",
+      limits:
+        "Mechanical waves : speed, frequency, wavelength (v = fλ) ; transverse vs longitudinal ; superposition, stationary waves ; sound speed, Doppler effect. NOT EM waves here.",
+    },
+    {
+      label: "Geometric optics",
+      limits:
+        "Reflection, refraction (Snell's law), critical angle and TIR ; mirrors (concave, convex) and lenses (converging, diverging) using mirror/lens equation 1/f = 1/u + 1/v ; magnification.",
+    },
+    {
+      label: "Electrostatics and capacitors",
+      limits:
+        "Coulomb's law ; electric field E = F/q ; potential V = kQ/r ; capacitor C = Q/V ; energy stored U = ½CV² ; parallel plate capacitor. NOT Gauss's law in detail.",
+    },
+    {
+      label: "Current electricity",
+      limits:
+        "Ohm's law, resistivity ; series/parallel circuits ; Kirchhoff's laws ; EMF and internal resistance ; power P = I²R = V²/R.",
+    },
+    {
+      label: "Magnetism and electromagnetic induction",
+      limits:
+        "Magnetic force on moving charge F = qvBsinθ ; force on current-carrying wire ; solenoid B = μ₀nI ; Faraday's law |ε| = N|ΔΦ/Δt| ; Lenz's law ; AC generator principle.",
+    },
+    {
+      label: "Modern physics (photoelectric effect, atomic models)",
+      limits:
+        "Photoelectric effect : hf = W₀ + Ekin ; photon E = hf ; Bohr model En = -13.6/n² eV ; spectral series ; de Broglie λ = h/p. NOT Schrödinger equation.",
+    },
+    {
+      label: "Nuclear physics",
+      limits:
+        "Radioactive decay (α, β, γ) ; half-life t₁/₂ = 0.693/λ ; binding energy and Q-value via E = Δmc² ; fission and fusion (conceptual). NOT chain reaction engineering.",
+    },
   ],
   "EG_chemistry_Grade 12 (Thanaweya Amma)": [
-    "Periodic table and atomic structure",
-    "Chemical bonding",
-    "Stoichiometry",
-    "Chemical equilibrium",
-    "Acids, bases, salts",
-    "Redox and electrochemistry",
-    "Organic chemistry: hydrocarbons, functional groups",
-    "Industrial chemistry",
+    {
+      label: "Periodic table and atomic structure",
+      limits:
+        "Electron configuration (subshells) ; periodic trends (atomic radius, ionization energy, electronegativity) ; types of elements (s, p, d, f blocks). NOT relativistic effects on heavy elements.",
+    },
+    {
+      label: "Chemical bonding",
+      limits:
+        "Ionic, covalent, metallic bonding ; Lewis structures ; VSEPR ; hybridization (sp, sp², sp³) ; polar bonds and molecular polarity ; intermolecular forces (H-bond, van der Waals).",
+    },
+    {
+      label: "Stoichiometry and chemical reactions",
+      limits:
+        "Mole concept, Avogadro's number ; molar mass ; percent composition ; empirical and molecular formulas ; limiting reagent ; yield. NOT complex titrimetry.",
+    },
+    {
+      label: "Chemical equilibrium",
+      limits:
+        "Kc and Kp ; Le Chatelier's principle ; Haber and Contact processes as examples ; solubility product Ksp (introduced here in EG curriculum).",
+    },
+    {
+      label: "Acids, bases, and salts",
+      limits:
+        "Arrhenius, Brønsted-Lowry definitions ; strong vs weak acids/bases ; pH = -log[H⁺] ; neutralisation ; salt hydrolysis ; buffer solution (qualitative). NOT Henderson-Hasselbalch in detail.",
+    },
+    {
+      label: "Redox and electrochemistry",
+      limits:
+        "Oxidation numbers ; balancing redox (half-reaction method) ; galvanic cell (EMF) ; electrolysis (Faraday's laws Q = nFz). NOT Nernst equation.",
+    },
+    {
+      label: "Organic chemistry: hydrocarbons and functional groups",
+      limits:
+        "IUPAC nomenclature (alkanes, alkenes, alkynes, alcohols, aldehydes, ketones, carboxylic acids, esters, amines) ; isomers ; main reaction types (addition, substitution, elimination, esterification). NOT stereochemistry in depth.",
+    },
+    {
+      label: "Industrial chemistry",
+      limits:
+        "Haber process (nitrogen fixation, conditions) ; Contact process (SO₃ → H₂SO₄) ; cracking of petroleum ; important polymers (PVC, polyethylene, nylon). Conceptual level, NOT process engineering calculations.",
+    },
   ],
 
   // ── INDIA ──────────────────────────────────────────────────────────────────
+  // PCM stream — Science stream with Physics, Chemistry, Mathematics.
+  // NCERT/CBSE Class 12. Mathematics is compulsory in this stream.
+  "IN_math_Class 12_Science (PCM — Physics, Chemistry, Math)": [
+    {
+      label: "Relations and functions",
+      limits:
+        "Types of relations (reflexive, symmetric, transitive, equivalence); types of functions (injective, surjective, bijective); composition and inverse of functions. NOT abstract group theory.",
+    },
+    {
+      label: "Inverse trigonometric functions",
+      limits:
+        "Definitions, domain and range; principal value branch; properties (sin⁻¹(-x) = -sin⁻¹x, etc.) and identities; evaluation of expressions. NOT inverse of sec/csc/cot in depth.",
+    },
+    {
+      label: "Matrices",
+      limits:
+        "Types of matrices; addition, scalar multiplication, transpose, symmetric/skew-symmetric; matrix multiplication; elementary row operations for row-echelon form. NOT eigenvalues.",
+    },
+    {
+      label: "Determinants",
+      limits:
+        "Expansion along any row/column; properties of determinants; area of a triangle; cofactors, adjugate; inverse matrix A⁻¹ = adj(A)/det(A); solving linear systems via Cramer's rule or inverse. Determinants up to 3×3.",
+    },
+    {
+      label: "Continuity and differentiability",
+      limits:
+        "Continuous functions, algebra of continuous functions; differentiability at a point; chain rule; implicit differentiation; derivatives of parametric functions; second-order derivatives; Rolle's theorem and MVT (statements + applications). NOT ε-δ proofs.",
+    },
+    {
+      label: "Applications of derivatives",
+      limits:
+        "Rate of change, increasing/decreasing functions (sign of f'); tangent and normal; maxima/minima (first and second derivative tests); approximation using differentials. NOT calculus of variations.",
+    },
+    {
+      label: "Integrals (indefinite and definite)",
+      limits:
+        "Standard integrals; substitution; integration by parts (∫uv dx = u∫v dx – ∫(u'∫v dx)dx); partial fractions (linear and quadratic factors); definite integral (FTC); properties (∫ₐᵇ f = ∫ₐᵇ f(a+b-x)). NOT improper integrals in depth.",
+    },
+    {
+      label: "Applications of integrals",
+      limits:
+        "Area under a curve (between curve and x/y axis); area between two curves. Only standard regions from NCERT examples; NOT surface area or volumes of revolution.",
+    },
+    {
+      label: "Differential equations",
+      limits:
+        "Order, degree; solutions (general and particular); variable separable; homogeneous DE (y = vx substitution); linear 1st order (integrating factor μ = e^∫P dx). NOT 2nd order DE.",
+    },
+    {
+      label: "Vector algebra",
+      limits:
+        "Types of vectors; addition, scalar multiplication, position vectors; dot product (angle, projection); cross product (area of parallelogram/triangle); scalar triple product. In component form and geometrically.",
+    },
+    {
+      label: "Three-dimensional geometry",
+      limits:
+        "Direction cosines and ratios; equation of a line (vector and Cartesian forms); angle between lines; equation of a plane (normal and intercept forms); distance of a point from a plane; angle between line and plane. NOT curved surfaces in 3D.",
+    },
+    {
+      label: "Linear programming",
+      limits:
+        "Feasible region, corner-point method; maximise/minimise a linear objective function subject to linear constraints. 2D problems only; graphical method. NOT simplex algorithm.",
+    },
+    {
+      label: "Probability (Bayes' theorem)",
+      limits:
+        "Conditional probability; multiplication rule; independent events; Bayes' theorem; random variable (discrete), expected value, variance; Bernoulli trials; binomial distribution B(n,p). NOT normal or Poisson distributions in NCERT Class 12 standard.",
+    },
+  ],
+  // Fallback: PCB stream has no math at Class 12 standard level.
   "IN_math_Class 12": [
     "Relations and functions",
     "Inverse trigonometric functions",
@@ -1715,33 +2425,133 @@ const TOPICS: Record<string, Topic[]> = {
     "Probability (Bayes' theorem)",
   ],
   "IN_physics_Class 12": [
-    "Electrostatics, Gauss's law",
-    "Capacitance",
-    "Current electricity",
-    "Magnetic effects of current",
-    "Electromagnetic induction",
-    "Alternating current",
-    "Electromagnetic waves",
-    "Ray optics, optical instruments",
-    "Wave optics, interference, diffraction",
-    "Dual nature of matter and radiation",
-    "Atoms (Bohr model)",
-    "Nuclei",
-    "Semiconductor electronics",
+    {
+      label: "Electrostatics and Gauss's law",
+      limits:
+        "Coulomb's law (in vector form), electric field lines, flux, Gauss's theorem (symmetric charge distributions: sphere, cylinder, plane); electric potential V, potential energy, work done; equipotential surfaces. NOT multipole expansion.",
+    },
+    {
+      label: "Capacitance and dielectrics",
+      limits:
+        "Capacitor: parallel plate, spherical, cylindrical; capacitance C = Q/V; energy U = ½CV²; combinations in series/parallel; dielectric (polarisation, dielectric constant, effect on C). NOT RC circuit transients here.",
+    },
+    {
+      label: "Current electricity",
+      limits:
+        "Ohm's law, resistivity, temperature dependence; Kirchhoff's laws; Wheatstone bridge; meter bridge (potentiometer); internal resistance of a cell. NOT AC circuits in this chapter.",
+    },
+    {
+      label: "Magnetic effects of current",
+      limits:
+        "Biot-Savart law (circular loop, solenoid, toroid) ; Ampere's circuital law ; force on a current-carrying conductor in B ; torque on a current loop (galvanometer) ; moving coil galvanometer, ammeter, voltmeter. NOT Hall effect.",
+    },
+    {
+      label: "Electromagnetic induction",
+      limits:
+        "Faraday's law, Lenz's law ; motional EMF ε = Bvl ; mutual and self-inductance (L = NΦ/I) ; energy stored in an inductor E = ½LI². NOT eddy currents in depth.",
+    },
+    {
+      label: "Alternating current",
+      limits:
+        "AC voltage, rms values ; resistors, inductors and capacitors in AC ; phasors ; series LCR circuit, resonance (ω₀ = 1/√LC), Q-factor ; power in AC circuits (P = V_rms I_rms cos φ) ; transformer (ideal).",
+    },
+    {
+      label: "Electromagnetic waves",
+      limits:
+        "Displacement current, Maxwell's equations (qualitative) ; EM spectrum (wavelengths and uses) ; energy density of EM waves ; speed of EM waves c = 1/√(ε₀μ₀). NOT derivation of wave equation.",
+    },
+    {
+      label: "Ray optics and optical instruments",
+      limits:
+        "Reflection (mirror formula), refraction (Snell, critical angle, TIR) ; lens maker's equation, thin lens formula ; combination of lenses and mirrors ; power of lens ; microscope and telescope (magnification). NOT wave optics here.",
+    },
+    {
+      label: "Wave optics",
+      limits:
+        "Huygens' principle ; Young's double slit (fringe width β = λD/d) ; coherence ; single-slit diffraction (minima: a sin θ = mλ) ; resolving power (Rayleigh criterion). NOT diffraction grating formula in NCERT standard.",
+    },
+    {
+      label: "Dual nature of matter and radiation",
+      limits:
+        "Photoelectric effect (work function W₀, threshold frequency, stopping potential eV₀ = hf - W₀) ; Einstein's photon theory ; De Broglie wavelength λ = h/p ; Davisson-Germer experiment. NOT Compton effect in NCERT Class 12.",
+    },
+    {
+      label: "Atoms — Bohr model",
+      limits:
+        "Rutherford model, Bohr postulates ; energy levels En = -13.6/n² eV ; spectral lines (Lyman, Balmer, Paschen series) ; ionisation and excitation energy. NOT quantum mechanical model.",
+    },
+    {
+      label: "Nuclei",
+      limits:
+        "Nuclear radius (R = R₀A^(1/3)), binding energy, B/A curve ; Q-value of a reaction ; radioactive decay (α, β, γ) ; law N(t) = N₀e^(-λt), half-life ; nuclear fission and fusion (Q-values). NOT detailed nuclear models.",
+    },
+    {
+      label: "Semiconductor electronics",
+      limits:
+        "p-type, n-type semiconductors ; p-n junction diode (IV characteristic, forward/reverse bias) ; half-wave and full-wave rectification ; Zener diode (voltage regulator) ; transistor (NPN, CE config, amplifier action, α and β) ; logic gates (AND, OR, NOT, NAND, NOR, XOR). NOT MOSFETs.",
+    },
   ],
   "IN_chemistry_Class 12": [
-    "Solid state",
-    "Solutions and colligative properties",
-    "Electrochemistry",
-    "Chemical kinetics",
-    "Surface chemistry",
-    "p-block, d-block, f-block elements",
-    "Coordination compounds",
-    "Haloalkanes and haloarenes (SN1/SN2)",
-    "Alcohols, phenols, ethers",
-    "Aldehydes, ketones, carboxylic acids",
-    "Amines",
-    "Biomolecules, polymers",
+    {
+      label: "Solid state",
+      limits:
+        "Crystal lattices and unit cells (cubic: SC, BCC, FCC) ; packing efficiency ; point defects (Schottky, Frenkel, interstitial) ; electrical and magnetic properties of solids. NOT advanced group theory of crystals.",
+    },
+    {
+      label: "Solutions and colligative properties",
+      limits:
+        "Henry's law ; Raoult's law (vapour pressure lowering) ; colligative properties: elevation of boiling point, depression of freezing point, osmotic pressure ; van't Hoff factor i for electrolytes. NOT activity coefficients.",
+    },
+    {
+      label: "Electrochemistry",
+      limits:
+        "Galvanic cell, SHE, Nernst equation E = E° - (RT/nF)ln Q ; standard electrode potentials ; electrolysis, Faraday's laws ; conductance (molar and specific), Kohlrausch's law.",
+    },
+    {
+      label: "Chemical kinetics",
+      limits:
+        "Rate law, order, rate constant k ; integrated rate equations (zero, first, second order) ; half-life ; Arrhenius equation k = Ae^(-Ea/RT), activation energy from graph ; collision theory (qualitative).",
+    },
+    {
+      label: "Surface chemistry",
+      limits:
+        "Adsorption (physisorption vs chemisorption, Freundlich isotherm) ; colloids (types, Tyndall effect, Brownian motion, coagulation) ; emulsions. NOT detailed BET theory.",
+    },
+    {
+      label: "p-block elements (Group 15–18)",
+      limits:
+        "Group 15 (N, P — allotropy, hybridisation in compounds, oxoacids) ; Group 16 (O, S) ; Group 17 (halogens, interhalogen) ; Group 18 (noble gases, compounds of Xe). Properties and trends.",
+    },
+    {
+      label: "d- and f-block elements and coordination compounds",
+      limits:
+        "Transition metals: electronic configuration, color, magnetic behavior, oxidation states ; inner transition (lanthanoids, actinoids) ; coordination compounds: nomenclature, isomerism (geometrical, optical), VBT and CFT (basic). Werner's theory.",
+    },
+    {
+      label: "Haloalkanes and haloarenes",
+      limits:
+        "Nomenclature, nature of C–X bond ; nucleophilic substitution (SN1 and SN2 mechanisms, stereochemistry) ; elimination (E2 basics) ; Grignard reagent (concept). NOT radical reactions.",
+    },
+    {
+      label: "Alcohols, phenols, and ethers",
+      limits:
+        "Classification, nomenclature ; acidity of alcohols and phenols ; oxidation reactions (primary → aldehyde → acid) ; reactions of phenol (electrophilic aromatic substitution) ; ether preparation (Williamson synthesis).",
+    },
+    {
+      label: "Aldehydes, ketones, and carboxylic acids",
+      limits:
+        "Preparation, nucleophilic addition (Grignard, CN⁻, HCN, LiAlH₄ concept) ; aldol condensation ; Cannizzaro reaction ; carboxylic acid derivatives (acyl chlorides, esters, amides) ; HVZ reaction. NOT multistep synthesis problems.",
+    },
+    {
+      label: "Amines",
+      limits:
+        "Classification (1°, 2°, 3°, quaternary) ; basicity, salt formation ; diazotisation of primary amines ; coupling reaction (azo dye). NOT complex heterocyclic amine synthesis.",
+    },
+    {
+      label: "Biomolecules and polymers",
+      limits:
+        "Carbohydrates (mono-, di-, polysaccharides ; reducing vs non-reducing sugars ; Fischer projections concept) ; proteins (amino acids, peptide bond, denaturation) ; nucleic acids (DNA/RNA structure, Watson-Crick) ; polymers (addition, condensation, natural and synthetic). NOT detailed biochemical pathways.",
+    },
   ],
   "IN_informatics_Class 12": [
     "Python programming review",
