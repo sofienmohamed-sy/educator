@@ -1645,6 +1645,107 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── GERMANY ────────────────────────────────────────────────────────────────
+  // Leistungskurs (LK) — 5h/Woche, vertieftes Niveau. Alle Themen mit
+  // formalen Beweisen; Kurvendiskussion mit Nachweis, nicht nur Rezept.
+  "DE_math_Abitur_Leistungskurs (LK)": [
+    {
+      label: "Analysis: Grenzwerte und Stetigkeit",
+      limits:
+        "Grenzwert einer Funktion an einer Stelle und im Unendlichen ; Regeln ; unbestimmte Formen (l'Hôpital im LK) ; Stetigkeit, Zwischenwertsatz mit Beweis. NICHT der ε-δ-Begriff in voller Strenge.",
+    },
+    {
+      label: "Differentialrechnung und Kurvendiskussion",
+      limits:
+        "Ableitungsregeln (Ketten-, Produkt-, Quotientenregel), Ableitungen von e^x, ln x, Trigonometrie ; Monotonie, lokale Extrema (1. und 2. Ableitung), Wendepunkte, Asymptoten ; vollständige Kurvendiskussion mit Begründung.",
+    },
+    {
+      label: "Exponential- und Logarithmusfunktionen",
+      limits:
+        "e^x und ln x : Eigenschaften, Ableitungen, Stammfunktionen ; allgemeine Exponentialfunktion a^x = e^(x ln a) ; Wachstumsmodelle (unbegrenzt, beschränkt, logistisch). Umkehrfunktion.",
+    },
+    {
+      label: "Integralrechnung",
+      limits:
+        "Stammfunktionen (auch per partieller Integration und einfacher Substitution im LK) ; Hauptsatz der Differential- und Integralrechnung ; Flächenberechnung (zwischen Kurven), Mittelwert einer Funktion, uneigentliche Integrale (Grenzwert).",
+    },
+    {
+      label: "Gleichgewichtspunkte und Differentialgleichungen",
+      limits:
+        "Separierbare DGL y' = f(x)g(y) ; Wachstums-/Zerfallsgleichung y' = ky ; Logistik y' = ay(1 - y/K). Richtungsfelder. PAS lineare DGL 2. Ordnung im LK-Standard.",
+    },
+    {
+      label: "Analytische Geometrie: Vektoren im Raum",
+      limits:
+        "Vektoren (Addition, Skalarmultiplikation) ; Betrag, Einheitsvektor ; Skalarprodukt und Orthogonalität ; Kreuzprodukt (im LK) ; lineare Abhängigkeit.",
+    },
+    {
+      label: "Geraden und Ebenen",
+      limits:
+        "Parameterdarstellung von Geraden und Ebenen ; Normalenvektor, Koordinatenform, Hessesche Normalform (HNF) ; Abstände (Punkt–Ebene, Punkt–Gerade, Gerade–Ebene) ; Schnittwinkel.",
+    },
+    {
+      label: "Stochastik: Wahrscheinlichkeit und Kombinatorik",
+      limits:
+        "Zufallsexperimente, bedingte Wahrscheinlichkeit, Satz von Bayes ; Bernoulli-Ketten ; Zufallsgrößen, Erwartungswert, Varianz, Standardabweichung.",
+    },
+    {
+      label: "Binomial- und Normalverteilung",
+      limits:
+        "Binomialverteilung B(n,p) ; Normalverteilung N(μ,σ²), Standardisierung, Tabelle ; Approximation Binomial → Normal (Faustregel σ ≥ 3). Kumulierte Verteilungsfunktion.",
+    },
+    {
+      label: "Hypothesentests",
+      limits:
+        "Einseitige und zweiseitige Signifikanztests für Binomialverteilung ; Fehler 1. und 2. Art, Signifikanzniveau α = 5 % oder 1 % ; kritischer Bereich. PAS Konfidenzintervalle für stetige Verteilungen im LK-Standard.",
+    },
+    {
+      label: "Matrizen (LK, je nach Bundesland)",
+      limits:
+        "Matrix-Operationen (Addition, Multiplikation) ; Inverse (2×2, 3×3) ; Anwendung auf lineare Gleichungssysteme (Gauß) und Übergangsmatrizen (Markov-Ketten). NICHT in jedem Bundesland Pflicht.",
+    },
+  ],
+
+  // Grundkurs (GK) — 3h/Woche, Grundniveau. Weniger formale Beweise;
+  // Kernthemen ohne spezifische LK-Vertiefungen.
+  "DE_math_Abitur_Grundkurs (GK)": [
+    {
+      label: "Analysis: Grenzwerte und Stetigkeit",
+      limits:
+        "Grenzwert und Stetigkeit auf Anwendungsebene, Zwischenwertsatz (ohne Beweis) ; PAS l'Hôpital, PAS ε-δ.",
+    },
+    {
+      label: "Differentialrechnung und Kurvendiskussion",
+      limits:
+        "Ableitungsregeln ; Monotonie, Extrema (notwendige und hinreichende Bedingungen), Wendepunkte ; Kurvendiskussion mit Skizze. PAS vollständige formale Begründung.",
+    },
+    {
+      label: "Exponential- und Logarithmusfunktionen",
+      limits:
+        "e^x und ln x : Eigenschaften, Ableitungen, einfache Stammfunktionen ; Wachstumsmodelle (unbegrenzt und begrenzt beschrieben).",
+    },
+    {
+      label: "Integralrechnung",
+      limits:
+        "Stammfunktionen, Hauptsatz (FTC) ; Flächenberechnung ; einfache Substitution. PAS Integration durch Teile im GK.",
+    },
+    {
+      label: "Analytische Geometrie: Vektoren im Raum",
+      limits:
+        "Vektoren, Skalarprodukt, Orthogonalität ; PAS Kreuzprodukt (typisch LK). Geraden- und Ebenengleichungen (Parameterform und Koordinatenform).",
+    },
+    {
+      label: "Geraden und Ebenen (Abstände)",
+      limits:
+        "Abstände Punkt–Ebene (HNF) ; Schnittmengen ; einfache Winkel. PAS Abstand Gerade–Ebene im GK.",
+    },
+    {
+      label: "Stochastik: Grundlagen und Verteilungen",
+      limits:
+        "Bedingte Wahrscheinlichkeit, Bayes (einfache Fälle), Binomialverteilung, Normalverteilung (Standardisierung) ; einseitiger Hypothesentest.",
+    },
+  ],
+
+  // Fallback ohne Kurs-Niveau.
   "DE_math_Abitur": [
     "Analysis: Funktionen, Grenzwerte",
     "Ableitungen und Kurvendiskussion",
@@ -1659,36 +1760,145 @@ const TOPICS: Record<string, Topic[]> = {
     "Matrizen (in einigen Bundesländern)",
   ],
   "DE_physics_Abitur": [
-    "Mechanik: Kinematik und Dynamik",
-    "Energie und Impuls",
-    "Schwingungen und Wellen",
-    "Elektromagnetismus, Felder",
-    "Induktion",
-    "Quantenphysik: Photoeffekt, Materiewellen",
-    "Atomphysik, Energieniveaus",
-    "Spezielle Relativitätstheorie",
-    "Kernphysik",
+    {
+      label: "Mechanik: Kinematik und Dynamik",
+      limits:
+        "Gleichförmige, gleichmäßig beschleunigte Bewegung, Kreisbewegung ; Kräfte, Reibung, Newtonsche Gesetze ; Impulserhaltung (elastischer und inelastischer Stoß). Im LK auch Variationsrechnung und Reibungsmodelle.",
+    },
+    {
+      label: "Energie, Arbeit und Impuls",
+      limits:
+        "Mechanische Energie (kinetisch, potentiell, elastisch), Energieerhaltung ; Arbeit W = F·d·cos θ, Leistung P = W/t ; Impuls p = mv, Impulserhaltung.",
+    },
+    {
+      label: "Schwingungen und Wellen",
+      limits:
+        "Harmonische Schwingung: x(t) = A cos(ωt+φ), ω₀ für Feder und Pendel ; gedämpfte Schwingung (Dämpfungskonstante) ; Resonanz ; Wellengleichung, Ausbreitung, Überlagerung (Schwebung, stehende Wellen).",
+    },
+    {
+      label: "Elektromagnetismus und Felder",
+      limits:
+        "Elektrisches Feld (Coulomb, Plattenkondensator E = U/d) ; magnetisches Feld (Spule, Lorentzkraft F = qv×B) ; Feld- und Potentiallinien, Kapazität C = Q/U.",
+    },
+    {
+      label: "Elektromagnetische Induktion",
+      limits:
+        "Faradaysches Induktionsgesetz |ε| = dΦ/dt ; Lenzsche Regel ; Selbstinduktion L (Energie EL = ½LI²) ; Wechselstromgenerator (qualitativ), Transformator.",
+    },
+    {
+      label: "Quantenphysik",
+      limits:
+        "Photoelektrischer Effekt : E = hf = W₀ + Ekin ; Photon (Energie und Impuls) ; De-Broglie-Wellenlänge λ = h/p ; Materiewellen, Wellennatur des Elektrons (Doppelspalt). PAS vollständige Schrödinger-Gleichung.",
+    },
+    {
+      label: "Atomphysik und Energieniveaus",
+      limits:
+        "Bohr-Modell (Energieniveaus En = -13,6 eV/n²) ; Emission und Absorption (Linienspektrum, hf = E2 - E1) ; Röntgenstrahlung (Bremsstrahlung und charakteristische Strahlung, Moseley-Gesetz in Grundzügen).",
+    },
+    {
+      label: "Spezielle Relativitätstheorie",
+      limits:
+        "Postulate Einsteins ; Zeitdilatation Δt' = γΔt ; Längenkontraktion ; relativistischer Impuls und Energie E = mc² ; Lorentz-Faktor γ = 1/√(1-v²/c²). PAS die allgemeine Relativitätstheorie.",
+    },
+    {
+      label: "Kernphysik",
+      limits:
+        "Radioaktiver Zerfall (α, β, γ) ; Zerfallsgesetz N(t) = N₀e^(-λt), Halbwertszeit ; Bindungsenergie, Massendefekt, E = Δmc² ; Kernspaltung (Kettenreaktion, Reaktorprinzip) ; Kernfusion (Sonne).",
+    },
   ],
   "DE_chemistry_Abitur": [
-    "Atombau und Periodensystem",
-    "Chemische Bindung",
-    "Reaktionen und Energetik",
-    "Säuren und Basen, pH",
-    "Redoxreaktionen, Elektrochemie",
-    "Chemisches Gleichgewicht",
-    "Kinetik",
-    "Organische Chemie: Funktionalitäten",
-    "Reaktionsmechanismen",
+    {
+      label: "Atombau und Periodensystem",
+      limits:
+        "Schalenmodell, Orbitalmodell (s, p, d-Orbitale) ; Elektronenkonfiguration, Periodengesetz ; Ionisierungsenergie, Elektronenaffinität, Atomradius als Periodentrendsn. PAS die f-Orbitale im Detail.",
+    },
+    {
+      label: "Chemische Bindung",
+      limits:
+        "Ionenbindung, kovalente Bindung (Elektronenpaar, polare Bindung, Dipolmoment) ; Metalldung ; VB-Modell (Hybridisierung sp, sp², sp³) ; VSEPR ; Molekülgeometrie ; Wasserstoffbrücken, Van-der-Waals-Kräfte.",
+    },
+    {
+      label: "Reaktionen und Energetik (Thermochemie)",
+      limits:
+        "Enthalpie ΔH, Satz von Hess, Bildungsenthalpien ; Gibbs-Energie ΔG = ΔH - TΔS, Spontanität. PAS die detaillierte Berechnung von Entropieänderungen aus Tabellen (GK).",
+    },
+    {
+      label: "Chemisches Gleichgewicht",
+      limits:
+        "Massenwirkungsgesetz (MWG) : Kc und Kp ; Prinzip von Le Chatelier ; Haber-Bosch-Verfahren als Beispiel. Gleichgewichtsberechnungen (Konzentration bei Gleichgewicht).",
+    },
+    {
+      label: "Säuren und Basen",
+      limits:
+        "Brønsted-Definition ; Ka, Kb, Kw ; pH-Berechnung (starke und schwache Säuren/Basen) ; Pufferlösungen (Henderson-Hasselbalch pH = pKa + log [A⁻]/[HA]) ; Titration und Indikatoren.",
+    },
+    {
+      label: "Redoxreaktionen und Elektrochemie",
+      limits:
+        "Oxidationszahlen ; galvanische Elemente (Daniell) ; Nernst-Gleichung (LK) : E = E° - (RT/nF)lnQ ; Standardpotentiale ; Elektrolyse, Faradaygesetze.",
+    },
+    {
+      label: "Kinetik",
+      limits:
+        "Reaktionsgeschwindigkeit, Aktivierungsenergie, Arrhenius-Gleichung k = A·e^(-Ea/RT) (LK) ; Reaktionsordnung 1 und 2 ; katalytische Wirkung.",
+    },
+    {
+      label: "Organische Chemie: Funktionalitäten",
+      limits:
+        "Alkane, Alkene (Addition), Alkine (Grundstruktur) ; Alkohole, Aldehyde, Ketone, Carbonsäuren, Ester, Amine ; Benennung nach IUPAC.",
+    },
+    {
+      label: "Reaktionsmechanismen",
+      limits:
+        "Radikalische Substitution (Halogenierung von Alkanen) ; elektrophile Addition (Alkene + Br₂, HX, Markovnikov-Regel) ; nukleophile Substitution (SN1, SN2) ; Kondensationsreaktionen (Ester, Amid).",
+    },
   ],
   "DE_informatics_Abitur": [
-    "Objektorientierte Programmierung (Java)",
-    "Datenstrukturen: Listen, Bäume, Graphen",
-    "Algorithmen und Komplexität",
-    "Relationale Datenbanken, SQL",
-    "Endliche Automaten",
-    "Formale Sprachen (Chomsky-Hierarchie)",
-    "Turingmaschinen",
-    "Netzwerke und Sicherheit",
+    {
+      label: "Objektorientierte Programmierung (Java/Python)",
+      limits:
+        "Klasse, Objekt, Attribut, Methode, Konstruktor ; Vererbung (extends), Polymorphismus ; Schnittstellen (Interface) ; abstrakte Klassen. Sprache je nach Bundesland (meist Java oder Python).",
+    },
+    {
+      label: "Datenstrukturen: Listen, Stapel, Schlangen",
+      limits:
+        "Verkettete Listen (einfach), Stapel (LIFO), Schlangen (FIFO) ; Operationen einfügen, entfernen, suchen. Implementierung mit Klassen.",
+    },
+    {
+      label: "Bäume und Graphen",
+      limits:
+        "Binärbaum (Knoten, Blatt, Tiefe, Höhe) ; binärer Suchbaum (Einfügen, Suchen, Traversierung: Pre-/In-/Postorder) ; Graphen (gerichtet/ungerichtet, Matrix- und Adjazenzlisten-Darstellung) ; BFS und DFS.",
+    },
+    {
+      label: "Algorithmen und Komplexität",
+      limits:
+        "Suche (linear, binär) ; Sortierung (Bubble, Selection, Insertion, Merge-Sort im LK) ; informelle Laufzeitanalyse O(n), O(n²), O(log n), O(n log n). PAS Master-Theorem.",
+    },
+    {
+      label: "Relationale Datenbanken und SQL",
+      limits:
+        "Relationsmodell, Primärschlüssel, Fremdschlüssel, Entity-Relationship-Modell ; SQL : SELECT/FROM/WHERE/GROUP BY/HAVING/JOIN. PAS Normalformen in voller Theorie.",
+    },
+    {
+      label: "Endliche Automaten (DEA, NEA)",
+      limits:
+        "Deterministischer und nicht-deterministischer endlicher Automat ; Zustandsübergangsfunktion, Akzeptierungssprache ; Reguläre Ausdrücke, Äquivalenz DEA–NEA (Potenzmengenkonstruktion). PAS das Pumping Lemma.",
+    },
+    {
+      label: "Formale Sprachen (Chomsky-Hierarchie)",
+      limits:
+        "Typ-0 bis Typ-3 Grammatiken ; reguläre, kontextfreie, kontextsensitive, unbeschränkte Sprachen ; Ableitungsbäume kontextfreier Sprachen. PAS CYK-Algorithmus.",
+    },
+    {
+      label: "Turingmaschinen",
+      limits:
+        "Aufbau und Funktionsweise ; Turingberechenbarkeit ; Halteproblem (nicht entscheidbar, Beweis durch Diagonalisierung — nur LK). PAS nichtdeterministische TM in voller Tiefe.",
+    },
+    {
+      label: "Netzwerke und Datensicherheit",
+      limits:
+        "TCP/IP-Schichtenmodell, IP-Adressen, Routing (Grundprinzip) ; HTTP/HTTPS ; symmetrische Verschlüsselung (AES) ; asymmetrische Verschlüsselung (RSA, Diffie-Hellman) ; digitale Signaturen.",
+    },
   ],
 
   // ── ITALY ──────────────────────────────────────────────────────────────────
