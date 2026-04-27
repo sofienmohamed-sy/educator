@@ -221,6 +221,8 @@ const TOPICS: Record<string, Topic[]> = {
         "Programmes simples : suites, dichotomie, simulation de variables aléatoires ; lecture/exécution d'algorithmes plutôt que conception complexe.",
     },
   ],
+  // Generic fallback FR Terminale (no section selected).
+  "FR_math_Terminale": [
     "Suites numériques (limites, monotonie)",
     "Limites de fonctions",
     "Continuité",
@@ -502,6 +504,231 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── MOROCCO ────────────────────────────────────────────────────────────────
+  // Sciences Mathématiques A (SM-A) — programme le plus complet, unique
+  // filière avec structures algébriques ET arithmétique avancée.
+  "MA_math_2ème Bac_Sciences Mathématiques A": [
+    {
+      label: "Limites et continuité",
+      limits:
+        "Limites finies et infinies, opérations, formes indéterminées, limites comparées (e^x / x^n, ln x / x^n) ; TVI et corollaire, prolongement par continuité. Théorème des valeurs intermédiaires avec démonstration.",
+    },
+    {
+      label: "Dérivabilité et étude de fonctions",
+      limits:
+        "Dérivées composées (chain rule), dérivée d'une bijection réciproque ; théorème de Rolle, théorème des accroissements finis ; convexité (f'' ≥ 0) ; branches infinies (asymptote horizontale, verticale, oblique).",
+    },
+    {
+      label: "Fonction logarithme",
+      limits:
+        "ln x : propriétés, dérivées et primitives ; fonctions du type u/u' ; limites en 0 et +∞, étude de fonctions composées.",
+    },
+    {
+      label: "Fonction exponentielle",
+      limits:
+        "e^x et a^x : propriétés, dérivées, primitives ; études de fonctions du type e^(u(x)) ; résolution d'équations et inéquations. Lien y' = y.",
+    },
+    {
+      label: "Suites numériques",
+      limits:
+        "Convergence, limites, suites monotones bornées, suites adjacentes ; suites définies par récurrence (un+1 = f(un)), points fixes, convergence par étude de la fonction. Récurrence à deux termes. PAS le critère de Cauchy.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives usuelles, intégrale de Riemann, valeur moyenne ; intégration par parties ; changement de variable ; calcul d'aires, volumes de révolution.",
+    },
+    {
+      label: "Équations différentielles",
+      limits:
+        "1er ordre : y' + a(x)y = b(x) avec variation de la constante ; 2e ordre : ay'' + by' + cy = 0 (équation caractéristique) et avec second membre polynôme ou exponentielle.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "Formes algébrique, trigonométrique ET exponentielle (Euler, Moivre) ; racines nèmes de l'unité ; résolution dans ℂ ; interprétation géométrique (similitudes directes et indirectes).",
+    },
+    {
+      label: "Géométrie dans l'espace",
+      limits:
+        "Vecteurs, plans, droites ; orthogonalité, positions relatives ; sphères ; représentations paramétriques ; distances et angles. PAS la géométrie affine par coordonnées barycentriques.",
+    },
+    {
+      label: "Dénombrement et probabilités",
+      limits:
+        "Arrangements, permutations, combinaisons, formule du binôme ; probabilités conditionnelles, Bayes ; variables aléatoires discrètes, espérance, variance, loi binomiale, loi géométrique.",
+    },
+    {
+      label: "Arithmétique dans ℤ",
+      limits:
+        "Divisibilité, PGCD (Euclide étendu), Bézout, Gauss, congruences modulo n ; applications aux PGCD de polynômes (notion). PAS le petit théorème de Fermat au programme standard SM-A.",
+    },
+    {
+      label: "Structures algébriques",
+      limits:
+        "Groupe (axiomes, sous-groupes, ordre d'un élément, groupes cycliques) ; anneau (ℤ, ℤ/nℤ) ; corps (ℚ, ℝ, ℂ, ℤ/pℤ) ; morphismes, isomorphismes. UNIQUEMENT filières Sciences Mathématiques.",
+    },
+  ],
+
+  // Sciences Mathématiques B (SM-B) — programme proche de SM-A mais sans
+  // les structures algébriques et avec une arithmétique plus légère.
+  "MA_math_2ème Bac_Sciences Mathématiques B": [
+    {
+      label: "Limites et continuité",
+      limits: "Limites, formes indéterminées, TVI ; similaire à SM-A mais sans démonstration du TAF.",
+    },
+    {
+      label: "Dérivabilité et étude de fonctions",
+      limits:
+        "Dérivées composées, convexité, branches infinies ; PAS le théorème de Rolle ni le TAF formel.",
+    },
+    {
+      label: "Fonction logarithme",
+      limits: "ln x : propriétés, dérivées, primitives, études de fonctions.",
+    },
+    {
+      label: "Fonction exponentielle",
+      limits: "e^x : propriétés, dérivées, primitives, études.",
+    },
+    {
+      label: "Suites numériques",
+      limits:
+        "Convergence, limites, monotonie, points fixes pour un+1 = f(un) ; PAS les suites adjacentes, PAS la récurrence à deux termes.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives, intégrale de Riemann, intégration par parties, changement de variable ; calcul d'aires.",
+    },
+    {
+      label: "Équations différentielles",
+      limits:
+        "1er ordre y' + ay = b ; 2e ordre ay'' + by' + cy = 0 ; second membre polynomial ou exponentiel simple.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "Formes algébrique, trigonométrique ET exponentielle ; racines nèmes de l'unité ; similitudes dans le plan.",
+    },
+    {
+      label: "Géométrie dans l'espace",
+      limits: "Vecteurs, plans, droites, distances, angles ; sphères.",
+    },
+    {
+      label: "Dénombrement et probabilités",
+      limits:
+        "Arrangements, combinaisons, formule du binôme ; probabilités conditionnelles, Bayes ; variables aléatoires, loi binomiale.",
+    },
+    {
+      label: "Arithmétique dans ℤ",
+      limits:
+        "Divisibilité, PGCD, Bézout, Gauss, congruences ; même profondeur que SM-A mais sans applications aux structures.",
+    },
+  ],
+
+  // Sciences Physiques (PC) — math allégée pour laisser de la place à
+  // la physique-chimie ; pas de structures algébriques.
+  "MA_math_2ème Bac_Sciences Physiques (PC)": [
+    {
+      label: "Limites et continuité",
+      limits:
+        "Limites usuelles, formes indéterminées simples, TVI (application numérique) ; PAS le TAF ni le prolongement par continuité formel.",
+    },
+    {
+      label: "Dérivabilité et étude de fonctions",
+      limits:
+        "Dérivées composées, tableau de variations, extremums, convexité basique ; PAS les branches infinies obliques.",
+    },
+    {
+      label: "Fonction logarithme et exponentielle",
+      limits:
+        "ln x et e^x : propriétés, dérivées, primitives usuelles ; études de fonctions simples. Même contenu que SM mais moins d'approfondissement.",
+    },
+    {
+      label: "Suites numériques",
+      limits:
+        "Convergence, limites, monotonie, suites définies par récurrence simple (un terme). PAS les suites adjacentes.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives usuelles, intégrale, valeur moyenne ; intégration par parties basique ; calcul d'aires. PAS le changement de variable.",
+    },
+    {
+      label: "Équations différentielles",
+      limits:
+        "1er ordre y' + ay = b (coefficient constant) ; PAS les équations du 2e ordre au programme PC.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "Formes algébrique et trigonométrique ; PAS la forme exponentielle (Euler) au programme PC.",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Probabilités conditionnelles, indépendance, Bayes ; variables aléatoires discrètes, espérance, variance, loi binomiale.",
+    },
+  ],
+
+  // Sciences de la Vie et de la Terre (SVT) — programme math très allégé.
+  "MA_math_2ème Bac_Sciences de la Vie et de la Terre (SVT)": [
+    {
+      label: "Fonctions : limites et continuité",
+      limits:
+        "Limites usuelles, TVI ; PAS le TAF, PAS les formes indéterminées avancées.",
+    },
+    {
+      label: "Dérivation et étude de fonctions",
+      limits:
+        "Dérivée, tableau de variations, extremums ; applications pratiques (modèles biologiques). PAS les branches infinies.",
+    },
+    {
+      label: "Fonction logarithme et exponentielle",
+      limits:
+        "ln x et e^x : propriétés de base, dérivées, modèles biologiques (croissance, pharmacocinétique). Sans approfondissement analytique.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives usuelles, intégrale, calcul d'aires. PAS l'intégration par parties.",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Probabilités conditionnelles, Bayes ; variables aléatoires discrètes, espérance, loi binomiale. Application en génétique et en statistiques biologiques.",
+    },
+    {
+      label: "Statistiques (données biologiques)",
+      limits:
+        "Séries statistiques, indicateurs de tendance centrale et de dispersion ; régression linéaire simple. Application à des données expérimentales de SVT.",
+    },
+  ],
+
+  // Sciences Économiques (SEG) — math orientée économie et gestion.
+  "MA_math_2ème Bac_Sciences Économiques": [
+    {
+      label: "Fonctions numériques",
+      limits:
+        "Dérivée, extremum, élasticité prix-demande, coût marginal ; étude de fonctions économiques (coût total, recette, profit).",
+    },
+    {
+      label: "Suites et applications financières",
+      limits:
+        "Suites arithmétiques et géométriques ; intérêts simples et composés, valeur acquise, valeur actuelle, annuités constantes. PAS les suites définies par récurrence générale.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives, intégrale ; surplus du consommateur et du producteur. Sans technique d'intégration avancée.",
+    },
+    {
+      label: "Probabilités et statistiques",
+      limits:
+        "Probabilités conditionnelles, Bayes ; variables aléatoires, espérance ; statistiques à deux variables : régression linéaire, indices simples et synthétiques.",
+    },
+  ],
+
+  // Fallback générique MA 2ème Bac (pas de section sélectionnée).
   "MA_math_2ème Bac": [
     "Limites et continuité",
     "Dérivabilité",
@@ -516,7 +743,7 @@ const TOPICS: Record<string, Topic[]> = {
     "Probabilités",
     "Dénombrement",
     "Arithmétique dans ℤ (PGCD, congruences)",
-    "Structures algébriques (PC/SVT)",
+    "Structures algébriques (filières Maths uniquement)",
   ],
   "MA_math_1ère Bac": [
     "Généralités sur les fonctions",
