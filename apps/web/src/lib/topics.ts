@@ -124,6 +124,103 @@ const TOPICS: Record<string, Topic[]> = {
         "Implémentation Python de suites récurrentes, méthode de dichotomie, méthode de Newton (introduction), simulation de variables aléatoires (random.random()), seuils et listes. PAS de bibliothèques numpy/scipy avancées.",
     },
   ],
+
+  // Maths Expertes (option, 3h/semaine) — vient EN PLUS de la Spé Maths,
+  // pas à la place. Ajoute complexes, arithmétique avec Fermat, et graphes.
+  "FR_math_Terminale_Maths Expertes (option)": [
+    {
+      label: "Nombres complexes — formes et opérations",
+      limits:
+        "Formes algébrique, trigonométrique ET exponentielle (formule d'Euler) ; opérations, conjugué, module, argument ; formule de Moivre ; linéarisation de cos^n(x) et sin^n(x) ; PAS la fonction de variable complexe.",
+    },
+    {
+      label: "Équations dans ℂ et racines nèmes",
+      limits:
+        "Résolution du second degré à coefficients réels ou complexes ; racines nèmes de l'unité (n petit, configuration géométrique en n-gone régulier) ; racines nèmes d'un complexe quelconque.",
+    },
+    {
+      label: "Géométrie complexe (similitudes)",
+      limits:
+        "Interprétation géométrique de z → az+b : translation, rotation, homothétie, similitude directe (centre, rapport, angle) ; alignement et orthogonalité via affixes ; PAS les similitudes indirectes (z → az̄+b) au programme expertes standard.",
+    },
+    {
+      label: "Arithmétique : divisibilité et PGCD",
+      limits:
+        "Divisibilité dans ℤ, division euclidienne ; PGCD par algorithme d'Euclide et algorithme d'Euclide étendu ; nombres premiers entre eux ; décomposition en produit de facteurs premiers (existence et unicité).",
+    },
+    {
+      label: "Théorèmes de Bézout, Gauss, Fermat",
+      limits:
+        "Identité de Bézout (et résolution d'équations diophantiennes ax+by=c) ; lemme de Gauss ; petit théorème de Fermat (a^p ≡ a [p] pour p premier) ET sa réciproque partielle ; INCLUS au programme Maths Expertes (contrairement à la Spé Maths seule).",
+    },
+    {
+      label: "Congruences modulo n",
+      limits:
+        "Définition, opérations compatibles, classes de congruence ; résolution d'équations ax ≡ b [n] via Bézout ; applications au calendrier, aux clés de contrôle, à la cryptographie RSA (notion).",
+    },
+    {
+      label: "Graphes et matrices",
+      limits:
+        "Graphes simples non-orientés et orientés ; ordre, degré, chaîne, cycle, connexité ; matrice d'adjacence ; nombre de chemins de longueur k via M^k ; introduction à la coloration. PAS de Dijkstra (ça relève de la spécialité NSI).",
+    },
+    {
+      label: "Matrices et systèmes linéaires",
+      limits:
+        "Matrices carrées, opérations (somme, produit, puissance) ; matrice inverse de petites matrices (2×2, 3×3 simples) ; résolution de systèmes par méthode matricielle ou Gauss ; suites couplées via diagonalisation simple. PAS la théorie spectrale formelle.",
+    },
+  ],
+
+  // Maths Complémentaires (option, 3h/semaine) — pour les élèves qui
+  // ont abandonné la Spé Maths en fin de Première mais souhaitent
+  // garder un volume de maths léger en Terminale (typiquement filière
+  // SVT, économie, ou orientations post-bac non-scientifiques).
+  "FR_math_Terminale_Maths Complémentaires (option)": [
+    {
+      label: "Suites et récurrences",
+      limits:
+        "Suites arithmétiques et géométriques (rappels), suite définie par récurrence (étude graphique avec le « bissecteur ») ; convergence et limites simples. PAS de démonstration formelle par récurrence.",
+    },
+    {
+      label: "Fonctions : dérivation et étude",
+      limits:
+        "Dérivée des fonctions usuelles, dérivée d'une somme/produit/quotient ; tableau de variations, extremums ; PAS la composition formelle (chain rule absent du programme Complémentaires).",
+    },
+    {
+      label: "Fonction logarithme népérien",
+      limits:
+        "ln x : propriétés, dérivée, courbe, applications à des modèles concrets (croissance, décibels, pH). Sans technique d'analyse avancée.",
+    },
+    {
+      label: "Fonction exponentielle",
+      limits:
+        "e^x : propriétés, dérivée, courbe, modèles d'évolution exponentielle ; lien y' = ay (notion de croissance proportionnelle). Sans équation différentielle formelle.",
+    },
+    {
+      label: "Primitives et calcul d'aire",
+      limits:
+        "Primitives des fonctions usuelles ; intégrale comme aire sous la courbe, valeur moyenne, application au calcul de probabilités à densité. PAS d'intégration par parties.",
+    },
+    {
+      label: "Modèles d'évolution",
+      limits:
+        "Modèle linéaire, exponentiel, logarithmique, logistique (descriptif) ; ajustement de données expérimentales, choix du modèle adapté.",
+    },
+    {
+      label: "Variables aléatoires et lois usuelles",
+      limits:
+        "Variables aléatoires discrètes, espérance ; loi binomiale (rappels) ; introduction à la loi normale et à l'approximation d'une binomiale par une loi normale.",
+    },
+    {
+      label: "Intervalle de confiance",
+      limits:
+        "Intervalle de confiance d'une proportion à 95% (formule p ± 1/√n) ; estimation et prise de décision en contexte appliqué. PAS la théorie statistique formelle.",
+    },
+    {
+      label: "Algorithmique (Python)",
+      limits:
+        "Programmes simples : suites, dichotomie, simulation de variables aléatoires ; lecture/exécution d'algorithmes plutôt que conception complexe.",
+    },
+  ],
     "Suites numériques (limites, monotonie)",
     "Limites de fonctions",
     "Continuité",
