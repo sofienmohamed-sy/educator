@@ -1941,6 +1941,113 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── SPAIN ──────────────────────────────────────────────────────────────────
+  // Matemáticas II — solo para la modalidad Ciencias y Tecnología.
+  // Incluye álgebra lineal (matrices, determinantes, sistemas) y
+  // geometría vectorial en el espacio, que NO existen en Matemáticas CCSS.
+  "ES_math_2º Bachillerato_Ciencias y Tecnología": [
+    {
+      label: "Álgebra: matrices y determinantes",
+      limits:
+        "Operaciones con matrices (suma, producto, traspuesta, inversa por cofactores o por Gauss) ; determinantes hasta 3×3 (Sarrus, Laplace) ; rango de una matriz ; aplicación a sistemas lineales. Solo Matemáticas II (Ciencias), NO en CCSS.",
+    },
+    {
+      label: "Sistemas de ecuaciones lineales",
+      limits:
+        "Teorema de Rouché-Fröbenius ; sistemas compatibles determinados/indeterminados, incompatibles ; resolución por Gauss-Jordan y por Cramer (det ≠ 0) ; discusión paramétrica. NO en Matemáticas CCSS.",
+    },
+    {
+      label: "Geometría vectorial en el espacio",
+      limits:
+        "Vectores en ℝ³ (módulo, ángulo, producto escalar, vectorial y mixto) ; ecuaciones de recta y plano (vectorial, paramétrica, continua, implícita) ; posiciones relativas recta-recta, recta-plano, plano-plano ; distancias y ángulos. Solo Ciencias.",
+    },
+    {
+      label: "Límites y continuidad",
+      limits:
+        "Límites en un punto y en el infinito, operaciones, formas indeterminadas ; ramas infinitas (asíntotas horizontales, verticales, oblicuas) ; Teorema de Bolzano (TVI). PAS los límites en ℝⁿ.",
+    },
+    {
+      label: "Derivadas y aplicaciones",
+      limits:
+        "Derivadas de funciones elementales ; reglas (producto, cociente, cadena) ; diferencial ; crecimiento y decrecimiento, extremos relativos/absolutos ; regla de L'Hôpital (formas 0/0 y ∞/∞) ; tasa de variación y problemas de optimización.",
+    },
+    {
+      label: "Estudio completo de funciones",
+      limits:
+        "Dominio, continuidad, ramas infinitas, monotonía, curvatura (cóncava/convexa, puntos de inflexión), extremos ; representación gráfica completa. Funciones racional, exponencial, logarítmica, trigonométrica.",
+    },
+    {
+      label: "Integrales indefinidas",
+      limits:
+        "Primitivas inmediatas ; integración por partes ; cambio de variable ; descomposición en fracciones simples (denominador de 1er y 2º grado). PAS la integración de funciones trigonométricas complejas.",
+    },
+    {
+      label: "Integrales definidas y aplicaciones",
+      limits:
+        "Regla de Barrow (FTC) ; área entre dos curvas (eje X o Y como referencia) ; volumen de revolución (método del disco). PAS la longitud de arco.",
+    },
+    {
+      label: "Probabilidad condicionada y Bayes",
+      limits:
+        "Probabilidad condicionada P(A|B) ; regla de la multiplicación ; independencia ; teorema de la probabilidad total ; Bayes (fórmula y árbol). No confundir con Estadística inferencial.",
+    },
+    {
+      label: "Distribuciones: binomial y normal",
+      limits:
+        "Distribución binomial B(n,p): esperanza np, varianza npq ; distribución normal N(μ,σ²): propiedades, tipificación Z = (X-μ)/σ, tablas ; aproximación binomial→normal (criterio: np ≥ 5 y nq ≥ 5).",
+    },
+    {
+      label: "Inferencia estadística",
+      limits:
+        "Distribución de la media muestral (TCL) ; intervalo de confianza para la media (σ conocida, z) y para una proporción ; determinación del tamaño muestral. PAS los contrastes de hipótesis formales en Bachillerato estándar.",
+    },
+  ],
+
+  // Matemáticas Aplicadas a las CCSS II — Humanidades y Ciencias Sociales.
+  // Sin matrices, sin geometría vectorial en el espacio, sin límites avanzados.
+  "ES_math_2º Bachillerato_Humanidades y Ciencias Sociales": [
+    {
+      label: "Álgebra: programación lineal",
+      limits:
+        "Inecuaciones lineales, sistemas de inecuaciones en ℝ² ; método gráfico para optimización lineal (región factible, vértices) ; problemas aplicados (economía, logística). PAS matrices ni determinantes.",
+    },
+    {
+      label: "Funciones: estudio y representación",
+      limits:
+        "Dominio, continuidad (Bolzano) ; ramas infinitas (asíntotas) ; monotonía, extremos ; curvatura básica ; representación gráfica de funciones polinómicas, racionales simples, exponenciales, logarítmicas. Sin geometría en el espacio.",
+    },
+    {
+      label: "Derivadas y aplicaciones (CCSS)",
+      limits:
+        "Derivadas de funciones elementales, regla de la cadena ; crecimiento, mínimos y máximos ; elasticidad de la demanda (aplicación económica) ; interpretación de la derivada como tasa de variación instantánea.",
+    },
+    {
+      label: "Integrales definidas y aplicaciones (CCSS)",
+      limits:
+        "Primitivas inmediatas (sin técnicas avanzadas) ; regla de Barrow ; área entre curvas (figuras planas sencillas). PAS cambio de variable, PAS partes, PAS fracciones simples en detalle.",
+    },
+    {
+      label: "Estadística descriptiva bivariante",
+      limits:
+        "Nube de puntos, covarianza, coeficiente de correlación de Pearson r ; recta de regresión por mínimos cuadrados ; predicción ; interpretación de r² (coeficiente de determinación).",
+    },
+    {
+      label: "Probabilidad y Bayes (CCSS)",
+      limits:
+        "Probabilidad condicionada, regla de la multiplicación, independencia, Bayes ; con énfasis en aplicaciones sociales y económicas (sanidad, marketing).",
+    },
+    {
+      label: "Distribuciones: binomial y normal (CCSS)",
+      limits:
+        "Distribución binomial B(n,p) ; distribución normal N(μ,σ²), tipificación, tablas, propiedades de simetría ; aproximación de la binomial por la normal.",
+    },
+    {
+      label: "Inferencia estadística (CCSS)",
+      limits:
+        "Distribución de la media muestral, TCL ; intervalo de confianza para la media y para una proporción ; tamaño muestral necesario. PAS contrastes de hipótesis.",
+    },
+  ],
+
+  // Fallback genérico sin modalidad.
   "ES_math_2º Bachillerato": [
     "Álgebra: matrices y determinantes",
     "Sistemas de ecuaciones lineales",
@@ -1955,28 +2062,103 @@ const TOPICS: Record<string, Topic[]> = {
     "Inferencia estadística",
   ],
   "ES_physics_2º Bachillerato": [
-    "Gravitación universal",
-    "Campo gravitatorio",
-    "Movimiento ondulatorio",
-    "Óptica geométrica y física",
-    "Campo eléctrico, potencial",
-    "Campo magnético, inducción",
-    "Física cuántica (efecto fotoeléctrico, dualidad)",
-    "Relatividad especial",
-    "Física nuclear",
+    {
+      label: "Gravitación universal y campo gravitatorio",
+      limits:
+        "Ley de Newton, fuerza y campo gravitatorio g = GM/r² ; energía potencial gravitatoria Ep = -GMm/r ; leyes de Kepler ; satélites (velocidad, período) ; movimiento orbital circular. PAS mecánica celestial relativista.",
+    },
+    {
+      label: "Movimiento ondulatorio",
+      limits:
+        "Magnitudes (amplitud, período, frecuencia, longitud de onda, velocidad) ; ecuación de onda y = A sin(ωt - kx) ; energía de una onda ; efecto Doppler (fuente y observador en movimiento) ; ondas estacionarias.",
+    },
+    {
+      label: "Óptica geométrica y física",
+      limits:
+        "Reflexión y refracción (Snell), índice de refracción ; reflexión total interna ; espejos y lentes delgadas (ecuación de las lentes, distancia focal) ; difracción e interferencias (Young, condición de máximos/mínimos).",
+    },
+    {
+      label: "Campo eléctrico y potencial",
+      limits:
+        "Ley de Coulomb ; campo E y potencial V en cargas puntuales y distribuciones simétricas ; energía potencial eléctrica ; capacitor plano (E = σ/ε₀) ; trabajo W = qΔV. PAS la ecuación de Poisson.",
+    },
+    {
+      label: "Campo magnético e inducción",
+      limits:
+        "Fuerza de Lorentz F = qv×B ; campo de un hilo rectilíneo, espira, solenoide (B = μ₀nI) ; inducción: ley de Faraday |ε| = dΦ/dt, Lenz ; fem de movimiento.",
+    },
+    {
+      label: "Física cuántica (efecto fotoeléctrico, dualidad)",
+      limits:
+        "Cuerpo negro (catástrofe ultravioleta, ley de Wien, Stefan — cualitativamente) ; efecto fotoeléctrico: hf = W₀ + Ekin ; dualidad onda-corpúsculo, longitud de De Broglie λ = h/p. PAS la ecuación de Schrödinger.",
+    },
+    {
+      label: "Relatividad especial",
+      limits:
+        "Postulados de Einstein ; dilatación temporal Δt' = γΔt ; contracción espacial l' = l/γ ; masa relativista y energía E = mc² ; E² = (pc)² + (m₀c²)². PAS relatividad general.",
+    },
+    {
+      label: "Física nuclear",
+      limits:
+        "Composición del núcleo, número másico y atómico ; energía de enlace, defecto de masa ΔE = Δmc² ; radiactividad (α, β, γ), ley de desintegración N(t) = N₀e^(-λt) ; fisión y fusión (aplicaciones). PAS modelos nucleares de capas.",
+    },
   ],
   "ES_chemistry_2º Bachillerato": [
-    "Estructura atómica, configuración electrónica",
-    "Enlace químico",
-    "Termoquímica",
-    "Cinética química",
-    "Equilibrio químico",
-    "Reacciones ácido-base, pH",
-    "Reacciones de oxidación-reducción",
-    "Electroquímica",
-    "Química orgánica: nomenclatura, isomería",
-    "Reacciones orgánicas (tipos generales)",
-    "Polímeros y biomoléculas",
+    {
+      label: "Estructura atómica y configuración electrónica",
+      limits:
+        "Números cuánticos (n, l, m, s) ; orbitales (s, p, d, f) ; principio de Aufbau, Hund, Pauli ; configuración electrónica y propiedades periódicas (radio, energía de ionización, electronegatividad).",
+    },
+    {
+      label: "Enlace químico y geometría molecular",
+      limits:
+        "Enlace iónico, covalente, metálico ; energía de enlace ; VSEPR (geometría de Gillespie) ; hibridación (sp, sp², sp³) ; polaridad de enlace y molécula ; fuerzas intermoleculares.",
+    },
+    {
+      label: "Termoquímica",
+      limits:
+        "Entalpía ΔH : calor de reacción, formación, combustión ; ley de Hess ; energía de red (ciclo de Born-Haber en conceptual). PAS la entropía y la energía libre de Gibbs en detalle.",
+    },
+    {
+      label: "Cinética química",
+      limits:
+        "Velocidad de reacción, factores (concentración, T, catalizador, superficie) ; ley de velocidad (orden 0, 1, 2) ; t₁/₂ para orden 1 ; ecuación de Arrhenius k = Ae^(-Ea/RT) ; catálisis (homogénea, heterogénea, enzimática).",
+    },
+    {
+      label: "Equilibrio químico",
+      limits:
+        "Constante de equilibrio Kc y Kp (relación Kp = Kc(RT)^Δn) ; ley de Le Chatelier ; grado de disociación ; equilibrios heterogéneos (Kc solo con gases/disoluciones). PAS la termodinámica del equilibrio (ΔG = -RT ln K).",
+    },
+    {
+      label: "Equilibrios en disolución (ácido-base)",
+      limits:
+        "Ka, Kb, Kw ; pH de soluciones de ácidos/bases fuertes y débiles ; soluciones tampón (Henderson-Hasselbalch) ; hidrólisis de sales ; curvas de valoración (titulación) ; indicadores.",
+    },
+    {
+      label: "Reacciones de oxidación-reducción",
+      limits:
+        "Números de oxidación, ajuste por el método del ion-electrón (en medio ácido y básico). Identificación de oxidante/reductor.",
+    },
+    {
+      label: "Electroquímica",
+      limits:
+        "Celda galvánica (ánodo, cátodo) ; potenciales estándar de electrodo E° ; FEM = E°(cátodo) - E°(ánodo) ; predicción de reacciones espontáneas ; electrólisis, ley de Faraday Q = nFz.",
+    },
+    {
+      label: "Química orgánica: nomenclatura e isomería",
+      limits:
+        "Nomenclatura IUPAC de alcanos, alquenos, alquinos, ciclocompuestos, grupos funcionales (OH, CHO, CO, COOH, NH₂, halógenos) ; isomería constitucional y estereoisomería (geométrica cis/trans, quiral con C*). PAS nomenclatura IUPAC 2013 de prioridad R/S formal.",
+    },
+    {
+      label: "Reacciones orgánicas",
+      limits:
+        "Sustitución (SN1, SN2 básico) ; adición electrofílica (alquenos + HX, X₂, H₂O/Markovnikov) ; eliminación (regla de Zaitsev) ; sustitución aromática electrofílica (benceno) ; esterificación, saponificación.",
+    },
+    {
+      label: "Polímeros y biomoléculas",
+      limits:
+        "Polímeros de adición y condensación ; plásticos (polietileno, PVC, nylon, poliéster) ; gomas ; biomoléculas (glúcidos, lípidos, proteínas, ácidos nucleicos) — nivel descriptivo. PAS síntesis orgánica multietapa.",
+    },
   ],
 
   // ── EGYPT ──────────────────────────────────────────────────────────────────
