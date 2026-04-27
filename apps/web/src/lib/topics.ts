@@ -1588,60 +1588,251 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── UNITED KINGDOM ─────────────────────────────────────────────────────────
+  // GB A-level scope notes: AQA/Edexcel/OCR boards share ~95 % of Pure content.
+  // Statistics component: large data set, binomial, normal, hypothesis testing.
+  // Mechanics component: suvat, Newton's laws, moments (content chosen by centre).
   "GB_math_A-level": [
-    "Algebraic methods (proof, surds, indices)",
-    "Coordinate geometry, equation of a circle",
-    "Trigonometric identities and equations",
-    "Differentiation (product, quotient, chain)",
-    "Integration techniques",
-    "Sequences and series, binomial expansion",
-    "Exponentials and logarithms",
-    "Vectors in 3D",
-    "Numerical methods (Newton-Raphson)",
-    "Probability and statistics",
-    "Hypothesis testing",
-    "Mechanics: kinematics and Newton's laws",
-    "Mechanics: moments and statics",
+    {
+      label: "Algebraic methods",
+      limits:
+        "Proof by contradiction; surds and rationalising the denominator; laws of indices; factor theorem and polynomial division; partial fractions (proper, improper). PAS abstract algebra, group theory.",
+    },
+    {
+      label: "Coordinate geometry and circles",
+      limits:
+        "Straight-line equations; circle equation (x−a)²+(y−b)²=r²; tangent perpendicular to radius; chord/arc/sector (radians). Parametric equations: Cartesian conversion, dy/dx via chain rule. PAS 3-D analytic geometry (Further Maths).",
+    },
+    {
+      label: "Trigonometry",
+      limits:
+        "Exact values; sin²θ+cos²θ=1, sec², cosec², cot² variants; addition and double-angle formulae; R sin(θ+α) form; radian measure; small-angle approximations. PAS hyperbolic functions.",
+    },
+    {
+      label: "Differentiation",
+      limits:
+        "Product, quotient, chain rules; implicit and parametric differentiation; second derivatives and concavity; related rates of change; stationary points and curve sketching. PAS ε-δ limits, higher-order implicit derivatives beyond A-level scope.",
+    },
+    {
+      label: "Integration",
+      limits:
+        "Reverse chain rule; integration by parts; substitution; partial fractions; definite integrals (areas, volumes of revolution around x-axis for most boards); trapezium rule. PAS double/triple integrals.",
+    },
+    {
+      label: "Sequences and series",
+      limits:
+        "Arithmetic and geometric progressions (nth term, sum formulas); binomial expansion for positive integer n (exact) and fractional/negative n (approximation, validity |x|<1). Sigma notation. PAS Taylor/Maclaurin series.",
+    },
+    {
+      label: "Exponentials and logarithms",
+      limits:
+        "e^x and ln x: properties, derivatives, integrals; log laws; solving equations; exponential growth and decay models. Logarithmic graphs (linearisation).",
+    },
+    {
+      label: "Vectors",
+      limits:
+        "2-D and 3-D position/direction vectors; magnitude; scalar (dot) product; angle between vectors; vector equations of lines; checking intersection/skew. PAS cross product, planes (Further Maths).",
+    },
+    {
+      label: "Numerical methods",
+      limits:
+        "Change of sign / bisection; Newton-Raphson iteration; fixed-point iteration (convergence condition); trapezium rule for numerical integration (error awareness). PAS Runge-Kutta, numerical ODE solvers.",
+    },
+    {
+      label: "Probability and statistics",
+      limits:
+        "Probability rules; binomial distribution B(n,p): mean np, variance npq; normal distribution N(μ,σ²): standardising, tables; Pearson correlation coefficient; regression line (PMCC). Large data set context (AQA/Edexcel).",
+    },
+    {
+      label: "Hypothesis testing",
+      limits:
+        "One- and two-tailed tests for a proportion (binomial) and for a mean (normal); critical region; p-value vs significance level; Type I error. PAS Type II error, χ² test (A-level only for some boards).",
+    },
+    {
+      label: "Mechanics: kinematics and dynamics",
+      limits:
+        "Suvat equations; projectile motion; Newton's 1st, 2nd, 3rd laws; connected particles (Atwood); friction (F = μR). PAS circular motion and moments if not chosen by centre.",
+    },
+    {
+      label: "Mechanics: moments and equilibrium",
+      limits:
+        "Moment of a force about a point; conditions for equilibrium of a rigid body; centre of mass of uniform bodies; leaning ladder / tilting problems. PAS dynamic rotation (Further Maths).",
+    },
   ],
   "GB_physics_A-level": [
-    "Mechanics: forces, motion, energy",
-    "Materials: Hooke's law, Young's modulus",
-    "Waves: progressive, stationary, interference",
-    "Diffraction and refraction",
-    "Quantum phenomena: photoelectric effect",
-    "Electricity: circuits, Kirchhoff's laws",
-    "Electric fields and capacitance",
-    "Magnetic fields and induction",
-    "Nuclear physics: radioactivity, decay",
-    "Thermal physics, ideal gas",
-    "Astrophysics or Medical Physics (option)",
-    "Special relativity (Edexcel/AQA)",
+    {
+      label: "Mechanics: motion and forces",
+      limits:
+        "Suvat equations, projectile motion; Newton's laws; resolving forces; work-energy theorem, power; conservation of momentum; elastic/inelastic collisions. PAS rotational dynamics (Further Maths Physics).",
+    },
+    {
+      label: "Materials",
+      limits:
+        "Hooke's law (spring constant); Young's modulus (σ = Eε); stress-strain graphs; elastic limit, yield point, plastic deformation; brittle vs ductile. Density and pressure.",
+    },
+    {
+      label: "Waves",
+      limits:
+        "Progressive waves: v = fλ; transverse and longitudinal; stationary waves (harmonics); superposition and interference; path difference; coherence. Doppler effect formula. PAS Fourier analysis.",
+    },
+    {
+      label: "Diffraction and refraction",
+      limits:
+        "Snell's law; total internal reflection; diffraction grating equation nλ = d sinθ; single-slit and double-slit patterns (qualitative). Refractive index n = c/v.",
+    },
+    {
+      label: "Quantum phenomena",
+      limits:
+        "Photoelectric effect: hf = φ + ½mv²max, stopping voltage; photon model; wave-particle duality; de Broglie wavelength λ = h/p; energy levels and emission spectra. PAS Schrödinger equation, quantum numbers.",
+    },
+    {
+      label: "Electricity",
+      limits:
+        "V = IR; series/parallel circuits; Kirchhoff's current and voltage laws; power P = IV; resistivity ρ = RA/L; EMF and internal resistance ε = I(R+r); potential divider. PAS complex AC circuits.",
+    },
+    {
+      label: "Electric fields and capacitance",
+      limits:
+        "Coulomb's law; uniform field E = V/d; field lines; capacitance C = Q/V; energy ½CV²; charging/discharging RC circuits (exponential equations); time constant τ = RC. PAS Gauss's law.",
+    },
+    {
+      label: "Magnetic fields and induction",
+      limits:
+        "F = BIL; F = Bqv; Fleming's left-hand rule; circular motion in magnetic field; Faraday's and Lenz's laws; ε = −dΦ/dt; transformers (ideal). PAS Maxwell's equations in full.",
+    },
+    {
+      label: "Nuclear physics",
+      limits:
+        "Alpha, beta, gamma radiation; nuclear equations; radioactive decay law A = A₀e^(−λt); half-life; binding energy per nucleon; mass-energy E = mc²; fission and fusion (qualitative). PAS nuclear models beyond liquid-drop.",
+    },
+    {
+      label: "Thermal physics and ideal gas",
+      limits:
+        "Internal energy; specific heat capacity Q = mcΔT; specific latent heat; gas laws (Boyle, Charles, Gay-Lussac); ideal gas equation pV = nRT = NkT; kinetic theory (mean KE = 3/2 kT). PAS van der Waals corrections.",
+    },
+    {
+      label: "Astrophysics (option)",
+      limits:
+        "HR diagram; stellar evolution; Hubble's law v = Hd; redshift; cosmic microwave background; Chandrasekhar limit; black holes (descriptive). This is the AQA/Edexcel optional topic — only assess if centre selected it.",
+    },
+    {
+      label: "Special relativity",
+      limits:
+        "Time dilation t = γt₀; length contraction L = L₀/γ; Lorentz factor γ = 1/√(1−v²/c²); relativistic momentum; E = mc² (rest mass energy). Covered in Edexcel A-level and AQA optional section.",
+    },
   ],
   "GB_chemistry_A-level": [
-    "Atomic structure and bonding",
-    "Energetics (enthalpy, Hess's law)",
-    "Kinetics, Arrhenius equation",
-    "Equilibria: Kc, Kp, Le Chatelier",
-    "Acids and bases, Kw, buffers",
-    "Redox and electrochemistry",
-    "Periodicity, transition metals",
-    "Organic: alkanes, alkenes, halogenoalkanes",
-    "Organic mechanisms (curly arrows: SN1, SN2, E1, E2)",
-    "Aromatic chemistry, electrophilic substitution",
-    "Carbonyls, carboxylic acids, esters",
-    "Spectroscopy: IR, NMR, mass spec",
+    {
+      label: "Atomic structure and bonding",
+      limits:
+        "Mass spectrometry (relative atomic mass); electron configuration in s/p/d orbitals; ionisation energy trends; ionic, covalent, metallic bonding; Lewis structures; VSEPR (shapes up to 6 pairs); intermolecular forces (London, dipole-dipole, H-bond). PAS MO theory.",
+    },
+    {
+      label: "Energetics",
+      limits:
+        "Enthalpy of formation, combustion, neutralisation; Hess's law; mean bond enthalpies; Born-Haber cycle (ionic lattice energy); entropy ΔS; Gibbs free energy ΔG = ΔH − TΔS (feasibility). PAS statistical thermodynamics.",
+    },
+    {
+      label: "Kinetics",
+      limits:
+        "Rate equation rate = k[A]^m[B]^n (orders determined experimentally); rate constant k units; half-life of first-order reaction; Arrhenius equation k = Ae^(−Ea/RT); reaction mechanisms (rate-determining step). PAS steady-state approximation.",
+    },
+    {
+      label: "Equilibria",
+      limits:
+        "Kc and Kp expressions; units; Le Chatelier's principle (temperature, pressure, concentration effects on position and on K); heterogeneous equilibria. PAS activity, fugacity, rigorous thermodynamic derivation.",
+    },
+    {
+      label: "Acids, bases and buffers",
+      limits:
+        "Brønsted-Lowry definition; pH = −log[H⁺]; Ka, Kb, Kw (pKa, pKb); strong vs weak acids/bases; pH titration curves; buffer action: Henderson-Hasselbalch; indicator choice. PAS Lewis acid-base theory beyond A-level scope.",
+    },
+    {
+      label: "Redox and electrochemistry",
+      limits:
+        "Oxidation numbers; half-equations; standard electrode potentials E°; EMF = E°(cathode) − E°(anode); feasibility; electrolysis — preferential discharge, Faraday's laws (m = ItM/nF). PAS Nernst equation (some boards mention but do not calculate).",
+    },
+    {
+      label: "Periodicity and transition metals",
+      limits:
+        "Period 3 oxides and chlorides (reactions with water, acid, alkali); d-block: variable oxidation states, complex ions, colour (crystal field qualitative), catalysis. NO detailed crystal field splitting calculations.",
+    },
+    {
+      label: "Organic: alkanes, alkenes, halogenoalkanes",
+      limits:
+        "Homologous series; IUPAC nomenclature; free-radical substitution (alkanes); electrophilic addition (alkenes, Markovnikov); halogenoalkane reactions (SN1/SN2 with rate evidence). PAS elimination kinetics.",
+    },
+    {
+      label: "Organic mechanisms",
+      limits:
+        "Curly-arrow mechanism for SN1, SN2, E1, E2, electrophilic addition, nucleophilic addition to carbonyls, acyl substitution. Stereochemistry: optical isomerism, racemisation. PAS pericyclic mechanisms.",
+    },
+    {
+      label: "Aromatic chemistry",
+      limits:
+        "Benzene: Kekulé vs delocalised model; electrophilic aromatic substitution (nitration, halogenation with Lewis acid, Friedel-Crafts acylation/alkylation); electron-donating/withdrawing substituent effects on reactivity and position. PAS heterocyclic aromatic compounds.",
+    },
+    {
+      label: "Carbonyls, carboxylic acids and derivatives",
+      limits:
+        "Aldehydes and ketones: nucleophilic addition (NaBH₄, HCN, tollens'/Fehling's tests); carboxylic acids: reactions; esters (esterification, hydrolysis); amines (basic, alkyl vs aryl); amides (polyamides, peptide bond). Fats and oils (saponification). PAS retrosynthetic analysis beyond A-level.",
+    },
+    {
+      label: "Spectroscopy",
+      limits:
+        "Infrared: C=O ~1700, O−H 2500-3300, N−H 3200-3500 cm⁻¹; ¹H NMR: chemical shift table, integration, n+1 splitting rule; mass spectrometry: M⁺ peak, common fragment losses (m/z = 15 CH₃, 29 CHO, 45 OEt). Combined structure elucidation problems.",
+    },
   ],
   "GB_informatics_A-level": [
-    "Programming fundamentals (Python)",
-    "Data structures: lists, stacks, queues, trees",
-    "Algorithms: sorting, searching",
-    "Big-O complexity analysis",
-    "Boolean algebra, logic gates",
-    "Finite state machines, Turing machines",
-    "Databases and SQL",
-    "Networking: TCP/IP, OSI model",
-    "Object-oriented programming",
-    "Recursion",
+    {
+      label: "Programming fundamentals",
+      limits:
+        "Variables, data types, selection (if/elif/else), iteration (for/while), functions/procedures, parameter passing, local vs global scope. File I/O. Exception handling. PAS async/await, multi-threading.",
+    },
+    {
+      label: "Data structures",
+      limits:
+        "Arrays/lists, stacks (LIFO — push/pop), queues (FIFO — enqueue/dequeue), linked lists, binary trees (traversal: pre/in/post-order), hash tables (hashing and collision handling), graphs (adjacency matrix/list). PAS B-trees, red-black trees.",
+    },
+    {
+      label: "Algorithms: sorting and searching",
+      limits:
+        "Bubble, insertion, merge, quick sort (worst/average case); linear and binary search; Dijkstra's shortest path; A* pathfinding (AQA optional). Trace tables. PAS NP-completeness proofs.",
+    },
+    {
+      label: "Complexity and Big-O",
+      limits:
+        "Time and space complexity; O(1), O(log n), O(n), O(n log n), O(n²); best/worst/average case; comparing algorithms; limits of computability (halting problem). PAS master theorem for recurrences.",
+    },
+    {
+      label: "Boolean algebra and logic",
+      limits:
+        "AND, OR, NOT, XOR, NAND, NOR gates; truth tables; De Morgan's laws; simplification using Boolean laws; half-adder, full-adder circuits; Karnaugh maps (up to 4 variables — some boards).",
+    },
+    {
+      label: "Automata and computability",
+      limits:
+        "Finite state machines / DFAs: state diagrams, transition tables; regular expressions (basic notation); Mealy and Moore machines; concept of the Turing machine (tape, read/write head, halting problem). PAS PDA, context-free grammars (A-level boundary).",
+    },
+    {
+      label: "Databases and SQL",
+      limits:
+        "Entity-relationship (ER) diagrams; relational model; normalisation to 3NF; SQL: SELECT with WHERE, ORDER BY, GROUP BY, HAVING, JOIN (INNER, LEFT). Transactions, ACID. PAS stored procedures, triggers.",
+    },
+    {
+      label: "Networking",
+      limits:
+        "OSI model (7 layers) and TCP/IP stack; IP addressing (IPv4, subnetting basics); packet switching; HTTP/HTTPS; DNS; MAC addressing; encryption: symmetric (AES) vs asymmetric (RSA) and digital certificates. PAS BGP routing internals.",
+    },
+    {
+      label: "Object-oriented programming",
+      limits:
+        "Classes, objects, attributes, methods; encapsulation; inheritance (subclassing, method overriding); polymorphism; abstraction; interfaces. UML class diagrams (simple). PAS design patterns beyond scope.",
+    },
+    {
+      label: "Recursion",
+      limits:
+        "Base case and recursive case; call stack; factorial, Fibonacci, tree traversal examples; tail recursion concept; converting between iterative and recursive solutions. PAS continuation-passing style.",
+    },
   ],
 
   // ── GERMANY ────────────────────────────────────────────────────────────────
@@ -1902,42 +2093,161 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── ITALY ──────────────────────────────────────────────────────────────────
+  // 5° anno Liceo Scientifico — Indicazioni Nazionali (DM 211/2010).
+  // La matematica ha un programma comune a tutti gli indirizzi; fisica e chimica
+  // approfondiscono i temi dell'anno conclusivo (elettromagnetismo, relatività,
+  // quantistica). La chimica organica viene in genere completata al 4° anno;
+  // al 5° si possono ripassare biomolecole e polimeri.
   "IT_math_5ª Liceo Scientifico": [
-    "Limiti di funzioni",
-    "Continuità",
-    "Derivate e teoremi del calcolo differenziale",
-    "Teorema di De L'Hôpital",
-    "Studio di funzione",
-    "Integrali indefiniti e definiti",
-    "Calcolo combinatorio",
-    "Probabilità",
-    "Geometria analitica nello spazio",
-    "Equazioni differenziali",
-    "Numeri complessi",
+    {
+      label: "Limiti di funzioni",
+      limits:
+        "Definizione di limite (intorno, ε-δ in modo intuitivo) ; operazioni sui limiti ; forme indeterminate (∞/∞, 0/0) ; limiti notevoli (lim sin x/x = 1, lim (1+1/n)^n = e) ; asintoti (verticali, orizzontali, obliqui). PAS la topologia formale.",
+    },
+    {
+      label: "Continuità",
+      limits:
+        "Definizione di continuità in un punto e su un intervallo ; classificazione delle discontinuità (1°, 2°, 3° specie) ; teorema di Bolzano (esistenza degli zeri) ; teorema di Weierstrass (max e min su compatto) ; teorema dei valori intermedi. PAS la continuità uniforme.",
+    },
+    {
+      label: "Derivate e teoremi del calcolo differenziale",
+      limits:
+        "Derivate fondamentali ; regola del prodotto, quoziente, funzione composta ; derivata della funzione inversa ; teorema di Rolle, Lagrange (valore medio), Cauchy ; teorema di De L'Hôpital (applicazione alle forme indeterminate). PAS le derivate di ordine superiore oltre il programma.",
+    },
+    {
+      label: "Studio di funzione",
+      limits:
+        "Dominio, parità, periodicità ; segno, intersezioni con gli assi ; monotonia, massimi/minimi locali e globali ; concavità, convessità, flessi (condizioni necessarie e sufficienti) ; asintoti ; grafico qualitativo. Comprende funzioni composte, irrazionali, trigonometriche, esponenziali, logaritmiche.",
+    },
+    {
+      label: "Integrali indefiniti e definiti",
+      limits:
+        "Primitiva e integrale indefinito ; proprietà di linearità ; integrazione per sostituzione, per parti ; integrali di funzioni razionali (fratti semplici) ; teorema fondamentale del calcolo integrale (Torricelli-Barrow) ; area tra curve ; volume di solido di rotazione (metodo dei dischei). PAS gli integrali impropri (se non trattati dal docente).",
+    },
+    {
+      label: "Calcolo combinatorio",
+      limits:
+        "Disposizioni, permutazioni, combinazioni (con e senza ripetizione) ; coefficienti binomiali, triangolo di Pascal ; teorema binomiale (Newton). PAS il principio di inclusione-esclusione.",
+    },
+    {
+      label: "Probabilità",
+      limits:
+        "Probabilità classica, frequentista, assiomatica ; probabilità condizionata P(A|B) ; regola della moltiplicazione ; eventi indipendenti ; teorema della probabilità totale ; teorema di Bayes ; distribuzione binomiale B(n,p) ; distribuzione di Poisson (cenni). PAS la distribuzione normale (a meno che trattata dal docente).",
+    },
+    {
+      label: "Geometria analitica nello spazio",
+      limits:
+        "Vettori in R³ (prodotto scalare, prodotto vettoriale) ; equazione del piano (forma cartesiana e parametrica) ; equazione della retta nello spazio ; distanze punto-piano, punto-retta, retta-retta ; sfere. PAS la geometria differenziale delle curve.",
+    },
+    {
+      label: "Equazioni differenziali",
+      limits:
+        "EDO del 1° ordine a variabili separabili ; EDO lineare del 1° ordine (fattore integrante) ; EDO lineare del 2° ordine omogenea a coefficienti costanti (equazione caratteristica, radici reali distinte, reali coincidenti, complesse coniugate). PAS i sistemi differenziali e le trasformate di Laplace.",
+    },
+    {
+      label: "Numeri complessi",
+      limits:
+        "Forma algebrica z = a + bi ; coniugato, modulo, operazioni ; forma trigonometrica (modulo e argomento) ; formula di Euler e^(iθ) = cosθ + i sinθ ; teorema di De Moivre ; radici n-esime di un numero complesso. PAS le serie di Laurent e i residui.",
+    },
   ],
   "IT_physics_5ª Liceo Scientifico": [
-    "Elettrostatica e campo elettrico",
-    "Potenziale elettrico, condensatori",
-    "Corrente elettrica, leggi di Ohm",
-    "Campo magnetico, forza di Lorentz",
-    "Induzione elettromagnetica",
-    "Onde elettromagnetiche",
-    "Relatività ristretta",
-    "Fisica quantistica (introduzione)",
-    "Effetto fotoelettrico",
-    "Modelli atomici",
-    "Fisica nucleare",
+    {
+      label: "Elettrostatica e campo elettrico",
+      limits:
+        "Legge di Coulomb ; campo elettrico (vettore E) ; principio di sovrapposizione ; flusso del campo elettrico ; teorema di Gauss (per distribuzioni simmetriche) ; campo uniforme tra le armature del condensatore. PAS la forma differenziale delle equazioni di Maxwell.",
+    },
+    {
+      label: "Potenziale elettrico e condensatori",
+      limits:
+        "Energia potenziale elettrica ; potenziale V, superfici equipotenziali ; circuitazione del campo elettrico (campo conservativo) ; condensatore piano: C = ε₀A/d, energia ½CV² ; condensatori in serie e in parallelo ; effetto dielettrico (costante dielettrica relativa).",
+    },
+    {
+      label: "Corrente elettrica e circuiti",
+      limits:
+        "Corrente I = dq/dt ; resistività ρ, resistenza R = ρl/A ; prima e seconda legge di Ohm ; leggi di Kirchhoff ; potenza P = VI = I²R ; resistenze in serie/parallelo ; circuiti RC (carica e scarica, costante di tempo τ = RC).",
+    },
+    {
+      label: "Campo magnetico e forza di Lorentz",
+      limits:
+        "Campo magnetico B ; forza di Lorentz F = qv×B ; forza su conduttore percorso da corrente F = BIl ; filo infinito (Biot-Savart semplificato) ; legge di Ampère ; solenoide B = μ₀nI ; moto di cariche in campo magnetico (eliche, ciclotrone). PAS il tensore elettromagnetico.",
+    },
+    {
+      label: "Induzione elettromagnetica",
+      limits:
+        "Flusso magnetico Φ = BS cosθ ; legge di Faraday-Neumann |ε| = dΦ/dt ; regola di Lenz ; corrente indotta e forza controelettromotrice ; autoinduzione L (energia ½LI²) ; alternatore (tensione sinusoidale e^iωt in forma fasoriale). Trasformatore ideale.",
+    },
+    {
+      label: "Onde elettromagnetiche",
+      limits:
+        "Equazioni di Maxwell (forma qualitativa) ; onde EM trasversali, velocità c = 1/√(ε₀μ₀) ; spettro EM (radio, micro, IR, visibile, UV, X, γ) ; energia e intensità di un'onda EM ; pressione di radiazione. PAS il calcolo esplicito delle soluzioni delle equazioni di Maxwell.",
+    },
+    {
+      label: "Relatività ristretta",
+      limits:
+        "Postulati di Einstein ; simultaneità relativa ; dilatazione del tempo Δt' = γΔt₀ ; contrazione delle lunghezze L' = L₀/γ ; addizione relativistica delle velocità ; equivalenza massa-energia E = mc² ; energia totale e impulso relativistici. PAS la relatività generale.",
+    },
+    {
+      label: "Fisica quantistica",
+      limits:
+        "Radiazione del corpo nero, catastrofe ultravioletta ; ipotesi di Planck E = hf ; effetto fotoelettrico (Einstein) ; effetto Compton (cenni) ; dualità onda-corpuscolo ; principio di indeterminazione di Heisenberg. PAS la meccanica quantistica ondulatoria (equazione di Schrödinger).",
+    },
+    {
+      label: "Modelli atomici e spettri",
+      limits:
+        "Modello di Rutherford ; modello di Bohr: En = -13,6 eV/n² ; transizioni e spettri di emissione/assorbimento dell'idrogeno (serie di Balmer, Lyman) ; numeri quantici (cenni) ; lunghezza d'onda di De Broglie applicata agli orbitali di Bohr.",
+    },
+    {
+      label: "Fisica nucleare",
+      limits:
+        "Nucleo: protoni e neutroni, numero atomico Z, numero di massa A ; forza nucleare ; radioattività: decadimento α, β⁻, β⁺, γ ; legge del decadimento N(t) = N₀e^(-λt), vita media, tempo di dimezzamento ; reazione nucleare, difetto di massa, energia di legame ; fissione (reazione a catena) e fusione (cenni).",
+    },
   ],
   "IT_chemistry_5ª Liceo Scientifico": [
-    "Struttura atomica e tavola periodica",
-    "Legami chimici",
-    "Termochimica",
-    "Cinetica chimica",
-    "Equilibrio chimico",
-    "Acidi e basi, pH",
-    "Elettrochimica",
-    "Chimica organica: idrocarburi",
-    "Gruppi funzionali, biomolecole",
+    {
+      label: "Struttura atomica e tavola periodica",
+      limits:
+        "Modello a gusci e orbitali (s, p, d) ; configurazione elettronica, regola di Hund e principio di esclusione di Pauli ; proprietà periodiche (raggi atomici, energia di ionizzazione, elettronegatività, affinità elettronica). PAS gli orbitali f e i lantanidi/attinidi nel dettaglio.",
+    },
+    {
+      label: "Legami chimici",
+      limits:
+        "Legame ionico, covalente puro e polare, metallico ; teoria VSEPR (previsione geometria) ; ibridizzazione sp, sp², sp³ ; momento di dipolo ; forze intermolecolari (London, dipolo-dipolo, legame a idrogeno) e loro influenza su punto di fusione/ebollizione. PAS la teoria MO.",
+    },
+    {
+      label: "Termochimica",
+      limits:
+        "Entalpia di reazione ΔH ; legge di Hess ; calore di formazione, combustione, neutralizzazione ; entropia ΔS (concetto qualitativo) ; energia libera di Gibbs ΔG = ΔH - TΔS ; spontaneità di reazione. PAS il calcolo rigoroso dell'entropia da tavole.",
+    },
+    {
+      label: "Cinetica chimica",
+      limits:
+        "Velocità di reazione ; legge cinetica (ordine rispetto ai reagenti, costante k) ; effetto di temperatura (equazione di Arrhenius k = Ae^(-Ea/RT)) ; meccanismo di reazione e stadio limitante ; catalisi (omogenea ed eterogenea).",
+    },
+    {
+      label: "Equilibrio chimico",
+      limits:
+        "Costante di equilibrio Kc e Kp ; quoziente di reazione Q ; principio di Le Chatelier (effetti di temperatura, pressione, concentrazione) ; equilibri eterogenei ; solubilità e prodotto di solubilità Ksp. PAS la termodinamica formale dell'equilibrio (attività, fugacità).",
+    },
+    {
+      label: "Acidi, basi e pH",
+      limits:
+        "Teoria di Brønsted-Lowry ; pH = -log[H⁺] ; Ka e Kb, pKa, pKw = 14 ; acidi e basi forti vs deboli ; soluzione di acido debole (approssimazione della √) ; soluzioni tampone (Henderson-Hasselbalch) ; titolazione acido-base, curva di titolazione, scelta dell'indicatore. PAS la teoria di Lewis nell'analisi quantitativa.",
+    },
+    {
+      label: "Elettrochimica",
+      limits:
+        "Potenziale standard di riduzione E° ; pila elettrochimica: FEM = E°(catodo) - E°(anodo) ; equazione di Nernst E = E° - (RT/nF)ln Q ; elettrolisi: leggi di Faraday m = MIt/(nF) ; applicazioni (galvanica, accumulatore al piombo). PAS le celle a combustibile nel dettaglio.",
+    },
+    {
+      label: "Chimica organica: idrocarburi",
+      limits:
+        "Alcani, alcheni, alchini, areni (IUPAC, isomeri, proprietà fisiche) ; stereoisomeria geometrica (cis/trans) e chiralità (enantiomeri, R/S) ; reazioni: sostituzione radicalica (alcani), addizione elettrofila (alcheni: Markovnikov), sostituzione elettrofila aromatica (benzene: alogenazione, nitrazione).",
+    },
+    {
+      label: "Gruppi funzionali e biomolecole",
+      limits:
+        "Alcoli, fenoli, eteri, aldeidi, chetoni, acidi carbossilici, esteri, ammine, ammidi ; reazioni di esterificazione, saponificazione, amidazione ; biomolecole: glucidi (glucosio, amido, cellulosa), lipidi (trigliceridi), proteine (amminoacidi, legame peptidico, struttura primaria) ; acidi nucleici (struttura del DNA in linea di massima). PAS la sintesi peptidica dettagliata e la catena metabolica.",
+    },
   ],
 
   // ── SPAIN ──────────────────────────────────────────────────────────────────
