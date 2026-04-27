@@ -2162,6 +2162,87 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── EGYPT ──────────────────────────────────────────────────────────────────
+  // Scientific — Mathematics section: full mathematics program including
+  // complex numbers, 3D analytic geometry, and calculus.
+  "EG_math_Grade 12 (Thanaweya Amma)_Scientific — Mathematics section": [
+    {
+      label: "Algebra and complex numbers",
+      limits:
+        "Complex number z = a+bi: algebraic, trigonometric and exponential (Euler) forms; De Moivre; n-th roots of unity; solving equations in ℂ; geometric interpretation. Polynomials: remainder theorem, factor theorem, Vieta's formulas.",
+    },
+    {
+      label: "Trigonometry and identities",
+      limits:
+        "Sum/difference, double-angle, half-angle identities; solving trig equations on [0, 2π]; inverse trig (arcsin, arccos, arctan — principal values); trig form of complex numbers.",
+    },
+    {
+      label: "Analytic geometry (2D and 3D)",
+      limits:
+        "Conic sections (circle, parabola, ellipse, hyperbola) — standard forms, foci, directrices ; 3D: coordinates, distance, direction cosines, equation of a line and plane in space. NOT Bézier curves.",
+    },
+    {
+      label: "Differential calculus",
+      limits:
+        "Limits and continuity (IVT) ; derivatives (rules, chain, implicit) ; L'Hôpital ; higher-order derivatives ; Taylor expansion (first few terms). NOT formal ε-δ.",
+    },
+    {
+      label: "Applications of derivatives",
+      limits:
+        "Increasing/decreasing, extrema (FDT/SDT), concavity ; optimization problems ; related rates (selected). NOT calculus of variations.",
+    },
+    {
+      label: "Integral calculus",
+      limits:
+        "Antiderivatives ; FTC ; integration by substitution and by parts ; area between curves ; volume of revolution (disk method). NOT surface area of revolution.",
+    },
+    {
+      label: "Differential equations",
+      limits:
+        "Separable DE ; first-order linear DE (integrating factor) ; exponential growth/decay ; simple second-order DE with constant coefficients (ay'' + by' + cy = 0). NOT Laplace transforms.",
+    },
+    {
+      label: "Statistics and probability",
+      limits:
+        "Descriptive statistics (mean, variance, SD) ; frequency distributions ; permutations and combinations ; probability rules, Bayes ; binomial distribution ; introduction to normal distribution (z-scores).",
+    },
+  ],
+
+  // Scientific — Sciences section: lighter math; no complex numbers in
+  // exponential form and no 3D analytic geometry.
+  "EG_math_Grade 12 (Thanaweya Amma)_Scientific — Sciences section": [
+    {
+      label: "Algebra and functions",
+      limits:
+        "Polynomial functions, rational expressions, partial fractions ; quadratic equations and inequalities. Complex numbers: algebraic and trigonometric forms ONLY (NO exponential/Euler form).",
+    },
+    {
+      label: "Trigonometry",
+      limits:
+        "Core identities, solving equations ; inverse trig (arctan mainly) ; law of sines/cosines applied to triangles. Simpler scope than Mathematics section.",
+    },
+    {
+      label: "Analytic geometry (2D)",
+      limits:
+        "Conic sections (circle, parabola) in standard form ; basic locus problems. NO 3D geometry for the Sciences section.",
+    },
+    {
+      label: "Differential calculus",
+      limits:
+        "Limits (informal), derivatives (standard rules) ; relative extrema ; no L'Hôpital, no Taylor expansion. Applied focus (rate of change).",
+    },
+    {
+      label: "Integral calculus",
+      limits:
+        "Antiderivatives, FTC ; u-substitution ; area under a curve. NO integration by parts, NO volume of revolution in Sciences section.",
+    },
+    {
+      label: "Statistics and probability",
+      limits:
+        "Descriptive statistics ; permutations, combinations ; probability rules, Bayes (applied to science contexts) ; binomial distribution basics.",
+    },
+  ],
+
+  // Generic fallback — no section selected.
   "EG_math_Grade 12 (Thanaweya Amma)": [
     "Algebra and complex numbers",
     "Trigonometry and identities",
@@ -2173,25 +2254,88 @@ const TOPICS: Record<string, Topic[]> = {
     "Statistics and probability",
   ],
   "EG_physics_Grade 12 (Thanaweya Amma)": [
-    "Mechanics: dynamics and Newton's laws",
-    "Work, energy, power",
-    "Waves and sound",
-    "Geometric optics",
-    "Electrostatics, capacitors",
-    "Current electricity",
-    "Magnetism and electromagnetic induction",
-    "Modern physics (photoelectric, atomic models)",
-    "Nuclear physics",
+    {
+      label: "Mechanics: dynamics and Newton's laws",
+      limits:
+        "Newton's 3 laws (Arabic textbook: g ≈ 9.8 m/s² or 10 m/s²) ; kinematics (1D and 2D with vectors) ; work-energy theorem ; momentum and impulse ; circular motion (centripetal force).",
+    },
+    {
+      label: "Waves and sound",
+      limits:
+        "Mechanical waves : speed, frequency, wavelength (v = fλ) ; transverse vs longitudinal ; superposition, stationary waves ; sound speed, Doppler effect. NOT EM waves here.",
+    },
+    {
+      label: "Geometric optics",
+      limits:
+        "Reflection, refraction (Snell's law), critical angle and TIR ; mirrors (concave, convex) and lenses (converging, diverging) using mirror/lens equation 1/f = 1/u + 1/v ; magnification.",
+    },
+    {
+      label: "Electrostatics and capacitors",
+      limits:
+        "Coulomb's law ; electric field E = F/q ; potential V = kQ/r ; capacitor C = Q/V ; energy stored U = ½CV² ; parallel plate capacitor. NOT Gauss's law in detail.",
+    },
+    {
+      label: "Current electricity",
+      limits:
+        "Ohm's law, resistivity ; series/parallel circuits ; Kirchhoff's laws ; EMF and internal resistance ; power P = I²R = V²/R.",
+    },
+    {
+      label: "Magnetism and electromagnetic induction",
+      limits:
+        "Magnetic force on moving charge F = qvBsinθ ; force on current-carrying wire ; solenoid B = μ₀nI ; Faraday's law |ε| = N|ΔΦ/Δt| ; Lenz's law ; AC generator principle.",
+    },
+    {
+      label: "Modern physics (photoelectric effect, atomic models)",
+      limits:
+        "Photoelectric effect : hf = W₀ + Ekin ; photon E = hf ; Bohr model En = -13.6/n² eV ; spectral series ; de Broglie λ = h/p. NOT Schrödinger equation.",
+    },
+    {
+      label: "Nuclear physics",
+      limits:
+        "Radioactive decay (α, β, γ) ; half-life t₁/₂ = 0.693/λ ; binding energy and Q-value via E = Δmc² ; fission and fusion (conceptual). NOT chain reaction engineering.",
+    },
   ],
   "EG_chemistry_Grade 12 (Thanaweya Amma)": [
-    "Periodic table and atomic structure",
-    "Chemical bonding",
-    "Stoichiometry",
-    "Chemical equilibrium",
-    "Acids, bases, salts",
-    "Redox and electrochemistry",
-    "Organic chemistry: hydrocarbons, functional groups",
-    "Industrial chemistry",
+    {
+      label: "Periodic table and atomic structure",
+      limits:
+        "Electron configuration (subshells) ; periodic trends (atomic radius, ionization energy, electronegativity) ; types of elements (s, p, d, f blocks). NOT relativistic effects on heavy elements.",
+    },
+    {
+      label: "Chemical bonding",
+      limits:
+        "Ionic, covalent, metallic bonding ; Lewis structures ; VSEPR ; hybridization (sp, sp², sp³) ; polar bonds and molecular polarity ; intermolecular forces (H-bond, van der Waals).",
+    },
+    {
+      label: "Stoichiometry and chemical reactions",
+      limits:
+        "Mole concept, Avogadro's number ; molar mass ; percent composition ; empirical and molecular formulas ; limiting reagent ; yield. NOT complex titrimetry.",
+    },
+    {
+      label: "Chemical equilibrium",
+      limits:
+        "Kc and Kp ; Le Chatelier's principle ; Haber and Contact processes as examples ; solubility product Ksp (introduced here in EG curriculum).",
+    },
+    {
+      label: "Acids, bases, and salts",
+      limits:
+        "Arrhenius, Brønsted-Lowry definitions ; strong vs weak acids/bases ; pH = -log[H⁺] ; neutralisation ; salt hydrolysis ; buffer solution (qualitative). NOT Henderson-Hasselbalch in detail.",
+    },
+    {
+      label: "Redox and electrochemistry",
+      limits:
+        "Oxidation numbers ; balancing redox (half-reaction method) ; galvanic cell (EMF) ; electrolysis (Faraday's laws Q = nFz). NOT Nernst equation.",
+    },
+    {
+      label: "Organic chemistry: hydrocarbons and functional groups",
+      limits:
+        "IUPAC nomenclature (alkanes, alkenes, alkynes, alcohols, aldehydes, ketones, carboxylic acids, esters, amines) ; isomers ; main reaction types (addition, substitution, elimination, esterification). NOT stereochemistry in depth.",
+    },
+    {
+      label: "Industrial chemistry",
+      limits:
+        "Haber process (nitrogen fixation, conditions) ; Contact process (SO₃ → H₂SO₄) ; cracking of petroleum ; important polymers (PVC, polyethylene, nylon). Conceptual level, NOT process engineering calculations.",
+    },
   ],
 
   // ── INDIA ──────────────────────────────────────────────────────────────────
