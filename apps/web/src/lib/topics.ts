@@ -34,7 +34,96 @@ export type Topic = string | TopicEntry;
  */
 const TOPICS: Record<string, Topic[]> = {
   // ── FRANCE ────────────────────────────────────────────────────────────────
-  "FR_math_Terminale": [
+  // Spécialité Mathématiques (BO 2019) — programme commun à toute Terminale
+  // qui conserve la spé maths. Pas de nombres complexes ni d'arithmétique :
+  // ces blocs sont en option Maths Expertes uniquement.
+  "FR_math_Terminale_Spécialité Maths": [
+    {
+      label: "Suites numériques",
+      limits:
+        "Convergence, limite finie ou infinie ; suites monotones bornées ; suites définies par récurrence (preuve de convergence par limite de la fonction associée). Démonstration par récurrence. PAS les suites complexes, PAS les suites de Cauchy.",
+    },
+    {
+      label: "Limites de fonctions",
+      limits:
+        "Limites en l'infini et en un point, opérations sur les limites, formes indéterminées ; limites comparées (e^x vs x^n, ln x vs x^n) ; théorèmes de comparaison et des gendarmes. PAS de développements limités.",
+    },
+    {
+      label: "Continuité",
+      limits:
+        "Continuité d'une fonction sur un intervalle, continuité d'une composée ; TVI et corollaire (existence d'une solution unique pour une fonction strictement monotone). PAS le théorème de Heine.",
+    },
+    {
+      label: "Compléments sur la dérivation",
+      limits:
+        "Dérivée d'une fonction composée (chain rule) ; dérivée des fonctions x → f(ax+b), e^(u(x)), ln(u(x)), u(x)^n. PAS la formule de Leibniz d'ordre supérieur.",
+    },
+    {
+      label: "Convexité",
+      limits:
+        "Définition par les sécantes et par f'' ≥ 0 ; tangente toujours en-dessous (ou au-dessus) ; point d'inflexion (changement de concavité, équivalent à f''=0 avec changement de signe).",
+    },
+    {
+      label: "Fonction logarithme népérien",
+      limits:
+        "ln x : définition comme primitive de 1/x, propriétés algébriques, dérivée, limites usuelles (lim x→+∞ ln x/x = 0) ; études de fonctions composées avec ln.",
+    },
+    {
+      label: "Fonction exponentielle",
+      limits:
+        "e^x : définition comme solution de y' = y avec y(0)=1, propriétés algébriques, dérivée, limites usuelles ; études de fonctions x → e^(u(x)).",
+    },
+    {
+      label: "Primitives et intégration",
+      limits:
+        "Primitives usuelles, théorème fondamental du calcul intégral ; intégration par parties ; calcul d'aires sous une courbe et entre deux courbes, valeur moyenne. PAS le changement de variable formel en Spé Maths seule.",
+    },
+    {
+      label: "Équations différentielles",
+      limits:
+        "y' = ay (croissance/décroissance exponentielle) ; y' = ay + b (équilibre asymptotique) ; PAS d'équations du second ordre (réservées à la prépa), PAS de second membre non constant.",
+    },
+    {
+      label: "Probabilités conditionnelles",
+      limits:
+        "P(A|B) = P(A∩B)/P(B), formule des probabilités totales ; arbres pondérés ; indépendance ; formule de Bayes (cas simples).",
+    },
+    {
+      label: "Variables aléatoires (espérance, variance)",
+      limits:
+        "Variables aléatoires discrètes : loi de probabilité, espérance, variance, écart-type ; somme de variables (linéarité de l'espérance), variance d'une somme de variables INDÉPENDANTES.",
+    },
+    {
+      label: "Loi binomiale",
+      limits:
+        "Schéma de Bernoulli, coefficients binomiaux ; loi binomiale B(n,p), espérance np, variance np(1-p) ; calcul de probabilités cumulées (à la calculatrice ou Python).",
+    },
+    {
+      label: "Loi des grands nombres",
+      limits:
+        "Inégalité de Bienaymé-Tchebychev (au programme depuis 2020) ; loi faible des grands nombres : la moyenne de n variables iid converge en probabilité vers l'espérance.",
+    },
+    {
+      label: "Combinatoire et dénombrement",
+      limits:
+        "Cardinal d'un produit cartésien, k-uplets, k-uplets distincts (arrangements), parties à k éléments (combinaisons) ; formule du binôme de Newton et triangle de Pascal.",
+    },
+    {
+      label: "Vecteurs et géométrie dans l'espace",
+      limits:
+        "Combinaisons linéaires, vecteurs colinéaires/coplanaires ; représentations paramétriques de droites et plans ; positions relatives. PAS d'espaces vectoriels formels.",
+    },
+    {
+      label: "Produit scalaire dans l'espace",
+      limits:
+        "Définition et propriétés, expression analytique en base orthonormée ; vecteur normal à un plan, équation cartésienne d'un plan ; distance d'un point à un plan, projeté orthogonal.",
+    },
+    {
+      label: "Algorithmique et programmation (Python)",
+      limits:
+        "Implémentation Python de suites récurrentes, méthode de dichotomie, méthode de Newton (introduction), simulation de variables aléatoires (random.random()), seuils et listes. PAS de bibliothèques numpy/scipy avancées.",
+    },
+  ],
     "Suites numériques (limites, monotonie)",
     "Limites de fonctions",
     "Continuité",
