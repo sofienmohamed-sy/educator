@@ -3568,52 +3568,213 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── CANADA ─────────────────────────────────────────────────────────────────
+  // Grade 12 — provincial curricula vary, but content largely matches the
+  // Ontario MCV4U/MHF4U/MDM4U bundle (Calculus & Vectors, Advanced Functions,
+  // Data Management). BC, AB, QC use similar scope under different course
+  // codes. Notes below take Ontario as the reference and call out provincial
+  // differences where relevant.
   "CA_math_Grade 12": [
-    "Limits and continuity",
-    "Derivatives (chain, product, quotient rules)",
-    "Applications of derivatives, optimization",
-    "Vectors in 2D and 3D",
-    "Lines and planes in 3D",
-    "Polynomial and rational functions",
-    "Exponential and logarithmic functions",
-    "Trigonometric functions and identities",
-    "Combinatorics and probability",
-    "Statistics: distributions",
+    {
+      label: "Limits and continuity",
+      limits:
+        "Intuitive limit definition (no formal ε-δ); evaluation by direct substitution, factoring, rationalization, conjugates; one-sided limits; limits at infinity, vertical and horizontal asymptotes; continuity at a point and on an interval; Intermediate Value Theorem. MCV4U scope.",
+    },
+    {
+      label: "Derivatives (chain, product, quotient rules)",
+      limits:
+        "First principles definition f'(x) = lim_{h→0}[f(x+h)-f(x)]/h; power rule, product rule, quotient rule, chain rule; derivatives of polynomial, rational, exponential (e^x, a^x), logarithmic (ln x), and trigonometric functions; implicit differentiation. MCV4U scope.",
+    },
+    {
+      label: "Applications of derivatives, optimization",
+      limits:
+        "Rates of change, related rates problems; tangent and normal line equations; critical points, intervals of increase/decrease; concavity (second derivative test), inflection points; optimization (max/min word problems with constraint); curve sketching combining all features. NO Newton's method (covered as enrichment only).",
+    },
+    {
+      label: "Vectors in 2D and 3D",
+      limits:
+        "Vector representation (geometric and Cartesian/component); magnitude; unit vectors; vector addition, subtraction, scalar multiplication; dot product u·v = |u||v|cosθ and cross product u×v (3D only) with applications (work, torque, area of parallelogram, projection). MCV4U scope.",
+    },
+    {
+      label: "Lines and planes in 3D",
+      limits:
+        "Vector and parametric equations of a line; symmetric equations; vector and scalar (Cartesian) equations of a plane; intersections of lines, of a line and a plane, of two planes; angles between lines/planes; distance from a point to a line or plane. MCV4U scope.",
+    },
+    {
+      label: "Polynomial and rational functions",
+      limits:
+        "Factor theorem, remainder theorem; rational root theorem; polynomial long and synthetic division; graphing polynomials of degree ≤ 4 (end behaviour, zeros with multiplicity); rational functions (x-intercepts, vertical/horizontal/oblique asymptotes, holes); polynomial and rational inequalities. MHF4U scope.",
+    },
+    {
+      label: "Exponential and logarithmic functions",
+      limits:
+        "Properties of exponential functions a^x; natural exponential e^x; logarithmic functions log_a x and ln x; logarithm laws (product, quotient, power, change of base); solving exponential and logarithmic equations and inequalities; modeling exponential growth and decay. MHF4U scope.",
+    },
+    {
+      label: "Trigonometric functions and identities",
+      limits:
+        "Radian measure; unit circle definitions; graphs of sin, cos, tan, csc, sec, cot (period, amplitude, phase shift); reciprocal, Pythagorean (sin²+cos²=1), quotient, addition (sin(a±b), cos(a±b)), double-angle identities; solving trigonometric equations on [0, 2π]; transformations of trig graphs. MHF4U scope.",
+    },
+    {
+      label: "Combinatorics and probability",
+      limits:
+        "Fundamental counting principle; permutations P(n,r) (with and without repetition, circular permutations); combinations C(n,r); Pascal's triangle and binomial theorem; classical probability; conditional probability P(A|B); independent and mutually exclusive events; tree diagrams. MDM4U scope.",
+    },
+    {
+      label: "Statistics: distributions",
+      limits:
+        "Measures of central tendency (mean, median, mode, weighted mean); measures of spread (range, variance, standard deviation); discrete probability distributions; binomial distribution B(n, p) (mean np, variance npq); geometric distribution; normal distribution N(μ, σ²) with z-score table lookup; one-variable and two-variable data analysis. MDM4U scope.",
+    },
   ],
   "CA_physics_Grade 12": [
-    "Kinematics and dynamics",
-    "Energy and momentum",
-    "Circular motion and gravitation",
-    "Simple harmonic motion",
-    "Mechanical waves and sound",
-    "Electric field and potential",
-    "Magnetic fields and induction",
-    "Electromagnetic radiation",
-    "Quantum mechanics (intro)",
-    "Special relativity",
-    "Nuclear physics",
+    {
+      label: "Kinematics and dynamics",
+      limits:
+        "Vector kinematics in 2D (projectile motion, components); Newton's three laws applied to inclined planes, pulleys, connected systems; static and kinetic friction (F_f = μF_N); free-body diagrams. Ontario SPH4U / BC Physics 12 scope.",
+    },
+    {
+      label: "Energy and momentum",
+      limits:
+        "Work W = F·d cosθ; kinetic energy K = ½mv²; gravitational potential energy U_g = mgh (near surface) and U_g = -GMm/r (general); elastic potential energy U_s = ½kx²; conservation of mechanical energy with non-conservative forces; impulse J = FΔt = Δp; conservation of linear momentum in 1D and 2D collisions (elastic and inelastic). NO rotational kinetic energy or angular momentum.",
+    },
+    {
+      label: "Circular motion and gravitation",
+      limits:
+        "Uniform circular motion: a_c = v²/r = ω²r, centripetal force F_c = mv²/r; banked curves; Newton's law of universal gravitation F = GMm/r²; gravitational field strength g = GM/r²; Kepler's three laws (third law T² ∝ r³); orbital velocity, escape velocity v_esc = √(2GM/r); satellite motion (geosynchronous orbit).",
+    },
+    {
+      label: "Simple harmonic motion",
+      limits:
+        "Mass on a spring: x(t) = A cos(ωt + φ), period T = 2π√(m/k); simple pendulum T = 2π√(L/g) for small angles; energy in SHM (transfer between U_s and K, total energy ½kA²); damped oscillations (qualitative). Resonance.",
+    },
+    {
+      label: "Mechanical waves and sound",
+      limits:
+        "Transverse and longitudinal waves; v = fλ; superposition, interference (constructive and destructive); standing waves on strings (f_n = nv/2L) and in air columns (open: f_n = nv/2L; closed: f_n = nv/4L for odd n); resonance; Doppler effect f' = f(v ± v_o)/(v ∓ v_s); intensity in decibels (formula given).",
+    },
+    {
+      label: "Electric field and potential",
+      limits:
+        "Coulomb's law F = kq₁q₂/r² (k = 8.99×10⁹); electric field E = F/q (point charge: E = kQ/r²); field lines; superposition; electric potential V = kQ/r; potential difference and work W = qΔV; capacitance C = Q/V; parallel-plate capacitor C = ε₀A/d. NO Gauss's law.",
+    },
+    {
+      label: "Magnetic fields and induction",
+      limits:
+        "Magnetic field B; force on a moving charge F = qv×B (magnitude qvB sinθ, direction by right-hand rule); force on a current-carrying wire F = BIL sinθ; magnetic field of long straight wire B = μ₀I/(2πr) and solenoid B = μ₀nI; magnetic flux Φ = BA cosθ; Faraday's law ε = -dΦ/dt; Lenz's law; transformers V_p/V_s = N_p/N_s.",
+    },
+    {
+      label: "Electromagnetic radiation",
+      limits:
+        "EM spectrum (radio → gamma rays); speed of light c = fλ = 3×10⁸ m/s; properties of EM waves (transverse, c-velocity in vacuum, no medium); generation of EM waves by accelerating charges (qualitative); Maxwell's equations as a unified theory (named, qualitative; not solved).",
+    },
+    {
+      label: "Quantum mechanics (intro)",
+      limits:
+        "Photoelectric effect: hf = W₀ + ½mv²_max, threshold frequency, stopping potential; Einstein's photon model; Compton scattering (qualitative); de Broglie wavelength λ = h/p; wave-particle duality; Bohr model of hydrogen (E_n = -13.6/n² eV, transitions and emission spectra: Lyman, Balmer, Paschen series); Heisenberg uncertainty principle (qualitative). NO Schrödinger equation.",
+    },
+    {
+      label: "Special relativity",
+      limits:
+        "Postulates of special relativity (constancy of c, principle of relativity); time dilation Δt = γΔt₀; length contraction L = L₀/γ; relativistic momentum p = γmv and energy E = γmc²; rest energy E₀ = mc²; mass-energy equivalence and applications (e.g. nuclear reactions). NO general relativity (mentioned descriptively only).",
+    },
+    {
+      label: "Nuclear physics",
+      limits:
+        "Atomic structure (Z, A, isotopes); nuclear force; radioactive decay (α, β⁻, β⁺, γ) with balanced nuclear equations; decay law N(t) = N₀e^(-λt), half-life T_½ = ln(2)/λ; binding energy and mass defect E = Δmc²; binding energy per nucleon curve; nuclear fission and fusion; medical, industrial, and energy applications.",
+    },
   ],
   "CA_chemistry_Grade 12": [
-    "Thermochemistry (ΔH, Hess)",
-    "Reaction rates and kinetics",
-    "Chemical equilibrium",
-    "Acid-base equilibria, pH, Ka, Kb",
-    "Solubility equilibria, Ksp",
-    "Thermodynamics (ΔG, ΔS)",
-    "Electrochemistry, redox",
-    "Organic chemistry: nomenclature",
-    "Organic reaction mechanisms (SN1, SN2)",
-    "Polymers and biochemistry",
+    {
+      label: "Thermochemistry (ΔH, Hess)",
+      limits:
+        "Enthalpy change ΔH; exothermic vs endothermic reactions; molar enthalpies of reaction, formation, combustion, neutralization, dissolution; calorimetry q = mcΔT; Hess's law; calculation of ΔH from standard heats of formation ΔH°_f; bond energies. SCH4U scope.",
+    },
+    {
+      label: "Reaction rates and kinetics",
+      limits:
+        "Average and instantaneous rates; factors affecting rate (concentration, temperature, surface area, catalyst); rate law rate = k[A]^m[B]^n (orders determined experimentally); integrated rate laws for first-order (ln[A] vs t) and second-order (1/[A] vs t); half-life formulas; Arrhenius equation k = Ae^(-E_a/RT); reaction mechanisms and rate-determining step.",
+    },
+    {
+      label: "Chemical equilibrium",
+      limits:
+        "Dynamic equilibrium concept; equilibrium constant K_c (concentrations) and K_p (partial pressures, gases); reaction quotient Q to determine direction; Le Chatelier's principle (effects of concentration, pressure, volume, temperature); ICE tables to compute equilibrium concentrations.",
+    },
+    {
+      label: "Acid-base equilibria, pH, Ka, Kb",
+      limits:
+        "Brønsted-Lowry acid-base theory; conjugate acid-base pairs; pH = -log[H⁺], pOH = -log[OH⁻], pH + pOH = 14; K_w = 10⁻¹⁴ at 25°C; strong vs weak acids/bases; K_a, K_b, pK_a, pK_b; calculations for weak acid/base solutions (use approximation if α < 5%); buffer solutions (Henderson-Hasselbalch); acid-base titration curves and indicator selection.",
+    },
+    {
+      label: "Solubility equilibria, Ksp",
+      limits:
+        "Saturated solutions; solubility product K_sp; molar solubility from K_sp; predicting precipitation (Q vs K_sp); common ion effect on solubility; selective precipitation; pH effect on solubility of hydroxide and carbonate salts. NO complex ion equilibria with K_f beyond Grade 12.",
+    },
+    {
+      label: "Thermodynamics (ΔG, ΔS)",
+      limits:
+        "Entropy ΔS as a measure of disorder; second law of thermodynamics (ΔS_universe > 0 for spontaneous); Gibbs free energy ΔG = ΔH - TΔS; sign of ΔG and spontaneity; standard ΔG° from ΔG°_f or from ΔG° = -RT ln K. NO statistical thermodynamics.",
+    },
+    {
+      label: "Electrochemistry, redox",
+      limits:
+        "Oxidation states; balancing redox equations by half-reaction method (acidic and basic conditions); galvanic (voltaic) cells: anode (oxidation), cathode (reduction), salt bridge, cell notation; standard reduction potentials E° and standard cell potential E°_cell = E°_cathode - E°_anode; ΔG° = -nFE°; spontaneity (E°>0 for spontaneous); electrolysis: products at electrodes, Faraday's laws m = MIt/(nF). NO Nernst equation in detail (mentioned).",
+    },
+    {
+      label: "Organic chemistry: nomenclature",
+      limits:
+        "IUPAC naming of: alkanes, alkenes, alkynes, aromatic compounds (benzene derivatives), alkyl halides, alcohols, ethers, aldehydes, ketones, carboxylic acids, esters, amines, amides; structural isomers; stereoisomers (cis/trans, R/S — introduced); hybridization (sp³, sp², sp); functional group recognition.",
+    },
+    {
+      label: "Organic reaction mechanisms (SN1, SN2)",
+      limits:
+        "Substitution reactions (alkanes via free-radical halogenation; alkyl halides via SN1 and SN2 — distinguish by substrate, nucleophile, solvent, kinetics); elimination reactions (E1, E2; Zaitsev's rule); addition reactions (alkenes: Markovnikov rule for HX, hydration, hydrogenation; alkynes); aromatic electrophilic substitution (qualitative); oxidation (alcohols → aldehydes/ketones/carboxylic acids); esterification and saponification.",
+    },
+    {
+      label: "Polymers and biochemistry",
+      limits:
+        "Addition polymers (polyethylene, PVC, polystyrene); condensation polymers (polyester, polyamide/nylon); natural polymers: carbohydrates (mono-, di-, polysaccharides), lipids (triglycerides, fatty acids), amino acids and proteins (peptide bond, primary structure), nucleic acids (DNA bases at intro level). NO detailed enzyme kinetics.",
+    },
   ],
   "CA_informatics_Grade 12": [
-    "Object-oriented programming",
-    "Algorithm design and analysis",
-    "Recursion",
-    "Data structures (lists, stacks, queues, trees)",
-    "Sorting and searching",
-    "File I/O and persistence",
-    "Software development lifecycle",
-    "Networking basics",
+    {
+      label: "Object-oriented programming",
+      limits:
+        "Classes and objects; attributes (instance variables) and methods; constructors; encapsulation (public/private access); inheritance (subclasses, method overriding); polymorphism (interfaces, dynamic dispatch); UML class diagrams (basic). Ontario ICS4U / BC Computer Science 12 scope, typically Java or Python.",
+    },
+    {
+      label: "Algorithm design and analysis",
+      limits:
+        "Top-down design and stepwise refinement; pseudocode; flowcharts; algorithm correctness (test cases, edge cases); efficiency analysis: Big-O notation (O(1), O(log n), O(n), O(n log n), O(n²)); comparing algorithms by time and space complexity; trade-offs.",
+    },
+    {
+      label: "Recursion",
+      limits:
+        "Base case and recursive case; recursion vs iteration; classic examples: factorial, Fibonacci, sum of array, binary search, tree traversal (pre-, in-, post-order); call stack visualization; tail recursion concept; converting between recursive and iterative solutions. NO continuation-passing style.",
+    },
+    {
+      label: "Data structures (lists, stacks, queues, trees)",
+      limits:
+        "Arrays/lists (1D and 2D); stacks (LIFO: push, pop, peek); queues (FIFO: enqueue, dequeue); linked lists (singly and doubly); binary trees (insertion, traversal); binary search trees (search, insert); hash tables (hash function, collision handling: chaining, open addressing). NO red-black trees or AVL trees.",
+    },
+    {
+      label: "Sorting and searching",
+      limits:
+        "Sorting: bubble sort, selection sort, insertion sort (all O(n²) average); merge sort O(n log n); quicksort (average O(n log n), worst O(n²)); ability to trace and analyze each. Searching: linear search O(n); binary search O(log n) on sorted data. NO heap sort or radix sort in detail.",
+    },
+    {
+      label: "File I/O and persistence",
+      limits:
+        "Reading from and writing to text files; CSV parsing; basic exception handling (try/except, try/catch); serialization (e.g. JSON, pickle in Python); database persistence (SQLite or equivalent at intro level). NO XML schema validation or binary protocols.",
+    },
+    {
+      label: "Software development lifecycle",
+      limits:
+        "Phases: requirements analysis, design, implementation, testing, deployment, maintenance; agile vs waterfall (overview); version control with Git (commit, branch, merge — basics); code review; documentation; software ethics (privacy, security, intellectual property).",
+    },
+    {
+      label: "Networking basics",
+      limits:
+        "TCP/IP model and OSI layers (qualitative); IP addressing (IPv4 dotted decimal); DNS; HTTP/HTTPS request-response cycle; client-server architecture; basic encryption (symmetric vs asymmetric — concepts); network security (firewalls, password hashing). NO routing protocols beyond a conceptual level.",
+    },
   ],
 
   // ── AUSTRALIA ──────────────────────────────────────────────────────────────
