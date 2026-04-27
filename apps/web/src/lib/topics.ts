@@ -1,17 +1,38 @@
 import type { Subject } from "./types";
 
 /**
- * Curriculum topic catalog: country × subject × grade level → ordered chapter list.
+ * A topic entry in the curriculum catalog.
+ *
+ *   label   — short chapter name shown in the dropdown.
+ *   limits  — optional scope description fed to the AI in the topic value
+ *             (after an em-dash separator). Use this to spell out exactly
+ *             what's in/out of the program for the chosen section so the
+ *             AI doesn't generate exercises beyond the syllabus.
+ */
+export interface TopicEntry {
+  label: string;
+  limits: string;
+}
+export type Topic = string | TopicEntry;
+
+/**
+ * Curriculum topic catalog: country × subject × grade level [× section] → ordered list.
  *
  * Lookup precedence (handled by `topicsFor`):
- *   1. `${COUNTRY}_${subject}_${level}`  — exact match (preferred)
- *   2. `${COUNTRY}_${subject}`           — country/subject default (any level)
- *   3. `[]`                              — caller falls back to free-text input
+ *   1. `${COUNTRY}_${subject}_${level}_${section}` — section-specific (preferred)
+ *   2. `${COUNTRY}_${subject}_${level}`           — level default (any section)
+ *   3. `${COUNTRY}_${subject}`                    — country/subject default
+ *   4. `[]`                                       — caller falls back to free-text
+ *
+ * Entries may be either plain strings (legacy, no scope description) or
+ * `TopicEntry` objects with explicit program-limit descriptions. The picker
+ * appends the `limits` string to the option value so the AI receives the
+ * scope context along with the chapter name.
  *
  * Topics are listed in the order chapters typically appear in the country's
  * official syllabus so the dropdown reads as a table of contents.
  */
-const TOPICS: Record<string, string[]> = {
+const TOPICS: Record<string, Topic[]> = {
   // ── FRANCE ────────────────────────────────────────────────────────────────
   "FR_math_Terminale": [
     "Suites numériques (limites, monotonie)",
@@ -788,15 +809,30 @@ const TOPICS: Record<string, string[]> = {
   ],
 };
 
+function normalize(list: Topic[]): TopicEntry[] {
+  return list.map((t) => (typeof t === "string" ? { label: t, limits: "" } : t));
+}
+
 export function topicsFor(
   countryCode: string,
   subject: Subject,
   gradeLevel?: string,
-): string[] {
+  section?: string,
+): TopicEntry[] {
   const c = countryCode.toUpperCase();
-  if (gradeLevel) {
-    const exact = TOPICS[`${c}_${subject}_${gradeLevel}`];
-    if (exact?.length) return exact;
+  if (gradeLevel && section) {
+    const sectional = TOPICS[`${c}_${subject}_${gradeLevel}_${section}`];
+    if (sectional?.length) return normalize(sectional);
   }
-  return TOPICS[`${c}_${subject}`] ?? [];
+  if (gradeLevel) {
+    const byLevel = TOPICS[`${c}_${subject}_${gradeLevel}`];
+    if (byLevel?.length) return normalize(byLevel);
+  }
+  const fallback = TOPICS[`${c}_${subject}`];
+  return fallback?.length ? normalize(fallback) : [];
+}
+
+/** The string actually sent as the `topic` field on API requests. */
+export function topicValue(t: TopicEntry): string {
+  return t.limits ? `${t.label} — ${t.limits}` : t.label;
 }
