@@ -954,6 +954,93 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── UNITED STATES ──────────────────────────────────────────────────────────
+  // Grade 12 AP track — single key covering BOTH AP Calculus AB and AP
+  // Calculus BC. AB is a strict subset of BC; entries flag (AB+BC) for
+  // shared content and (BC only) for items unique to the BC exam.
+  "US_math_Grade 12 (AP)_AP track": [
+    {
+      label: "Limits and continuity",
+      limits:
+        "AB+BC. Limit laws, one-sided limits, limits at infinity, indeterminate forms (resolved without ε-δ); IVT and squeeze (sandwich) theorem; continuity on intervals. NOT formal ε-δ proofs.",
+    },
+    {
+      label: "Differentiation: rules and basic applications",
+      limits:
+        "AB+BC. Power, product, quotient, chain rules; derivatives of polynomial, rational, exponential, logarithmic, trig and inverse trig (arctan, arcsin, arccos) functions; tangent line, normal line.",
+    },
+    {
+      label: "Implicit differentiation and related rates",
+      limits:
+        "AB+BC. Differentiate equations not solvable for y; classic related-rates problems (sliding ladder, expanding sphere, shadow length, water tank). Set up dV/dt = (dV/dh)·(dh/dt).",
+    },
+    {
+      label: "Mean Value Theorem and l'Hôpital's rule",
+      limits:
+        "AB+BC. MVT and Rolle's theorem; l'Hôpital for indeterminate forms 0/0 and ∞/∞ (also 0·∞, ∞-∞ via algebraic manipulation, and 1^∞ via logs). Applied to limits before more advanced techniques.",
+    },
+    {
+      label: "Curve analysis (extrema, concavity, optimization)",
+      limits:
+        "AB+BC. Critical points, FDT/SDT, increasing/decreasing intervals, concavity and inflection; optimization problems (max area, min cost). Connecting f, f', f'' graphically.",
+    },
+    {
+      label: "Integration and Fundamental Theorem",
+      limits:
+        "AB+BC. Riemann sums (left/right/midpoint/trapezoidal), definite integral as limit; FTC Part 1 (d/dx ∫ₐˣ f = f(x)) and Part 2 (∫ₐᵇ f = F(b)-F(a)); u-substitution for both definite and indefinite integrals.",
+    },
+    {
+      label: "Advanced integration techniques",
+      limits:
+        "BC ONLY. Integration by parts (∫ u dv = uv - ∫ v du); partial fractions for rational functions with distinct linear factors; improper integrals (with limit definition). NOT trigonometric substitutions on the AP exam.",
+    },
+    {
+      label: "Applications of integration (area, average value)",
+      limits:
+        "AB+BC. Area between two curves (vertical and horizontal slicing); average value of a function; accumulation functions g(x) = ∫ₐˣ f(t)dt and their derivatives (FTC).",
+    },
+    {
+      label: "Volumes of revolution",
+      limits:
+        "AB+BC for disk/washer methods (perpendicular cross-sections); BC ONLY for the shell method. Cross-sections of known shape (squares, semicircles, equilateral triangles) included in both.",
+    },
+    {
+      label: "Arc length and surface area",
+      limits:
+        "BC ONLY. Arc length L = ∫ √(1 + (dy/dx)²) dx for Cartesian curves and L = ∫ √((dx/dt)² + (dy/dt)²) dt for parametric. NOT surface area of revolution on the AP exam.",
+    },
+    {
+      label: "Differential equations and slope fields",
+      limits:
+        "AB+BC. Slope fields (visualize solutions); separable DE solved by separation of variables; exponential growth/decay y' = ky; logistic growth y' = ky(1 - y/L) is BC ONLY.",
+    },
+    {
+      label: "Euler's method (numerical DE)",
+      limits:
+        "BC ONLY. Approximate solution to y' = f(x,y) given (x₀,y₀) using y_{n+1} = y_n + h·f(x_n, y_n). Step size h analysis. NOT Runge-Kutta on the AP exam.",
+    },
+    {
+      label: "Sequences and series — convergence",
+      limits:
+        "BC ONLY. nth-term test for divergence; geometric series Σ ar^n converges iff |r|<1; p-series Σ 1/n^p converges iff p>1; comparison test, limit comparison test, integral test, ratio test, root test, alternating series test (with error bound).",
+    },
+    {
+      label: "Taylor and Maclaurin series",
+      limits:
+        "BC ONLY. Taylor polynomial of degree n centered at a; Lagrange error bound; Maclaurin series for e^x, sin x, cos x, 1/(1-x), ln(1+x); manipulate known series (substitution, differentiation, integration) to find new ones; interval and radius of convergence via ratio test.",
+    },
+    {
+      label: "Parametric and polar functions",
+      limits:
+        "BC ONLY. Parametric: dy/dx = (dy/dt)/(dx/dt), velocity vector ⟨x'(t), y'(t)⟩, speed |v|; polar curves r = f(θ), area A = ½ ∫ r² dθ between angles, conversion to Cartesian. NOT 3D space curves.",
+    },
+    {
+      label: "Vector-valued functions (motion in plane)",
+      limits:
+        "BC ONLY. Position r(t) = ⟨x(t), y(t)⟩, velocity, speed, acceleration; motion problems (with vectors) on the plane only. NOT vectors in 3D.",
+    },
+  ],
+  // Generic fallback for US_math_Grade 12 (AP) when no section is chosen.
+  // Honors and Regular tracks live in section-specific keys (next chunk).
   "US_math_Grade 12 (AP)": [
     "Limits and continuity",
     "Differentiation: rules and applications",
