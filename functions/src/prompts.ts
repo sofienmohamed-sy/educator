@@ -917,3 +917,100 @@ export function buildWritingGenerationPrompt(
     .filter((line) => line !== "")
     .join("\n");
 }
+
+// ── Fiche pédagogique ─────────────────────────────────────────────────────────
+
+const FICHE_JSON_CONTRACT = `
+Return a single JSON object that strictly follows this TypeScript shape:
+
+interface FicheParagraphe {
+  titre: string;           // e.g. "I/ Définitions et vocabulaire"
+  demarche: string[];      // numbered pedagogical steps, each a short instruction
+  contenu: string;         // full markdown content: definitions, theorems, examples
+  retenons?: string[];     // 1-5 boxed key takeaways starting with "Retenons :"
+  applications?: string[]; // short exercise prompts for this paragraph
+}
+interface FicheSeance {
+  numero: number;          // 1-based séance number
+  duree: string;           // e.g. "2h"
+  aptitudes: string[];     // 3-6 bullet learning objectives (infinitive form)
+  paragraphes: FicheParagraphe[];
+}
+interface FichePedagogique {
+  chapitre: string;        // chapter title
+  niveau: string;          // grade level, e.g. "1ère A.S", "Terminale", "Grade 12"
+  seances: FicheSeance[];  // ordered list of séances
+  serie?: {                // optional final exercise series
+    theme: string;
+    exercices: { enonce: string; questions: string[] }[];
+  };
+}
+
+Rules:
+• Write all text in the requested language (default: French for TN/FR, Arabic/French for TN, English otherwise).
+• Each séance covers ~2 hours of classroom time.
+• demarche steps are SHORT headings (what the teacher does/says), NOT full prose.
+• contenu is the full didactic content — use Markdown bold for definitions and theorem names, bullet lists for properties, numbered lists for proofs/examples.
+• retenons items must begin with "Retenons :" and state the key rule/theorem concisely (the teacher writes this on the board).
+• applications are short, concrete exercise prompts (not full solutions).
+• serie.exercices should be 2-4 varied exercises covering the whole chapter.
+• Do NOT include solutions in applications or serie — only problem statements.
+• Return ONLY the JSON object, no markdown fences.`.trim();
+
+export interface BuildFichePromptArgs {
+  subject: string;
+  topic: string;
+  country: string;
+  gradeLevel?: string;
+  section?: string;
+  language?: string;
+  nbSeances: number;
+  profile?: CurriculumProfile | null;
+  ragContext?: string;
+}
+
+export function buildFichePrompt(args: BuildFichePromptArgs): string {
+  const { subject, topic, country, gradeLevel, section, language, nbSeances, profile, ragContext } = args;
+
+  const subjectLabel = SUBJECT_LABELS[subject as Subject] ?? subject;
+  const language_ = language ?? profile?.defaultLanguage ?? (
+    country === "TN" || country === "DZ" || country === "MA" ? "French" : "the curriculum language"
+  );
+
+  const curriculumBlock = renderCurriculumBlock(
+    profile,
+    country,
+    subjectLabel,
+    gradeLevel,
+    section,
+  );
+
+  const audienceDesc = [
+    country,
+    gradeLevel,
+    section,
+  ].filter(Boolean).join(", ");
+
+  return [
+    `You are an expert ${subjectLabel} teacher creating a detailed pedagogical lesson-plan sheet ("fiche pédagogique") for the chapter "${topic}".`,
+    `Audience: ${audienceDesc}.`,
+    `Output language: ${language_}.`,
+    `Number of séances to generate: ${nbSeances} (each ~2h).`,
+    ``,
+    `Curriculum context:`,
+    curriculumBlock,
+    ragContext ? `\n${ragContext}` : "",
+    ``,
+    `The fiche pédagogique must follow the Tunisian / French pedagogical tradition:`,
+    `  • Each séance has a header table (aptitudes à développer, démarche column, durée column).`,
+    `  • Paragraphs are numbered (I, II, III…) with Roman numerals as typically used in Tunisian math fiches.`,
+    `  • Definitions, remarques, propriétés, and théorèmes are clearly labeled.`,
+    `  • "Retenons" boxes summarise the essential rules for the student to copy into their notebook.`,
+    `  • Applications refer to in-class exercises by number (e.g. "Exercice 1 Série I").`,
+    `  • The final série d'exercices covers all paragraphs of the chapter.`,
+    ``,
+    FICHE_JSON_CONTRACT,
+  ]
+    .filter((line) => line !== "")
+    .join("\n");
+}

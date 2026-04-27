@@ -424,6 +424,64 @@ export const writingContentSchema = z.object({
 export type WritingContent = z.infer<typeof writingContentSchema>;
 export type WritingItem = z.infer<typeof writingItemSchema>;
 
+// ── Fiche pédagogique ─────────────────────────────────────────────────────────
+// Models a "fiche pédagogique" (teacher lesson-plan sheet) in the Tunisian /
+// French style: one per chapter, broken into séances (~2h each), each séance
+// containing paragraphes with pedagogical steps (démarche), content, "Retenons"
+// boxes, and applications. A final Série d'exercices is optional.
+
+export const generateFicheRequestSchema = z.object({
+  subject: subjectSchema,
+  topic: z.string().trim().min(1).max(256),
+  country: z.string().trim().min(2).max(8),
+  gradeLevel: nullishString({ max: 64 }),
+  section: nullishString({ max: 96 }),
+  language: nullishString({ min: 2, max: 16 }),
+  nbSeances: z
+    .number()
+    .int()
+    .min(1)
+    .max(6)
+    .nullish()
+    .transform((v) => v ?? 2),
+  bookIds: nullishArray(z.string().min(1), 5),
+});
+export type GenerateFicheRequest = z.infer<typeof generateFicheRequestSchema>;
+
+const ficheParagrapheSchema = z.object({
+  titre: z.string().min(1),
+  demarche: rspDefArr(z.string()),
+  contenu: z.string().min(1),
+  retenons: rspOptArr(z.string()),
+  applications: rspOptArr(z.string()),
+});
+
+const ficheSeanceSchema = z.object({
+  numero: z.number().int().min(1),
+  duree: z.string().min(1),
+  aptitudes: rspDefArr(z.string()),
+  paragraphes: rspDefArr(ficheParagrapheSchema),
+});
+
+const ficheExerciceSchema = z.object({
+  enonce: z.string().min(1),
+  questions: rspDefArr(z.string()),
+});
+
+export const fichePedagogiqueSchema = z.object({
+  chapitre: z.string().min(1),
+  niveau: z.string().min(1),
+  seances: z.array(ficheSeanceSchema).min(1),
+  serie: z
+    .object({
+      theme: z.string().min(1),
+      exercices: z.array(ficheExerciceSchema).min(1),
+    })
+    .nullish()
+    .transform((v) => v ?? undefined),
+});
+export type FichePedagogique = z.infer<typeof fichePedagogiqueSchema>;
+
 // ── processBook callable ──────────────────────────────────────────────────────
 
 export const processBookRequestSchema = z.object({
