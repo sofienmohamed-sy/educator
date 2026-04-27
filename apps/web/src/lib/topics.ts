@@ -758,36 +758,140 @@ const TOPICS: Record<string, Topic[]> = {
     "Probabilités",
   ],
   "MA_physics_2ème Bac": [
-    "Mécanique : forces, champ de pesanteur",
-    "Lois de Newton, mouvements rectiligne et circulaire",
-    "Mouvements dans les champs (g = 10 m/s²)",
-    "Oscillateurs mécaniques",
-    "Ondes mécaniques",
-    "Ondes lumineuses, diffraction",
-    "Décroissance radioactive",
-    "Réactions nucléaires (fission, fusion)",
-    "Dipôle RC, RL et RLC",
-    "Modulation et démodulation",
+    {
+      label: "Mécanique : lois de Newton",
+      limits:
+        "Référentiel galiléen, 1re/2e/3e lois de Newton (g = 10 m/s² au Maroc) ; PFD vectoriel ; plan incliné, frottements f = μN ; PAS le repère de Frenet.",
+    },
+    {
+      label: "Mouvements dans les champs",
+      limits:
+        "Champ de pesanteur (projectile, trajectoire parabolique) et champ électrique uniforme (déflexion d'une particule chargée) ; énergie cinétique gagnée qU = ½mv².",
+    },
+    {
+      label: "Mouvement circulaire",
+      limits:
+        "Mouvement circulaire uniforme : accélération centripète ac = v²/r = ω²r ; force centripète, rotation de la Terre (notion). PAS le mouvement circulaire non-uniforme.",
+    },
+    {
+      label: "Oscillations mécaniques",
+      limits:
+        "Pendule élastique et pendule pesant (petites oscillations) ; équation différentielle ẍ + ω₀²x = 0 ; période T₀ ; énergie mécanique. Oscillations libres amorties (notion d'amortissement).",
+    },
+    {
+      label: "Ondes mécaniques progressives",
+      limits:
+        "Définition, célérité, longueur d'onde λ = cT, retard τ = d/c ; ondes transversales et longitudinales ; ondes à la surface de l'eau et sur corde. PAS les ondes stationnaires en détail.",
+    },
+    {
+      label: "Ondes lumineuses, diffraction et interférences",
+      limits:
+        "Diffraction par fente : écart angulaire θ = λ/a ; interférences (fentes de Young) : interfrange i = λD/a ; nature ondulatoire de la lumière. Réfraction (loi de Snell-Descartes).",
+    },
+    {
+      label: "Dipôle RC et RL",
+      limits:
+        "Charge/décharge d'un condensateur (τ = RC) ; établissement/rupture de courant dans une bobine (τ = L/R) ; bilans énergétiques Ec = ½Cu², EL = ½Li².",
+    },
+    {
+      label: "Circuit RLC — oscillations électriques",
+      limits:
+        "Régime libre : pseudo-période, amortissement, équation LC q̈ + q/LC = 0 (cas idéal) ; analogie mécanique. Régime forcé sinusoïdal : résonance d'intensité, facteur de qualité.",
+    },
+    {
+      label: "Modulation et démodulation",
+      limits:
+        "Modulation d'amplitude (AM) : signal modulé s(t) = (A + m·a(t))cos(2πf_p t) ; démodulation par détection d'enveloppe. Notion de modulation de fréquence (FM). Applications radio.",
+    },
+    {
+      label: "Décroissance radioactive et réactions nucléaires",
+      limits:
+        "Désintégrations α, β⁻, β⁺ ; loi N(t) = N₀e^(-λt), demi-vie ; énergie de liaison, défaut de masse, courbe d'Aston ; fission (U235) et fusion (H+H). Calcul Q = Δm·c².",
+    },
   ],
   "MA_chemistry_2ème Bac": [
-    "Cinétique chimique",
-    "Équilibre chimique, quotient de réaction",
-    "Réactions acide-base, pH",
-    "Constantes d'acidité Ka, diagrammes",
-    "Réactions d'oxydoréduction",
-    "Pile et électrolyse",
-    "Dosages",
-    "Chimie organique : groupes fonctionnels",
-    "Mécanismes réactionnels",
+    {
+      label: "Cinétique chimique",
+      limits:
+        "Vitesse volumique de réaction, facteurs cinétiques (concentration, T, catalyseur) ; temps de demi-réaction t₁/₂ ; loi d'ordre 1 et 0 (selon le programme MAR). Approche expérimentale ; PAS la loi d'Arrhenius formelle.",
+    },
+    {
+      label: "Équilibre chimique",
+      limits:
+        "Réactions limitées, quotient de réaction Qr, constante d'équilibre K ; loi de modération (Le Chatelier) appliquée à C, P, T ; calcul de taux d'avancement à l'équilibre.",
+    },
+    {
+      label: "Réactions acide-base, pH",
+      limits:
+        "Couple acide/base, autoprotolyse de l'eau Ke = 10⁻¹⁴ à 25°C, pH = -log[H₃O⁺] ; force des acides/bases (Ka, pKa) ; diagramme de prédominance ; solutions tampons. PAS les diagrammes E-pH.",
+    },
+    {
+      label: "Constantes d'acidité Ka et diagrammes de distribution",
+      limits:
+        "Ka, pKa ; diagramme de distribution (fractions molaires) ; calcul de pH d'acides/bases faibles ou forts ; mélange acide-base.",
+    },
+    {
+      label: "Réactions d'oxydoréduction",
+      limits:
+        "Couple Ox/Red, demi-équations électroniques ; équilibrage en milieu acide ou basique ; potentiel standard E° (notion qualitative).",
+    },
+    {
+      label: "Pile et électrolyse",
+      limits:
+        "Pile : anode/cathode, fem, prévision du sens spontané ; pile Daniell ; électrolyse : loi de Faraday Q = nFz (Q = It).",
+    },
+    {
+      label: "Dosages (titrages)",
+      limits:
+        "Titrage acide-base (pH-métrie, colorimétrie) et redox (permanganate, iode-thiosulfate) ; courbe de titrage, équivalence, choix de l'indicateur. Dosage conductimétrique (notion).",
+    },
+    {
+      label: "Chimie organique : groupes fonctionnels et réactions",
+      limits:
+        "Alcools (I, II, III) et leur oxydation ; acides carboxyliques et esters (estérification/saponification) ; amines et amides (notion) ; nomenclature IUPAC des composés organiques.",
+    },
+    {
+      label: "Mécanismes réactionnels",
+      limits:
+        "Sites électrophiles/nucléophiles, flèches courbes ; substitution nucléophile (SN2 simple), addition, élimination. PAS les calculs orbitalaires.",
+    },
   ],
   "MA_informatics_2ème Bac": [
-    "Algorithmique : structures de contrôle",
-    "Structures de données : tableaux, listes",
-    "Procédures et fonctions",
-    "Récursivité (introduction)",
-    "Tri et recherche",
-    "Bases de données, SQL (introduction)",
-    "Programmation Python",
+    {
+      label: "Algorithmique : structures de contrôle",
+      limits:
+        "Pseudo-code marocain (SI/SINON, TANT QUE, POUR) ; conditions composées, structures imbriquées ; validation d'entrées.",
+    },
+    {
+      label: "Structures de données : tableaux et listes",
+      limits:
+        "Tableaux 1D (déclaration, parcours, recherche, tri simple) ; tableaux 2D ; introduction aux listes chaînées (nœud, pointeur). PAS les piles et files en programme standard MA.",
+    },
+    {
+      label: "Procédures et fonctions",
+      limits:
+        "Sous-programmes : procédure (sans retour) vs fonction (avec retour) ; passage par valeur et par référence ; portée des variables locales/globales.",
+    },
+    {
+      label: "Récursivité",
+      limits:
+        "Cas de base et appel récursif ; exemples : factorielle, Fibonacci, PGCD d'Euclide, puissance rapide. PAS l'analyse formelle de la pile d'appels.",
+    },
+    {
+      label: "Algorithmes de tri et de recherche",
+      limits:
+        "Tri à bulles, tri par sélection, tri par insertion (complexité O(n²)) ; recherche séquentielle et dichotomique (tableau trié, O(log n)). PAS le tri fusion au programme standard MA.",
+    },
+    {
+      label: "Bases de données et SQL",
+      limits:
+        "Modèle relationnel ; SQL : CREATE/INSERT/SELECT/WHERE/UPDATE/DELETE ; jointures INNER JOIN ; GROUP BY basique. PAS les vues ni les procédures stockées.",
+    },
+    {
+      label: "Programmation Python",
+      limits:
+        "Variables, types, structures de contrôle, fonctions, listes, dictionnaires ; fichiers texte ; bibliothèques standard (math, random). Introduction à la programmation orientée objet (notion de classe).",
+    },
   ],
 
   // ── TUNISIA ────────────────────────────────────────────────────────────────
