@@ -2877,42 +2877,169 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── CHINA ──────────────────────────────────────────────────────────────────
+  // 高三 全国卷 (Gaokao) — 高考数学 reflects the 2017 课标 (Curriculum Standards).
+  // 理科 (sciences) and 文科 (humanities) used to differ; the new 新高考 unifies
+  // most content. Notes below cover the unified 全国卷 scope.
   "CN_math_高三 (Gaokao)": [
-    "集合与逻辑 (Sets and logic)",
-    "函数 (Functions)",
-    "三角函数 (Trigonometric functions)",
-    "数列 (Sequences and series)",
-    "不等式 (Inequalities)",
-    "导数及其应用 (Derivatives and applications)",
-    "立体几何 (Solid geometry)",
-    "解析几何 (Analytic geometry — circles, conics)",
-    "概率与统计 (Probability and statistics)",
-    "排列组合与二项式定理 (Permutations, combinations, binomial)",
+    {
+      label: "集合与逻辑 (Sets and logic)",
+      limits:
+        "集合的运算 (并、交、补) ; 命题 (逆、否、逆否) ; 充分条件、必要条件、充要条件 ; 全称量词 ∀ 与存在量词 ∃。不包含集合论的公理化与基数。",
+    },
+    {
+      label: "函数 (Functions)",
+      limits:
+        "定义域、值域 ; 单调性、奇偶性、周期性 ; 分段函数 ; 复合函数 ; 反函数 ; 指数函数 a^x、对数函数 log_a x、幂函数 x^α 的图像与性质。不包含 ε-δ 严格定义。",
+    },
+    {
+      label: "三角函数 (Trigonometric functions)",
+      limits:
+        "弧度制 ; 任意角的三角函数定义 (单位圆) ; 同角三角函数关系 (sin²+cos²=1) ; 诱导公式 ; 两角和差、二倍角公式 ; 正余弦定理 ; 辅助角公式 a sin x + b cos x = √(a²+b²) sin(x+φ) ; 三角函数图像变换。",
+    },
+    {
+      label: "数列 (Sequences and series)",
+      limits:
+        "等差数列 (通项 aₙ=a₁+(n-1)d, 求和 Sₙ=n(a₁+aₙ)/2) ; 等比数列 (通项 aₙ=a₁q^(n-1), 求和 Sₙ=a₁(1-q^n)/(1-q) 当 q≠1) ; 数学归纳法 ; 由递推关系求通项 (常见技巧 : 累加、累乘、构造法)。不包含级数收敛性判别。",
+    },
+    {
+      label: "不等式 (Inequalities)",
+      limits:
+        "一元二次不等式 ; 绝对值不等式 ; 均值不等式 (a+b ≥ 2√(ab) 当 a,b > 0) ; 柯西不等式 (选修 4-5 的部分命题考)。不包含切比雪夫不等式、Jensen 不等式。",
+    },
+    {
+      label: "导数及其应用 (Derivatives and applications)",
+      limits:
+        "基本初等函数的导数公式 ; 导数四则运算法则 ; 复合函数求导 ; 利用导数判断单调性、求极值/最值 ; 切线方程 ; 简单的不等式证明 (含参数讨论)。不考二阶导数判断凹凸的形式化推导以外的高阶。",
+    },
+    {
+      label: "立体几何 (Solid geometry)",
+      limits:
+        "棱柱、棱锥、棱台、圆柱、圆锥、圆台、球的表面积与体积 ; 直线与平面的位置关系 (平行、垂直判定与性质定理) ; 二面角、线面角的计算 ; 空间向量法 (建立坐标系求角与距离)。",
+    },
+    {
+      label: "解析几何 (Analytic geometry)",
+      limits:
+        "直线方程 ; 圆的方程 ; 椭圆、双曲线、抛物线的标准方程 ; 离心率、准线、焦点 ; 直线与圆锥曲线的位置关系 (相交、相切、相离 ; 弦长公式)。不考圆锥曲线的极坐标统一方程的高考拓展。",
+    },
+    {
+      label: "概率与统计 (Probability and statistics)",
+      limits:
+        "古典概型与几何概型 ; 条件概率 P(A|B) ; 独立事件 ; 二项分布 B(n,p) (E=np, D=npq) ; 离散型随机变量分布列、期望、方差 ; 正态分布 N(μ,σ²) (3σ 原则) ; 抽样方法 (简单随机、分层) ; 线性回归 ; 独立性检验 (2×2 列联表 χ²)。",
+    },
+    {
+      label: "排列组合与二项式定理 (Permutations, combinations, binomial)",
+      limits:
+        "加法/乘法计数原理 ; 排列 A(n,k) 与组合 C(n,k) ; 二项式定理 (a+b)^n 通项 T_(k+1)=C(n,k)a^(n-k)b^k ; 二项式系数性质。不考多项式定理。",
+    },
   ],
   "CN_physics_高三 (Gaokao)": [
-    "运动学 (Kinematics)",
-    "牛顿运动定律 (Newton's laws)",
-    "曲线运动 (Curvilinear motion)",
-    "万有引力与航天 (Gravitation and spaceflight)",
-    "机械能守恒 (Conservation of energy)",
-    "动量守恒 (Momentum conservation)",
-    "热学 (Thermodynamics, kinetic theory)",
-    "静电场 (Electrostatics)",
-    "恒定电流 (Steady current)",
-    "磁场 (Magnetic field)",
-    "电磁感应 (Electromagnetic induction)",
-    "光学与近代物理 (Optics and modern physics)",
+    {
+      label: "运动学 (Kinematics)",
+      limits:
+        "直线运动 (匀速、匀变速 v=v₀+at, x=v₀t+½at², v²-v₀²=2ax) ; 自由落体 ; 位移-时间图、速度-时间图 ; 相对运动。",
+    },
+    {
+      label: "牛顿运动定律 (Newton's laws)",
+      limits:
+        "三大定律 (惯性、F=ma、作用与反作用) ; 摩擦力 (滑动 f=μN, 静摩擦最大值) ; 受力分析 ; 共点力平衡 ; 连接体问题 (整体法、隔离法)。",
+    },
+    {
+      label: "曲线运动 (Curvilinear motion)",
+      limits:
+        "运动的合成与分解 ; 平抛运动 (水平匀速、竖直自由落体的合成) ; 匀速圆周运动 (周期 T=2π/ω, 向心力 F=mv²/r=mω²r) ; 一般圆周运动的临界问题 (绳模型、杆模型)。",
+    },
+    {
+      label: "万有引力与航天 (Gravitation and spaceflight)",
+      limits:
+        "万有引力定律 F=GMm/r² ; 第一宇宙速度 (近地卫星) ; 同步卫星 ; 开普勒第三定律 T²/a³=常数 ; 双星系统问题。不考广义相对论修正。",
+    },
+    {
+      label: "机械能守恒 (Conservation of energy)",
+      limits:
+        "功 W=Fx cosθ, 功率 P=Fv ; 动能定理 W_合=ΔE_k ; 重力势能 ; 弹性势能 ; 机械能守恒条件与判断 ; 含摩擦的能量转化问题。",
+    },
+    {
+      label: "动量守恒 (Momentum conservation)",
+      limits:
+        "冲量 I=Ft, 动量定理 I=Δp ; 动量守恒条件 ; 完全弹性碰撞、完全非弹性碰撞、一般碰撞 ; 反冲、爆炸 ; 多体多过程问题。",
+    },
+    {
+      label: "热学 (Thermodynamics, kinetic theory)",
+      limits:
+        "分子动理论 (布朗运动、阿伏伽德罗常数) ; 理想气体状态方程 pV=nRT ; 气体三大实验定律 (玻意耳、查理、盖-吕萨克) ; 内能、热力学第一定律 ΔU=Q+W ; 热力学第二定律 (定性认识)。不考统计热力学。",
+    },
+    {
+      label: "静电场 (Electrostatics)",
+      limits:
+        "库仑定律 F=kq₁q₂/r² ; 电场强度 E、叠加原理 ; 电场线、等势面 ; 电势差 U_AB=W_AB/q ; 电场力做功与电势能 ; 平行板电容器 C=Q/U=εS/(4πkd)。不考高斯定理。",
+    },
+    {
+      label: "恒定电流 (Steady current)",
+      limits:
+        "欧姆定律 I=U/R ; 部分电路与全电路 (电源电动势 ε、内阻 r ; ε=U_外+Ir) ; 串、并联电路 ; 焦耳定律 Q=I²Rt ; 电表的改装 (分压、分流) ; 实验 : 测电阻、测电源 ε 和 r。",
+    },
+    {
+      label: "磁场 (Magnetic field)",
+      limits:
+        "磁感应强度 B ; 磁感线 ; 安培力 F=BIL sinθ ; 洛伦兹力 F=qv×B ; 带电粒子在匀强磁场中的圆周运动 (回旋半径 r=mv/(qB), 周期 T=2πm/(qB)) ; 速度选择器、质谱仪、回旋加速器原理。",
+    },
+    {
+      label: "电磁感应 (Electromagnetic induction)",
+      limits:
+        "磁通量 Φ=BS cosθ ; 法拉第电磁感应定律 ε=-dΦ/dt ; 楞次定律 ; 自感、互感 (定性) ; 交流电的产生、有效值 ; 变压器 U₁/U₂=n₁/n₂ ; 远距离输电。",
+    },
+    {
+      label: "光学与近代物理 (Optics and modern physics)",
+      limits:
+        "几何光学 : 反射、折射、全反射、薄透镜成像公式 ; 光的干涉 (杨氏双缝)、衍射、偏振 ; 光电效应 hf=W₀+½mv²_max ; 玻尔氢原子模型 (能级公式 Eₙ=-13.6/n² eV) ; 原子核 : α、β、γ衰变, 半衰期, 质量亏损与结合能 E=Δmc² ; 核反应方程的配平。",
+    },
   ],
   "CN_chemistry_高三 (Gaokao)": [
-    "原子结构与元素周期律",
-    "化学键与晶体结构",
-    "化学反应与能量",
-    "化学反应速率与化学平衡",
-    "电解质溶液与离子平衡",
-    "氧化还原反应",
-    "电化学 (原电池, 电解池)",
-    "有机化学 (烃, 醇, 醛, 酸, 酯)",
-    "实验化学",
+    {
+      label: "原子结构与元素周期律",
+      limits:
+        "原子核外电子排布 (1-36 号元素) ; 能级、能层、原子轨道 (s, p, d) ; 元素周期表的结构 ; 原子半径、第一电离能、电负性的周期性变化。",
+    },
+    {
+      label: "化学键与晶体结构",
+      limits:
+        "离子键、共价键 (σ键、π键)、金属键 ; 共价分子的极性 ; 杂化轨道理论 (sp, sp², sp³) 与 VSEPR ; 分子间作用力 (范德华力、氢键) ; 四种晶体类型 (离子、原子、分子、金属) 及其性质对比。",
+    },
+    {
+      label: "化学反应与能量",
+      limits:
+        "焓变 ΔH 与反应热 ; 热化学方程式的书写 ; 盖斯定律 (ΔH 的加和性) ; 反应自发性的判据 ΔG=ΔH-TΔS<0 (定性)。不考绝对熵的计算。",
+    },
+    {
+      label: "化学反应速率与化学平衡",
+      limits:
+        "反应速率的表示与影响因素 (浓度、温度、催化剂、压强) ; 化学平衡常数 K (与温度有关) ; 勒夏特列原理 ; 平衡转化率的计算 (三段式) ; 等效平衡。",
+    },
+    {
+      label: "电解质溶液与离子平衡",
+      limits:
+        "强弱电解质 ; 弱酸/弱碱的电离平衡 (Ka, Kb) ; 水的离子积 Kw=10⁻¹⁴ (25°C) ; pH 的计算 (强酸强碱、弱酸弱碱、缓冲溶液) ; 盐类水解 (规律 : 谁弱谁水解, 越弱越水解) ; 沉淀溶解平衡 Ksp。",
+    },
+    {
+      label: "氧化还原反应",
+      limits:
+        "氧化数的判定 ; 氧化剂、还原剂 ; 半反应法配平 (酸性、碱性介质) ; 双线桥与单线桥的分析 ; 氧化性、还原性的强弱比较。",
+    },
+    {
+      label: "电化学 (原电池, 电解池)",
+      limits:
+        "原电池 : 正负极判断、电极反应式 ; 电动势 (定性) ; 常见电池 (干电池、铅蓄电池、锂电池、燃料电池) ; 电解池 : 阴阳极放电规律 ; 电镀、精炼铜、氯碱工业 ; 法拉第定律 m=MIt/(nF)。",
+    },
+    {
+      label: "有机化学 (烃, 醇, 醛, 酸, 酯)",
+      limits:
+        "烷烃、烯烃、炔烃、芳香烃 (苯及其同系物) ; 醇、酚、醛、酮、羧酸、酯、卤代烃 ; 主要反应类型 (取代、加成、消去、氧化、还原、酯化、水解、加聚、缩聚) ; 同分异构体的书写 ; 简单合成路线设计 (3-4 步)。",
+    },
+    {
+      label: "实验化学",
+      limits:
+        "常见仪器的使用 ; 物质的分离与提纯 (过滤、蒸发、蒸馏、萃取、分液、层析) ; 物质的检验 (常见离子、有机基团) ; 中和滴定 ; 实验室制备 (Cl₂、NH₃、SO₂、O₂、H₂、CO₂、乙烯、乙酸乙酯)。",
+    },
   ],
 
   // ── JAPAN ──────────────────────────────────────────────────────────────────
