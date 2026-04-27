@@ -1039,8 +1039,92 @@ const TOPICS: Record<string, Topic[]> = {
         "BC ONLY. Position r(t) = ⟨x(t), y(t)⟩, velocity, speed, acceleration; motion problems (with vectors) on the plane only. NOT vectors in 3D.",
     },
   ],
+  // Honors track — same conceptual coverage as AP Calc AB but without
+  // the AP exam pressure; emphasis on intuition and applications.
+  "US_math_Grade 12 (AP)_Honors": [
+    {
+      label: "Limits and continuity",
+      limits:
+        "Informal limit definition, limit laws, one-sided limits, infinite limits, IVT. NOT formal ε-δ proofs, NOT squeeze theorem at the level rigor required by AP.",
+    },
+    {
+      label: "Differentiation: rules and applications",
+      limits:
+        "Power rule, product/quotient/chain rules; derivatives of polynomial, rational, trig (sin, cos, tan), exp and log functions. Implicit differentiation; selected related rates problems. NOT inverse trig derivatives in detail.",
+    },
+    {
+      label: "Curve sketching and optimization",
+      limits:
+        "Critical points, FDT, concavity and inflection (SDT), curve sketching combining f, f', f''; optimization with constraint via substitution. Less algebraic complexity than AP.",
+    },
+    {
+      label: "Integration and Fundamental Theorem",
+      limits:
+        "Antiderivatives of basic functions; FTC Part 1 and 2; u-substitution. Riemann sums (informal). NOT integration by parts, NOT partial fractions.",
+    },
+    {
+      label: "Applications of integration",
+      limits:
+        "Area between curves, average value, volumes by disk method (rotation around a horizontal/vertical line). NOT washer or shell method at full AP rigor.",
+    },
+    {
+      label: "Introduction to differential equations",
+      limits:
+        "Recognize separable DE; solve y' = ky for exponential growth/decay; informal slope fields. NOT logistic growth, NOT Euler's method, NOT systems of DE.",
+    },
+    {
+      label: "Pre-calculus review and analytic geometry",
+      limits:
+        "Polynomial, rational, exponential, logarithmic, trigonometric functions; conic sections (parabola, ellipse, hyperbola); polar coordinates introduction. Often interleaved with calculus units.",
+    },
+  ],
+
+  // Regular track — typically a Pre-Calculus or Algebra II / Trig
+  // course, with a brief informal calculus introduction.
+  "US_math_Grade 12 (AP)_Regular": [
+    {
+      label: "Polynomial and rational functions",
+      limits:
+        "Factoring, end behavior, zeros (Rational Root Theorem, synthetic division), graphing rational functions with asymptotes. Long division of polynomials.",
+    },
+    {
+      label: "Exponential and logarithmic functions",
+      limits:
+        "Properties of exponents and logs, change of base; solving exponential and logarithmic equations; modeling growth/decay (continuous compounding A = Pe^(rt)).",
+    },
+    {
+      label: "Trigonometric functions and identities",
+      limits:
+        "Unit circle, six trig functions, graphs (period, amplitude, phase shift); Pythagorean, sum/difference, double-angle identities; solving trig equations on [0, 2π).",
+    },
+    {
+      label: "Sequences and series (algebraic)",
+      limits:
+        "Arithmetic and geometric sequences; sum formulas Sₙ = n(a₁+aₙ)/2 and Sₙ = a₁(1-rⁿ)/(1-r); infinite geometric series sum a/(1-r) for |r|<1. NOT calculus-based convergence tests.",
+    },
+    {
+      label: "Conic sections",
+      limits:
+        "Parabolas, ellipses, hyperbolas: standard form equations, vertices, foci, directrix, asymptotes; basic graphing. Translations of conic sections.",
+    },
+    {
+      label: "Probability and combinatorics",
+      limits:
+        "Sample spaces, basic probability rules (addition, multiplication, complement); permutations and combinations (nPr, nCr); conditional probability (informal). NOT distributions.",
+    },
+    {
+      label: "Statistics: distributions and summary",
+      limits:
+        "Mean, median, mode; standard deviation (calculator-based); normal distribution and z-scores (introductory level); reading scatterplots and finding line of best fit. NOT formal inference.",
+    },
+    {
+      label: "Limits — introduction to calculus",
+      limits:
+        "Informal idea of limit, limit laws (verbal), one-sided limits; limit at infinity for rational functions. Possibly a basic derivative as 'rate of change'. NOT integration.",
+    },
+  ],
+
   // Generic fallback for US_math_Grade 12 (AP) when no section is chosen.
-  // Honors and Regular tracks live in section-specific keys (next chunk).
   "US_math_Grade 12 (AP)": [
     "Limits and continuity",
     "Differentiation: rules and applications",
