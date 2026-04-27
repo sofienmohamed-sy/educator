@@ -1076,6 +1076,192 @@ const TOPICS: Record<string, Topic[]> = {
     },
   ],
 
+  // 2ème année secondaire — filière Économie & Services.
+  // Source : Programmes officiels de mathématiques, Ministère de l'Éducation
+  // tunisien (septembre 2008), pages 23-27.
+  "TN_math_2ème année secondaire_Économie & Services": [
+    {
+      label: "Activités numériques",
+      limits:
+        "Estimation, arrondi, ordre de grandeur. Pourcentages et proportions : évolutions successives, valeur initiale. Suites arithmétiques et géométriques : raison, terme général, somme, représentation graphique ; applications (intérêts simples/composés, échelonnements d'emprunts, évolution démographique). Dénombrement : principe additif et arbres de choix. PAS logarithmes, PAS exponentielles, PAS permutations/combinaisons.",
+    },
+    {
+      label: "Activités algébriques",
+      limits:
+        "Équations et inéquations du 1er degré. Trinôme du 2nd degré : racines, factorisation, signe. Équations et inéquations du 2nd degré. Signe de produits et quotients de polynômes ou trinômes du second degré. Systèmes de 2 ou 3 équations linéaires à 2 ou 3 inconnues (méthode du pivot de Gauss) ; systèmes de 2 inéquations linéaires à 2 inconnues. PAS déterminants, PAS matrices, PAS méthode de Cramer.",
+    },
+    {
+      label: "Fonctions et représentations graphiques",
+      limits:
+        "Fonctions affines par intervalles. Inéquation linéaire à deux inconnues (représentation graphique). Étude et représentation graphique des fonctions x↦ax²+bx+c, x↦a/(x+b), x↦√(x+b), x↦ax³ : domaine, parité, variations, sommet/asymptotes, branches infinies, extrema. Résolution graphique de systèmes d'équations/inéquations à deux inconnues. PAS fonctions trigonométriques, PAS logarithmes/exponentielles, PAS dérivée.",
+    },
+    {
+      label: "Activités statistiques",
+      limits:
+        "Séries statistiques à une variable : paramètres de position (médiane, quartiles, moyenne, mode) et de dispersion (étendue, variance, écart-type) ; représentations graphiques (diagrammes, histogramme, courbes, séries chronologiques). Simulation d'expériences aléatoires (estimation de probabilité par fréquence). PAS probabilités formelles, PAS deux variables, PAS régression.",
+    },
+  ],
+
+  // 2ème année secondaire — filière Lettres.
+  // Source : Programmes officiels, pages 28-32.
+  "TN_math_2ème année secondaire_Lettres": [
+    {
+      label: "Activités numériques",
+      limits:
+        "Valeur approchée, arrondi, écriture scientifique. Pourcentages et proportions : évolutions successives. Suites arithmétiques et géométriques : raison, terme général, somme, représentation graphique ; applications (évolution démographique). PAS dénombrement combinatoire, PAS suites récurrentes.",
+    },
+    {
+      label: "Activités algébriques",
+      limits:
+        "Équations et inéquations du 1er degré à une inconnue (se ramenant à ax+b=0). Signe de produits et quotients de binômes du 1er degré. Systèmes de 2 équations linéaires à 2 inconnues. PAS second degré, PAS systèmes à 3 inconnues.",
+    },
+    {
+      label: "Fonctions et représentations graphiques",
+      limits:
+        "Fonctions affines par intervalles. Inéquation linéaire à deux inconnues. Étude et représentation graphique des fonctions x↦ax², x↦(x-a)²+b, x↦1/(x+b) : domaine, parité, variations, sommet, asymptotes, branches infinies. Résolution graphique d'un système de deux équations à deux inconnues. PAS fonctions du 3ème degré, PAS trigonométrie, PAS dérivée.",
+    },
+    {
+      label: "Activités statistiques",
+      limits:
+        "Séries statistiques à une variable : paramètres de position (médiane, quartiles, moyenne, mode) et de dispersion (étendue, variance, écart-type) ; représentations graphiques (diagrammes, histogramme, courbes chronologiques). Simulation d'expériences aléatoires (estimation par fréquence). PAS probabilités formelles, PAS séries à deux variables, PAS régression.",
+    },
+  ],
+
+  // ── 3ème ANNÉE SECONDAIRE ─────────────────────────────────────────────────
+  // Source : Programmes officiels, pages 33-68.
+  // Chaque entrée correspond à un grand thème du programme ; les limites
+  // précisent le contenu disciplinaire et les aptitudes à développer, ainsi que
+  // les exclusions explicites ou implicites par rapport aux autres sections.
+
+  // Section Mathématiques (3ème AS SM) — programme le plus complet.
+  "TN_math_3ème année secondaire_Mathématiques": [
+    {
+      label: "Analyse — Fonctions",
+      limits:
+        "Généralités : domaine de définition, parité, restriction, majorant/minorant, opérations algébriques sur les fonctions. Fonctions affines par intervalles. Continuité : en un réel, sur un intervalle, image d'un intervalle, TVI (admis), prolongement par continuité. Limites finies et infinies avec asymptotes horizontales, verticales et obliques (y=ax+b quand f(x)-(ax+b)→0). Dérivabilité : nombre dérivé, tangente/demi-tangente, approximation affine ; dérivée sur un intervalle ; lien signe f'—variations—extrema locaux. Fonctions du programme : polynômes (deg 1-3 et bicarrées), rationnelles (ax+b)/(cx+d), (ax²+bx+c)/(dx+e), (ax²+bx+c)/(dx²+ex+f), x↦√(ax+b), x↦√(ax²+bx+c), circulaires x↦sin(ax+b)/cos(ax+b)/tan(x). Axe/centre de symétrie d'une courbe, changement de repère. PAS logarithmes ni exponentielles (chapitre 4ème AS), PAS dérivée seconde (4ème AS).",
+    },
+    {
+      label: "Analyse — Suites numériques",
+      limits:
+        "Comportement global : croissante/décroissante, majorée/minorée. Suites arithmétiques et géométriques (limite admise, somme exploitée). Suites Uₙ=f(n) avec f polynôme ou rationnelle : limite par théorèmes sur les fonctions. Développement décimal illimité périodique → fraction. Suites récurrentes Uₙ₊₁=f(Uₙ) avec f affine ou homographique : étude via suite auxiliaire géométrique, représentation graphique des (n,Uₙ) et sur axe. Convergence : définition, théorèmes de comparaison (3 théorèmes encadrement). Principe de récurrence (pour majoration/minoration et variations). PAS suites à 2 termes, PAS suites adjacentes (4ème AS SM uniquement).",
+    },
+    {
+      label: "Statistiques et probabilités",
+      limits:
+        "Séries à un caractère : paramètres de position (médiane, quartiles, moyenne, mode) et de dispersion (variance, écart-type) ; interprétation d'une distribution normale (initiation). Séries à deux caractères : tableau, distributions marginales, nuage de points, point moyen. Probabilité uniforme sur ensemble fini : définition, P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes et dépendantes (arbre de choix). PAS loi binomiale (4ème AS), PAS régression/ajustement (SM), PAS loi normale formelle.",
+    },
+    {
+      label: "Géométrie",
+      limits:
+        "Produit scalaire plan : définition, propriétés, expression analytique, lieux géométriques. Arcs orientés, cercle trigonométrique, angles orientés, angle inscrit/angle au centre, déterminant de deux vecteurs. Trigonométrie sur ℝ : cos/sin/tan d'un réel, coordonnées polaires, formules d'addition et de multiplication par 2, transformation a·cosθ+b·sinθ=r·cos(θ-φ), résolution équations/inéquations cos(ax+b)=c, sin(ax+b)=c, tanx=c. Rotations dans le plan : composée de deux rotations de même centre. Nombres complexes : forme algébrique, conjugué, opérations, module, argument, écriture trigonométrique, affixe (point et vecteur), lieux géométriques. Vecteurs de l'espace, déterminant de 3 vecteurs, produit scalaire et vectoriel dans l'espace, équations de droites/plans/sphères, positions relatives, intersection plan-sphère. PAS similitudes (4ème AS SM).",
+    },
+    {
+      label: "Arithmétique et dénombrement",
+      limits:
+        "Dénombrement : cardinal d'un ensemble fini, combinaison C(n,k), permutation, arrangement, formule du binôme de Newton. Principe de récurrence. Division euclidienne dans ℕ, PGCD (algorithme d'Euclide), PPCM, entiers premiers entre eux, lemme de Gauss. Nombres premiers : théorème d'Euclide (infinité), petit théorème de Fermat, théorème fondamental de l'arithmétique (décomposition unique en facteurs premiers — existence démontrée, unicité admise). PAS identité de Bézout (4ème AS Math/Info), PAS congruences modulo n (4ème AS).",
+    },
+  ],
+
+  // Section Sciences expérimentales (3ème AS SE).
+  "TN_math_3ème année secondaire_Sciences expérimentales": [
+    {
+      label: "Analyse — Fonctions et suites",
+      limits:
+        "Même programme d'analyse que la section Mathématiques (fonctions, continuité TVI, limites, dérivée, fonctions du programme identiques). Principe de récurrence inclus. Suites récurrentes Uₙ₊₁=f(Uₙ) avec f affine ou homographique. PAS asymptotes obliques dans les aptitudes requises (mais abordées), PAS suites adjacentes, PAS suites à deux termes, PAS intégrale.",
+    },
+    {
+      label: "Géométrie",
+      limits:
+        "Produit scalaire plan : applications longueurs, angles, lieux géométriques. Arcs/angles orientés, cercle trigonométrique, déterminant de 2 vecteurs. Trigonométrie : cos/sin/tan d'un réel, coordonnées polaires, formules d'addition et ×2, résolution équations/inéquations. Nombres complexes : forme algébrique, conjugué, opérations, module, argument, écriture trigonométrique, affixe point/vecteur, lieux géométriques. Vecteurs de l'espace, déterminant de 3 vecteurs, produit scalaire dans l'espace, équations de droites et plans (paramétriques et cartésiennes), positions relatives, équation d'une sphère. PAS rotations (réservées à la section Mathématiques), PAS produit vectoriel (SE), PAS intersection plan-sphère (SE).",
+    },
+    {
+      label: "Statistiques, dénombrement et probabilités",
+      limits:
+        "Séries à un caractère (paramètres position/dispersion, initiation distribution normale) et à deux caractères (tableau, marginales, nuage, point moyen). Dénombrement : cardinal, combinaison, permutation, arrangement, binôme. Probabilité uniforme : définition, P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes et dépendantes (arbre). PAS loi binomiale, PAS régression/ajustement affine.",
+    },
+  ],
+
+  // Section Sciences techniques (3ème AS ST).
+  "TN_math_3ème année secondaire_Sciences techniques": [
+    {
+      label: "Analyse — Fonctions et suites",
+      limits:
+        "Même catalogue de fonctions que SM/SE (polynômes deg 1-3, bicarrées, rationnelles, circulaires). Limites introduites intuitivement (sans définition ε-δ), asymptotes décrites graphiquement. Dérivabilité, tangente, approximation affine, lien signe f'—variations—extrema. Principe de récurrence. Suites récurrentes Uₙ₊₁=f(Uₙ) avec f affine ou homographique ; limite de la suite géométrique admise. Formules trigonométriques d'addition et ×2, résolution équations/inéquations circulaires. PAS recherche d'asymptotes obliques (hors programme ST), PAS suites homographiques convergentes vers irrationnels (ST), PAS produit vectoriel espace.",
+    },
+    {
+      label: "Géométrie",
+      limits:
+        "Produit scalaire plan. Arcs/angles orientés, cercle trigonométrique. Nombres complexes : forme algébrique, conjugué, opérations, module, argument, écriture trigonométrique, affixe point/vecteur. Vecteurs de l'espace : base, opérations, produit scalaire, produit vectoriel ET produit mixte dans l'espace, équations paramétriques et cartésiennes des droites et plans, intersections. PAS sphères (ST), PAS rotations du plan (ST), PAS lieux géométriques complexes avancés.",
+    },
+    {
+      label: "Statistiques, dénombrement et probabilités",
+      limits:
+        "Séries à un caractère et à deux caractères (tableau, marginales, nuage, point moyen). Dénombrement : cardinal, combinaison, permutation, arrangement, nombre d'applications d'un ensemble fini dans un autre, binôme. Probabilité uniforme : définition, P(A∪B), P(A∩B), équiprobabilité. PAS épreuves successives dépendantes formalisées (ST), PAS loi binomiale, PAS régression.",
+    },
+  ],
+
+  // Section Sciences de l'informatique (3ème AS SI).
+  "TN_math_3ème année secondaire_Informatique": [
+    {
+      label: "Analyse — Fonctions et suites",
+      limits:
+        "Suites récurrentes Uₙ₊₁=aUₙ+b : terme, représentation graphique, limite via suite géométrique auxiliaire ; limite de la suite géométrique admise. Généralités sur les fonctions (domaine, parité, périodicité, variation, extrema). Limites finies/infinies (intuitives, sans ε-δ), asymptotes. Continuité et dérivabilité sur les fonctions du programme. Fonctions du programme : polynômes deg 1-3, bicarrées, (ax+b)/(cx+d), (ax²+bx+c)/(dx+e), x↦√(ax+b), circulaires x↦sin(ax+b), x↦cos(ax+b) (pas de tan). Asymptotes obliques possibles. PAS fonctions trigonométriques tan, PAS homographies suites, PAS formules addition trigonométriques.",
+    },
+    {
+      label: "Géométrie et algèbre",
+      limits:
+        "Produit scalaire plan (longueurs, angles, aires, équation droite/cercle, formule d'Al-Kashi). Cercle trigonométrique, arcs orientés, cos/sin/tan d'un réel, formules d'addition et ×2, résolution cos x=c/sin x=c et inéquations. Systèmes linéaires (2×2, 3×2, 2×3, 3×3) par substitution, déterminant (2×2), pivot de Gauss ; notion de matrice et matrice complète. PAS vecteurs de l'espace, PAS nombres complexes (SI 3ème AS), PAS produit vectoriel.",
+    },
+    {
+      label: "Logique, arithmétique et systèmes de numération",
+      limits:
+        "Logique propositionnelle : proposition, table de vérité, négation, connecteurs (∧, ∨, ⇒, ⇔), loi de De Morgan, réciproque, contraposée. Principe de récurrence. Arithmétique dans ℕ : division euclidienne, PGCD, PPCM, entiers premiers entre eux, lemme de Gauss, nombres premiers (théorème d'Euclide, crible d'Ératosthène). Systèmes de numération en base 2, 8, 16 : conversion entre bases et opérations (addition, multiplication) dans la même base. PAS petit théorème de Fermat (SI 3ème AS), PAS décomposition en facteurs premiers formelle.",
+    },
+    {
+      label: "Dénombrement et probabilités",
+      limits:
+        "Dénombrement : cardinal d'un ensemble fini, nombre d'applications, combinaison, permutation, arrangement, formule du binôme. Probabilité sur ensemble fini : définition, langage probabiliste, P(A∪B), P(A∩B), équiprobabilité. Expériences indépendantes et dépendantes évoquées (simulation). PAS épreuves successives formalisées, PAS loi binomiale, PAS arbre de choix probabiliste développé.",
+    },
+  ],
+
+  // Section Économie & Gestion (3ème AS SEG).
+  "TN_math_3ème année secondaire_Économie & gestion": [
+    {
+      label: "Analyse — Fonctions, suites et trigonométrie",
+      limits:
+        "Généralités sur les fonctions (domaine, parité, périodicité, variation, extrema). Continuité et limites intuitives, asymptotes. Dérivabilité : nombre dérivé, tangente, approximation affine, lien f'—variations—extrema. Fonctions du programme : polynômes deg 1-3, bicarrées, (ax+b)/(cx+d), (ax²+bx+c)/(dx+e), x↦√(ax+b). Cercle trigonométrique, cos/sin/tan d'un réel, x↦sin(x+a), x↦cos(x+a), résolution équations/inéquations cosX=c, sinX=c. Principe de récurrence. Suites récurrentes Uₙ₊₁=aUₙ+b via suite auxiliaire géométrique, limite admise. PAS formules d'addition trigonométriques, PAS asymptotes obliques formelles.",
+    },
+    {
+      label: "Statistiques, dénombrement et probabilités",
+      limits:
+        "Séries à un caractère (paramètres position/dispersion, distribution normale initiation) et à deux caractères (tableau, marginales, nuage, point moyen). Dénombrement : cardinal, combinaison, permutation, arrangement, binôme. Probabilité uniforme : définition, P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes et dépendantes (arbre). PAS loi binomiale, PAS régression/ajustement affine.",
+    },
+    {
+      label: "Algèbre et théorie des graphes",
+      limits:
+        "Systèmes linéaires à n lignes et m colonnes (1≤n≤4, 1≤m≤3) : méthode de substitution et méthode du pivot de Gauss. Théorie des graphes : sommets, arêtes, ordre, nombre chromatique, théorème d'Euler, chaînes, algorithme de Dijkstra (plus courte chaîne), coloration d'un graphe, reconnaissance d'une chaîne eulérienne. PAS matrices inversibles, PAS programmation linéaire.",
+    },
+  ],
+
+  // Section Lettres (3ème AS SL).
+  "TN_math_3ème année secondaire_Lettres": [
+    {
+      label: "Analyse — Fonctions et problèmes du 2ème degré",
+      limits:
+        "Problèmes du 2nd degré : racines d'un trinôme, signe du trinôme. Dérivabilité : nombre dérivé, tangente, approximation affine, lien f'—variations—extrema locaux. Fonctions du programme : polynômes deg 1-3, bicarrées, (ax+b)/(cx+d). Étude graphique complète (domaine, parité, variations, extrema, position relative de deux courbes). PAS limites formelles, PAS continuité, PAS fonctions circulaires, PAS trigonométrie.",
+    },
+    {
+      label: "Analyse — Suites numériques",
+      limits:
+        "Suites arithmétiques et géométriques (limite admise, somme exploitée). Suites récurrentes Uₙ₊₁=aUₙ+b : calcul des termes, représentation graphique (n,Uₙ) et sur axe, limite via suite auxiliaire géométrique. Développement décimal illimité périodique → fraction. PAS suites Uₙ=f(n) (hors programme SL), PAS principe de récurrence.",
+    },
+    {
+      label: "Statistiques, dénombrement et probabilités",
+      limits:
+        "Séries à un caractère (paramètres position/dispersion) et à deux caractères (tableau, marginales, nuage, point moyen, ajustement affine). Cardinal d'un ensemble fini (sans formules combinatoires). Probabilité uniforme : définition, P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes et dépendantes (arbre). PAS combinaisons/permutations/arrangements formels, PAS loi binomiale.",
+    },
+  ],
+
   // Section Mathématiques (SM) — programme le plus complet, seul à inclure
   // similitudes et structures algébriques.
   "TN_math_4ème (Bac)_Mathématiques": [
@@ -1293,22 +1479,75 @@ const TOPICS: Record<string, Topic[]> = {
     },
   ],
 
-  // Fallback générique TN math (utilisé si aucune section n'est précisée).
+  // Fallback générique 4ème AS (toutes sections confondues).
+  // Utilisé quand aucune section n'est précisée. Contenu = union de toutes les
+  // sections ; le champ limits indique quelles sections couvrent le sujet.
   "TN_math_4ème (Bac)": [
-    "Suites numériques",
-    "Limites et continuité",
-    "Dérivabilité",
-    "Fonction logarithme népérien",
-    "Fonction exponentielle",
-    "Calcul intégral et primitives",
-    "Équations différentielles (section Mathématiques)",
-    "Nombres complexes",
-    "Géométrie dans l'espace",
-    "Isométries et similitudes (section Mathématiques)",
-    "Probabilités conditionnelles",
-    "Loi binomiale",
-    "Arithmétique : divisibilité, congruences (sections Math/Info)",
-    "Structures algébriques (section Mathématiques)",
+    {
+      label: "Suites numériques",
+      limits:
+        "Toutes sections : limite d'une suite arithmétique/géométrique, suites récurrentes Uₙ₊₁=f(Uₙ). SM uniquement : suites à 2 termes, suites adjacentes, suites définies par une intégrale.",
+    },
+    {
+      label: "Limites et continuité",
+      limits:
+        "Toutes sections (SM/SE/SI/ST) : limites finies et infinies, formes indéterminées, asymptotes, TVI, prolongement par continuité. SE/SI/ST : traitement plus intuitif que SM.",
+    },
+    {
+      label: "Dérivabilité",
+      limits:
+        "Toutes sections : nombre dérivé, dérivées usuelles et composées, tableau de variations, extrema. SM uniquement : théorème de Rolle, théorème des accroissements finis, convexité, point d'inflexion, dérivée d'une bijection réciproque.",
+    },
+    {
+      label: "Fonctions logarithme et exponentielle",
+      limits:
+        "SM/SE/ST/SI : ln x et e^x, propriétés, dérivées, primitives, études de fonctions. SM uniquement : limites usuelles avec xⁿ·ln x, eⁿˣ/xᵐ ; fonctions x↦xʳ (r∈ℝ), x↦aˣ. SEG/ST : approche plus applicative.",
+    },
+    {
+      label: "Calcul intégral et primitives",
+      limits:
+        "Toutes sections : primitives usuelles, intégrale de Riemann, valeur moyenne, calcul d'aires. SM uniquement : intégration par parties ET changement de variable, volumes de révolution, fonctions définies par une intégrale. SE/SI/SEG/SL : PAS intégration par parties.",
+    },
+    {
+      label: "Équations différentielles",
+      limits:
+        "SM uniquement : y'=ay+b (1er ordre linéaire) ; y''+a²y=0 (2ème ordre à coefficients constants). PAS dans les autres sections.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "SM/SE/ST/SI : forme algébrique, conjugué, module, argument, écriture trigonométrique, affixe, lieux géométriques. SM uniquement : forme exponentielle (Euler e^(iθ)), formule de Moivre, racines nèmes de l'unité. SE/ST/SI : PAS forme exponentielle.",
+    },
+    {
+      label: "Géométrie dans l'espace",
+      limits:
+        "SM/SE/ST : vecteurs de l'espace, produit scalaire, produit vectoriel (SM/ST), équations droites/plans, positions relatives. SM uniquement : sphères, intersection plan-sphère, produit mixte (SM). SE : PAS produit vectoriel. Voir aussi le programme de 3ème AS pour les prérequis.",
+    },
+    {
+      label: "Isométries et similitudes",
+      limits:
+        "SM uniquement : isométries planes (translations, rotations, réflexions, symétries glissées), similitudes directes et indirectes (centre, rapport, angle), composition, polygones réguliers. PAS dans les autres sections.",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Toutes sections : probabilités conditionnelles, indépendance, formule de Bayes, variables aléatoires discrètes, espérance, variance. Toutes sections : loi binomiale (SM/SE/SI/ST/SEG). PAS loi normale, PAS loi de Poisson.",
+    },
+    {
+      label: "Dénombrement",
+      limits:
+        "SM/SI : arrangements, combinaisons, formule du binôme. SE/ST : également inclus au programme. SEG/SL : non ou très allégé.",
+    },
+    {
+      label: "Arithmétique dans ℤ",
+      limits:
+        "SM/SI : divisibilité, division euclidienne, PGCD (Euclide étendu), identité de Bézout, lemme de Gauss, congruences modulo n, critères de divisibilité. SM : petit théorème de Fermat inclus. PAS dans SE/ST/SEG/SL.",
+    },
+    {
+      label: "Structures algébriques",
+      limits:
+        "SM uniquement : lois de composition internes, groupe (axiomes, sous-groupes, groupes cycliques), anneau (ℤ, ℤ/nℤ), corps (ℚ, ℝ, ℂ, ℤ/pℤ), morphismes. PAS dans toutes les autres sections.",
+    },
   ],
 
   "TN_physics_4ème (Bac)": [
