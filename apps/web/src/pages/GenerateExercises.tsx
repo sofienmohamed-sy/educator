@@ -118,6 +118,7 @@ export default function GenerateExercises() {
             subject={subject}
             country={country}
             gradeLevel={gradeLevel}
+            section={section}
             value={topic}
             onChange={setTopic}
             placeholder="e.g. Integration by parts"

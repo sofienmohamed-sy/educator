@@ -160,6 +160,7 @@ export default function GenerateExam() {
                   subject={subject}
                   country={country}
                   gradeLevel={gradeLevel}
+                  section={section}
                   value={t}
                   onChange={(v) => updateTopic(i, v)}
                   placeholder={`Topic ${i + 1}`}

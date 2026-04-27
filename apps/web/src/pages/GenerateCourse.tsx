@@ -123,6 +123,7 @@ export default function GenerateCourse() {
             subject={subject}
             country={country}
             gradeLevel={gradeLevel}
+            section={section}
             value={topic}
             onChange={setTopic}
             required
