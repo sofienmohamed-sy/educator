@@ -251,6 +251,76 @@ const TOPICS: Record<string, Topic[]> = {
     "Variables aléatoires",
     "Loi binomiale (introduction)",
   ],
+  // Spécialité Physique-Chimie Terminale (BO 2019). La même clé est
+  // utilisée pour la section « Spécialité Physique-Chimie ». Le
+  // fallback générique reste pour les sessions sans spé sélectionnée.
+  "FR_physics_Terminale_Spécialité Physique-Chimie": [
+    {
+      label: "Mouvements et lois de Newton",
+      limits:
+        "Référentiel galiléen, 1ère/2ème/3ème lois de Newton ; vecteur position, vitesse, accélération ; PFD vectoriel : ΣF = m·a. PAS le repère de Frenet en spé Physique-Chimie standard.",
+    },
+    {
+      label: "Mouvements dans un champ de pesanteur uniforme",
+      limits:
+        "Projectile : équations horaires, trajectoire parabolique, portée, flèche, durée ; champ g uniforme avec g ≈ 9,81 m/s² (parfois 10) ; influence des conditions initiales. Frottements négligés.",
+    },
+    {
+      label: "Mouvements dans un champ électrique uniforme",
+      limits:
+        "Particule chargée entre plaques parallèles, champ E uniforme = U/d ; déviation, gain d'énergie cinétique qU = ½mv². Application à l'oscilloscope cathodique et accélérateurs simples.",
+    },
+    {
+      label: "Aspects énergétiques (travail, énergie)",
+      limits:
+        "Travail d'une force constante, théorème de l'énergie cinétique ; énergie potentielle de pesanteur Ep = mgz, énergie mécanique Em = Ec + Ep ; conservation et variation de Em (forces non conservatives).",
+    },
+    {
+      label: "Mouvement d'un satellite, lois de Kepler",
+      limits:
+        "3 lois de Kepler (orbites elliptiques, loi des aires, T² ∝ a³) ; mouvement circulaire uniforme : v² = GM/r, T² = 4π²r³/(GM) ; satellite géostationnaire. PAS d'orbites elliptiques en calcul détaillé.",
+    },
+    {
+      label: "Ondes mécaniques progressives",
+      limits:
+        "Onde transversale et longitudinale, célérité, retard ; longueur d'onde λ, fréquence f, période T ; relation λ = c·T = c/f. Application : corde, surface d'eau, sons.",
+    },
+    {
+      label: "Effet Doppler",
+      limits:
+        "Décalage en fréquence d'une source en mouvement par rapport à l'observateur ; cas non-relativiste : f' = f·(c±v_obs)/(c∓v_src) ; applications : radar, astronomie (mesure de vitesse radiale d'étoiles).",
+    },
+    {
+      label: "Interférences et diffraction",
+      limits:
+        "Interférences à 2 sources cohérentes (fentes d'Young) : interfrange i = λD/a, conditions de cohérence ; diffraction par fente : θ = λ/a (ordre 0). Caractère ondulatoire mis en évidence.",
+    },
+    {
+      label: "Lumière : modèle ondulatoire et particulaire",
+      limits:
+        "Dualité onde-corpuscule ; photon d'énergie E = hν = hc/λ ; effet photoélectrique : seuil ν₀ = W₀/h, équation de conservation hν = W₀ + Ec ; spectre d'émission/absorption.",
+    },
+    {
+      label: "Niveaux d'énergie atomique, lasers",
+      limits:
+        "Quantification de l'énergie, transitions En → Em avec hν = |En - Em| ; émission spontanée, stimulée ; principe du laser (inversion de population, cavité). PAS de calculs quantiques formels.",
+    },
+    {
+      label: "Décroissance radioactive",
+      limits:
+        "Loi de décroissance N(t) = N₀·e^(-λt) ; demi-vie t₁/₂ = ln 2 / λ ; activité A = λN ; types α, β⁻, β⁺, γ ; conservation du nombre de masse et de charge.",
+    },
+    {
+      label: "Énergie de liaison nucléaire",
+      limits:
+        "Défaut de masse Δm, équivalence E = Δm·c² ; énergie de liaison par nucléon ; courbe d'Aston, fission et fusion ; bilan énergétique de réactions nucléaires.",
+    },
+    {
+      label: "Bilans énergétiques (système thermodynamique)",
+      limits:
+        "Énergie interne U, transferts thermiques Q et travail W ; 1er principe ΔU = Q + W ; modes de transfert (conduction, convection, rayonnement, loi de Stefan-Boltzmann pour le rayonnement). PAS le 2nd principe au programme.",
+    },
+  ],
   "FR_physics_Terminale": [
     "Mouvements et lois de Newton",
     "Mouvements dans un champ uniforme (gravitation, électrique)",
@@ -265,6 +335,63 @@ const TOPICS: Record<string, Topic[]> = {
     "Décroissance radioactive",
     "Désintégrations nucléaires, énergie de liaison",
     "Évolution d'un système — bilans énergétiques",
+  ],
+  "FR_chemistry_Terminale_Spécialité Physique-Chimie": [
+    {
+      label: "Cinétique chimique",
+      limits:
+        "Vitesse volumique de réaction, facteurs cinétiques (concentration, T, catalyseur) ; loi de vitesse d'ordre 1 (parfois 0) avec décroissance exponentielle de la concentration ; temps de demi-réaction t₁/₂ = ln 2 / k. PAS la loi d'Arrhenius formelle k = A·e^(-Ea/RT) en spé standard (présente en CPGE).",
+    },
+    {
+      label: "Réactions acide-base, pH, Ke",
+      limits:
+        "Couple acide/base, autoprotolyse de l'eau Ke = [H₃O⁺][HO⁻] = 10⁻¹⁴ à 25°C ; pH = -log[H₃O⁺] ; solutions acides, basiques, neutres. PAS les diagrammes E-pH.",
+    },
+    {
+      label: "Constantes d'acidité Ka et diagrammes",
+      limits:
+        "Force des acides/bases : Ka, pKa = -log Ka ; diagramme de prédominance et de distribution ; pH d'un acide faible (formule pH = ½(pKa - log Ca) avec hypothèses).",
+    },
+    {
+      label: "Réactions d'oxydoréduction",
+      limits:
+        "Couple Ox/Red, demi-équations, équilibrage en milieu acide ou basique ; échelle qualitative des potentiels standard E° (sans calcul de Nernst formel).",
+    },
+    {
+      label: "Pile et électrolyse",
+      limits:
+        "Pile : anode/cathode, fem, sens spontané ; pile Daniell ; électrolyse : produit imposé, loi de Faraday Q = It = nF·z. PAS la pile à combustible quantitative.",
+    },
+    {
+      label: "Solubilité, produit de solubilité Ks",
+      limits:
+        "Équilibre de précipitation/dissolution ; Ks et solubilité s ; effet d'ion commun. Calculs sur sels peu solubles (AgCl, CaF₂, BaSO₄).",
+    },
+    {
+      label: "Mécanismes réactionnels (flèches courbes)",
+      limits:
+        "Sites donneurs/accepteurs de doublets, polarité de liaison ; flèches courbes représentant le mouvement des doublets ; étapes élémentaires (substitution, addition, élimination). PAS de calculs orbitalaires.",
+    },
+    {
+      label: "Stéréoisomérie (chiralité, énantiomères)",
+      limits:
+        "Carbone asymétrique, configurations R/S (notion), énantiomères et diastéréoisomères ; mélange racémique, activité optique (sens et loi de Biot qualitative).",
+    },
+    {
+      label: "Spectroscopie IR et RMN",
+      limits:
+        "IR : bandes caractéristiques (O-H, N-H, C=O, C-O…) sur table de référence ; RMN ¹H : déplacement chimique δ, multiplicité (n+1), intégration. PAS la RMN ¹³C ni la spectrométrie de masse au programme spé PC standard.",
+    },
+    {
+      label: "Synthèse organique",
+      limits:
+        "Stratégie de synthèse : protection/déprotection (notion), sélectivité (chimio-, régio-, stéréo-) ; rendement et économie d'atomes ; étapes multiples avec analyse rétrosynthétique simple. PAS la synthèse asymétrique catalytique.",
+    },
+    {
+      label: "Dosages par titrage",
+      limits:
+        "Titrage acide-base suivi par pH-métrie ou colorimétrie ; détermination de l'équivalence ; titrage redox (permanganate, iode-thiosulfate) ; titrage conductimétrique.",
+    },
   ],
   "FR_chemistry_Terminale": [
     "Réactions acide-base, pH, Ke",
