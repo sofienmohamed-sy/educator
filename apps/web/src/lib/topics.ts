@@ -279,6 +279,86 @@ const TOPICS: Record<string, Topic[]> = {
     "Synthèse organique multi-étapes",
     "Dosages par titrage (acide-base, redox)",
   ],
+  // Spécialité NSI Terminale (BO 2019) — la seule spé informatique du
+  // lycée français. La même clé est référencée comme « Spécialité NSI »
+  // (cohérent avec sections.ts) ; le fallback générique est conservé.
+  "FR_informatics_Terminale_Spécialité NSI": [
+    {
+      label: "Structures de données linéaires",
+      limits:
+        "Tableaux (Python : list), listes chaînées (implémentation maison via classe Maillon/Cellule), piles (LIFO) et files (FIFO) avec interfaces empiler/dépiler/enfiler/défiler ; PAS les deques double-ended.",
+    },
+    {
+      label: "Arbres binaires et de recherche",
+      limits:
+        "Arbre binaire : nœud, fils gauche/droit, profondeur, hauteur, parcours préfixe/infixe/suffixe ; arbre binaire de recherche (ABR) avec insertion et recherche O(h). PAS les arbres équilibrés (AVL, rouge-noir) au programme NSI standard.",
+    },
+    {
+      label: "Graphes",
+      limits:
+        "Représentations : matrice d'adjacence et liste d'adjacence ; graphe orienté/non-orienté, pondéré ; degré, chemin, cycle, connexité. PAS les graphes orientés acycliques (DAG) en tant que concept formel.",
+    },
+    {
+      label: "Récursivité",
+      limits:
+        "Définition récursive, cas de base, pile d'appels (notion) ; preuve de terminaison par variant de boucle ; exemples : factorielle, Fibonacci, tours de Hanoi, parcours d'arbre. PAS la récursion mutuelle au programme.",
+    },
+    {
+      label: "Programmation orientée objet (Python)",
+      limits:
+        "Classe, attribut, méthode, instance, constructeur __init__, méthode __str__/__repr__ ; héritage simple ; encapsulation par convention (préfixe _). PAS les métaclasses, PAS la résolution MRO multiple.",
+    },
+    {
+      label: "Algorithmes de tri",
+      limits:
+        "Tri par insertion, tri par sélection (rappel de 1ère) ; tri fusion (merge sort, complexité O(n log n) avec preuve par récurrence T(n) = 2T(n/2) + n) ; tri rapide (quicksort, étude de cas). PAS le tri par tas en NSI standard.",
+    },
+    {
+      label: "Diviser pour régner",
+      limits:
+        "Paradigme : diviser, résoudre, combiner ; recherche dichotomique O(log n), tri fusion, exponentiation rapide x^n en O(log n). PAS de master theorem formel.",
+    },
+    {
+      label: "Programmation dynamique",
+      limits:
+        "Sous-problèmes optimaux et chevauchement ; mémoïsation top-down vs tabulation bottom-up ; exemples : rendu de monnaie, distance d'édition (Levenshtein), problème du sac à dos (0/1).",
+    },
+    {
+      label: "Parcours de graphes (BFS, DFS)",
+      limits:
+        "BFS avec une file → distances en arêtes dans un graphe non pondéré ; DFS avec une pile ou par récursion → détection de cycles, tri topologique d'un DAG. PAS de Tarjan ni Kosaraju pour composantes fortement connexes.",
+    },
+    {
+      label: "Plus court chemin (Dijkstra)",
+      limits:
+        "Algorithme de Dijkstra avec file de priorité, pour graphe orienté pondéré à poids POSITIFS uniquement. PAS Bellman-Ford (poids négatifs), PAS Floyd-Warshall (toutes paires), PAS A*.",
+    },
+    {
+      label: "Bases de données relationnelles",
+      limits:
+        "Modèle relationnel : table, attribut, clé primaire, clé étrangère, contraintes d'intégrité ; algèbre relationnelle (sélection σ, projection π, jointure ⋈, union, différence). PAS la 3e forme normale formelle.",
+    },
+    {
+      label: "Langage SQL",
+      limits:
+        "SELECT…FROM…WHERE, ORDER BY, GROUP BY, HAVING ; INNER JOIN, LEFT/RIGHT JOIN ; fonctions d'agrégation COUNT/SUM/AVG/MIN/MAX. PAS les vues, PAS les triggers, PAS les transactions ACID au programme NSI.",
+    },
+    {
+      label: "Systèmes d'exploitation",
+      limits:
+        "Notion de processus (PID, états : prêt/élu/bloqué), ordonnancement round-robin (notion) ; gestion de fichiers (chemin absolu/relatif, droits UNIX rwx). PAS la gestion de mémoire virtuelle, PAS les interruptions matérielles.",
+    },
+    {
+      label: "Réseaux : modèle TCP/IP",
+      limits:
+        "4 couches (accès, internet/IP, transport TCP/UDP, application) ; adressage IPv4 (classes, masque, adresse réseau/diffusion), notion d'IPv6 ; routage : table de routage, principe du plus court chemin (lien avec Dijkstra).",
+    },
+    {
+      label: "Protocoles HTTP/HTTPS et chiffrement",
+      limits:
+        "Requêtes/réponses HTTP (méthodes GET, POST ; codes 200, 404, 500) ; cookies et sessions ; HTTPS = HTTP + TLS ; chiffrement symétrique (AES, notion) et asymétrique (RSA, Diffie-Hellman, notion) ; certificats. PAS le détail des suites cryptographiques.",
+    },
+  ],
   "FR_informatics_Terminale": [
     "Structures de données : pile, file",
     "Récursivité",
