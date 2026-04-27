@@ -2013,6 +2013,76 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── INDIA ──────────────────────────────────────────────────────────────────
+  // PCM stream — Science stream with Physics, Chemistry, Mathematics.
+  // NCERT/CBSE Class 12. Mathematics is compulsory in this stream.
+  "IN_math_Class 12_Science (PCM — Physics, Chemistry, Math)": [
+    {
+      label: "Relations and functions",
+      limits:
+        "Types of relations (reflexive, symmetric, transitive, equivalence); types of functions (injective, surjective, bijective); composition and inverse of functions. NOT abstract group theory.",
+    },
+    {
+      label: "Inverse trigonometric functions",
+      limits:
+        "Definitions, domain and range; principal value branch; properties (sin⁻¹(-x) = -sin⁻¹x, etc.) and identities; evaluation of expressions. NOT inverse of sec/csc/cot in depth.",
+    },
+    {
+      label: "Matrices",
+      limits:
+        "Types of matrices; addition, scalar multiplication, transpose, symmetric/skew-symmetric; matrix multiplication; elementary row operations for row-echelon form. NOT eigenvalues.",
+    },
+    {
+      label: "Determinants",
+      limits:
+        "Expansion along any row/column; properties of determinants; area of a triangle; cofactors, adjugate; inverse matrix A⁻¹ = adj(A)/det(A); solving linear systems via Cramer's rule or inverse. Determinants up to 3×3.",
+    },
+    {
+      label: "Continuity and differentiability",
+      limits:
+        "Continuous functions, algebra of continuous functions; differentiability at a point; chain rule; implicit differentiation; derivatives of parametric functions; second-order derivatives; Rolle's theorem and MVT (statements + applications). NOT ε-δ proofs.",
+    },
+    {
+      label: "Applications of derivatives",
+      limits:
+        "Rate of change, increasing/decreasing functions (sign of f'); tangent and normal; maxima/minima (first and second derivative tests); approximation using differentials. NOT calculus of variations.",
+    },
+    {
+      label: "Integrals (indefinite and definite)",
+      limits:
+        "Standard integrals; substitution; integration by parts (∫uv dx = u∫v dx – ∫(u'∫v dx)dx); partial fractions (linear and quadratic factors); definite integral (FTC); properties (∫ₐᵇ f = ∫ₐᵇ f(a+b-x)). NOT improper integrals in depth.",
+    },
+    {
+      label: "Applications of integrals",
+      limits:
+        "Area under a curve (between curve and x/y axis); area between two curves. Only standard regions from NCERT examples; NOT surface area or volumes of revolution.",
+    },
+    {
+      label: "Differential equations",
+      limits:
+        "Order, degree; solutions (general and particular); variable separable; homogeneous DE (y = vx substitution); linear 1st order (integrating factor μ = e^∫P dx). NOT 2nd order DE.",
+    },
+    {
+      label: "Vector algebra",
+      limits:
+        "Types of vectors; addition, scalar multiplication, position vectors; dot product (angle, projection); cross product (area of parallelogram/triangle); scalar triple product. In component form and geometrically.",
+    },
+    {
+      label: "Three-dimensional geometry",
+      limits:
+        "Direction cosines and ratios; equation of a line (vector and Cartesian forms); angle between lines; equation of a plane (normal and intercept forms); distance of a point from a plane; angle between line and plane. NOT curved surfaces in 3D.",
+    },
+    {
+      label: "Linear programming",
+      limits:
+        "Feasible region, corner-point method; maximise/minimise a linear objective function subject to linear constraints. 2D problems only; graphical method. NOT simplex algorithm.",
+    },
+    {
+      label: "Probability (Bayes' theorem)",
+      limits:
+        "Conditional probability; multiplication rule; independent events; Bayes' theorem; random variable (discrete), expected value, variance; Bernoulli trials; binomial distribution B(n,p). NOT normal or Poisson distributions in NCERT Class 12 standard.",
+    },
+  ],
+  // Fallback: PCB stream has no math at Class 12 standard level.
   "IN_math_Class 12": [
     "Relations and functions",
     "Inverse trigonometric functions",
@@ -2029,33 +2099,133 @@ const TOPICS: Record<string, Topic[]> = {
     "Probability (Bayes' theorem)",
   ],
   "IN_physics_Class 12": [
-    "Electrostatics, Gauss's law",
-    "Capacitance",
-    "Current electricity",
-    "Magnetic effects of current",
-    "Electromagnetic induction",
-    "Alternating current",
-    "Electromagnetic waves",
-    "Ray optics, optical instruments",
-    "Wave optics, interference, diffraction",
-    "Dual nature of matter and radiation",
-    "Atoms (Bohr model)",
-    "Nuclei",
-    "Semiconductor electronics",
+    {
+      label: "Electrostatics and Gauss's law",
+      limits:
+        "Coulomb's law (in vector form), electric field lines, flux, Gauss's theorem (symmetric charge distributions: sphere, cylinder, plane); electric potential V, potential energy, work done; equipotential surfaces. NOT multipole expansion.",
+    },
+    {
+      label: "Capacitance and dielectrics",
+      limits:
+        "Capacitor: parallel plate, spherical, cylindrical; capacitance C = Q/V; energy U = ½CV²; combinations in series/parallel; dielectric (polarisation, dielectric constant, effect on C). NOT RC circuit transients here.",
+    },
+    {
+      label: "Current electricity",
+      limits:
+        "Ohm's law, resistivity, temperature dependence; Kirchhoff's laws; Wheatstone bridge; meter bridge (potentiometer); internal resistance of a cell. NOT AC circuits in this chapter.",
+    },
+    {
+      label: "Magnetic effects of current",
+      limits:
+        "Biot-Savart law (circular loop, solenoid, toroid) ; Ampere's circuital law ; force on a current-carrying conductor in B ; torque on a current loop (galvanometer) ; moving coil galvanometer, ammeter, voltmeter. NOT Hall effect.",
+    },
+    {
+      label: "Electromagnetic induction",
+      limits:
+        "Faraday's law, Lenz's law ; motional EMF ε = Bvl ; mutual and self-inductance (L = NΦ/I) ; energy stored in an inductor E = ½LI². NOT eddy currents in depth.",
+    },
+    {
+      label: "Alternating current",
+      limits:
+        "AC voltage, rms values ; resistors, inductors and capacitors in AC ; phasors ; series LCR circuit, resonance (ω₀ = 1/√LC), Q-factor ; power in AC circuits (P = V_rms I_rms cos φ) ; transformer (ideal).",
+    },
+    {
+      label: "Electromagnetic waves",
+      limits:
+        "Displacement current, Maxwell's equations (qualitative) ; EM spectrum (wavelengths and uses) ; energy density of EM waves ; speed of EM waves c = 1/√(ε₀μ₀). NOT derivation of wave equation.",
+    },
+    {
+      label: "Ray optics and optical instruments",
+      limits:
+        "Reflection (mirror formula), refraction (Snell, critical angle, TIR) ; lens maker's equation, thin lens formula ; combination of lenses and mirrors ; power of lens ; microscope and telescope (magnification). NOT wave optics here.",
+    },
+    {
+      label: "Wave optics",
+      limits:
+        "Huygens' principle ; Young's double slit (fringe width β = λD/d) ; coherence ; single-slit diffraction (minima: a sin θ = mλ) ; resolving power (Rayleigh criterion). NOT diffraction grating formula in NCERT standard.",
+    },
+    {
+      label: "Dual nature of matter and radiation",
+      limits:
+        "Photoelectric effect (work function W₀, threshold frequency, stopping potential eV₀ = hf - W₀) ; Einstein's photon theory ; De Broglie wavelength λ = h/p ; Davisson-Germer experiment. NOT Compton effect in NCERT Class 12.",
+    },
+    {
+      label: "Atoms — Bohr model",
+      limits:
+        "Rutherford model, Bohr postulates ; energy levels En = -13.6/n² eV ; spectral lines (Lyman, Balmer, Paschen series) ; ionisation and excitation energy. NOT quantum mechanical model.",
+    },
+    {
+      label: "Nuclei",
+      limits:
+        "Nuclear radius (R = R₀A^(1/3)), binding energy, B/A curve ; Q-value of a reaction ; radioactive decay (α, β, γ) ; law N(t) = N₀e^(-λt), half-life ; nuclear fission and fusion (Q-values). NOT detailed nuclear models.",
+    },
+    {
+      label: "Semiconductor electronics",
+      limits:
+        "p-type, n-type semiconductors ; p-n junction diode (IV characteristic, forward/reverse bias) ; half-wave and full-wave rectification ; Zener diode (voltage regulator) ; transistor (NPN, CE config, amplifier action, α and β) ; logic gates (AND, OR, NOT, NAND, NOR, XOR). NOT MOSFETs.",
+    },
   ],
   "IN_chemistry_Class 12": [
-    "Solid state",
-    "Solutions and colligative properties",
-    "Electrochemistry",
-    "Chemical kinetics",
-    "Surface chemistry",
-    "p-block, d-block, f-block elements",
-    "Coordination compounds",
-    "Haloalkanes and haloarenes (SN1/SN2)",
-    "Alcohols, phenols, ethers",
-    "Aldehydes, ketones, carboxylic acids",
-    "Amines",
-    "Biomolecules, polymers",
+    {
+      label: "Solid state",
+      limits:
+        "Crystal lattices and unit cells (cubic: SC, BCC, FCC) ; packing efficiency ; point defects (Schottky, Frenkel, interstitial) ; electrical and magnetic properties of solids. NOT advanced group theory of crystals.",
+    },
+    {
+      label: "Solutions and colligative properties",
+      limits:
+        "Henry's law ; Raoult's law (vapour pressure lowering) ; colligative properties: elevation of boiling point, depression of freezing point, osmotic pressure ; van't Hoff factor i for electrolytes. NOT activity coefficients.",
+    },
+    {
+      label: "Electrochemistry",
+      limits:
+        "Galvanic cell, SHE, Nernst equation E = E° - (RT/nF)ln Q ; standard electrode potentials ; electrolysis, Faraday's laws ; conductance (molar and specific), Kohlrausch's law.",
+    },
+    {
+      label: "Chemical kinetics",
+      limits:
+        "Rate law, order, rate constant k ; integrated rate equations (zero, first, second order) ; half-life ; Arrhenius equation k = Ae^(-Ea/RT), activation energy from graph ; collision theory (qualitative).",
+    },
+    {
+      label: "Surface chemistry",
+      limits:
+        "Adsorption (physisorption vs chemisorption, Freundlich isotherm) ; colloids (types, Tyndall effect, Brownian motion, coagulation) ; emulsions. NOT detailed BET theory.",
+    },
+    {
+      label: "p-block elements (Group 15–18)",
+      limits:
+        "Group 15 (N, P — allotropy, hybridisation in compounds, oxoacids) ; Group 16 (O, S) ; Group 17 (halogens, interhalogen) ; Group 18 (noble gases, compounds of Xe). Properties and trends.",
+    },
+    {
+      label: "d- and f-block elements and coordination compounds",
+      limits:
+        "Transition metals: electronic configuration, color, magnetic behavior, oxidation states ; inner transition (lanthanoids, actinoids) ; coordination compounds: nomenclature, isomerism (geometrical, optical), VBT and CFT (basic). Werner's theory.",
+    },
+    {
+      label: "Haloalkanes and haloarenes",
+      limits:
+        "Nomenclature, nature of C–X bond ; nucleophilic substitution (SN1 and SN2 mechanisms, stereochemistry) ; elimination (E2 basics) ; Grignard reagent (concept). NOT radical reactions.",
+    },
+    {
+      label: "Alcohols, phenols, and ethers",
+      limits:
+        "Classification, nomenclature ; acidity of alcohols and phenols ; oxidation reactions (primary → aldehyde → acid) ; reactions of phenol (electrophilic aromatic substitution) ; ether preparation (Williamson synthesis).",
+    },
+    {
+      label: "Aldehydes, ketones, and carboxylic acids",
+      limits:
+        "Preparation, nucleophilic addition (Grignard, CN⁻, HCN, LiAlH₄ concept) ; aldol condensation ; Cannizzaro reaction ; carboxylic acid derivatives (acyl chlorides, esters, amides) ; HVZ reaction. NOT multistep synthesis problems.",
+    },
+    {
+      label: "Amines",
+      limits:
+        "Classification (1°, 2°, 3°, quaternary) ; basicity, salt formation ; diazotisation of primary amines ; coupling reaction (azo dye). NOT complex heterocyclic amine synthesis.",
+    },
+    {
+      label: "Biomolecules and polymers",
+      limits:
+        "Carbohydrates (mono-, di-, polysaccharides ; reducing vs non-reducing sugars ; Fischer projections concept) ; proteins (amino acids, peptide bond, denaturation) ; nucleic acids (DNA/RNA structure, Watson-Crick) ; polymers (addition, condensation, natural and synthetic). NOT detailed biochemical pathways.",
+    },
   ],
   "IN_informatics_Class 12": [
     "Python programming review",
