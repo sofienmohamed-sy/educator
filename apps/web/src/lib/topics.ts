@@ -1177,6 +1177,73 @@ const TOPICS: Record<string, Topic[]> = {
     "Thermodynamics (ΔG, ΔS, spontaneity)",
     "Electrochemistry, standard potentials",
   ],
+  // AP Computer Science A — Java-based, official College Board curriculum.
+  // The CS Principles course (less coding) is NOT mapped here.
+  "US_informatics_Grade 12 (AP)_AP track": [
+    {
+      label: "Java syntax and primitive types",
+      limits:
+        "int, double, boolean, char, String (immutable reference type); arithmetic, compound assignment (+=, *=); casting between numeric types; integer overflow (notion). NOT byte, short, long, float as separate study topics.",
+    },
+    {
+      label: "Control structures",
+      limits:
+        "if/else, while, for, enhanced for-each loops; nested loops; short-circuit evaluation of && and ||; De Morgan's laws applied to boolean conditions. NOT switch statements (not on AP CS A exam).",
+    },
+    {
+      label: "Classes and objects (OOP)",
+      limits:
+        "Class, instance variable, method (instance vs static), constructor, this reference; access modifiers public/private (NOT protected, NOT package-private on the AP exam); accessor and mutator methods (getters/setters).",
+    },
+    {
+      label: "Inheritance and polymorphism",
+      limits:
+        "extends keyword, super for parent constructor and methods; method overriding (not overloading at the same level), polymorphism via parent reference to child object; abstract classes. NOT interfaces beyond Comparable<T>; NOT generics beyond ArrayList<T>.",
+    },
+    {
+      label: "Strings and the String class",
+      limits:
+        "Methods on AP subset: length(), substring(int)/substring(int,int), indexOf(String), equals, compareTo, concat (and +); String immutability; NOT StringBuilder/StringBuffer.",
+    },
+    {
+      label: "Arrays (1D)",
+      limits:
+        "Declaration, instantiation with new int[size], length attribute (not method); traversal with indexed for-loop and enhanced for-loop; common patterns: find min/max, count, search. Arrays are objects in Java (reference semantics).",
+    },
+    {
+      label: "Two-dimensional arrays",
+      limits:
+        "Declared as int[][]; row-major traversal with nested loops; arr[r][c], arr.length (rows), arr[0].length (cols). Sometimes called matrices. NOT jagged arrays in detail.",
+    },
+    {
+      label: "ArrayList<T>",
+      limits:
+        "On the AP subset: add(E), add(int, E), get(int), set(int, E), remove(int), size(), isEmpty() ; autoboxing of primitives (int ↔ Integer); iterating with for-each. NOT Iterator<T> directly, NOT List<T> interface separately.",
+    },
+    {
+      label: "Recursion",
+      limits:
+        "Base case and recursive case; recursion on numbers (factorial, Fibonacci with note on inefficiency), strings, arrays, ArrayLists; binary search recursive implementation. NOT mutual recursion, NOT memoization on the exam.",
+    },
+    {
+      label: "Searching algorithms",
+      limits:
+        "Linear search (O(n)) on any array/list; binary search (O(log n)) on a SORTED array, both iterative and recursive forms. NOT hash-based lookup.",
+    },
+    {
+      label: "Sorting algorithms",
+      limits:
+        "Selection sort, insertion sort, merge sort (with array-based partition); trace through executions ; complexity intuition (selection/insertion O(n²), merge O(n log n)). NOT quicksort, NOT heap sort on the AP exam.",
+    },
+    {
+      label: "Algorithm analysis (informal)",
+      limits:
+        "Counting statements/comparisons in a loop or nested loop; informal Big-O for O(1), O(n), O(n²), O(log n), O(n log n) by recognition. NOT Master Theorem, NOT formal Big-O proofs.",
+    },
+  ],
+
+  // Generic fallback for the previous flat list — preserved for sessions
+  // without an explicit track selection.
   "US_informatics_Grade 12 (AP)": [
     "Java syntax and primitive types",
     "Classes and objects (OOP)",
