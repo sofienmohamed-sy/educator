@@ -3778,43 +3778,168 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── AUSTRALIA ──────────────────────────────────────────────────────────────
+  // Year 12 ATAR — Australian Curriculum Senior Secondary (ACARA) with state
+  // adaptations (NSW, VIC, QLD, WA, SA). Three maths streams sit alongside
+  // each other: Mathematics Advanced (Methods), Mathematics Specialist, and
+  // Mathematics General (Standard/Essential). Some topics are Specialist-only
+  // and explicitly marked. Physics, chemistry, informatics follow ACARA.
   "AU_math_Year 12 (ATAR)": [
-    "Functions and graphs",
-    "Trigonometric functions and identities",
-    "Differential calculus",
-    "Integral calculus",
-    "Differential equations (Specialist)",
-    "Vectors in 2D and 3D",
-    "Complex numbers (Specialist)",
-    "Proof techniques (Specialist)",
-    "Probability distributions (binomial, normal)",
-    "Statistical inference",
+    {
+      label: "Functions and graphs",
+      limits:
+        "Domain and range; polynomial functions (factor, remainder theorems); rational functions (asymptotes); exponential a^x, e^x and logarithmic ln x, log_a x functions; transformations (translation, dilation, reflection); inverse functions; piecewise functions. Mathematics Advanced (Methods) scope.",
+    },
+    {
+      label: "Trigonometric functions and identities",
+      limits:
+        "Radian measure; unit circle definitions; graphs of sin, cos, tan with period, amplitude, phase shift; reciprocal trig functions (Specialist only); Pythagorean identities sin²+cos²=1; sum/difference and double-angle identities (Specialist); solving trigonometric equations on [0, 2π]; small-angle approximations (Specialist).",
+    },
+    {
+      label: "Differential calculus",
+      limits:
+        "Definition of derivative as a limit; rules: power, product, quotient, chain; derivatives of polynomial, exponential, logarithmic, trigonometric (sin, cos, tan), inverse trig (Specialist), and hyperbolic (some Specialist syllabi); implicit differentiation (Specialist); applications (rates of change, related rates, optimization, kinematics).",
+    },
+    {
+      label: "Integral calculus",
+      limits:
+        "Antiderivatives of polynomials, e^x, 1/x, sin x, cos x, sec²x; substitution u = g(x) (Methods, basic); integration by parts (Specialist); partial fractions (Specialist); fundamental theorem of calculus; definite integrals; areas between curves; volumes of revolution about x or y axis (Specialist). NO improper integrals at Year 12.",
+    },
+    {
+      label: "Differential equations (Specialist)",
+      limits:
+        "Separable first-order ODEs dy/dx = f(x)g(y); first-order linear with integrating factor (some syllabi); applications (population growth, Newton's law of cooling, mechanics with v dv/dx); slope fields (qualitative). Specialist Mathematics ONLY — not in Methods or General.",
+    },
+    {
+      label: "Vectors in 2D and 3D",
+      limits:
+        "Cartesian and component form; magnitude; unit vectors; vector addition, subtraction, scalar multiplication; dot product u·v = |u||v|cosθ; cross product u×v (Specialist 3D); scalar projection; vector and parametric equations of a line; vector equation of a plane (Specialist); position and displacement vectors in mechanics. Specialist Mathematics for cross product and 3D planes.",
+    },
+    {
+      label: "Complex numbers (Specialist)",
+      limits:
+        "Cartesian form z = a + bi; conjugate, modulus |z|, argument arg(z); Argand diagram; polar/exponential form z = r·e^(iθ); De Moivre's theorem (cosθ + i sinθ)^n = cos(nθ) + i sin(nθ); roots of complex numbers (n-th roots of unity); fundamental theorem of algebra; loci on the Argand plane. Specialist Mathematics ONLY.",
+    },
+    {
+      label: "Proof techniques (Specialist)",
+      limits:
+        "Direct proof; proof by contrapositive; proof by contradiction (e.g. irrationality of √2); proof by mathematical induction (sums of series, divisibility, inequalities); deductive geometry proofs; counterexamples. Specialist Mathematics ONLY — Methods and General do not require formal proofs.",
+    },
+    {
+      label: "Probability distributions (binomial, normal)",
+      limits:
+        "Discrete random variables: probability distribution, expected value E(X), variance Var(X); binomial distribution B(n, p) with mean np, variance np(1-p); continuous random variables: probability density functions; normal distribution N(μ, σ²) with z-scores and table lookup; central limit theorem (Methods/Specialist).",
+    },
+    {
+      label: "Statistical inference",
+      limits:
+        "Sample proportions and means (sampling distribution); confidence intervals for population proportion (Methods) and population mean using normal/t-distribution (Specialist some syllabi); margin of error; sample size calculations. NO formal hypothesis testing in most state syllabi at Year 12 (varies by state).",
+    },
   ],
   "AU_physics_Year 12 (ATAR)": [
-    "Projectile and circular motion",
-    "Gravitation and orbits",
-    "Special relativity",
-    "Electric and magnetic fields",
-    "Electromagnetic induction",
-    "Light and quantum theory",
-    "Atomic and nuclear physics",
-    "Particle physics (introduction)",
+    {
+      label: "Projectile and circular motion",
+      limits:
+        "2D projectile motion (range, max height, time of flight; resolved into horizontal and vertical components); uniform circular motion (period T, frequency f, angular velocity ω, centripetal acceleration a = v²/r = ω²r); banked curves; conical pendulum. ACARA Unit 3 scope.",
+    },
+    {
+      label: "Gravitation and orbits",
+      limits:
+        "Newton's law of universal gravitation F = GMm/r² (G = 6.67×10⁻¹¹); gravitational field strength g = GM/r²; Kepler's three laws (third: T² ∝ r³); orbital velocity v = √(GM/r); satellite motion (low-Earth orbit, geostationary); escape velocity v_esc = √(2GM/r); gravitational potential energy U = -GMm/r.",
+    },
+    {
+      label: "Special relativity",
+      limits:
+        "Frames of reference; Einstein's two postulates (constancy of c, principle of relativity); time dilation Δt = γΔt₀; length contraction L = L₀/γ; relativistic momentum p = γmv; mass-energy equivalence E = mc² (rest energy E₀ = mc²); experimental evidence (muon decay, particle accelerators). NO general relativity (mentioned only).",
+    },
+    {
+      label: "Electric and magnetic fields",
+      limits:
+        "Coulomb's law F = kq₁q₂/r²; electric field E = F/q (point charge E = kQ/r²); uniform field between parallel plates E = V/d; electric potential energy and potential difference; magnetic field B; force on a moving charge F = qvB sinθ (right-hand rule); force on a current-carrying wire F = BIL sinθ; magnetic field of solenoid B = μ₀nI. NO Gauss's law or Ampère's law in formal vector form.",
+    },
+    {
+      label: "Electromagnetic induction",
+      limits:
+        "Magnetic flux Φ = BA cosθ; Faraday's law ε = -dΦ/dt (or ε = -N·dΦ/dt for N turns); Lenz's law; induced EMF in moving conductors; AC generators (sinusoidal output); transformers (V_p/V_s = N_p/N_s, ideal); RMS values for AC; power transmission and step-up/step-down transformers. NO LC oscillation circuits in detail.",
+    },
+    {
+      label: "Light and quantum theory",
+      limits:
+        "Wave nature of light: Young's double-slit experiment (fringe spacing d sinθ = nλ); diffraction grating; thin-film interference (qualitative); blackbody radiation curves and Wien's law λ_max·T = b; photoelectric effect: hf = W₀ + ½mv²_max, Einstein's photon model; wave-particle duality; de Broglie wavelength λ = h/p.",
+    },
+    {
+      label: "Atomic and nuclear physics",
+      limits:
+        "Bohr model of hydrogen (E_n = -13.6/n² eV; transitions and emission/absorption spectra: Lyman, Balmer, Paschen series); nuclear structure (Z, A, isotopes); strong nuclear force; radioactive decay (α, β⁻, β⁺, γ) with balanced equations; decay law N(t) = N₀e^(-λt), half-life T_½ = ln(2)/λ; binding energy and mass defect E = Δmc²; binding energy per nucleon curve; fission and fusion.",
+    },
+    {
+      label: "Particle physics (introduction)",
+      limits:
+        "Standard Model: quarks (up, down, charm, strange, top, bottom), leptons (electron, muon, tau, neutrinos), gauge bosons (photon, W, Z, gluon, Higgs); fundamental forces (electromagnetic, strong, weak, gravity); particle classification (hadrons: baryons, mesons; leptons); antimatter; conservation laws (charge, baryon number, lepton number). NO QCD calculations or Feynman diagrams beyond schematic level.",
+    },
   ],
   "AU_chemistry_Year 12 (ATAR)": [
-    "Reaction rates and equilibrium",
-    "Acids and bases, pH",
-    "Redox and electrochemistry",
-    "Organic chemistry and mechanisms",
-    "Polymers and synthesis",
-    "Analytical techniques (chromatography, spectroscopy)",
+    {
+      label: "Reaction rates and equilibrium",
+      limits:
+        "Factors affecting rate (concentration, temperature, surface area, catalyst); collision theory and activation energy E_a; Maxwell-Boltzmann distribution (qualitative); Arrhenius equation k = Ae^(-E_a/RT) (qualitative for ATAR Chemistry); dynamic equilibrium; equilibrium constant K_c (and K_p for gases — some states); reaction quotient Q; Le Chatelier's principle. ACARA Unit 3 scope.",
+    },
+    {
+      label: "Acids and bases, pH",
+      limits:
+        "Brønsted-Lowry theory; conjugate acid-base pairs; pH = -log[H⁺]; pOH; K_w = 10⁻¹⁴ at 25°C; strong vs weak acids/bases; K_a, K_b, pK_a, pK_b; calculations of pH for strong and weak monoprotic acids/bases; buffer solutions (qualitative and Henderson-Hasselbalch); acid-base titrations (curves, indicator selection, equivalence point).",
+    },
+    {
+      label: "Redox and electrochemistry",
+      limits:
+        "Oxidation states; balancing redox half-equations (acidic and basic conditions); galvanic (voltaic) cells: anode/cathode, salt bridge, cell notation; standard reduction potentials E° from data sheet; cell potential E°_cell = E°_cathode - E°_anode; spontaneity; electrolytic cells (electrolysis of molten salts, aqueous solutions); Faraday's laws m = MIt/(nF); applications (corrosion, batteries, fuel cells). NO Nernst equation.",
+    },
+    {
+      label: "Organic chemistry and mechanisms",
+      limits:
+        "Functional groups: alkanes, alkenes, alkynes, alcohols, aldehydes, ketones, carboxylic acids, esters, amines, amides, haloalkanes; IUPAC nomenclature; reactions: substitution (free-radical halogenation in alkanes; SN1/SN2 in haloalkanes — some states), addition (alkenes: hydrogenation, halogenation, hydration with Markovnikov), oxidation (alcohols → aldehydes/ketones/acids; using K₂Cr₂O₇ or KMnO₄), esterification, hydrolysis. Stereochemistry: structural isomers, cis/trans, optical isomers (chirality).",
+    },
+    {
+      label: "Polymers and synthesis",
+      limits:
+        "Addition polymers (polyethylene, PVC, polystyrene, Teflon — monomer to polymer); condensation polymers (polyesters: PET; polyamides: nylon-6,6; with formation of small molecule by-product); biopolymers: amino acids and proteins (peptide bond, primary structure), carbohydrates (mono-, di-, polysaccharides, glycosidic bond), triglycerides (ester linkage); multi-step synthesis (designing routes from given starting materials).",
+    },
+    {
+      label: "Analytical techniques (chromatography, spectroscopy)",
+      limits:
+        "Chromatography: TLC (thin-layer), column, paper, gas chromatography (GC), HPLC (qualitative principles, R_f values); mass spectrometry (M+ peak, fragmentation patterns, isotope patterns); IR spectroscopy (key absorption bands: O-H 3200-3500, C=O 1700, N-H 3300-3500, C-H 2900); ¹H NMR (chemical shift, integration, n+1 splitting); UV-Vis spectroscopy (qualitative); structural elucidation by combined techniques.",
+    },
   ],
   "AU_informatics_Year 12 (ATAR)": [
-    "Programming in Python",
-    "Algorithms and complexity (Big-O — VIC Algorithmics)",
-    "Data structures",
-    "Databases and SQL",
-    "Networking and security",
-    "Software development project",
+    {
+      label: "Programming in Python",
+      limits:
+        "Variables, data types (int, float, str, bool, list, dict, tuple, set); control structures (if/elif/else, for, while); functions with parameters and return values; scope (local, global); modular design; exception handling (try/except); file I/O; libraries (collections, math, random — basic). State syllabi vary; some VCE/HSC accept other languages but Python is dominant.",
+    },
+    {
+      label: "Algorithms and complexity (Big-O — VIC Algorithmics)",
+      limits:
+        "Algorithm design (top-down decomposition, pseudocode); searching (linear O(n), binary O(log n)); sorting (bubble, selection, insertion O(n²); merge, quicksort O(n log n)); recursion vs iteration; Big-O notation: O(1), O(log n), O(n), O(n log n), O(n²), O(2ⁿ); time and space complexity comparison. VIC Algorithmics goes deepest; other states cover lighter Big-O.",
+    },
+    {
+      label: "Data structures",
+      limits:
+        "Arrays/lists (1D and 2D); stacks (LIFO); queues (FIFO); linked lists (singly); dictionaries/hash tables (hashing, collision); binary trees and traversal (pre-, in-, post-order); binary search trees; basic graphs (adjacency list/matrix). NO red-black trees, AVL trees, or B-trees.",
+    },
+    {
+      label: "Databases and SQL",
+      limits:
+        "Relational data model: tables, rows, columns, primary keys, foreign keys; entity-relationship diagrams (ER); normalisation to 1NF, 2NF, 3NF (introductory); SQL (SELECT, FROM, WHERE, ORDER BY, GROUP BY, HAVING, INNER JOIN); CRUD operations; transactions (ACID concept). NO stored procedures, triggers, or complex query optimization.",
+    },
+    {
+      label: "Networking and security",
+      limits:
+        "OSI 7-layer model and TCP/IP 4-layer model; IP addressing (IPv4, subnet basics); DNS; HTTP/HTTPS; client-server architecture; encryption (symmetric: AES; asymmetric: RSA — concepts); digital signatures and certificates; threats (malware, phishing, DDoS); defenses (firewalls, intrusion detection, secure password hashing — bcrypt). NO BGP routing protocols.",
+    },
+    {
+      label: "Software development project",
+      limits:
+        "Software development lifecycle (SDLC): requirements gathering, design (UML class diagrams, use-case diagrams, flowcharts), implementation, testing (unit, integration, user acceptance), deployment, maintenance; agile vs waterfall methodologies; version control with Git (commit, branch, merge); documentation; ethics (privacy, accessibility, intellectual property, sustainability of software).",
+    },
   ],
 };
 
