@@ -171,6 +171,224 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── TUNISIA ────────────────────────────────────────────────────────────────
+  // Section Mathématiques (SM) — programme le plus complet, seul à inclure
+  // similitudes et structures algébriques.
+  "TN_math_4ème (Bac)_Mathématiques": [
+    {
+      label: "Suites numériques",
+      limits:
+        "Convergence, limite, monotonie, suites majorées/minorées ; suites définies par récurrence à 1 ET 2 termes ; suites adjacentes. PAS le critère de Cauchy.",
+    },
+    {
+      label: "Limites et continuité",
+      limits:
+        "Limites en un point et à l'infini, formes indéterminées, limites comparées (lim x→+∞ e^x/x^n et ln x/x^n) ; théorème des gendarmes ; TVI et corollaire ; prolongement par continuité.",
+    },
+    {
+      label: "Dérivabilité",
+      limits:
+        "Nombre dérivé, dérivées composées, dérivée d'une bijection réciproque ; théorème de Rolle, théorème des accroissements finis (TAF) ; convexité et points d'inflexion. Section Mathématiques uniquement pour Rolle/TAF.",
+    },
+    {
+      label: "Fonctions logarithme et exponentielle",
+      limits:
+        "ln x et e^x : définitions, propriétés, dérivées, primitives ; études de fonctions associées ; équations et inéquations.",
+    },
+    {
+      label: "Calcul intégral et primitives",
+      limits:
+        "Primitives usuelles ; intégrale de Riemann, propriétés ; intégration par parties ET changement de variable ; valeur moyenne ; calcul d'aires, longueurs et volumes de révolution.",
+    },
+    {
+      label: "Équations différentielles",
+      limits:
+        "1er ordre linéaire (y' + ay = f, avec f constante, polynôme ou exponentielle) ; 2e ordre à coefficients constants (ay'' + by' + cy = 0) ; PAS les systèmes ED, PAS Wronskien.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "Formes algébrique, trigonométrique ET exponentielle (formules d'Euler et de Moivre) ; racines nèmes de l'unité ; résolution dans ℂ ; interprétation géométrique dans le plan complexe.",
+    },
+    {
+      label: "Isométries et similitudes",
+      limits:
+        "Isométries planes (translations, rotations, réflexions, symétries glissées) ; similitudes directes ET indirectes (centre, rapport, angle) ; composition ; applications aux polygones réguliers. Section Mathématiques uniquement.",
+    },
+    {
+      label: "Dénombrement et probabilités",
+      limits:
+        "Arrangements, combinaisons, formule du binôme ; variables aléatoires discrètes, espérance, variance, écart-type ; loi binomiale. PAS la loi normale ni la loi de Poisson en SM.",
+    },
+    {
+      label: "Arithmétique dans ℤ",
+      limits:
+        "Divisibilité, division euclidienne, PGCD (algorithme d'Euclide étendu) ; identité de Bézout, lemme de Gauss ; congruences modulo n ; critères de divisibilité. PAS le petit théorème de Fermat (hors programme TN).",
+    },
+    {
+      label: "Structures algébriques",
+      limits:
+        "Lois de composition internes ; groupe (axiomes, sous-groupes, groupes cycliques) ; anneau (ℤ, ℤ/nℤ) ; corps (ℚ, ℝ, ℂ, ℤ/pℤ pour p premier) ; morphismes. Section Mathématiques EXCLUSIVEMENT.",
+    },
+  ],
+
+  // Section Sciences expérimentales (SE) — programme allégé : pas de
+  // similitudes, pas de forme exponentielle, pas d'arithmétique formelle.
+  "TN_math_4ème (Bac)_Sciences expérimentales": [
+    {
+      label: "Suites numériques",
+      limits:
+        "Convergence, limites, monotonie ; suites définies par récurrence simple (un seul terme précédent). PAS les suites à 2 termes, PAS les suites adjacentes.",
+    },
+    {
+      label: "Limites et continuité",
+      limits:
+        "Limites usuelles, formes indéterminées de base, limites comparées simples ; TVI (énoncé et application). PAS le prolongement par continuité formel.",
+    },
+    {
+      label: "Dérivabilité",
+      limits:
+        "Nombre dérivé, équation de tangente, tableau de variations, dérivées des fonctions usuelles. PAS le théorème de Rolle, PAS le théorème des accroissements finis.",
+    },
+    {
+      label: "Fonctions logarithme et exponentielle",
+      limits:
+        "ln x et e^x : propriétés, dérivées, primitives élémentaires, étude graphique. Approche moins technique qu'en section Mathématiques.",
+    },
+    {
+      label: "Calcul intégral et primitives",
+      limits:
+        "Primitives usuelles, intégrale de Riemann, valeur moyenne, calcul d'aires simples. PAS l'intégration par parties, PAS le changement de variable.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "Formes algébrique et trigonométrique UNIQUEMENT ; module, argument, conjugué ; résolution du second degré dans ℂ. PAS la forme exponentielle (Euler), PAS les racines nèmes de l'unité.",
+    },
+    {
+      label: "Géométrie dans l'espace",
+      limits:
+        "Vecteurs, équations de plans et droites, orthogonalité, positions relatives ; isométries simples (translations, symétries planes/centrales). PAS de similitudes (réservées à la section Mathématiques).",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Probabilités conditionnelles, indépendance, formule de Bayes ; variables aléatoires discrètes, espérance, variance ; loi binomiale. PAS la loi normale, PAS de dénombrement avancé.",
+    },
+  ],
+
+  // Section Informatique (SI) — math allégée comme SE, mais avec une
+  // arithmétique solide pour la cryptographie ; pas de similitudes ni d'ED.
+  "TN_math_4ème (Bac)_Informatique": [
+    {
+      label: "Suites numériques",
+      limits:
+        "Convergence, limites, suites récurrentes simples ; applications algorithmiques (étude de complexité). PAS les suites à 2 termes.",
+    },
+    {
+      label: "Limites et continuité",
+      limits: "Limites usuelles, continuité, TVI ; sans technicité avancée.",
+    },
+    {
+      label: "Dérivabilité",
+      limits:
+        "Dérivées, tableau de variations ; PAS Rolle ni TAF.",
+    },
+    {
+      label: "Fonctions logarithme et exponentielle",
+      limits: "ln x et e^x : propriétés, dérivées, primitives basiques.",
+    },
+    {
+      label: "Calcul intégral et primitives",
+      limits:
+        "Primitives usuelles, intégrale de Riemann ; PAS intégration par parties.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "Formes algébrique et trigonométrique ; opérations, module, argument. PAS la forme exponentielle.",
+    },
+    {
+      label: "Dénombrement",
+      limits:
+        "Arrangements, combinaisons, formule du binôme ; applications à l'analyse de complexité d'algorithmes.",
+    },
+    {
+      label: "Arithmétique dans ℤ",
+      limits:
+        "Divisibilité, PGCD (algo d'Euclide ET Euclide étendu), Bézout, lemme de Gauss, congruences modulo n ; applications cryptographiques (notion de RSA). PAS Fermat.",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Probabilités conditionnelles, variables aléatoires discrètes, espérance, variance, loi binomiale.",
+    },
+  ],
+
+  // Section Technique (ST) — math appliquée à la technique ; pas de
+  // nombres complexes avancés, pas d'arithmétique formelle.
+  "TN_math_4ème (Bac)_Technique": [
+    {
+      label: "Fonctions et dérivées",
+      limits:
+        "Limites simples, continuité informelle, dérivée et étude de variations ; applications techniques (optimisation simple, taux de variation).",
+    },
+    {
+      label: "Suites numériques",
+      limits:
+        "Suites arithmétiques et géométriques (raison, terme général, somme) ; applications pratiques. PAS les suites définies par récurrence générale.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives usuelles, intégrale comme aire ; PAS intégration par parties, PAS changement de variable.",
+    },
+    {
+      label: "Logarithme et exponentielle",
+      limits:
+        "ln x et e^x : propriétés et dérivées de base ; applications techniques.",
+    },
+    {
+      label: "Probabilités",
+      limits: "Loi binomiale, espérance, variance ; sans dénombrement avancé.",
+    },
+    {
+      label: "Statistiques",
+      limits:
+        "Séries statistiques à une et deux variables, indices, ajustement linéaire (régression).",
+    },
+  ],
+
+  // Section Économie & Gestion (SEG) — accent sur applications financières
+  // et statistiques ; pas de nombres complexes, pas d'arithmétique.
+  "TN_math_4ème (Bac)_Économie & Gestion": [
+    {
+      label: "Fonctions numériques",
+      limits:
+        "Dérivée, étude de variations, extremums ; applications économiques : élasticité, coût marginal, recettes. PAS les théorèmes de Rolle/TAF.",
+    },
+    {
+      label: "Suites numériques (applications financières)",
+      limits:
+        "Suites arithmétiques et géométriques ; intérêts simples et composés, valeur acquise et valeur actuelle, annuités constantes, amortissements.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives usuelles, intégrale et aire ; surplus du consommateur/producteur. Sans technique d'intégration avancée.",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Probabilités conditionnelles, formule de Bayes ; variables aléatoires discrètes, espérance, variance, loi binomiale.",
+    },
+    {
+      label: "Statistiques à deux variables",
+      limits:
+        "Régression linéaire (méthode des moindres carrés), coefficient de corrélation ; séries chronologiques, indices simples et synthétiques, taux de variation.",
+    },
+  ],
+
+  // Fallback générique TN math (utilisé si aucune section n'est précisée).
   "TN_math_4ème (Bac)": [
     "Suites numériques",
     "Limites et continuité",
@@ -178,45 +396,168 @@ const TOPICS: Record<string, Topic[]> = {
     "Fonction logarithme népérien",
     "Fonction exponentielle",
     "Calcul intégral et primitives",
-    "Équations différentielles",
+    "Équations différentielles (section Mathématiques)",
     "Nombres complexes",
     "Géométrie dans l'espace",
+    "Isométries et similitudes (section Mathématiques)",
     "Probabilités conditionnelles",
     "Loi binomiale",
-    "Arithmétique (divisibilité, congruences)",
+    "Arithmétique : divisibilité, congruences (sections Math/Info)",
+    "Structures algébriques (section Mathématiques)",
   ],
+
   "TN_physics_4ème (Bac)": [
-    "Mécanique : lois de Newton",
-    "Mouvement dans un champ de pesanteur (g = 10 m/s²)",
-    "Mouvement dans un champ électrique",
-    "Oscillations mécaniques",
-    "Ondes mécaniques progressives",
-    "Ondes lumineuses",
-    "Dipôle RC, RL, RLC",
-    "Oscillations électriques libres et forcées",
-    "Réactions nucléaires, désintégration",
+    {
+      label: "Mécanique : lois de Newton",
+      limits:
+        "Système de référence galiléen, 3 lois de Newton, théorème du centre d'inertie ; applications : chute libre, plan incliné, frottements solides f = μN.",
+    },
+    {
+      label: "Mouvement dans un champ de pesanteur uniforme",
+      limits:
+        "Projectile dans le champ g = 9,8 m/s² (parfois 10 en TN) ; équations horaires, trajectoire parabolique, portée et flèche. PAS de résistance de l'air.",
+    },
+    {
+      label: "Mouvement dans un champ électrique uniforme",
+      limits:
+        "Particule chargée entre plaques parallèles ; déviation, énergie cinétique gagnée (qU = ½mv²) ; oscilloscope cathodique.",
+    },
+    {
+      label: "Oscillations mécaniques libres",
+      limits:
+        "Pendule élastique horizontal, pendule pesant (petites oscillations) ; équation différentielle ẍ + ω₀²x = 0 ; période propre T₀ = 2π/ω₀ ; analyse énergétique.",
+    },
+    {
+      label: "Oscillations mécaniques forcées",
+      limits:
+        "Régime sinusoïdal forcé, résonance d'amplitude et résonance de vitesse ; facteur de qualité Q ; bande passante.",
+    },
+    {
+      label: "Ondes mécaniques progressives",
+      limits:
+        "Onde transversale et longitudinale ; célérité, longueur d'onde λ = cT ; phénomène de propagation sur corde et à la surface d'un liquide. PAS l'onde stationnaire en détail.",
+    },
+    {
+      label: "Ondes lumineuses (diffraction, interférences)",
+      limits:
+        "Diffraction par fente, écart angulaire θ = λ/a ; interférences à 2 fentes (Young), interfrange i = λD/a ; nature ondulatoire de la lumière.",
+    },
+    {
+      label: "Dipôles RC et RL",
+      limits:
+        "Charge/décharge d'un condensateur (constante de temps τ = RC) ; établissement et rupture du courant dans une bobine (τ = L/R) ; énergie stockée.",
+    },
+    {
+      label: "Oscillations électriques libres dans le RLC",
+      limits:
+        "Régime libre du circuit RLC série ; pseudo-période, amortissement ; équation différentielle q̈ + (R/L)q̇ + q/(LC) = 0.",
+    },
+    {
+      label: "Oscillations électriques forcées (RLC)",
+      limits:
+        "Régime sinusoïdal forcé, résonance d'intensité ; impédance Z = √(R² + (Lω - 1/Cω)²) ; déphasage ; puissance moyenne P = UI cos φ.",
+    },
+    {
+      label: "Réactions nucléaires et radioactivité",
+      limits:
+        "Désintégrations α, β⁻, β⁺, γ ; loi de décroissance radioactive N(t) = N₀ e^(-λt), demi-vie ; fission et fusion ; énergie de liaison par nucléon (courbe d'Aston).",
+    },
   ],
+
   "TN_chemistry_4ème (Bac)": [
-    "Cinétique chimique",
-    "Équilibre chimique",
-    "Réactions acide-base, pH, Ke",
-    "Solutions tampons",
-    "Réactions d'oxydoréduction",
-    "Pile et électrolyse",
-    "Dosages acide-base et redox",
-    "Chimie organique : alcools, acides, esters",
+    {
+      label: "Cinétique chimique",
+      limits:
+        "Vitesse instantanée et vitesse moyenne, facteurs cinétiques (concentration, T, catalyseur) ; temps de demi-réaction. Approche expérimentale, sans loi d'Arrhenius.",
+    },
+    {
+      label: "Équilibre chimique",
+      limits:
+        "Réactions limitées, quotient de réaction Qr, constante d'équilibre K ; loi de modération (Le Chatelier) appliquée aux variations de concentration, P et T.",
+    },
+    {
+      label: "Réactions acide-base, pH, Ke",
+      limits:
+        "Couple acide/base, autoprotolyse de l'eau (Ke = 10⁻¹⁴ à 25°C), pH = -log[H₃O⁺] ; force des acides et bases, Ka et pKa ; diagramme de prédominance.",
+    },
+    {
+      label: "Solutions tampons",
+      limits:
+        "Définition, mélange acide faible / base conjuguée ; formule pH = pKa + log([A⁻]/[AH]) ; pouvoir tampon. Préparation pratique.",
+    },
+    {
+      label: "Réactions d'oxydoréduction",
+      limits:
+        "Couple Ox/Red, demi-équations électroniques, équilibrage en milieu acide/basique ; potentiel standard E° (notion).",
+    },
+    {
+      label: "Pile et électrolyse",
+      limits:
+        "Pile Daniell, demi-piles, force électromotrice, sens spontané ; électrolyse aqueuse (cuivre, eau) ; loi de Faraday (Q = It = nF).",
+    },
+    {
+      label: "Dosages acide-base et redox",
+      limits:
+        "Dosage par étalonnage et par titrage colorimétrique/pH-métrique ; courbes de titrage, équivalence, choix de l'indicateur. Dosage redox au permanganate.",
+    },
+    {
+      label: "Chimie organique : alcools, acides, esters",
+      limits:
+        "Nomenclature, classes d'alcools (I, II, III) ; oxydation des alcools ; réaction acide carboxylique + alcool → ester (estérification, équilibrée) ; saponification (totale).",
+    },
   ],
+
   "TN_informatics_4ème (Bac)": [
-    "Algorithmique : DEBUT/FIN, SI/ALORS, TANTQUE/FAIRE",
-    "Types de données : ENTIER, REEL, CHAINE, BOOLEEN",
-    "Tableaux et matrices",
-    "PROCEDURE et FONCTION",
-    "Récursivité",
-    "Algorithmes de tri (tri à bulles, tri par sélection)",
-    "Algorithmes de recherche",
-    "Pascal : programmation structurée",
-    "Python : initiation",
-    "Bases de données, SQL",
+    {
+      label: "Algorithmique : structures de contrôle",
+      limits:
+        "Pseudo-code TN (DEBUT/FIN, SI…ALORS…SINON, TANT QUE…FAIRE, POUR…FAIRE) ; conditions composées, structures imbriquées.",
+    },
+    {
+      label: "Types de données et opérations",
+      limits:
+        "ENTIER, REEL, CHAINE, BOOLEEN, CARACTERE ; opérations sur chaînes (longueur, sous-chaîne, concaténation), conversion de types.",
+    },
+    {
+      label: "Tableaux et matrices",
+      limits:
+        "Tableaux 1D, parcours, recherche, mise à jour ; matrices (tableaux 2D), parcours par lignes/colonnes ; PAS les structures dynamiques (listes chaînées).",
+    },
+    {
+      label: "Procédures et fonctions",
+      limits:
+        "Sous-programmes : FONCTION (renvoie une valeur) vs PROCEDURE ; passage de paramètres par valeur et par référence (variable) ; portée des variables.",
+    },
+    {
+      label: "Récursivité",
+      limits:
+        "Définition récursive, cas de base, appels récursifs ; exemples : factorielle, Fibonacci, somme d'un tableau. PAS d'analyse formelle de la pile d'appels.",
+    },
+    {
+      label: "Algorithmes de tri",
+      limits:
+        "Tri à bulles, tri par sélection, tri par insertion ; complexité O(n²) (notion). PAS le tri fusion ni le tri rapide au programme TN standard.",
+    },
+    {
+      label: "Algorithmes de recherche",
+      limits:
+        "Recherche séquentielle (linéaire) sur un tableau quelconque ; recherche dichotomique sur tableau trié, complexité O(log n).",
+    },
+    {
+      label: "Programmation Pascal",
+      limits:
+        "Langage Pascal (référence officielle) : program, var, begin/end, structures, procédures et fonctions, fichiers texte.",
+    },
+    {
+      label: "Programmation Python",
+      limits:
+        "Initiation : variables, types, structures de contrôle, fonctions, listes ; introduit récemment en TN, utilisé en complément du Pascal.",
+    },
+    {
+      label: "Bases de données et SQL",
+      limits:
+        "Modèle relationnel (table, attribut, clé primaire, clé étrangère) ; SQL : CREATE, INSERT, SELECT…FROM…WHERE, UPDATE, DELETE, jointures simples (INNER JOIN). PAS GROUP BY avancé, PAS sous-requêtes complexes.",
+    },
   ],
 
   // ── UNITED STATES ──────────────────────────────────────────────────────────
