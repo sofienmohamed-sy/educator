@@ -895,6 +895,93 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── TUNISIA ────────────────────────────────────────────────────────────────
+  // 1ère année secondaire — Tronc commun (toutes sections).
+  // Source : Fiches pédagogiques officielles rédigées sous la direction de
+  // l'inspecteur principal Amor Jeridi, DRE Gabès (2010-2012). Chaque entrée
+  // correspond à un chapitre du programme ; les limits reproduisent les
+  // "Aptitudes à développer" de la fiche et délimitent précisément le contenu.
+  "TN_math_1ère année secondaire": [
+    {
+      label: "Les angles",
+      limits:
+        "Définition d'un angle, mesure en degrés (rapporteur), classification : aigu (0°<α<90°), droit (90°), obtus (90°<α<180°), plat (180°), nul (0°), saillant, rentrant. Couples d'angles : opposés par le sommet (égaux), adjacents, complémentaires (somme 90°), supplémentaires (somme 180°). Angles et figures de base : angle extérieur d'un triangle = somme des deux angles non adjacents. Droites parallèles et sécante : alternes-internes égaux, correspondants égaux, intérieurs même côté supplémentaires (et réciproques). Angles inscrits dans un cercle : vocabulaire (corde, arc, demi-cercle, diamètre) ; angle inscrit = ½ angle au centre associé ; deux angles inscrits interceptant le même arc sont égaux ; angle inscrit dans un demi-cercle = 90°. Longueur d'un arc : l = m·π·r/180. PAS les formules d'addition trigonométrique, PAS le cercle inscrit/exinscrit.",
+    },
+    {
+      label: "Thalès et sa réciproque",
+      limits:
+        "Droite des milieux dans un triangle : la droite joignant les milieux de deux côtés est parallèle au troisième et mesure la moitié. Théorème de Thalès dans un triangle : si (MN)//(BC) alors AM/AB = AN/AC = MN/BC. Réciproque de Thalès : si AM/AB = AN/AC alors (MN)//(BC). PAS les configurations avec deux sécantes hors du triangle (Thalès 'papillon'), PAS le théorème des milieux dans le parallélogramme.",
+    },
+    {
+      label: "Rapports trigonométriques",
+      limits:
+        "Cosinus, sinus, tangente d'un angle aigu dans un triangle rectangle (définitions par côtés adjacent, opposé, hypoténuse). Utilisation de la calculatrice (trouver cos/sin/tan d'un angle, et arccos/arcsin/arctan). Valeurs remarquables : cos 30°=√3/2, sin 30°=1/2, tan 30°=1/√3 ; cos 45°=sin 45°=√2/2, tan 45°=1 ; cos 60°=1/2, sin 60°=√3/2, tan 60°=√3. Relations trigonométriques : sin²(α)+cos²(α)=1 et sin(α)/cos(α)=tan(α). Relations métriques dans un triangle rectangle : théorème de Pythagore et ses applications. Construction d'un angle aigu connaissant l'un de ses rapports trigonométriques. Construction d'un segment de longueur √(ab). PAS la trigonométrie des angles quelconques (cercle trigonométrique), PAS sin(a+b).",
+    },
+    {
+      label: "Vecteurs et translations",
+      limits:
+        "Définition d'un vecteur : représentant, direction, sens, norme (longueur). Égalité de deux vecteurs (même direction, sens, norme). Vecteur nul ; vecteurs opposés. Caractérisations vectorielles : ABCD parallélogramme ⟺ AB⃗=DC⃗ ; I milieu de [AB] ⟺ IA⃗+IB⃗=0⃗ ; A, B, C alignés ⟺ AB⃗ et AC⃗ colinéaires. Translation de vecteur u⃗ : image d'un point, image d'une figure (conservation des longueurs, des angles, du parallélisme). PAS les coordonnées dans un repère (chapitre 6), PAS les rotations d'angle quelconque.",
+    },
+    {
+      label: "Somme de deux vecteurs",
+      limits:
+        "Relation de Chasles : AB⃗+BC⃗=AC⃗ (et ses conséquences : AB⃗+BA⃗=0⃗). Somme de deux vecteurs : définition (règle tête-queue ou du parallélogramme), représentation. Propriétés : commutativité, associativité, élément neutre 0⃗. Produit d'un réel k par un vecteur u⃗ : direction, sens (même si k>0, opposé si k<0), norme |k|·||u⃗||. Vecteurs colinéaires : u⃗ et v⃗ colinéaires ⟺ ∃k∈ℝ, u⃗=k·v⃗. Vecteurs colinéaires et droites parallèles. Milieu d'un segment : I milieu de [AB] ⟺ AI⃗=IB⃗. PAS la décomposition dans une base du plan, PAS le produit scalaire.",
+    },
+    {
+      label: "Activités dans un repère",
+      limits:
+        "Repère cartésien d'une droite (O, OI⃗) : abscisse d'un point M (OM⃗=x·OI⃗). Milieu sur une droite graduée : xI=(xA+xB)/2. Mesure algébrique d'un vecteur AB⃗ sur une droite graduée : AB⃗=xB-xA. Distance entre deux points sur une droite : AB=|xB-xA|. Repère orthogonal du plan (O,i⃗,j⃗) : coordonnées (x;y) d'un point, coordonnées d'un vecteur. Milieu d'un segment dans le plan : coordonnées du milieu I. Distance dans le plan : AB=√((xB-xA)²+(yB-yA)²). PAS les équations de droites (cela vient avec les fonctions affines).",
+    },
+    {
+      label: "Quart de tour",
+      limits:
+        "Définition du quart de tour de centre O et de sens donné (direct = antihoraire, indirect = horaire). Construction de l'image d'un point par un quart de tour (utilisation de la règle et du compas). Image d'une figure géométrique par un quart de tour. Propriétés : isométrie (conservation des distances et des angles), conservation de la forme. Lieux géométriques liés au quart de tour. PAS les rotations d'angle quelconque, PAS la composition de deux rotations.",
+    },
+    {
+      label: "Sections planes d'un solide",
+      limits:
+        "Reconnaissance et représentation des solides usuels : prisme droit, parallélépipède rectangle, cube, pyramide droite, cône de révolution, cylindre droit, sphère. Calcul de volumes et d'aires latérales/totales de ces solides. Section d'un prisme ou d'un parallélépipède par un plan parallèle à une face. Section d'une pyramide ou d'un cône par un plan parallèle à la base (section semblable à la base). Section d'une sphère par un plan (cercle). PAS les sections obliques, PAS le calcul avec des plans non parallèles à une face.",
+    },
+    {
+      label: "Activités numériques I",
+      limits:
+        "Ensembles des nombres : ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ (reconnaissance et appartenance). Division euclidienne : quotient, reste, dividende, diviseur. Diviseurs d'un entier ; critères de divisibilité par 2, 3, 4, 5, 9. Nombres premiers : définition, liste des premiers nombres premiers. Décomposition en facteurs premiers. PGCD de deux entiers par décomposition en facteurs premiers. Algorithme d'Euclide pour le PGCD. PPCM de deux entiers. Nombres premiers entre eux (PGCD = 1) ; fraction irréductible (diviser numérateur et dénominateur par leur PGCD). Nombres décimaux (écriture décimale finie). PAS le théorème de Bézout, PAS les congruences.",
+    },
+    {
+      label: "Activités numériques II",
+      limits:
+        "Règles opératoires dans ℝ : priorités, simplification d'expressions littérales. Puissances d'un réel : a^n (n entier relatif), propriétés (a^m·a^n=a^(m+n), (a^m)^n=a^(mn), (ab)^n=a^n·b^n). Valeur absolue : |x| = x si x≥0, = -x si x<0 ; propriétés (|xy|=|x||y|, inégalité triangulaire) ; calcul d'expressions avec valeur absolue. Racine carrée d'un réel positif : définition (√a est l'unique réel ≥0 dont le carré est a) ; √(ab)=√a·√b, √(a/b)=√a/√b (a,b≥0) ; simplification et rationalisation du dénominateur. Comparaison de réels, encadrements, ordre dans ℝ. PAS les suites numériques, PAS les logarithmes.",
+    },
+    {
+      label: "Activités algébriques",
+      limits:
+        "Développement, réduction et ordonnancement d'expressions littérales. Identités remarquables du 2ème degré : (a+b)²=a²+2ab+b², (a-b)²=a²-2ab+b², (a+b)(a-b)=a²-b². Factorisation par les identités d'ordre 2. Identités remarquables du 3ème degré : (a+b)³=a³+3a²b+3ab²+b³, (a-b)³=a³-3a²b+3ab²-b³, a³+b³=(a+b)(a²-ab+b²), a³-b³=(a-b)(a²+ab+b²). Développement et factorisation complète d'expressions algébriques (combinaison des identités). PAS le binôme de Newton généralisé, PAS les fractions algébriques.",
+    },
+    {
+      label: "Fonctions linéaires",
+      limits:
+        "Définition d'une fonction linéaire : f(x)=ax (a≠0, a∈ℝ). Image et antécédent d'un réel. Propriétés : f(x+y)=f(x)+f(y), f(kx)=k·f(x), conservation du rapport (proportionnalité). Représentation graphique : droite passant par l'origine O de pente a. Lecture graphique : lire une image/antécédent, lire la pente. Résolution de problèmes concrets faisant intervenir la proportionnalité (modélisation d'une augmentation ou baisse par une fonction linéaire). PAS les fonctions affines f(x)=ax+b avec b≠0 (chapitre suivant).",
+    },
+    {
+      label: "Équations et inéquations du 1er degré",
+      limits:
+        "Équations du 1er degré à une inconnue : forme ax+b=0 et ax+b=cx+d ; résolution (x=-b/a si a≠0) ; mise en équation d'un problème concret. Inéquations du 1er degré : ax+b>0, <0, ≥0, ≤0 ; règles de résolution (le sens s'inverse quand on multiplie/divise par un réel négatif) ; représentation sur la droite réelle. PAS les équations du 2ème degré, PAS les systèmes (chapitre 15), PAS la valeur absolue dans les équations.",
+    },
+    {
+      label: "Fonctions affines",
+      limits:
+        "Définition : f(x)=ax+b avec a∈ℝ, b∈ℝ (a=0 donne une fonction constante). Représentation graphique : droite de pente a et ordonnée à l'origine b=f(0). Calcul de la pente : a=(f(x)-f(x'))/(x-x') pour x≠x'. Sens de variation : f croissante si a>0, décroissante si a<0, constante si a=0. Lecture graphique : lire l'image/antécédent, déterminer équation d'une droite passant par deux points. PAS la dérivée (non au programme 1ère AS), PAS les fonctions quadratiques.",
+    },
+    {
+      label: "Système de 2 équations à 2 inconnues",
+      limits:
+        "Équation du 1er degré à 2 inconnues ax+by=c : ensemble des solutions (droite dans le plan), représentation graphique. Système de 2 équations du 1er degré à 2 inconnues. Méthodes de résolution : substitution et combinaison (addition-soustraction après multiplication). Interprétation graphique : intersection de 2 droites (système possible déterminé, possible indéterminé — droites confondues, impossible — droites parallèles distinctes). Modélisation de problèmes concrets par un système. PAS les systèmes 3×3, PAS les matrices.",
+    },
+    {
+      label: "Exploitation de l'information",
+      limits:
+        "Série statistique à variable discrète : tableau de fréquences absolues et relatives, représentations graphiques (diagramme en bâtons, circulaire). Indicateurs statistiques : moyenne arithmétique simple et pondérée, médiane (valeur qui partage l'effectif en deux moitiés égales), mode. Série à valeurs regroupées par classes [ai, ai+1[ : tableau avec effectifs et fréquences, histogramme, effectifs cumulés. Série chronologique : représentation graphique, comparaison de deux séries. Expériences aléatoires : univers, événement, probabilité classique P(A)=nombre de cas favorables/nombre de cas possibles (résultats équiprobables). PAS la variance, l'écart-type, ni les distributions de probabilité (binomiale, normale).",
+    },
+  ],
   // Section Mathématiques (SM) — programme le plus complet, seul à inclure
   // similitudes et structures algébriques.
   "TN_math_4ème (Bac)_Mathématiques": [
