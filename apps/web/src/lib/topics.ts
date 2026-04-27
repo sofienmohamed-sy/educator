@@ -3406,41 +3406,165 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── BRAZIL ─────────────────────────────────────────────────────────────────
+  // BNCC (Base Nacional Comum Curricular) — 3º ano do Ensino Médio.
+  // Foco no ENEM: matemática contextualizada, física com cálculo simples
+  // (sem cálculo diferencial), química com forte ênfase em interpretação
+  // de gráficos e tabelas. ENEM usa g = 10 m/s² por convenção.
   "BR_math_3º ano EM (ENEM)": [
-    "Funções (afim, quadrática, exponencial, logarítmica)",
-    "Progressões aritméticas e geométricas",
-    "Trigonometria",
-    "Geometria plana e espacial",
-    "Geometria analítica",
-    "Análise combinatória",
-    "Probabilidade",
-    "Estatística (média, mediana, desvio)",
-    "Matrizes e sistemas lineares",
-    "Números complexos",
+    {
+      label: "Funções (afim, quadrática, exponencial, logarítmica)",
+      limits:
+        "Função afim f(x)=ax+b (gráfico, raízes, sinal) ; função quadrática f(x)=ax²+bx+c (vértice, raízes por Bhaskara, máximo/mínimo) ; função exponencial f(x)=a^x (a>0, a≠1) e função logarítmica f(x)=log_a x ; propriedades dos logaritmos ; equações exponenciais e logarítmicas. NÃO há cálculo diferencial no ENEM.",
+    },
+    {
+      label: "Progressões aritméticas e geométricas",
+      limits:
+        "PA : termo geral a_n=a_1+(n-1)r, soma S_n=n(a_1+a_n)/2 ; PG : termo geral a_n=a_1·q^(n-1), soma S_n=a_1(1-q^n)/(1-q) ; soma da PG infinita S=a_1/(1-q) quando |q|<1. Aplicações : juros simples (regime PA) e juros compostos (regime PG).",
+    },
+    {
+      label: "Trigonometria",
+      limits:
+        "Razões trigonométricas no triângulo retângulo (sen, cos, tg) ; ângulos notáveis (30°, 45°, 60°) ; ciclo trigonométrico, radianos ; lei dos senos a/sen A = 2R, lei dos cossenos a²=b²+c²-2bc·cos A ; identidades fundamentais sen²+cos²=1 ; equações trigonométricas simples. NÃO formulário de adição de arcos avançado no ENEM.",
+    },
+    {
+      label: "Geometria plana e espacial",
+      limits:
+        "Geometria plana : áreas e perímetros (triângulo, quadrilátero, círculo, setor) ; semelhança de triângulos ; teorema de Pitágoras, teorema de Tales. Geometria espacial : volumes e áreas de superfície (prisma, pirâmide, cilindro, cone, esfera) ; troncos. Forte ênfase em problemas práticos e conversão de unidades.",
+    },
+    {
+      label: "Geometria analítica",
+      limits:
+        "Distância entre dois pontos d=√((x₂-x₁)²+(y₂-y₁)²) ; ponto médio ; equação da reta (geral, reduzida, segmentária) ; coeficiente angular ; paralelismo e perpendicularidade ; equação da circunferência (x-a)²+(y-b)²=r². NÃO cônicas (elipse, hipérbole, parábola) no formato analítico — são apenas mencionadas conceitualmente.",
+    },
+    {
+      label: "Análise combinatória",
+      limits:
+        "Princípio fundamental da contagem (multiplicação) ; arranjos A(n,p)=n!/(n-p)! ; combinações C(n,p)=n!/(p!(n-p)!) ; permutações simples e com repetição ; binômio de Newton (termo geral T_(k+1)=C(n,k)a^(n-k)b^k) — em nível introdutório no ENEM.",
+    },
+    {
+      label: "Probabilidade",
+      limits:
+        "Probabilidade clássica P(A)=#favoráveis/#totais ; probabilidade condicional P(A|B)=P(A∩B)/P(B) ; eventos independentes ; eventos mutuamente excludentes ; probabilidade da união P(A∪B)=P(A)+P(B)-P(A∩B). NÃO há distribuições de probabilidade contínuas no ENEM.",
+    },
+    {
+      label: "Estatística (média, mediana, desvio)",
+      limits:
+        "Tabelas de frequência (absoluta, relativa, acumulada) ; gráficos (barras, histograma, setores, linha, boxplot) ; medidas de tendência central : média aritmética simples e ponderada, mediana, moda ; medidas de dispersão : amplitude, variância σ², desvio padrão σ ; quartis, decis, percentis. ENEM usa estatística descritiva contextualizada.",
+    },
+    {
+      label: "Matrizes e sistemas lineares",
+      limits:
+        "Matrizes : operações (soma, produto por escalar, multiplicação) ; matriz transposta, identidade, inversa (até 3×3) ; determinantes (regra de Sarrus para 3×3, Laplace) ; sistemas lineares 2×2 e 3×3 (regra de Cramer, escalonamento) ; classificação (SPD, SPI, SI). NÃO matrizes maiores que 3×3 no ENEM.",
+    },
+    {
+      label: "Números complexos",
+      limits:
+        "Forma algébrica z=a+bi (operações, conjugado z̄=a-bi, módulo |z|=√(a²+b²)) ; representação no plano de Argand-Gauss ; forma trigonométrica z=|z|(cos θ+i sen θ) ; multiplicação e divisão na forma trigonométrica (soma e diferença dos argumentos) ; primeira fórmula de De Moivre z^n=|z|^n(cos nθ+i sen nθ). Tema raro no ENEM mas presente em vestibulares.",
+    },
   ],
   "BR_physics_3º ano EM (ENEM)": [
-    "Cinemática",
-    "Dinâmica (leis de Newton, g = 10 m/s²)",
-    "Energia e trabalho",
-    "Termologia, calorimetria",
-    "Termodinâmica",
-    "Óptica geométrica",
-    "Ondulatória",
-    "Eletrostática",
-    "Eletrodinâmica",
-    "Eletromagnetismo",
-    "Física moderna (introdução)",
+    {
+      label: "Cinemática",
+      limits:
+        "MRU (movimento retilíneo uniforme) : S=S₀+vt ; MRUV : v=v₀+at, S=S₀+v₀t+½at², equação de Torricelli v²=v₀²+2aΔS ; queda livre e lançamento vertical (g=10 m/s²) ; lançamento horizontal e oblíquo (decomposição) ; movimento circular uniforme (T, f, ω, v=ωR, a_cp=v²/R).",
+    },
+    {
+      label: "Dinâmica (leis de Newton, g = 10 m/s²)",
+      limits:
+        "1ª lei (inércia), 2ª lei F=ma, 3ª lei (ação-reação) ; força peso P=mg ; força de atrito (estático μ_e e cinético μ_c, F_at=μN) ; tração em fios e roldanas ; plano inclinado ; força centrípeta F_cp=mv²/R ; sistemas com várias massas (problemas de blocos e cordas).",
+    },
+    {
+      label: "Energia e trabalho",
+      limits:
+        "Trabalho de força constante τ=F·d·cos θ ; trabalho da força peso τ_P=±mgh ; energia cinética E_c=½mv² ; energia potencial gravitacional E_p=mgh, elástica E_pe=½kx² ; potência P=τ/Δt=F·v ; rendimento η=P_útil/P_total ; teorema da energia cinética τ_total=ΔE_c ; conservação da energia mecânica (em sistemas conservativos).",
+    },
+    {
+      label: "Termologia, calorimetria",
+      limits:
+        "Termometria (escalas Celsius, Fahrenheit, Kelvin ; conversões) ; dilatação térmica (linear, superficial, volumétrica ; α, β=2α, γ=3α) ; calor sensível Q=mcΔT, calor latente Q=mL ; trocas de calor (princípio da conservação) ; mudanças de estado físico ; transmissão de calor (condução, convecção, irradiação — qualitativo).",
+    },
+    {
+      label: "Termodinâmica",
+      limits:
+        "Equação de Clapeyron pV=nRT (gás ideal) ; transformações isobárica, isocórica, isotérmica, adiabática (gráficos p×V) ; 1ª lei da termodinâmica Q=ΔU+W ; trabalho de gás W=p·ΔV (isobárica) ; máquinas térmicas (rendimento η=1-Q_f/Q_q) ; ciclo de Carnot η_max=1-T_f/T_q ; 2ª lei da termodinâmica (qualitativa).",
+    },
+    {
+      label: "Óptica geométrica",
+      limits:
+        "Reflexão (lei : ângulo de incidência = ângulo de reflexão) ; espelhos planos (formação de imagem, simetria) ; espelhos esféricos (côncavo e convexo : equação de Gauss 1/f=1/p+1/p', aumento A=-p'/p, distância focal f=R/2) ; refração (lei de Snell n₁ sen θ₁=n₂ sen θ₂) ; lentes delgadas (convergente e divergente) ; instrumentos ópticos (lupa, olho humano — defeitos qualitativos).",
+    },
+    {
+      label: "Ondulatória",
+      limits:
+        "Tipos de ondas (mecânicas vs eletromagnéticas, transversais vs longitudinais) ; equação fundamental v=λf ; reflexão, refração, difração, polarização ; ondas estacionárias e ressonância (cordas e tubos sonoros : harmônicos f_n=nv/(2L) cordas, f_n=nv/(4L) tubo fechado) ; efeito Doppler f'=f(v±v_obs)/(v±v_fonte) ; intensidade sonora em decibéis (qualitativa).",
+    },
+    {
+      label: "Eletrostática",
+      limits:
+        "Carga elétrica (quantização Q=ne, e=1,6×10⁻¹⁹ C) ; processos de eletrização (atrito, contato, indução) ; lei de Coulomb F=k|q₁q₂|/r² (k=9×10⁹ N·m²/C²) ; campo elétrico E=F/q (em torno de carga puntiforme E=kQ/r²) ; potencial elétrico V=kQ/r ; energia potencial elétrica E_p=qV ; capacitor de placas paralelas (qualitativo).",
+    },
+    {
+      label: "Eletrodinâmica",
+      limits:
+        "Corrente elétrica i=Δq/Δt ; resistência elétrica e 1ª lei de Ohm V=Ri ; 2ª lei de Ohm R=ρL/A ; potência elétrica P=Vi=Ri²=V²/R ; consumo de energia (kWh) ; associação de resistores (série R_eq=R₁+R₂+..., paralelo 1/R_eq=1/R₁+1/R₂+...) ; geradores reais (fem ε, resistência interna r ; U=ε-ri) ; receptores ; leis de Kirchhoff (qualitativas).",
+    },
+    {
+      label: "Eletromagnetismo",
+      limits:
+        "Campo magnético (linhas de indução, ímãs, campo terrestre) ; campo magnético criado por corrente (fio retilíneo B=μ₀i/(2πr), espira circular, solenoide B=μ₀ni) ; força magnética sobre carga F=qvB sen θ (regra da mão direita) ; força magnética sobre fio F=BiL sen θ ; indução eletromagnética (lei de Faraday-Neumann ε=-ΔΦ/Δt, lei de Lenz) ; transformador U₁/U₂=n₁/n₂.",
+    },
+    {
+      label: "Física moderna (introdução)",
+      limits:
+        "Relatividade restrita (postulados de Einstein ; dilatação do tempo Δt=γΔt₀, contração do comprimento L=L₀/γ ; equivalência massa-energia E=mc²) — qualitativo no ENEM ; efeito fotoelétrico (E=hf=W₀+E_cmax) ; dualidade onda-partícula ; modelo atômico de Bohr (níveis quantizados) ; radioatividade (α, β, γ ; meia-vida T_½ ; aplicações : datação por carbono-14, medicina nuclear).",
+    },
   ],
   "BR_chemistry_3º ano EM (ENEM)": [
-    "Estequiometria",
-    "Soluções e concentrações",
-    "Termoquímica",
-    "Cinética química",
-    "Equilíbrio químico, pH",
-    "Eletroquímica (pilhas, eletrólise)",
-    "Química orgânica: funções e nomenclatura",
-    "Reações orgânicas (tipos gerais)",
-    "Química ambiental",
+    {
+      label: "Estequiometria",
+      limits:
+        "Mol e número de Avogadro N_A=6,02×10²³ ; massa molar ; cálculos estequiométricos a partir de equações balanceadas (mol→mol, g→g, L→L com gases nas CNTP) ; reagente limitante e em excesso ; rendimento da reação ; pureza de reagentes. Forte ênfase em ENEM por contextos industriais e ambientais.",
+    },
+    {
+      label: "Soluções e concentrações",
+      limits:
+        "Tipos de soluções (saturadas, insaturadas, supersaturadas) ; coeficiente de solubilidade (curvas de solubilidade) ; concentração comum (g/L), concentração em mol/L (molaridade), título (% massa, % volume), ppm ; diluição C₁V₁=C₂V₂ ; mistura de soluções (mesmo soluto e solutos diferentes) ; propriedades coligativas (tonoscopia, ebulioscopia, crioscopia, osmoscopia — qualitativas).",
+    },
+    {
+      label: "Termoquímica",
+      limits:
+        "Reações exotérmicas (ΔH<0) e endotérmicas (ΔH>0) ; entalpia de formação, combustão, neutralização ; lei de Hess (ΔH é função de estado, não depende do caminho) ; cálculo de ΔH a partir de entalpias de ligação ; diagrama de energia. NÃO entropia (ΔS) e energia de Gibbs (ΔG) detalhadas no ENEM.",
+    },
+    {
+      label: "Cinética química",
+      limits:
+        "Velocidade de reação (média, em função de reagentes/produtos) ; fatores que afetam a velocidade (temperatura, concentração, superfície de contato, catalisador) ; energia de ativação E_a (gráficos de energia x progresso da reação) ; equação de Arrhenius k=Ae^(-E_a/RT) (qualitativa no ENEM) ; mecanismo de reação e etapa lenta determinante.",
+    },
+    {
+      label: "Equilíbrio químico, pH",
+      limits:
+        "Equilíbrio dinâmico ; constante de equilíbrio K_c (em termos de concentrações) e K_p (pressões parciais para gases) ; princípio de Le Chatelier (deslocamento por concentração, pressão, temperatura) ; equilíbrio iônico K_w=10⁻¹⁴ ; pH=-log[H⁺] e pOH=-log[OH⁻] ; ácidos e bases fortes vs fracas (K_a, K_b, grau de ionização α) ; soluções tampão (qualitativo).",
+    },
+    {
+      label: "Eletroquímica (pilhas, eletrólise)",
+      limits:
+        "Reações de oxirredução (NOX, agente oxidante, agente redutor, balanceamento) ; pilha de Daniell e outras (cátodo é redução, ânodo é oxidação) ; potencial padrão de redução E° ; ddp da pilha ΔE°=E°_cátodo-E°_ânodo (espontaneidade : ΔE°>0) ; eletrólise (ígnea e aquosa) ; leis de Faraday m=MIt/(nF) ; aplicações (galvanoplastia, refino do alumínio, baterias).",
+    },
+    {
+      label: "Química orgânica: funções e nomenclatura",
+      limits:
+        "Cadeias carbônicas (classificação) ; nomenclatura IUPAC para hidrocarbonetos (alcanos, alcenos, alcinos, aromáticos), álcoois, fenóis, éteres, aldeídos, cetonas, ácidos carboxílicos, ésteres, aminas, amidas, haletos orgânicos ; isomeria plana (de cadeia, posição, função, metameria, tautomeria) ; isomeria espacial (geométrica cis/trans e óptica — quiralidade) — em nível introdutório.",
+    },
+    {
+      label: "Reações orgânicas (tipos gerais)",
+      limits:
+        "Substituição (em alcanos : halogenação ; aromáticos : nitração, halogenação, sulfonação, alquilação) ; adição (em alcenos e alcinos : H₂, X₂, HX — regra de Markovnikov, H₂O) ; eliminação (desidratação de álcool, desidro-halogenação) ; oxidação (combustão, oxidação branda de alceno, oxidação de álcool a aldeído/cetona/ácido) ; esterificação e saponificação ; polimerização (adição e condensação, exemplos : PE, PVC, PET, náilon).",
+    },
+    {
+      label: "Química ambiental",
+      limits:
+        "Ciclos biogeoquímicos (água, carbono, nitrogênio) ; poluição atmosférica (efeito estufa : CO₂, CH₄, N₂O ; chuva ácida : SO₂, NOx ; destruição da camada de ozônio : CFCs) ; poluição da água (eutrofização, metais pesados, óleos) ; tratamento de água e esgoto ; combustíveis fósseis vs energias renováveis ; reciclagem ; pegada de carbono. Tema muito frequente no ENEM por contexto socioambiental.",
+    },
   ],
 
   // ── CANADA ─────────────────────────────────────────────────────────────────
