@@ -309,27 +309,54 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     : null;
 
   // ── Pedagogical approach ─────────────────────────────────────────────────
-  // Tunisia uses the competency-based approach (approche par la compétence).
+  // Tunisia: exact format of a fiche pédagogique DRE Gabès.
+  // Goal: output indiscernible from an original fiche if shuffled together.
   const pedagogyBlock =
     country === "TN"
-      ? `PEDAGOGICAL APPROACH — Approche par la compétence (Tunisian national curriculum):\n` +
-        `Structure the lesson as a Tunisian math "cours" (not a French essay or Wikipedia article):\n` +
-        `  • Open directly with the main theorem / definition — no motivating stories or historical notes.\n` +
-        `  • State theorems with their exact conditions; include a brief proof or justification ONLY when\n` +
-        `    the scope above explicitly mentions one.\n` +
-        `  • Use numbered sections (I., II., III. or 1., 2., 3.) matching Tunisian fiche style.\n` +
-        `  • Worked examples must be short, direct numerical or algebraic applications of the theorems\n` +
-        `    (one statement + one solution, each ≤ 6 steps).\n` +
-        `  • Be concise: omit preambles, motivating scenarios, "advanced remarks", and any content not\n` +
-        `    needed by either the teacher or the student to understand and apply the theorems.`
+      ? `FORMAT OBLIGATOIRE — Fiche pédagogique DRE Gabès (1ère / 2ème AS) :\n` +
+        `\n` +
+        `Le résultat DOIT être indiscernable d'une vraie fiche DRE Gabès : même structure,\n` +
+        `même style, même niveau de langue. Si on mélange l'output généré avec la vraie fiche,\n` +
+        `personne ne doit pouvoir distinguer lequel est l'original.\n` +
+        `\n` +
+        `STRUCTURE DE CHAQUE SECTION (à respecter à la lettre) :\n` +
+        `\n` +
+        `  **Activité**\n` +
+        `  Situation de découverte NUMÉRIQUE qui amène l'élève à deviner le théorème.\n` +
+        `  • Donner un contexte géométrique précis avec des valeurs numériques explicites\n` +
+        `    (longueurs en cm, rapports donnés, noms de points clairs).\n` +
+        `  • Puisque l'app n'affiche PAS de figures : écrire toutes les données dans le texte,\n` +
+        `    ex: "Dans le triangle ABC, on donne AM = 2,5 cm, AB = 5 cm, AC = 8 cm,\n` +
+        `    (MN)//(BC). Calculer AN."\n` +
+        `  • Terminer par UNE question précise et courte ("Calculer AN.", etc.).\n` +
+        `\n` +
+        `  **Retenons** (ou **Théorème**)\n` +
+        `  Énoncé formel du théorème, en gras, dans la langue exacte du programme tunisien.\n` +
+        `  • Pas de preuve sauf si le scope l'exige explicitement.\n` +
+        `  • Pas de remarques, pas d'extensions, pas de "cas particulier" non demandé.\n` +
+        `\n` +
+        `  **Application**\n` +
+        `  Un seul problème numérique concret (valeurs différentes de l'Activité).\n` +
+        `  • Ce problème DOIT figurer dans workedExamples avec sa résolution complète.\n` +
+        `  • Pour les constructions (section IV si applicable) : énoncer le problème\n` +
+        `    ("Construire M de [AB] tel que AM/AB = 3/5") SANS décrire les étapes de tracé.\n` +
+        `\n` +
+        `RÈGLES GÉNÉRALES :\n` +
+        `  • Sections numérotées en romain et nommées (I- Droites des Milieux, II- Théorème\n` +
+        `    de Thalès, etc.) exactement comme dans la fiche d'origine.\n` +
+        `  • workedExamples = les résolutions complètes des Applications (une par section).\n` +
+        `  • keyConcepts = les énoncés des Théorèmes/Retenons, un par section, mot pour mot.\n` +
+        `  • Aucun concept nommé absent du scope (interdire "rapport de Thalès", "k∈]0;1[",\n` +
+        `    et toute notion après "PAS" dans le scope).`
       : null;
 
   // ── Geometry construction rule (universal) ───────────────────────────────
   const noImagesRule =
-    `NO-IMAGES RULE: this app shows no figures or diagrams.\n` +
-    `  • Do NOT write step-by-step ruler-and-compass construction procedures.\n` +
-    `  • If a construction is in scope, state the result ("On peut construire M tel que AM/AB = p/q\n` +
-    `    par la méthode de Thalès") without describing the manual drawing steps.`;
+    `NO-IMAGES RULE: this app displays no figures.\n` +
+    `  • Replace figure data textually: give every numerical value (lengths, ratios, point names)\n` +
+    `    directly in the problem statement so the student has all needed information.\n` +
+    `  • Do NOT describe drawing steps (ruler, compass, "tracer la droite…").\n` +
+    `  • For construction problems: state the goal only ("Construire M de [AB] tel que AM/AB = 3/5").`;
 
   // ── Main generation instruction ──────────────────────────────────────────
   const generationInstruction = ragContext
@@ -373,7 +400,8 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
       `\n` +
       `HARD RULE: A reader familiar with the textbook must not be able to tell that\n` +
       `the generated content was not written by the book's own author.`
-    : `Generate a focused, complete course lesson on "${topicLabel}". Stay strictly within the scope defined above.`;
+    : `Generate a course lesson on "${topicLabel}" following EXACTLY the structure and style mandated above.\n` +
+      `The output must be indiscernible from an original DRE Gabès fiche pédagogique when presented side by side.`;
 
   return [
     `You are an expert ${subjectLabel} educator preparing a course lesson.`,
