@@ -73,7 +73,14 @@ const SECTIONS: Record<string, string[]> = {
     "Tronc commun lettres",
   ],
 
-  // ── TUNISIA — section chosen at 3ème, kept through 4ème (Bac) ─────────────
+  // ── TUNISIA — sections start at 2ème; kept through 3ème and 4ème (Bac) ─────
+  "TN_2ème secondaire": [
+    "Sciences",
+    "Sciences de l'informatique",
+    "Sciences techniques",
+    "Économie & Services",
+    "Lettres",
+  ],
   "TN_3ème secondaire": [
     "Mathématiques",
     "Sciences expérimentales",

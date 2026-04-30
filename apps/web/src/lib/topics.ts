@@ -900,7 +900,7 @@ const TOPICS: Record<string, Topic[]> = {
   // l'inspecteur principal Amor Jeridi, DRE Gabès (2010-2012). Chaque entrée
   // correspond à un chapitre du programme ; les limits reproduisent les
   // "Aptitudes à développer" de la fiche et délimitent précisément le contenu.
-  "TN_math_1ère année secondaire": [
+  "TN_math_1ère secondaire": [
     {
       label: "Les angles",
       limits:
@@ -988,7 +988,7 @@ const TOPICS: Record<string, Topic[]> = {
   // l'inspecteur principal Amor Jeridi, DRE Gabès (2013-2014). Chaque entrée
   // correspond à un chapitre du programme ; les limits reproduisent les
   // "Aptitudes à développer" de la fiche et délimitent précisément le contenu.
-  "TN_math_2ème année secondaire_Sciences": [
+  "TN_math_2ème secondaire_Sciences": [
     {
       label: "Calcul dans IR",
       limits:
@@ -1079,7 +1079,7 @@ const TOPICS: Record<string, Topic[]> = {
   // 2ème année secondaire — filière Économie & Services.
   // Source : Programmes officiels de mathématiques, Ministère de l'Éducation
   // tunisien (septembre 2008), pages 23-27.
-  "TN_math_2ème année secondaire_Économie & Services": [
+  "TN_math_2ème secondaire_Économie & Services": [
     {
       label: "Activités numériques",
       limits:
@@ -1104,7 +1104,7 @@ const TOPICS: Record<string, Topic[]> = {
 
   // 2ème année secondaire — filière Lettres.
   // Source : Programmes officiels, pages 28-32.
-  "TN_math_2ème année secondaire_Lettres": [
+  "TN_math_2ème secondaire_Lettres": [
     {
       label: "Activités numériques",
       limits:
@@ -1134,7 +1134,7 @@ const TOPICS: Record<string, Topic[]> = {
   // les exclusions explicites ou implicites par rapport aux autres sections.
 
   // Section Mathématiques (3ème AS SM) — programme le plus complet.
-  "TN_math_3ème année secondaire_Mathématiques": [
+  "TN_math_3ème secondaire_Mathématiques": [
     {
       label: "Analyse — Fonctions",
       limits:
@@ -1163,7 +1163,7 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // Section Sciences expérimentales (3ème AS SE).
-  "TN_math_3ème année secondaire_Sciences expérimentales": [
+  "TN_math_3ème secondaire_Sciences expérimentales": [
     {
       label: "Analyse — Fonctions et suites",
       limits:
@@ -1182,7 +1182,7 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // Section Sciences techniques (3ème AS ST).
-  "TN_math_3ème année secondaire_Sciences techniques": [
+  "TN_math_3ème secondaire_Technique": [
     {
       label: "Analyse — Fonctions et suites",
       limits:
@@ -1201,7 +1201,7 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // Section Sciences de l'informatique (3ème AS SI).
-  "TN_math_3ème année secondaire_Informatique": [
+  "TN_math_3ème secondaire_Informatique": [
     {
       label: "Analyse — Fonctions et suites",
       limits:
@@ -1225,7 +1225,7 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // Section Économie & Gestion (3ème AS SEG).
-  "TN_math_3ème année secondaire_Économie & gestion": [
+  "TN_math_3ème secondaire_Économie & Gestion": [
     {
       label: "Analyse — Fonctions, suites et trigonométrie",
       limits:
@@ -1244,7 +1244,7 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // Section Lettres (3ème AS SL).
-  "TN_math_3ème année secondaire_Lettres": [
+  "TN_math_3ème secondaire_Lettres": [
     {
       label: "Analyse — Fonctions et problèmes du 2ème degré",
       limits:
@@ -4362,6 +4362,11 @@ const TOPICS: Record<string, Topic[]> = {
     },
   ],
 };
+
+// 2ème AS Sciences de l'informatique uses the same math program as Sciences
+// (the DRE Gabès fiche covers « 2ème Sc & Sc In » jointly).
+TOPICS["TN_math_2ème secondaire_Sciences de l'informatique"] =
+  TOPICS["TN_math_2ème secondaire_Sciences"];
 
 function normalize(list: Topic[]): TopicEntry[] {
   return list.map((t) => (typeof t === "string" ? { label: t, limits: "" } : t));
