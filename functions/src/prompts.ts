@@ -255,10 +255,17 @@ const COURSE_JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fenc
 type Course = {
   subject: "math" | "physics" | "chemistry" | "informatics";
   topic: string;            // chapter label only (no scope description)
-  theory: string;           // complete prose explanation; inline LaTeX uses $...$ or \\(...\\);
-                            // display math uses \\[...\\] on a SINGLE LINE (never split across lines)
-  keyConcepts: Array<{ term: string; definition: string }>;  // at least 2
-  workedExamples: Array<{ problem: string; solution: string }>;  // at least 2
+  theory: string;           // prose + activities + theorems structured with Markdown:
+                            //   ## I- Section Title  (Roman-numeral headings)
+                            //   **Activité**  (bold label)
+                            //   > theorem line 1    ← Théorème/Retenons MUST use > blockquote
+                            //   > theorem line 2
+                            // FRACTIONS: ALL fractions MUST be LaTeX — NEVER plain text.
+                            //   correct:  "$\\frac{AM}{AB}$"  or  "$\\dfrac{1}{2}$"
+                            //   FORBIDDEN: writing a fraction as two lines of plain text
+                            // Display math: \\[...\\] on a SINGLE LINE (never split across lines)
+  keyConcepts: Array<{ term: string; definition: string }>;  // Théorèmes/Retenons, one per section
+  workedExamples: Array<{ problem: string; solution: string }>;  // solutions to all Applications
   summary: string;
 };`;
 
@@ -315,80 +322,69 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     country === "TN"
       ? `FORMAT OBLIGATOIRE — Fiche pédagogique DRE Gabès (1ère / 2ème AS) :\n` +
         `\n` +
-        `Le résultat doit être INDISCERNABLE d'une vraie fiche DRE Gabès : même structure,\n` +
-        `même style, même niveau. Si on mélange l'output avec la vraie fiche, personne\n` +
-        `ne doit pouvoir distinguer lequel est l'original.\n` +
+        `Le résultat doit être INDISCERNABLE d'une vraie fiche DRE Gabès.\n` +
         `\n` +
-        `═══ STRUCTURE SÉANCE PAR SÉANCE ═══\n` +
+        `═══ RÈGLE UNIVERSELLE : TOUTES LES ACTIVITÉS SONT DE TYPE GUIDÉ ═══\n` +
         `\n` +
-        `── Section ouvrant sur un THÉORÈME FONDAMENTAL (ex : Droites des milieux) ──\n` +
+        `CHAQUE section (I, II, III) commence par une Activité guidée à SOUS-QUESTIONS\n` +
+        `PROGRESSIVES qui conduit l'élève à DÉCOUVRIR et ÉNONCER lui-même le théorème.\n` +
         `\n` +
-        `  **Activité** (Type A — découverte par raisonnement géométrique) :\n` +
-        `  L'activité N'EST PAS un calcul — c'est une démarche de DÉCOUVERTE :\n` +
-        `  • Donner une configuration basée sur un objet CONNU (parallélogramme, symétrie\n` +
-        `    centrale, milieu…) que l'élève maîtrise déjà.\n` +
-        `  • Décomposer en sous-questions progressives a), b), c), d) :\n` +
-        `      a) construction ou vérification simple\n` +
-        `      b) identifier la nature d'une figure obtenue\n` +
-        `      c) démonstration géométrique ("Montrer que … est un parallélogramme")\n` +
-        `      d) conclusion par déduction ("En déduire que … sont parallèles")\n` +
-        `  • Dernière question possible : "La droite … coupe … en J. Montrer que J est\n` +
-        `    le milieu de …" (confirmer la réciproque dans le même contexte).\n` +
-        `  • Puisque l'app n'affiche PAS de figures : nommer tous les points, donner\n` +
-        `    toutes les mesures utiles explicitement dans le texte.\n` +
+        `Structure OBLIGATOIRE de toute Activité :\n` +
+        `  • Partir d'un objet ou résultat CONNU (parallélogramme, symétrie, théorème\n` +
+        `    déjà établi dans la séance précédente).\n` +
+        `  • 4 sous-questions progressives a) b) c) d) :\n` +
+        `      a) calcul numérique simple ou identification d'une configuration\n` +
+        `      b) observation d'un pattern ou vérification d'une propriété\n` +
+        `      c) raisonnement géométrique ou calcul plus élaboré\n` +
+        `      d) "En déduire que …" — le nouvel énoncé du théorème\n` +
+        `  • Puisque l'app n'affiche PAS de figures : donner toutes les mesures et noms\n` +
+        `    de points explicitement dans le texte (ex : "AM = 4 cm, AB = 12 cm, …").\n` +
         `\n` +
-        `  **Théorème** : énoncé exact du programme tunisien, en gras. Pas de preuve.\n` +
+        `Personnalisation de l'Activité par section :\n` +
         `\n` +
-        `── Section introduisant le THÉORÈME DE THALÈS ──\n` +
+        `  SECTION I (Droites des Milieux) :\n` +
+        `    Partir d'un parallélogramme ou d'une symétrie centrale.\n` +
+        `    a) Construire un point ou identifier la nature d'un quadrilatère.\n` +
+        `    b) Montrer que ce quadrilatère est un parallélogramme.\n` +
+        `    c) En déduire le parallélisme de deux droites.\n` +
+        `    d) "En déduire que la droite joignant les milieux de [AB] et [AC] est\n` +
+        `       parallèle à (BC)."\n` +
         `\n` +
-        `  **Activité** (Type B — mise en situation par un calcul direct) :\n` +
-        `  • Donner un triangle ABC avec 3 mesures numériques précises (ex : AM, AB, AC)\n` +
-        `    et préciser que (MN) // (BC).\n` +
-        `  • Poser UNE seule question directe de calcul : "Calculer AN."\n` +
-        `  • Pas de sous-questions — l'élève cherche seul, puis le théorème est donné.\n` +
+        `  SECTION II (Théorème de Thalès) :\n` +
+        `    Partir du théorème des milieux (cas k = 1/2) pour généraliser.\n` +
+        `    a) Cas milieu : M milieu de [AB], calculer AM/AB et AN/AC (= 1/2), MN/BC.\n` +
+        `    b) Cas k = 1/3 : AM = AB/3, calculer AN/AC et MN/BC (admettre la position).\n` +
+        `    c) Observer que AM/AB = AN/AC = MN/BC dans les deux cas. Calculer ces\n` +
+        `       rapports pour un troisième jeu de valeurs (k quelconque).\n` +
+        `    d) "En déduire la relation générale : si (MN)//(BC), alors\n` +
+        `       AM/AB = AN/AC = MN/BC."\n` +
         `\n` +
-        `  **Théorème de Thalès** : énoncé exact (Soit ABC un triangle, M∈(AB), N∈(AC).\n` +
-        `  Si (MN)//(BC) alors AM/AB = AN/AC = MN/BC), en gras.\n` +
+        `  SECTION III (Réciproque) :\n` +
+        `    Partir du théorème de Thalès pour construire la démonstration inverse.\n` +
+        `    Donner AM, MB, AN, NC numériques.\n` +
+        `    a) Calculer AB = AM + MB et AC = AN + NC.\n` +
+        `    b) Calculer AM/AB.\n` +
+        `    c) Calculer AN/AC. Comparer AM/AB et AN/AC.\n` +
+        `    d) "En déduire que (MN)//(BC)."\n` +
         `\n` +
-        `  **Application** :\n` +
-        `  → Aptitude visée : "Calculer les distances (utilisation de Thalès)"\n` +
-        `  • Donner 4 mesures numériques (ex : AM, AB, MN, AC) et (MN)//(BC).\n` +
-        `  • Demander de calculer DEUX longueurs inconnues (ex : "Calculer BC et AN").\n` +
-        `  • Ce problème DOIT figurer dans workedExamples avec sa solution complète.\n` +
+        `═══ THÉORÈME / RETENONS ═══\n` +
+        `Immédiatement après l'Activité, énoncer le théorème en BLOCKQUOTE (lignes > …) :\n` +
+        `  > **Théorème :**\n` +
+        `  > Soit ABC un triangle …\n` +
+        `  > Si … alors …\n` +
+        `(le blockquote sera rendu comme une boîte colorée dans l'interface)\n` +
         `\n` +
-        `── Section RÉCIPROQUE ──\n` +
-        `\n` +
-        `  **Activité** (Type B) :\n` +
-        `  • Donner un triangle avec 4 mesures (AM, MB, AN, NC) et demander :\n` +
-        `    "A-t-on (MN) // (BC) ?" — l'élève calcule AM/AB et AN/AC, les compare.\n` +
-        `\n` +
-        `  **Retenons** : énoncé exact de la réciproque (Soit ABC un triangle, M∈(AB),\n` +
-        `  N∈(AC). Si AM/AB = AN/AC alors (MN)//(BC)), en gras.\n` +
-        `\n` +
-        `  **Application 1** et **Application 2** (DEUX applications séparées) :\n` +
-        `  → Aptitude visée : "Montrer que deux droites sont parallèles"\n` +
-        `  • Chacune donne 4 mesures numériques différentes.\n` +
-        `  • Question : "A-t-on (MN) // (BC) ?" ou "Montrer que (MN) // (BC)."\n` +
-        `  • Ces deux problèmes DOIVENT figurer dans workedExamples.\n` +
-        `\n` +
-        `── Section APPLICATIONS CONSTRUCTIVES ──\n` +
-        `\n` +
-        `  Pas d'Activité pour cette section.\n` +
-        `  **Application 1** (Point à rapport donné) :\n` +
-        `  → Aptitude visée : "Construire un point M de la droite (AB)"\n` +
-        `  • "Construire le point M de [AB] tel que AM/AB = p/q." (p, q entiers précis)\n` +
-        `  • Dans workedExamples : justifier uniquement par Thalès (pas d'étapes de tracé).\n` +
-        `\n` +
-        `  **Application 2** (Partage en n parties isométriques) :\n` +
-        `  • "Partager le segment [AB] de longueur L cm en n parties isométriques."\n` +
-        `    (L et n valeurs précises différentes de la fiche originale)\n` +
+        `═══ APPLICATION ═══\n` +
+        `  Section II  → aptitude "Calculer les distances" : calculer DEUX longueurs inconnues.\n` +
+        `  Section III → aptitude "Montrer le parallélisme" : DEUX applications "A-t-on (MN)//(BC)?"\n` +
+        `  Section IV  → PAS d'Activité. Deux énoncés de construction (AM/AB = p/q ; n parties).\n` +
+        `  Chaque Application DOIT avoir sa résolution complète dans workedExamples.\n` +
         `\n` +
         `═══ RÈGLES GLOBALES ═══\n` +
-        `  • Sections numérotées en romain (I-, II-, III-, IV-) avec leurs noms exacts.\n` +
-        `  • keyConcepts = les énoncés des Théorèmes/Retenons, un par section, verbatim.\n` +
-        `  • workedExamples = résolutions complètes de TOUTES les Applications.\n` +
-        `  • Zéro concept absent du scope (pas de "rapport de Thalès", pas de ]0;1[,\n` +
-        `    et tout ce qui suit "PAS" dans le scope est INTERDIT).`
+        `  • Sections : ## I- Nom, ## II- Nom, ## III- Nom, ## IV- Nom (headings Markdown).\n` +
+        `  • keyConcepts = énoncés des Théorèmes/Retenons, un par section, verbatim.\n` +
+        `  • workedExamples = résolutions complètes de toutes les Applications.\n` +
+        `  • Zéro concept absent du scope ; tout après "PAS" est INTERDIT.`
       : null;
 
   // ── Geometry construction rule (universal) ───────────────────────────────
