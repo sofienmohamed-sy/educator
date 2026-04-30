@@ -89,6 +89,33 @@ export function renderMarkdown(text: string): ReactNode {
 
     const lines = para.split("\n");
 
+    // Théorème / Retenons box: all lines start with ">"
+    // Rendered with a yellow left-border box (like the fiche's coloured theorem boxes)
+    const allBlockquotes = lines.every((l) => /^>\s*/.test(l.trim()) || l.trim() === "");
+    if (allBlockquotes && lines.some((l) => /^>\s*/.test(l.trim()))) {
+      nodes.push(
+        <div
+          key={pi}
+          style={{
+            background: "var(--bg-yellow, #fffde7)",
+            borderLeft: "4px solid var(--accent-yellow, #d97706)",
+            border: "1px solid var(--border-yellow, #fde68a)",
+            borderRadius: "0 4px 4px 0",
+            padding: "0.6rem 1rem",
+            margin: "0.6rem 0",
+            lineHeight: 1.7,
+          }}
+        >
+          {lines.map((l, li) => {
+            const content = l.trim().replace(/^>\s*/, "");
+            if (!content) return <br key={li} />;
+            return <div key={li}>{renderRichText(content)}</div>;
+          })}
+        </div>,
+      );
+      continue;
+    }
+
     // Check if this paragraph is a bullet list
     const allBullets = lines.every((l) => /^[-*] /.test(l.trim()));
     if (allBullets) {
