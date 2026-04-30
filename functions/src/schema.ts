@@ -211,7 +211,7 @@ export interface RagChunk {
 
 export const generateCourseRequestSchema = z.object({
   subject: subjectSchema,
-  topic: z.string().trim().min(1).max(256),
+  topic: z.string().trim().min(1).max(4096),
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
   section: nullishString({ max: 96 }),
@@ -234,7 +234,7 @@ export type Course = z.infer<typeof courseSchema>;
 
 export const generateExercisesRequestSchema = z.object({
   subject: subjectSchema,
-  topic: z.string().trim().min(1).max(256),
+  topic: z.string().trim().min(1).max(4096),
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
   section: nullishString({ max: 96 }),
@@ -383,7 +383,7 @@ export type WritingCorrection = z.infer<typeof writingCorrectionSchema>;
 export const generateWritingRequestSchema = z.object({
   writingSubject: writingSubjectSchema,
   contentType: z.enum(["lesson", "exercise", "quiz", "essay_prompt"]),
-  topic: z.string().trim().min(1).max(256),
+  topic: z.string().trim().min(1).max(4096),
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
   section: nullishString({ max: 96 }),
@@ -432,7 +432,7 @@ export type WritingItem = z.infer<typeof writingItemSchema>;
 
 export const generateFicheRequestSchema = z.object({
   subject: subjectSchema,
-  topic: z.string().trim().min(1).max(256),
+  topic: z.string().trim().min(1).max(4096),
   country: z.string().trim().min(2).max(8),
   gradeLevel: nullishString({ max: 64 }),
   section: nullishString({ max: 96 }),
