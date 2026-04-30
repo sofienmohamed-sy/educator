@@ -207,6 +207,36 @@ export interface RagChunk {
   chunkIndex?: number;
 }
 
+// ── Geometry figure ───────────────────────────────────────────────────────────
+
+export const figurePointSchema = z.object({
+  id: z.string().min(1),
+  label: z.string().min(1),
+  x: z.number().min(0).max(1),
+  y: z.number().min(0).max(1),
+  dx: z.number().nullish().transform((v) => v ?? undefined),
+  dy: z.number().nullish().transform((v) => v ?? undefined),
+});
+
+export const figureSegmentSchema = z.object({
+  p1: z.string().min(1),
+  p2: z.string().min(1),
+  label: rspOptStr(),
+  dashed: z.boolean().nullish().transform((v) => v ?? undefined),
+  color: rspOptStr(),
+});
+
+export const figureSpecSchema = z.object({
+  points: z.array(figurePointSchema).min(1),
+  segments: z.array(figureSegmentSchema),
+  caption: rspOptStr(),
+  width: z.number().positive().nullish().transform((v) => v ?? undefined),
+  height: z.number().positive().nullish().transform((v) => v ?? undefined),
+});
+export type FigurePoint = z.infer<typeof figurePointSchema>;
+export type FigureSegment = z.infer<typeof figureSegmentSchema>;
+export type FigureSpec = z.infer<typeof figureSpecSchema>;
+
 // ── Course generation ─────────────────────────────────────────────────────────
 
 export const generateCourseRequestSchema = z.object({
@@ -224,8 +254,15 @@ export const courseSchema = z.object({
   subject: subjectSchema.nullish().transform((v) => v ?? undefined),
   topic: rspOptStr(),
   theory: z.string().min(1),
+  figures: rspOptArr(figureSpecSchema),
   keyConcepts: rspDefArr(z.object({ term: z.string(), definition: z.string() })),
-  workedExamples: rspDefArr(z.object({ problem: z.string(), solution: z.string() })),
+  workedExamples: rspDefArr(
+    z.object({
+      problem: z.string(),
+      solution: z.string(),
+      figure: figureSpecSchema.nullish().transform((v) => v ?? undefined),
+    }),
+  ),
   summary: z.string().min(1),
 });
 export type Course = z.infer<typeof courseSchema>;

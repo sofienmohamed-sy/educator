@@ -252,6 +252,14 @@ export function buildRagContextBlock(
 
 const COURSE_JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fences, no prose) matching:
 
+type FigurePoint   = { id: string; label: string; x: number; y: number; dx?: number; dy?: number };
+type FigureSegment = { p1: string; p2: string; label?: string; dashed?: boolean; color?: string };
+type FigureSpec    = { points: FigurePoint[]; segments: FigureSegment[]; caption?: string; width?: number; height?: number };
+// x, y are normalised 0–1 (0=left/top, 1=right/bottom). Default canvas 280×190 px.
+// Standard triangle ABC: A=(0.5,0.08) top-center, B=(0.08,0.92) bottom-left, C=(0.92,0.92) bottom-right.
+// Point M on [AB] at ratio r (AM/AB=r): x = 0.5 - 0.42*r,  y = 0.08 + 0.84*r.
+// Point N on [AC] at ratio r (AN/AC=r): x = 0.5 + 0.42*r,  y = 0.08 + 0.84*r.
+
 type Course = {
   subject: "math" | "physics" | "chemistry" | "informatics";
   topic: string;            // chapter label only (no scope description)
@@ -260,12 +268,18 @@ type Course = {
                             //   **Activité**  (bold label)
                             //   > theorem line 1    ← Théorème/Retenons MUST use > blockquote
                             //   > theorem line 2
+                            //   [fig-0]             ← figure marker; renders course.figures[0]
                             // FRACTIONS: ALL fractions MUST be LaTeX — NEVER plain text.
                             //   correct:  "$\\frac{AM}{AB}$"  or  "$\\dfrac{1}{2}$"
                             //   FORBIDDEN: writing a fraction as two lines of plain text
                             // Display math: \\[...\\] on a SINGLE LINE (never split across lines)
+  figures?: FigureSpec[];   // geometry figures referenced in theory by [fig-0], [fig-1]… markers
   keyConcepts: Array<{ term: string; definition: string }>;  // Théorèmes/Retenons, one per section
-  workedExamples: Array<{ problem: string; solution: string }>;  // solutions to all Applications
+  workedExamples: Array<{
+    problem: string;        // full problem statement (text + LaTeX); no figure markers needed here
+    solution: string;
+    figure?: FigureSpec;    // geometry figure for this Application (geometric chapters only)
+  }>;
   summary: string;
 };`;
 
@@ -383,13 +397,16 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
         `  • Zéro concept absent du scope ; tout ce qui suit "PAS" dans le scope est INTERDIT.`
       : null;
 
-  // ── Geometry construction rule (universal) ───────────────────────────────
+  // ── Figure rule ──────────────────────────────────────────────────────────
   const noImagesRule =
-    `NO-IMAGES RULE: this app displays no figures.\n` +
-    `  • Replace figure data textually: give every numerical value (lengths, ratios, point names)\n` +
-    `    directly in the problem statement so the student has all needed information.\n` +
-    `  • Do NOT describe drawing steps (ruler, compass, "tracer la droite…").\n` +
-    `  • For construction problems: state the goal only ("Construire M de [AB] tel que AM/AB = 3/5").`;
+    `FIGURES RULE:\n` +
+    `  • Geometric chapters (Thalès, droites des milieux, vecteurs, triangles, cercle…):\n` +
+    `    - Generate FigureSpec objects and insert [fig-0], [fig-1]… markers in theory where each\n` +
+    `      figure should appear (right after the Activité or after the Théorème block).\n` +
+    `    - Each Application (workedExample) that involves a figure MUST set its "figure" field.\n` +
+    `    - Use the standard triangle coordinates above; place all labelled points accurately.\n` +
+    `  • Non-geometric chapters (algèbre, analyse, statistiques): omit figures entirely.\n` +
+    `  • Always give all numerical values textually too so the student can solve without the figure.`;
 
   // ── Main generation instruction ──────────────────────────────────────────
   const generationInstruction = ragContext

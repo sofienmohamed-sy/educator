@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import MathRenderer from "../components/MathRenderer";
+import GeometryFigure from "../components/GeometryFigure";
+import type { FigureSpec } from "./types";
 
 // Splits text on display/inline math delimiters and **bold**
 // Order matters: longer/greedier patterns first
@@ -73,7 +75,7 @@ function normalizeDisplayMath(text: string): string {
  * - Single newlines → <br />
  * Within each block, renderRichText handles inline math and bold.
  */
-export function renderMarkdown(text: string): ReactNode {
+export function renderMarkdown(text: string, figures?: FigureSpec[]): ReactNode {
   if (!text) return null;
 
   // Collapse multi-line display math before any further splitting
@@ -134,6 +136,15 @@ export function renderMarkdown(text: string): ReactNode {
     for (let li = 0; li < lines.length; li++) {
       const line = lines[li];
       const trimmed = line.trim();
+
+      const figMarker = trimmed.match(/^\[fig-(\d+)\]$/);
+      if (figMarker) {
+        const figSpec = figures?.[parseInt(figMarker[1])];
+        if (figSpec) {
+          lineNodes.push(<GeometryFigure key={li} spec={figSpec} />);
+          continue;
+        }
+      }
 
       const h3 = trimmed.match(/^### (.+)/);
       if (h3) {
