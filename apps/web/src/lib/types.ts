@@ -24,12 +24,42 @@ export interface BookMeta {
   createdAt?: { seconds: number };
 }
 
+export interface FigurePoint {
+  id: string;       // identifier used in segments (e.g. "A", "M")
+  label: string;    // displayed label
+  x: number;        // normalised 0-1 (0 = left, 1 = right)
+  y: number;        // normalised 0-1 (0 = top, 1 = bottom)
+  dx?: number;      // label pixel offset from dot (auto if omitted)
+  dy?: number;
+}
+
+export interface FigureSegment {
+  p1: string;       // point id
+  p2: string;       // point id
+  label?: string;   // measurement shown near midpoint, e.g. "AM = 3 cm"
+  dashed?: boolean;
+  color?: string;   // CSS colour, default "#1f2937"
+}
+
+export interface FigureSpec {
+  points: FigurePoint[];
+  segments: FigureSegment[];
+  caption?: string;
+  width?: number;   // default 280
+  height?: number;  // default 190
+}
+
 export interface Course {
   subject: Subject;
   topic: string;
   theory: string;
+  figures?: FigureSpec[];   // indexed by [fig-0], [fig-1]… markers in theory text
   keyConcepts: Array<{ term: string; definition: string }>;
-  workedExamples: Array<{ problem: string; solution: string }>;
+  workedExamples: Array<{
+    problem: string;
+    solution: string;
+    figure?: FigureSpec;    // geometric figure for this application
+  }>;
   summary: string;
 }
 
