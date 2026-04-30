@@ -55,6 +55,17 @@ export function looksLikeProse(text: string): boolean {
 }
 
 /**
+ * Collapses multi-line display-math blocks (\[...\] and $$...$$) into a
+ * single line so renderMarkdown's line-by-line scanner can match them.
+ * Internal newlines are replaced with a space; KaTeX ignores whitespace.
+ */
+function normalizeDisplayMath(text: string): string {
+  return text
+    .replace(/\\\[([\s\S]+?)\\\]/g, (_, inner) => `\\[${inner.replace(/\n/g, " ")}\\]`)
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, inner) => `$$${inner.replace(/\n/g, " ")}$$`);
+}
+
+/**
  * Renders a Markdown-ish string with block structure:
  * - ### / ## / # headings
  * - - bullet lists
@@ -65,8 +76,11 @@ export function looksLikeProse(text: string): boolean {
 export function renderMarkdown(text: string): ReactNode {
   if (!text) return null;
 
+  // Collapse multi-line display math before any further splitting
+  const normalized = normalizeDisplayMath(text);
+
   // Split into paragraphs on blank lines
-  const paragraphs = text.split(/\n{2,}/);
+  const paragraphs = normalized.split(/\n{2,}/);
   const nodes: ReactNode[] = [];
 
   for (let pi = 0; pi < paragraphs.length; pi++) {
