@@ -254,10 +254,11 @@ const COURSE_JSON_CONTRACT = `Return ONLY a single JSON object (no markdown fenc
 
 type Course = {
   subject: "math" | "physics" | "chemistry" | "informatics";
-  topic: string;
-  theory: string;           // complete prose explanation with inline LaTeX (no surrounding $$ blocks)
-  keyConcepts: Array<{ term: string; definition: string }>;  // at least 1
-  workedExamples: Array<{ problem: string; solution: string }>;  // at least 1
+  topic: string;            // chapter label only (no scope description)
+  theory: string;           // complete prose explanation; inline LaTeX uses $...$ or \\(...\\);
+                            // display math uses \\[...\\] on a SINGLE LINE (never split across lines)
+  keyConcepts: Array<{ term: string; definition: string }>;  // at least 2
+  workedExamples: Array<{ problem: string; solution: string }>;  // at least 2
   summary: string;
 };`;
 
@@ -275,6 +276,13 @@ export interface BuildCoursePromptArgs {
 export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
   const { subject, topic, country, gradeLevel, section, language, profile, ragContext } =
     args;
+
+  // topic = "Label — scope limits" (built by topicValue() in topics.ts).
+  // Parse them so we can give Claude an explicit scope constraint block.
+  const dashIdx = topic.indexOf(" — ");
+  const topicLabel = dashIdx >= 0 ? topic.slice(0, dashIdx) : topic;
+  const topicLimits = dashIdx >= 0 ? topic.slice(dashIdx + 3) : null;
+
   const subjectLabel = SUBJECT_LABELS[subject];
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
@@ -288,6 +296,85 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     section,
   );
 
+  // ── Scope constraints (always present for TN topics, often for others) ──
+  const scopeBlock = topicLimits
+    ? `STRICT SCOPE — official curriculum fiche for "${topicLabel}":\n` +
+      `${topicLimits}\n` +
+      `\n` +
+      `SCOPE RULES (non-negotiable):\n` +
+      `• Every concept, theorem, property, and example in your output MUST appear in the scope text above.\n` +
+      `• Any item after "PAS" is EXPLICITLY FORBIDDEN — do not mention it even as a remark or footnote.\n` +
+      `• Do not add generalisations, extensions, historical notes, or neighbouring topics absent from the scope.\n` +
+      `• Do not include a recap table that duplicates content already present in theory or summary.`
+    : null;
+
+  // ── Pedagogical approach ─────────────────────────────────────────────────
+  // Tunisia uses the competency-based approach (approche par la compétence).
+  const pedagogyBlock =
+    country === "TN"
+      ? `PEDAGOGICAL APPROACH — Approche par la compétence (Tunisian national curriculum):\n` +
+        `Structure the lesson as a Tunisian math "cours" (not a French essay or Wikipedia article):\n` +
+        `  • Open directly with the main theorem / definition — no motivating stories or historical notes.\n` +
+        `  • State theorems with their exact conditions; include a brief proof or justification ONLY when\n` +
+        `    the scope above explicitly mentions one.\n` +
+        `  • Use numbered sections (I., II., III. or 1., 2., 3.) matching Tunisian fiche style.\n` +
+        `  • Worked examples must be short, direct numerical or algebraic applications of the theorems\n` +
+        `    (one statement + one solution, each ≤ 6 steps).\n` +
+        `  • Be concise: omit preambles, motivating scenarios, "advanced remarks", and any content not\n` +
+        `    needed by either the teacher or the student to understand and apply the theorems.`
+      : null;
+
+  // ── Geometry construction rule (universal) ───────────────────────────────
+  const noImagesRule =
+    `NO-IMAGES RULE: this app shows no figures or diagrams.\n` +
+    `  • Do NOT write step-by-step ruler-and-compass construction procedures.\n` +
+    `  • If a construction is in scope, state the result ("On peut construire M tel que AM/AB = p/q\n` +
+    `    par la méthode de Thalès") without describing the manual drawing steps.`;
+
+  // ── Main generation instruction ──────────────────────────────────────────
+  const generationInstruction = ragContext
+    ? `PRIMARY RULE — GENERATE FOLLOWING THE BOOK'S EXACT PEDAGOGICAL PATTERN:\n` +
+      `Your task is to generate a course on "${topicLabel}" that is INDISCERNIBLE from a\n` +
+      `real chapter of the same textbook. A professor who knows the book must not be\n` +
+      `able to tell the difference.\n` +
+      `\n` +
+      `BEFORE WRITING — ANALYSE THE BOOK (mandatory internal step):\n` +
+      `Read all CONTENT REFERENCE and STYLE GUIDE excerpts. Identify:\n` +
+      `  • How does the book introduce a new topic? (concrete scenario first? formal\n` +
+      `    definition first? motivating problem first? historical note?)\n` +
+      `  • What level of proof rigor does the book use? (formal ε-δ? informal geometric?\n` +
+      `    both together?)\n` +
+      `  • What type of examples does the book favour? (numerical tables? graphical\n` +
+      `    constructions? algebraic chains? explicit computations?)\n` +
+      `  • What prerequisites does the book assume the reader already knows?\n` +
+      `Apply this EXACT pattern — not a similar one — to "${topicLabel}".\n` +
+      `\n` +
+      `CONTENT MANDATE:\n` +
+      `• If the excerpts contain definitions, theorems, or proofs on "${topicLabel}", reproduce\n` +
+      `  their EXACT wording and proof structure. Do not paraphrase.\n` +
+      `• If the excerpts contain worked examples on "${topicLabel}", use those exact examples\n` +
+      `  (same numbers, same steps). If you need additional examples, generate ones that\n` +
+      `  are indiscernible siblings of those in the book.\n` +
+      `• Never simplify, skip prerequisites, or lower the mathematical bar relative to\n` +
+      `  what the book establishes.\n` +
+      `\n` +
+      `METHOD MANDATE (proofs and solutions):\n` +
+      `• Identify the proof techniques the book uses (induction, contradiction, direct\n` +
+      `  computation, ε-δ, comparison, construction, ...).\n` +
+      `• Use those EXACT techniques for analogous results on "${topicLabel}".\n` +
+      `• Never substitute a simpler technique that the book explicitly avoids.\n` +
+      `\n` +
+      `LEARNING LEVEL MANDATE:\n` +
+      `• The level is defined 100% by the book — not by the difficulty label, not by a\n` +
+      `  generic curriculum. If the book is a university analysis textbook, write at that\n` +
+      `  level. If it is a high-school textbook, write at that level.\n` +
+      `• A student who has studied ONLY this book must recognize every concept, notation,\n` +
+      `  and technique you use as familiar from the book.\n` +
+      `\n` +
+      `HARD RULE: A reader familiar with the textbook must not be able to tell that\n` +
+      `the generated content was not written by the book's own author.`
+    : `Generate a focused, complete course lesson on "${topicLabel}". Stay strictly within the scope defined above.`;
+
   return [
     `You are an expert ${subjectLabel} educator preparing a course lesson.`,
     `Audience: ${audienceDesc}.`,
@@ -297,53 +384,17 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
     ``,
-    ragContext
-      ? `PRIMARY RULE — GENERATE FOLLOWING THE BOOK'S EXACT PEDAGOGICAL PATTERN:\n` +
-        `Your task is to generate a course on "${topic}" that is INDISCERNIBLE from a\n` +
-        `real chapter of the same textbook. A professor who knows the book must not be\n` +
-        `able to tell the difference.\n` +
-        `\n` +
-        `BEFORE WRITING — ANALYSE THE BOOK (mandatory internal step):\n` +
-        `Read all CONTENT REFERENCE and STYLE GUIDE excerpts. Identify:\n` +
-        `  • How does the book introduce a new topic? (concrete scenario first? formal\n` +
-        `    definition first? motivating problem first? historical note?)\n` +
-        `  • What level of proof rigor does the book use? (formal ε-δ? informal geometric?\n` +
-        `    both together?)\n` +
-        `  • What type of examples does the book favour? (numerical tables? graphical\n` +
-        `    constructions? algebraic chains? explicit computations?)\n` +
-        `  • What prerequisites does the book assume the reader already knows?\n` +
-        `Apply this EXACT pattern — not a similar one — to "${topic}".\n` +
-        `\n` +
-        `CONTENT MANDATE:\n` +
-        `• If the excerpts contain definitions, theorems, or proofs on "${topic}", reproduce\n` +
-        `  their EXACT wording and proof structure. Do not paraphrase.\n` +
-        `• If the excerpts contain worked examples on "${topic}", use those exact examples\n` +
-        `  (same numbers, same steps). If you need additional examples, generate ones that\n` +
-        `  are indiscernible siblings of those in the book.\n` +
-        `• Never simplify, skip prerequisites, or lower the mathematical bar relative to\n` +
-        `  what the book establishes.\n` +
-        `\n` +
-        `METHOD MANDATE (proofs and solutions):\n` +
-        `• Identify the proof techniques the book uses (induction, contradiction, direct\n` +
-        `  computation, ε-δ, comparison, construction, ...).\n` +
-        `• Use those EXACT techniques for analogous results on "${topic}".\n` +
-        `• Never substitute a simpler technique that the book explicitly avoids.\n` +
-        `\n` +
-        `LEARNING LEVEL MANDATE:\n` +
-        `• The level is defined 100% by the book — not by the difficulty label, not by a\n` +
-        `  generic curriculum. If the book is a university analysis textbook, write at that\n` +
-        `  level. If it is a high-school textbook, write at that level.\n` +
-        `• A student who has studied ONLY this book must recognize every concept, notation,\n` +
-        `  and technique you use as familiar from the book.\n` +
-        `\n` +
-        `HARD RULE: A reader familiar with the textbook must not be able to tell that\n` +
-        `the generated content was not written by the book's own author.`
-      : `Generate a complete course lesson on the topic: "${topic}". The theory section must be thorough and pedagogically sound for the ${country} curriculum.`,
-    `Include at least 2 key concepts and 2 worked examples with full solutions.`,
+    scopeBlock,
+    ``,
+    pedagogyBlock,
+    ``,
+    noImagesRule,
+    ``,
+    generationInstruction,
     ``,
     COURSE_JSON_CONTRACT,
   ]
-    .filter((line) => line !== "")
+    .filter((line) => line !== null && line !== "")
     .join("\n");
 }
 
