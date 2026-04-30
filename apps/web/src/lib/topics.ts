@@ -896,183 +896,181 @@ const TOPICS: Record<string, Topic[]> = {
 
   // ── TUNISIA ────────────────────────────────────────────────────────────────
   // 1ère année secondaire — Tronc commun (toutes sections).
-  // Source : Fiches pédagogiques officielles rédigées sous la direction de
-  // l'inspecteur principal Amor Jeridi, DRE Gabès (2010-2012). Chaque entrée
-  // correspond à un chapitre du programme ; les limits reproduisent les
-  // "Aptitudes à développer" de la fiche et délimitent précisément le contenu.
+  // Source : Fiches pédagogiques officielles, dir. inspecteur principal Amor
+  // Jeridi, DRE Gabès (2010-2012). Limits extraites des "Aptitudes à développer"
+  // séance par séance et de la structure des paragraphes de chaque fiche.
   "TN_math_1ère secondaire": [
     {
       label: "Les angles",
       limits:
-        "Définition d'un angle, mesure en degrés (rapporteur), classification : aigu (0°<α<90°), droit (90°), obtus (90°<α<180°), plat (180°), nul (0°), saillant, rentrant. Couples d'angles : opposés par le sommet (égaux), adjacents, complémentaires (somme 90°), supplémentaires (somme 180°). Angles et figures de base : angle extérieur d'un triangle = somme des deux angles non adjacents. Droites parallèles et sécante : alternes-internes égaux, correspondants égaux, intérieurs même côté supplémentaires (et réciproques). Angles inscrits dans un cercle : vocabulaire (corde, arc, demi-cercle, diamètre) ; angle inscrit = ½ angle au centre associé ; deux angles inscrits interceptant le même arc sont égaux ; angle inscrit dans un demi-cercle = 90°. Longueur d'un arc : l = m·π·r/180. PAS les formules d'addition trigonométrique, PAS le cercle inscrit/exinscrit.",
+        "Vocabulaire géométrique de base en français (règle, compas, rapporteur, équerre ; point, droite, demi-droite, segment) ; définition d'un angle (deux demi-droites de même origine), mesure en degrés au rapporteur, classification : angles saillants (nul, aigu, droit, obtus, plat) et angles rentrants. Couples d'angles : opposés par le sommet (sont égaux), adjacents, complémentaires (somme 90°), supplémentaires (somme 180°). Angle extérieur d'un triangle (égal à la somme des deux angles non adjacents) ; calcul d'angles dans des figures de base ; preuve d'alignement par les angles ; angles formés par deux parallèles et une sécante (alternes-internes égaux, correspondants égaux, intérieurs de même côté supplémentaires) avec réciproque. Angles inscrits dans un cercle : vocabulaire (corde, arc, demi-cercle, diamètre) ; théorème « un angle inscrit est la moitié de l'angle au centre associé » (démonstration cas aigu et obtus) ; corollaire angle inscrit dans un demi-cercle = 90° ; deux angles inscrits interceptant le même arc sont égaux. Construction d'un angle égal sans rapporteur, hexagone régulier et triangle équilatéral inscrits dans un cercle, longueur d'un arc l = m·πr/180. PAS les formules d'addition trigonométrique, PAS cercle inscrit/exinscrit.",
     },
     {
       label: "Thalès et sa réciproque",
       limits:
-        "Droite des milieux dans un triangle : la droite joignant les milieux de deux côtés est parallèle au troisième et mesure la moitié. Théorème de Thalès dans un triangle : si (MN)//(BC) alors AM/AB = AN/AC = MN/BC. Réciproque de Thalès : si AM/AB = AN/AC alors (MN)//(BC). PAS les configurations avec deux sécantes hors du triangle (Thalès 'papillon'), PAS le théorème des milieux dans le parallélogramme.",
+        "Théorème des milieux d'un triangle : la droite joignant les milieux de deux côtés est parallèle au troisième et en mesure la moitié ; la droite par le milieu d'un côté et parallèle à un autre passe par le milieu du troisième. Théorème de Thalès dans un triangle : si (MN) // (BC) avec M ∈ (AB) et N ∈ (AC), alors AM/AB = AN/AC = MN/BC, utilisé pour calculer des longueurs inconnues. Réciproque de Thalès (AM/AB = AN/AC ⟹ (MN) // (BC)) pour démontrer le parallélisme. Applications constructives : construction d'un point M de (AB) tel que AM/AB soit un rapport donné ; partage d'un segment [AB] en n parties isométriques par la méthode de Thalès. PAS de configuration hors du triangle (pas de cas « papillon »).",
     },
     {
       label: "Rapports trigonométriques",
       limits:
-        "Cosinus, sinus, tangente d'un angle aigu dans un triangle rectangle (définitions par côtés adjacent, opposé, hypoténuse). Utilisation de la calculatrice (trouver cos/sin/tan d'un angle, et arccos/arcsin/arctan). Valeurs remarquables : cos 30°=√3/2, sin 30°=1/2, tan 30°=1/√3 ; cos 45°=sin 45°=√2/2, tan 45°=1 ; cos 60°=1/2, sin 60°=√3/2, tan 60°=√3. Relations trigonométriques : sin²(α)+cos²(α)=1 et sin(α)/cos(α)=tan(α). Relations métriques dans un triangle rectangle : théorème de Pythagore et ses applications. Construction d'un angle aigu connaissant l'un de ses rapports trigonométriques. Construction d'un segment de longueur √(ab). PAS la trigonométrie des angles quelconques (cercle trigonométrique), PAS sin(a+b).",
+        "Définition dans un triangle rectangle du cosinus, sinus et tangente d'un angle aigu (côté adjacent, côté opposé, hypoténuse) ; utilisation de la calculatrice ; valeurs exactes des angles remarquables 30°, 45°, 60°. Relations trigonométriques : cos(90°−x) = sin(x), sin²x + cos²x = 1, tan x = sin x / cos x. Relations métriques dans le triangle rectangle (sin A = côté opp./hyp., etc.) ; construction d'un angle aigu connaissant sa tangente, son sinus ou son cosinus ; construction d'un segment de longueur √(ab) (exploitation des relations métriques). Exercices intégratifs : calcul de longueurs, d'aires, d'angles ; problèmes mêlant Pythagore et trigonométrie. PAS de trigonométrie des angles obtus ni du cercle trigonométrique ; PAS de formules d'addition.",
     },
     {
       label: "Vecteurs et translations",
       limits:
-        "Définition d'un vecteur : représentant, direction, sens, norme (longueur). Égalité de deux vecteurs (même direction, sens, norme). Vecteur nul ; vecteurs opposés. Caractérisations vectorielles : ABCD parallélogramme ⟺ AB⃗=DC⃗ ; I milieu de [AB] ⟺ IA⃗+IB⃗=0⃗ ; A, B, C alignés ⟺ AB⃗ et AC⃗ colinéaires. Translation de vecteur u⃗ : image d'un point, image d'une figure (conservation des longueurs, des angles, du parallélisme). PAS les coordonnées dans un repère (chapitre 6), PAS les rotations d'angle quelconque.",
+        "Notion de vecteur à partir de bipoints (deux bipoints représentent le même vecteur si leurs diagonales ont le même milieu) : direction, sens, norme, vecteur nul, égalité de deux vecteurs. Théorèmes : AB = CD ⟺ ABDC est un parallélogramme ; AB = BC ⟺ B est le milieu de [AC] ; AB = AC ⟺ B = C ; propriété d'alignement. Translation de vecteur u : image d'un point, conservation des distances, image d'une droite (droite parallèle), image d'un segment (isométrique), image d'un cercle (même rayon, centre image), conservation des mesures d'angles (figures superposables). Exercices : construction d'images par translation, preuve de parallélogrammes, détermination de milieux et d'alignements.",
     },
     {
       label: "Somme de deux vecteurs",
       limits:
-        "Relation de Chasles : AB⃗+BC⃗=AC⃗ (et ses conséquences : AB⃗+BA⃗=0⃗). Somme de deux vecteurs : définition (règle tête-queue ou du parallélogramme), représentation. Propriétés : commutativité, associativité, élément neutre 0⃗. Produit d'un réel k par un vecteur u⃗ : direction, sens (même si k>0, opposé si k<0), norme |k|·||u⃗||. Vecteurs colinéaires : u⃗ et v⃗ colinéaires ⟺ ∃k∈ℝ, u⃗=k·v⃗. Vecteurs colinéaires et droites parallèles. Milieu d'un segment : I milieu de [AB] ⟺ AI⃗=IB⃗. PAS la décomposition dans une base du plan, PAS le produit scalaire.",
+        "Relation de Chasles (AB + BC = AC) et ses conséquences ; construction de la somme dans deux cas : vecteurs de direction quelconque (règle du parallélogramme) et vecteurs de même direction (deux sous-cas selon le sens). Vecteur opposé. Propriétés de l'addition : vecteur nul élément neutre, commutativité, associativité. Produit d'un vecteur par un réel : règles (0·AB = vecteur nul, (−1)·AB = BA) ; vecteurs colinéaires (l'un est le produit de l'autre par un réel) et lien avec le parallélisme des droites. Milieu d'un segment : AI = (1/2)·AB. Séance d'intégration : centre de gravité d'un triangle.",
     },
     {
       label: "Activités dans un repère",
       limits:
-        "Repère cartésien d'une droite (O, OI⃗) : abscisse d'un point M (OM⃗=x·OI⃗). Milieu sur une droite graduée : xI=(xA+xB)/2. Mesure algébrique d'un vecteur AB⃗ sur une droite graduée : AB⃗=xB-xA. Distance entre deux points sur une droite : AB=|xB-xA|. Repère orthogonal du plan (O,i⃗,j⃗) : coordonnées (x;y) d'un point, coordonnées d'un vecteur. Milieu d'un segment dans le plan : coordonnées du milieu I. Distance dans le plan : AB=√((xB-xA)²+(yB-yA)²). PAS les équations de droites (cela vient avec les fonctions affines).",
+        "Sur une droite : repère (O, OI), abscisse d'un point M (OM = x·OI), milieu (xF = (xA+xB)/2), mesure algébrique d'un vecteur, distance AB = |xB−xA|, équivalences AB = CD ⟺ xB−xA = xD−xC et AB = k·CD ⟺ xB−xA = k(xD−xC). Dans le plan : repère (O, OI, OJ), coordonnées d'un point, composantes d'un vecteur AB = (xB−xA, yB−yA), coordonnées du milieu, condition de colinéarité (composantes proportionnelles), distance dans un repère orthonormé AB = √((xB−xA)²+(yB−yA)²). Exercices : calcul de distances, milieux, preuve qu'un triangle est rectangle ou que des vecteurs sont colinéaires.",
     },
     {
       label: "Quart de tour",
       limits:
-        "Définition du quart de tour de centre O et de sens donné (direct = antihoraire, indirect = horaire). Construction de l'image d'un point par un quart de tour (utilisation de la règle et du compas). Image d'une figure géométrique par un quart de tour. Propriétés : isométrie (conservation des distances et des angles), conservation de la forme. Lieux géométriques liés au quart de tour. PAS les rotations d'angle quelconque, PAS la composition de deux rotations.",
+        "Définition du quart de tour de centre O : direct (sens trigonométrique, +90°) et indirect (sens horaire, −90°). Propriétés : conservation des distances (AB = A'B'), image d'un segment isométrique, image d'une droite perpendiculaire (admise), image d'un cercle de même rayon centré sur l'image du centre. Dans un repère orthonormé : le quart de tour direct de centre O transforme M(x, y) en M'(−y, x). Exercices : construction d'images de points et de figures, détermination d'antécédents, lieux géométriques, problèmes combinant quart de tour et autres transformations. PAS de rotation d'angle quelconque.",
     },
     {
       label: "Sections planes d'un solide",
       limits:
-        "Reconnaissance et représentation des solides usuels : prisme droit, parallélépipède rectangle, cube, pyramide droite, cône de révolution, cylindre droit, sphère. Calcul de volumes et d'aires latérales/totales de ces solides. Section d'un prisme ou d'un parallélépipède par un plan parallèle à une face. Section d'une pyramide ou d'un cône par un plan parallèle à la base (section semblable à la base). Section d'une sphère par un plan (cercle). PAS les sections obliques, PAS le calcul avec des plans non parallèles à une face.",
+        "Solides usuels (prisme droit, parallélépipède rectangle, cube, pyramide, cône de révolution, cylindre droit, sphère) ; volumes et aires : V = base × hauteur pour le prisme, formules pour pyramide (y compris pyramide de Chéops), sphère, cône de révolution (démonstration que A_latérale = πR√(R²+h²)). Sections planes : section d'un parallélépipède par un plan parallèle à une face (rectangle) ou à une arête ; section d'une pyramide par un plan parallèle à la base (polygone semblable, rapport de similitude lié aux hauteurs) ; section d'un cône par un plan parallèle à la base (cercle) ; section d'une sphère (cercle). PAS de sections obliques ; PAS de coniques.",
     },
     {
       label: "Activités numériques I",
       limits:
-        "Ensembles des nombres : ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ (reconnaissance et appartenance). Division euclidienne : quotient, reste, dividende, diviseur. Diviseurs d'un entier ; critères de divisibilité par 2, 3, 4, 5, 9. Nombres premiers : définition, liste des premiers nombres premiers. Décomposition en facteurs premiers. PGCD de deux entiers par décomposition en facteurs premiers. Algorithme d'Euclide pour le PGCD. PPCM de deux entiers. Nombres premiers entre eux (PGCD = 1) ; fraction irréductible (diviser numérateur et dénominateur par leur PGCD). Nombres décimaux (écriture décimale finie). PAS le théorème de Bézout, PAS les congruences.",
+        "Hiérarchie ℕ ⊂ ℤ ⊂ D ⊂ ℚ ⊂ ℝ avec définitions et critères d'appartenance ; π et √2 identifiés comme irrationnels. Divisibilité dans ℕ : division euclidienne, critères de divisibilité par 2, 3, 4, 5, 9. Nombres premiers : définition ; décomposition en facteurs premiers pour calculer PGCD (méthode des facteurs communs au plus petit exposant) et PPCM (tous les facteurs au plus grand exposant). Algorithme d'Euclide pour le PGCD ; relation PGCD(a,b) × PPCM(a,b) = a·b. Fractions irréductibles (PGCD = 1) ; théorème de Gauss (si a | b·c et PGCD(a,b) = 1 alors a | c). Notation scientifique ; valeurs approchées par défaut/excès et arrondi à un rang donné.",
     },
     {
       label: "Activités numériques II",
       limits:
-        "Règles opératoires dans ℝ : priorités, simplification d'expressions littérales. Puissances d'un réel : a^n (n entier relatif), propriétés (a^m·a^n=a^(m+n), (a^m)^n=a^(mn), (ab)^n=a^n·b^n). Valeur absolue : |x| = x si x≥0, = -x si x<0 ; propriétés (|xy|=|x||y|, inégalité triangulaire) ; calcul d'expressions avec valeur absolue. Racine carrée d'un réel positif : définition (√a est l'unique réel ≥0 dont le carré est a) ; √(ab)=√a·√b, √(a/b)=√a/√b (a,b≥0) ; simplification et rationalisation du dénominateur. Comparaison de réels, encadrements, ordre dans ℝ. PAS les suites numériques, PAS les logarithmes.",
+        "Propriétés des opérations dans ℝ : commutativité, associativité, éléments neutres (0 et 1), opposé, inverse, distributivité, règles sur les fractions. Puissances d'exposant entier relatif : xⁿ·xᵖ = xⁿ⁺ᵖ, (xⁿ)ᵖ = xⁿᵖ, (xy)ⁿ = xⁿyⁿ, (x/y)ⁿ = xⁿ/yⁿ, xⁿ/xᵖ = xⁿ⁻ᵖ, x⁻ⁿ = 1/xⁿ. Valeur absolue : définition (distance à 0), propriétés (|x| = 0 ⟺ x = 0, |xy| = |x||y|, |x/y| = |x|/|y|, |x+y| ≤ |x|+|y|). Racine carrée : définition, règles √(ab) = √a·√b, √(a/b) = √a/√b, √(a²) = |a| ; simplification sous forme a√b et rationalisation du dénominateur. Comparaison des réels : règles d'ajout et de multiplication, comparaison de racines et de puissances, encadrement d'une somme ou d'un produit. Intervalles de ℝ (8 types) : définition, représentation, calcul de ∩ et ∪.",
     },
     {
       label: "Activités algébriques",
       limits:
-        "Développement, réduction et ordonnancement d'expressions littérales. Identités remarquables du 2ème degré : (a+b)²=a²+2ab+b², (a-b)²=a²-2ab+b², (a+b)(a-b)=a²-b². Factorisation par les identités d'ordre 2. Identités remarquables du 3ème degré : (a+b)³=a³+3a²b+3ab²+b³, (a-b)³=a³-3a²b+3ab²-b³, a³+b³=(a+b)(a²-ab+b²), a³-b³=(a-b)(a²+ab+b²). Développement et factorisation complète d'expressions algébriques (combinaison des identités). PAS le binôme de Newton généralisé, PAS les fractions algébriques.",
+        "Expressions littérales comme fonctions d'une variable ; notion de parité A(x) = A(−x). Produits remarquables d'ordre 2 : (a+b)² = a²+2ab+b², (a−b)² = a²−2ab+b², (a+b)(a−b) = a²−b² ; développement et factorisation avec applications aux irrationnels (écrire 4+2√3 avec un seul radical, factoriser 9−4√5). Produits remarquables d'ordre 3 établis par calcul : (a+b)³ = a³+3a²b+3ab²+b³, (a−b)³ = a³−3a²b+3ab²−b³ avec applications numériques. Identités a³+b³ = (a+b)(a²−ab+b²) et a³−b³ = (a−b)(a²+ab+b²) prouvées et appliquées à la factorisation. Séance d'intégration : développement de (a+b+c)², factorisation complexe, résolution d'équations du second degré par factorisation, problèmes géométriques (Pythagore avec longueurs en x).",
     },
     {
       label: "Fonctions linéaires",
       limits:
-        "Définition d'une fonction linéaire : f(x)=ax (a≠0, a∈ℝ). Image et antécédent d'un réel. Propriétés : f(x+y)=f(x)+f(y), f(kx)=k·f(x), conservation du rapport (proportionnalité). Représentation graphique : droite passant par l'origine O de pente a. Lecture graphique : lire une image/antécédent, lire la pente. Résolution de problèmes concrets faisant intervenir la proportionnalité (modélisation d'une augmentation ou baisse par une fonction linéaire). PAS les fonctions affines f(x)=ax+b avec b≠0 (chapitre suivant).",
+        "Définition à partir de la proportionnalité : f(x) = ax (coefficient a réel constant) ; calcul d'images et d'antécédents. Propriétés : f(0) = 0, f(1) = a, f(x+x') = f(x)+f(x'), f(k·x) = k·f(x). Représentation graphique : droite passant par l'origine tracée via O et A(1, a) ; lecture graphique du coefficient (a = ordonnée/abscisse) et du signe (droite ascendante ⟺ a > 0). Applications : modélisation d'une réduction ou augmentation de prix, construction d'un segment de longueur irrationnelle, démonstration de l'alignement de trois points. PAS les fonctions affines avec b ≠ 0 (chapitre suivant).",
     },
     {
       label: "Équations et inéquations du 1er degré",
       limits:
-        "Équations du 1er degré à une inconnue : forme ax+b=0 et ax+b=cx+d ; résolution (x=-b/a si a≠0) ; mise en équation d'un problème concret. Inéquations du 1er degré : ax+b>0, <0, ≥0, ≤0 ; règles de résolution (le sens s'inverse quand on multiplie/divise par un réel négatif) ; représentation sur la droite réelle. PAS les équations du 2ème degré, PAS les systèmes (chapitre 15), PAS la valeur absolue dans les équations.",
+        "Équations du premier degré : ax+b = 0 (solution unique −b/a si a ≠ 0, mise en équation de problèmes concrets) ; (ax+b)(cx+d) = 0 (règle du produit nul, produit de plusieurs binômes) ; |ax+b| = c (trois cas selon le signe de c) ; x² = a (solutions ±√a si a > 0). Inéquations : règles algébriques (inversion du sens lors de la multiplication par un négatif) ; tableau de signe d'un binôme ax+b ; signe d'un produit de deux binômes par tableau de signes combiné ; écriture sans valeur absolue de |f(x)| par étude du signe. Exercices : factoriser puis résoudre, résoudre des inéquations avec valeurs absolues ou produits, combiner tableaux de signes.",
     },
     {
       label: "Fonctions affines",
       limits:
-        "Définition : f(x)=ax+b avec a∈ℝ, b∈ℝ (a=0 donne une fonction constante). Représentation graphique : droite de pente a et ordonnée à l'origine b=f(0). Calcul de la pente : a=(f(x)-f(x'))/(x-x') pour x≠x'. Sens de variation : f croissante si a>0, décroissante si a<0, constante si a=0. Lecture graphique : lire l'image/antécédent, déterminer équation d'une droite passant par deux points. PAS la dérivée (non au programme 1ère AS), PAS les fonctions quadratiques.",
+        "Définition : f(x) = ax+b avec a coefficient directeur et b = f(0) ordonnée à l'origine ; constance du rapport (f(x)−f(x'))/(x−x') = a. Représentation graphique : droite d'équation y = ax+b construite via (0, b) et le coefficient directeur. Lecture graphique : retrouver a et b, lire images et antécédents. Résolution graphique de f(x) = g(x) et f(x) ≤ g(x) (intersection et position relative de deux droites). Exercices intégratifs : problèmes concrets (distances, temps), comparaison de fonctions affines. PAS de fonctions du second degré dans ce chapitre.",
     },
     {
       label: "Système de 2 équations à 2 inconnues",
       limits:
-        "Équation du 1er degré à 2 inconnues ax+by=c : ensemble des solutions (droite dans le plan), représentation graphique. Système de 2 équations du 1er degré à 2 inconnues. Méthodes de résolution : substitution et combinaison (addition-soustraction après multiplication). Interprétation graphique : intersection de 2 droites (système possible déterminé, possible indéterminé — droites confondues, impossible — droites parallèles distinctes). Modélisation de problèmes concrets par un système. PAS les systèmes 3×3, PAS les matrices.",
+        "Équation du premier degré à deux inconnues (ax+by+c = 0) : vérification si un couple est solution, détermination d'une inconnue pour une valeur fixée de l'autre. Système de deux équations à deux inconnues : définition, solutions. Méthode par substitution (isoler une inconnue, substituer dans l'autre équation) et méthode par élimination (combinaison linéaire pour annuler une inconnue). Modélisation de situations concrètes (problèmes de prix) et résolution de systèmes numériques variés. PAS de méthode matricielle ; PAS de système à plus de deux inconnues.",
     },
     {
       label: "Exploitation de l'information",
       limits:
-        "Série statistique à variable discrète : tableau de fréquences absolues et relatives, représentations graphiques (diagramme en bâtons, circulaire). Indicateurs statistiques : moyenne arithmétique simple et pondérée, médiane (valeur qui partage l'effectif en deux moitiés égales), mode. Série à valeurs regroupées par classes [ai, ai+1[ : tableau avec effectifs et fréquences, histogramme, effectifs cumulés. Série chronologique : représentation graphique, comparaison de deux séries. Expériences aléatoires : univers, événement, probabilité classique P(A)=nombre de cas favorables/nombre de cas possibles (résultats équiprobables). PAS la variance, l'écart-type, ni les distributions de probabilité (binomiale, normale).",
+        "Séries statistiques qualitatives, à variable discrète et à variable continue (données regroupées en classes). Séries discrètes : tableau ordonné, effectif ni, fréquence fi = ni/N, fréquences cumulées croissantes, diagramme en bâtons, mode (valeur de plus grand effectif), médiane (valeur partageant la population en deux groupes égaux), moyenne X̄ = (Σni·xi)/N, étendue. Séries continues : classe, frontières, centre de classe ci, histogramme, classe modale, moyenne par centres de classes, médiane graphiquement sur la courbe des fréquences cumulées (abscisse du point d'ordonnée 0,5). Séries chronologiques : coefficient multiplicateur, indice base 100, représentation graphique. Diagrammes circulaires (θi = 360°·fi). Expériences aléatoires : résultat imprévisible, exemples (dé, tirage au sort) — PAS de calcul formel de probabilités, PAS de variance ni écart-type.",
     },
   ],
 
   // 2ème année secondaire — filières Sciences & Sciences de l'informatique.
-  // Source : Fiches pédagogiques officielles rédigées sous la direction de
-  // l'inspecteur principal Amor Jeridi, DRE Gabès (2013-2014). Chaque entrée
-  // correspond à un chapitre du programme ; les limits reproduisent les
-  // "Aptitudes à développer" de la fiche et délimitent précisément le contenu.
+  // Source : Fiches pédagogiques officielles, dir. inspecteur principal Amor
+  // Jeridi, DRE Gabès (2013-2014). Limits extraites des "Aptitudes à développer"
+  // séance par séance et de la structure des paragraphes de chaque fiche.
   "TN_math_2ème secondaire_Sciences": [
     {
       label: "Calcul dans IR",
       limits:
-        "Ensembles de nombres IN⊂Z⊂D⊂Q⊂IR et leurs inclusions. Proportionnalités et pourcentages. Produits remarquables : développer et factoriser. Comparaison de réels : a, a² et √a pour a≥0 ; comparaison de a et 1/a (si 0<a<1 alors a<1/a, si a>1 alors a>1/a). Encadrer une somme ou un produit de réels. Calcul sur les radicaux : √(a²)=|a|, √(ab)=√a·√b, √(a/b)=√a/√b ; conjugué d'une expression avec radical. Valeur absolue : |x|≤a ↔ -a≤x≤a ; |x|≥a ↔ x≤-a ou x≥a. Valeur approchée, arrondi, ordre de grandeur. PAS logarithmes, PAS exposants irrationnels.",
+        "Rappel des ensembles ℕ⊂ℤ⊂ℚ⊂ℝ ; écriture décimale périodique ↔ nombre rationnel ; proportionnalité et coefficients multiplicateurs (pourcentages). Produits remarquables, comparaison de réels (a, a², √a selon a∈]0,1[ ou a>1), comparaison de a et 1/a, encadrements de sommes et produits. Radicaux : √(a²)=|a|, √(ab)=√a·√b, rationalisation par conjugués. Valeur absolue : |x|<a ↔ -a<x<a et |x|>a ↔ x<-a ou x>a, avec résolution d'équations et d'inéquations. Arrondi, valeur approchée par défaut/excès, écriture scientifique, ordre de grandeur. PAS de logarithmes, PAS d'exposants irrationnels.",
     },
     {
       label: "Problèmes du 1er et du 2ème degré",
       limits:
-        "Rappel 1er degré : équation ax+b=0, inéquation ax+b≥0 (ou ≤,>,<). Équations et inéquations faisant appel aux valeurs absolues. Équations et inéquations renfermant l'inconnue au dénominateur. Équations et inéquations irrationnelles (contenant des radicaux). Problèmes du 1er degré. Équation du 2ème degré ax²+bx+c=0 (a≠0) : définition, forme canonique a(x-α)²+β ; discriminant Δ=b²-4ac, résolution (méthode d'Alkhawarizmi) ; discriminant réduit Δ'=b'²-ac (si b=2b') ; somme x₁+x₂=-b/a, produit x₁·x₂=c/a ; factorisation ax²+bx+c=a(x-x₁)(x-x₂) ; équations réductibles au 2ème degré ; inéquations du 2ème degré (signe du trinôme) ; problèmes du 2ème degré. PAS équations du 3ème degré ou plus, PAS équations exponentielles.",
+        "Équations et inéquations du 1er degré avec valeurs absolues, avec l'inconnue aux dénominateurs (conditions d'existence), et irrationnelles (mise au carré avec condition de signe). Équation du 2nd degré ax²+bx+c=0 (a≠0) : discriminant Δ=b²-4ac, discriminant réduit Δ'=b'²-ac (si b=2b'), forme canonique a(x-α)²+β. Résolution complète selon le signe de Δ ; relations entre racines (x₁+x₂=−b/a, x₁x₂=c/a) et conséquences (a+b+c=0 → racine 1 ; a-b+c=0 → racine -1). Factorisation ax²+bx+c=a(x-x₁)(x-x₂) ; signe du trinôme (tableau des signes) ; inéquations du 2nd degré ; équations bicarrées et autres réductibles au 2nd degré. PAS de polynômes de degré ≥ 3, PAS d'équations exponentielles.",
     },
     {
       label: "Notion de polynômes",
       limits:
-        "Reconnaître une fonction polynôme (degré, coefficient dominant, terme constant). Opérations sur les polynômes : addition, multiplication, division euclidienne P(x)=Q(x)·D(x)+R(x). Factorisation : si α est racine d'un polynôme P de degré ≥1, alors (x-α) divise P(x) ; si α et β sont deux racines d'un polynôme de degré ≥2, alors (x-α)(x-β) divise P(x). Fonction rationnelle : quotient de deux polynômes, domaine de définition. PAS décomposition en éléments simples, PAS dérivée de polynôme.",
+        "Définition d'un polynôme f(x)=aₙxⁿ+…+a₀ : degré, polynôme nul, égalité de deux polynômes. Opérations : somme, produit par un réel, produit de deux polynômes. Racine (zéro) : si α est racine alors (x-α) est facteur ; généralisation à k racines distinctes. Division euclidienne P(x)=Q(x)·D(x)+R(x) : algorithme, reste, factorisation par identification d'une racine. Fonctions rationnelles P(x)/Q(x) : domaine de définition. PAS de décomposition en éléments simples, PAS de dérivée.",
     },
     {
       label: "Arithmétique",
       limits:
-        "Division euclidienne : a=b·q+r avec 0≤r<b. Divisibilité : b|a ↔ reste nul, propriétés (b|a et b|c ⇒ b|(αa+βc)). Critères de divisibilité : par 2 et 5 (chiffre des unités) ; par 4 et 25 (deux derniers chiffres) ; par 8 (trois derniers chiffres) ; par 3 et 9 (somme des chiffres) ; par 11 (alternance S₁-S₂) ; par 7 (règle de la chaîne abjad). PGCD et algorithme d'Euclide, PPCM. Nombres premiers. Raisonnement par l'absurde. PAS congruences modulo n au sens général, PAS décomposition en facteurs premiers exhaustive.",
+        "Division euclidienne a=bq+r (0≤r<b) ; divisibilité (b|a, multiples, diviseurs) et propriétés (transitivité, combinaison linéaire : si c|a et c|b alors c|(au+bv)). Critères de divisibilité par 2, 4, 5, 25 (chiffre(s) des unités), par 8 (trois derniers chiffres), par 3 et 9 (somme des chiffres), par 11 (sommes alternées) ; détermination du reste. Raisonnement par l'absurde (preuve que √2 est irrationnel). PAS de PGCD/PPCM comme objectif de séance, PAS d'algorithme d'Euclide, PAS de décomposition en facteurs premiers exhaustive.",
     },
     {
       label: "Suites arithmétiques",
       limits:
-        "Notion de suite réelle : définition, notation indicielle Uₙ, calcul des termes, suites définies par une formule explicite ou par récurrence Uₙ₊₁=f(Uₙ). Suite arithmétique : reconnaissance (Uₙ₊₁-Uₙ=r constant), raison r, terme général Uₙ=U₀+n·r (ou Uₙ=U₁+(n-1)·r). Somme des n premiers termes : Sₙ=n·(U₀+Uₙ₋₁)/2. Exercices intégratifs incluant suites mêlant arithmétique et géométrique. PAS convergence, PAS limite d'une suite, PAS suites récurrentes d'ordre 2.",
+        "Notion de suite réelle (Uₙ, définition à partir d'un rang n₀, suite définie par récurrence ou par formule explicite). Suite arithmétique : définition Uₙ₊₁=Uₙ+r, terme général Uₙ=U₀+nr et Uₙ=Uₚ+(n-p)r. Représentation graphique (points alignés sur y=rx+U₀). Somme des n premiers termes S=n(U₀+Uₙ₋₁)/2 ; formule 1+2+…+n=n(n+1)/2. Applications concrètes (intérêts simples, suites de mesures). PAS de suites récurrentes d'ordre 2, PAS de limites.",
     },
     {
       label: "Suites géométriques",
       limits:
-        "Suite géométrique : définition Uₙ₊₁=q·Uₙ (q réel), raison q ; trois termes en progression géométrique a, b, c ↔ b²=ac. Terme général : Uₙ=U₀·qⁿ ; Uₙ=Up·q^(n-p) ; U₁·q^(n-1). Suite de la forme uₙ=aⁿ est géométrique. Représentation graphique des termes. Somme de n termes consécutifs : S=U₀·(1-qⁿ)/(1-q) (q≠1) ; identité 1+x+x²+…+xⁿ=(1-x^(n+1))/(1-x). PAS limite d'une suite géométrique, PAS calcul de la somme pour q=1.",
+        "Suite géométrique : définition Uₙ₊₁=q·Uₙ (q≠0), terme général Uₙ=U₀·qⁿ et Uₙ=Uₚ·q^(n-p). Progression géométrique : a, b, c en progression ↔ b²=ac. Représentation graphique. Somme des n premiers termes S=U₀·(1-qⁿ)/(1-q) pour q≠1 ; identité 1+x+…+xⁿ=(1-xⁿ⁺¹)/(1-x). Applications (intérêts composés, évolution démographique). PAS de limites de suites, PAS de série infinie.",
     },
     {
       label: "Généralités sur les fonctions",
       limits:
-        "Définition d'une fonction f : domaine de définition Df, image f(x) d'un réel, antécédent d'un réel (résolution de f(x)=k). Représentation graphique : lire image et antécédent graphiquement. Résolution graphique d'équations f(x)=g(x) et d'inéquations f(x)>g(x). Sens de variations sur un intervalle : croissante/décroissante, tableau de variations, extrema locaux. Parité : paire f(-x)=f(x) (courbe symétrique par rapport à l'axe des ordonnées), impaire f(-x)=-f(x) (symétrique par rapport à O). PAS dérivée, PAS limites, PAS continuité.",
+        "Définition d'une fonction : domaine de définition Df, image f(x), antécédent (résolution de f(x)=k). Représentation graphique, lecture graphique d'images et d'antécédents. Résolution graphique de f(x)=g(x) et d'inéquations f(x)≥g(x). Variations sur un intervalle (croissante, décroissante, constante), tableau de variations, extrema locaux lus graphiquement. Parité : paire f(-x)=f(x) (symétrie par rapport à Oy), impaire f(-x)=-f(x) (symétrie par rapport à O). PAS de dérivée, PAS de limites, PAS de continuité, PAS de composition de fonctions.",
     },
     {
       label: "Fonctions de référence",
       limits:
-        "x↦x² : variations, parabole sommets O(0,0), axe x=0 ; x↦ax² : parabole homothétée, sommet O, sens selon signe de a. x↦a(x-α)²+β : parabole sommet S(α,β), axe x=α. x↦ax²+bx+c (a≠0) : mise sous forme canonique, sommet S(-b/(2a), …), tableau de variations, résolution graphique d'équations. x↦√x (domaine [0,+∞), croissante), x↦√(x+b) (translation). x↦1/x et x↦a/x (a≠0) : domaine ℝ\\{0}, hyperbole, variations sur ]-∞,0[ et ]0,+∞[. x↦a/(x+b) : translation de l'hyperbole. x↦(ax+b)/(cx+d) (c≠0) : domaine ℝ\\{-d/c}, asymptotes x=-d/c et y=a/c. PAS dérivée, PAS fonctions trigonométriques (elles sont au chapitre Trigonométrie).",
+        "Fonction carrée x↦x² (parabole, sommet O, axe Oy) et transformées x↦ax², x↦a(x-α)², x↦ax²+β, puis forme canonique x↦a(x-α)²+β (sommet S(α,β), axe x=α, translation) avec résolution graphique d'équations et d'inéquations. Fonction racine carrée x↦√x (Df=[0,+∞[, croissante) et x↦√(x+b) (translation). Fonction inverse x↦1/x (hyperbole, asymptotes, impaire) et transformées x↦a/x, x↦a/x+b, x↦a/(x+α). Fonction homographique x↦(ax+b)/(cx+d) (c≠0) : asymptotes y=a/c et x=-d/c. PAS de dérivée, PAS de fonctions trigonométriques ici.",
     },
     {
       label: "Calcul vectoriel",
       limits:
-        "Rappel : addition de vecteurs et produit d'un vecteur par un réel (espace vectoriel ℝ²). Vecteurs colinéaires : u⃗=k·v⃗, condition analytique ab'-a'b=0. Base de ℝ² : deux vecteurs non colinéaires. Composantes d'un vecteur selon une base, coordonnées d'un point dans un repère cartésien. Repère orthonormé : base orthonormée (vecteurs orthogonaux et de norme 1), norme ‖u⃗‖=√(x²+y²). Distance AB=√((xB-xA)²+(yB-yA)²). Vecteurs orthogonaux : u⃗⊥v⃗ ↔ aa'+bb'=0. PAS produit scalaire développé (formule bilinéaire), PAS géométrie vectorielle dans ℝ³.",
+        "Addition de vecteurs et produit par un réel (espace vectoriel ℝ²) ; propriétés. Vecteurs colinéaires : u⃗=k·v⃗, condition analytique xy'-x'y=0 (déterminant nul). Base de ℝ² (deux vecteurs non colinéaires) ; composantes d'un vecteur selon une base ; coordonnées dans un repère cartésien. Repère orthonormé : base orthonormée (OI⃗, OJ⃗), norme ‖u⃗‖=√(x²+y²), distance AB=√((xB-xA)²+(yB-yA)²). Orthogonalité : u⃗⊥v⃗ ↔ xx'+yy'=0. PAS de produit scalaire développé, PAS de vecteurs dans l'espace.",
     },
     {
       label: "Barycentre",
       limits:
-        "Barycentre de deux points pondérés (A,α) et (B,β) (α+β≠0) : point G vérifiant α·GA⃗+β·GB⃗=0⃗ ; construction par la méthode des parallèles ; propriété AG/AB=β/(α+β) ; coordonnées xG=(α·xA+β·xB)/(α+β). Barycentre de trois points pondérés (A,α),(B,β),(C,γ) (α+β+γ≠0) : définition, construction, associativité. Cas particuliers : milieu (α=β=1), centre de gravité (α=β=γ). PAS barycentre de plus de 3 points sans décomposition, PAS coordonnées 3D.",
+        "Barycentre G de deux points pondérés (A,α) et (B,β) (α+β≠0) : αGA⃗+βGB⃗=0⃗ ; position AG/AB=β/(α+β) ; coordonnées xG=(αxA+βxB)/(α+β) ; construction par parallèles ou par rapport. Propriété fondamentale : pour tout point M, αMA⃗+βMB⃗=(α+β)MG⃗. Barycentre de trois points pondérés (A,α),(B,β),(C,γ) (α+β+γ≠0) : définition, construction (barycentre partiel), associativité, cas particuliers (milieu : α=β ; centre de gravité : α=β=γ). Coordonnées baryocentriques dans le plan. PAS de barycentre de plus de 3 points sans réduction séquentielle.",
     },
     {
       label: "Translations",
       limits:
-        "Notion d'application du plan dans lui-même : image, antécédent. Translation tu⃗ : M↦M' avec MM'⃗=u⃗ ; t0⃗ = identité. Propriété caractéristique : f est translation ↔ M'N'⃗=MN⃗ pour tous M, N. Conservation : distances (M'N'=MN), angles, alignement, parallélisme. Images d'une droite, d'un segment, d'une demi-droite et d'un cercle par une translation. Conservation du barycentre. PAS composition de translations, PAS translations dans ℝ³.",
+        "Notion d'application du plan dans lui-même. Translation tu⃗ : M↦M' avec MM'⃗=u⃗ ; t₀⃗ = identité. Propriété caractéristique : conservation des vecteurs (M'N'⃗=MN⃗). Conservation des distances, angles, alignement, parallélisme, orthogonalité, barycentres. Images d'une droite (parallèle, même direction), d'un segment (isométrique), d'une demi-droite, d'un cercle (même rayon, centre translaté). Problèmes de lieu et de construction. PAS de composition de translations, PAS dans ℝ³.",
     },
     {
       label: "Homothéties",
       limits:
-        "Définition h(O,k) : M↦M' avec OM'⃗=k·OM⃗ (k réel, k≠0). Cas particuliers : k=1 (identité), k=-1 (symétrie centrale de centre O). Reconnaissance et construction de l'image d'un point. Images d'une droite, d'un segment, d'une demi-droite par h(O,k) : parallèles à l'original, rapport de longueurs |k|. Image d'un cercle de centre Ω et rayon R : cercle de centre h(O,k)(Ω) et rayon |k|·R. Conservation de l'alignement et des angles ; rapport des longueurs |k|. PAS composition d'homothéties, PAS similitudes directes/indirectes.",
+        "Définition h(O,k) : OM'⃗=k·OM⃗ (k≠0). Cas particuliers : k=1 (identité), k=-1 (symétrie centrale), k>0 (même sens que O) et k<0 (sens opposé). Images d'une droite, d'un segment, d'une demi-droite : parallèle à l'original, rapport de longueurs |k| ; image d'un cercle (rayon R'=|k|R, centre image). Conservation de l'alignement et des angles ; rapport des longueurs |k| ; tangentes communes à deux cercles. Droite et cercle d'Euler. Problèmes de construction et de lieu. PAS de composition d'homothéties, PAS de similitudes.",
     },
     {
       label: "Rotations",
       limits:
-        "Radian : longueur d'arc L=Rθ, aire du secteur circulaire R²θ/2 ; conversion θ_rad=θ_deg·π/180. Définition de la rotation r(O,θ) : OM'=OM et M̂OM'=θ (directe si sens trigonométrique). Cas particuliers : θ=π (symétrie centrale), θ=0 (identité). Construction de l'image d'un point. Images d'une droite, d'un segment, d'une demi-droite (isométrique, angle θ avec l'original). Image d'un cercle : même rayon, centre image. Conservation du barycentre, milieu, alignement, parallélisme, orthogonalité. Figures invariantes : axe de symétrie, centre de symétrie. PAS composition de rotations, PAS groupe des isométries.",
+        "Mesure d'angles en radians : α(rad)=L/R, conversion degrés↔radians, longueur d'arc L=Rα, aire du secteur A=R²α/2. Définition de la rotation r(I,α) : conservation de la distance au centre (IM'=IM) et angle orienté IM̂IM'=α ; direct (sens trigonométrique) ou indirect. Images d'une droite, d'un segment, d'une demi-droite, d'un cercle (même rayon) ; conservation du barycentre, du milieu, du parallélisme, de l'orthogonalité, du contact/tangence. Figures globalement invariantes : centre de symétrie, axe de symétrie. PAS de composition de rotations, PAS d'angles orientés pour des angles quelconques dans ℝ.",
     },
     {
       label: "Géométrie analytique",
       limits:
-        "Coordonnées du barycentre de 2 ou 3 points pondérés. Équation cartésienne d'une droite ax+by+c=0 ; vecteur directeur (-b, a). Positions relatives de deux droites (sécantes, parallèles, confondues). Condition analytique de parallélisme : ab'-a'b=0. Vecteur normal (a, b) à la droite ax+by+c=0 ; condition de perpendicularité : aa'+bb'=0. Équation réduite y=mx+p. Distance d'un point A(xA,yA) à la droite ax+by+c=0 : d=|axA+byA+c|/√(a²+b²). Équation du cercle de centre I(a,b) rayon R : (x-a)²+(y-b)²=R² ; forme x²+y²+px+qy+r=0 (centre et rayon). Position relative d'un cercle et d'une droite. PAS droites paramétriques, PAS coniques autres (ellipse, hyperbole, parabole).",
+        "Coordonnées du barycentre de 2 et 3 points pondérés. Équation cartésienne d'une droite ax+by+c=0 (avec (a,b)≠(0,0)) : vecteur directeur (-b,a), vecteur normal (a,b). Positions relatives de deux droites (sécantes, parallèles, confondues). Conditions analytiques de parallélisme (ab'-a'b=0) et de perpendicularité (aa'+bb'=0). Équation réduite y=mx+p (coefficient directeur m). Distance d'un point à une droite : d(A,D)=|axA+byA+c|/√(a²+b²). Équation d'un cercle (x-a)²+(y-b)²=R² et forme développée x²+y²+px+qy+r=0 ; positions relatives cercle/droite (d(I,D) comparée à R). PAS de coniques (ellipse, hyperbole, parabole).",
     },
     {
       label: "Trigonométrie et mesures des grandeurs",
       limits:
-        "Degrés sexagésimaux (DMS) et décimaux ; radian ; conversion degrés↔radians. Demi-cercle trigonométrique : cos θ et sin θ pour θ∈[0,π] (abscisse et ordonnée du point M associé) ; relation cos²θ+sin²θ=1. Angles supplémentaires : cos(π-θ)=-cosθ, sin(π-θ)=sinθ. Angles complémentaires : cos(π/2-θ)=sinθ, sin(π/2-θ)=cosθ. Tangente tan θ=sinθ/cosθ (θ≠π/2), cotangente cot θ=cosθ/sinθ (θ≠0). Construction d'un angle à partir d'un rapport trigonométrique. Loi des sinus : a/sinA=b/sinB=c/sinC=2R. Théorème des bissectrices : AB/AC=IB/IC. Aire d'un triangle : S=(1/2)bc·sinA=abc/(4R). Théorème d'El-Kashi : a²=b²+c²-2bc·cosA. Relations métriques dans le triangle rectangle : AH²=HB·HC, AB²=BH·BC. PAS formules d'addition sin(a±b)/cos(a±b), PAS cercle trigonométrique complet pour angles∈ℝ.",
+        "Mesures d'angles en degrés (DMS et décimal) et en radians ; conversions. Demi-cercle trigonométrique : cosinus (abscisse) et sinus (ordonnée) pour θ∈[0,π] ; relation cos²θ+sin²θ=1. Angles supplémentaires (cos(π-θ)=-cosθ, sin(π-θ)=sinθ) et complémentaires (cos(π/2-θ)=sinθ). Tangente tanθ=sinθ/cosθ et cotangente ; identités 1+tan²θ=1/cos²θ, 1+cot²θ=1/sin²θ. Construction d'un angle à partir d'un rapport trigonométrique. Loi des sinus a/sinA=b/sinB=c/sinC=2R ; théorème des bissectrices ; aire S=(1/2)bc·sinA=abc/(4R) ; théorème d'Al-Kashi a²=b²+c²-2bc·cosA. Relations métriques dans le triangle rectangle : AH²=BH·HC, AB²=BH·BC. PAS de formules d'addition sin(a±b)/cos(a±b), PAS de cercle trigonométrique complet.",
     },
     {
       label: "Droites et plans de l'espace",
       limits:
-        "Solides usuels (cube, parallélépipède, pyramide, tétraèdre, prisme) : faces, arêtes, sommets. Quatre axiomes d'incidence. Coplanarité de points et de droites. Détermination d'un plan : 3 points non alignés ; 1 droite + 1 point extérieur ; 2 droites sécantes ; 2 droites parallèles. Positions relatives de deux droites : sécantes, parallèles (coplanaires), ou gauches/non coplanaires. Positions relatives d'une droite et d'un plan : sécants (droite perce le plan en un point), parallèles (intersection vide), droite incluse dans le plan. Positions relatives de deux plans : sécants (intersection = droite), strictement parallèles, confondus. PAS orthogonalité (droite⊥plan, plan⊥plan), PAS projections orthogonales.",
+        "Solides usuels (cube, parallélépipède, pyramide, tétraèdre, prisme) : faces, arêtes, sommets. Quatre axiomes fondamentaux de l'espace : 3 points non alignés déterminent un plan unique ; une droite ayant 2 points dans un plan y est incluse ; deux plans sécants se coupent selon une droite ; la géométrie plane s'applique dans tout plan. Détermination d'un plan (3 points non alignés ; droite + point extérieur ; 2 droites sécantes ; 2 droites parallèles). Positions relatives de deux droites (sécantes, parallèles coplanaires, non coplanaires/gauches) ; d'une droite et d'un plan (incluse, parallèle, sécante en un point) ; de deux plans (confondus, parallèles stricts, sécants selon une droite). PAS d'orthogonalité dans l'espace, PAS de coordonnées spatiales.",
     },
     {
       label: "Parallélisme dans l'espace",
       limits:
-        "Parallélisme de droites dans l'espace : définition (coplanaires et parallèles dans ce plan), unicité de la parallèle par un point, transitivité. Droite parallèle à un plan : définition (droite // à une droite incluse dans le plan) ; propriétés : si D//P et plan Q coupe P, alors l'intersection de Q avec P est // à D ; si D₁//D₂ tout plan // à l'une est // à l'autre ; si D // à deux plans sécants, D // à leur droite d'intersection. Plans parallèles : définition, propriétés (toute droite d'un plan est // à l'autre ; plan coupant l'un coupe l'autre avec intersections // ; critère : deux droites sécantes de l'un // à deux droites sécantes de l'autre ; transitivité). Section d'un prisme ou d'une pyramide par un plan parallèle à la base. PAS orthogonalité, PAS projections orthogonales.",
+        "Droites parallèles dans l'espace : unicité de la parallèle par un point extérieur, transitivité ; tout plan coupant l'une coupe l'autre. Droite parallèle à un plan : existence d'une droite du plan parallèle ; propriétés de passage et d'intersection. Plans parallèles : critère (deux droites sécantes de l'un parallèles à deux droites sécantes de l'autre) ; transitivité ; tout plan sécant coupe les deux plans selon deux droites parallèles. Sections planes d'un solide : méthode face par face ; applications au parallélépipède rectangle (sections rectangulaires), au cylindre droit (plan // base = cercle, plan ⊥ axe = rectangle) et à la pyramide/cône (plan // base = figure semblable). PAS d'orthogonalité ni de perpendicularité dans l'espace, PAS de coordonnées spatiales.",
     },
   ],
 
