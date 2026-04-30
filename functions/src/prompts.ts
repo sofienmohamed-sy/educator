@@ -322,69 +322,65 @@ export function buildCoursePrompt(args: BuildCoursePromptArgs): string {
     country === "TN"
       ? `FORMAT OBLIGATOIRE — Fiche pédagogique DRE Gabès (1ère / 2ème AS) :\n` +
         `\n` +
-        `Le résultat doit être INDISCERNABLE d'une vraie fiche DRE Gabès.\n` +
+        `Le résultat doit être INDISCERNABLE d'une vraie fiche DRE Gabès pour N'IMPORTE\n` +
+        `QUEL chapitre du programme tunisien (géométrie, algèbre, analyse, statistiques…).\n` +
         `\n` +
-        `═══ RÈGLE UNIVERSELLE : TOUTES LES ACTIVITÉS SONT DE TYPE GUIDÉ ═══\n` +
+        `ÉTAPE 0 — LIRE LE SCOPE :\n` +
+        `Avant d'écrire quoi que ce soit, lire attentivement le STRICT SCOPE ci-dessus.\n` +
+        `  • Identifier les paragraphes/sections du chapitre → ce seront les sections I, II, III…\n` +
+        `  • Identifier les Aptitudes à développer (compétences visées par chaque section).\n` +
+        `  • Les noms et le nombre des sections DOIVENT refléter le scope, pas un modèle fixe.\n` +
         `\n` +
-        `CHAQUE section (I, II, III) commence par une Activité guidée à SOUS-QUESTIONS\n` +
-        `PROGRESSIVES qui conduit l'élève à DÉCOUVRIR et ÉNONCER lui-même le théorème.\n` +
+        `═══ STRUCTURE DE CHAQUE SECTION ═══\n` +
         `\n` +
-        `Structure OBLIGATOIRE de toute Activité :\n` +
-        `  • Partir d'un objet ou résultat CONNU (parallélogramme, symétrie, théorème\n` +
-        `    déjà établi dans la séance précédente).\n` +
-        `  • 4 sous-questions progressives a) b) c) d) :\n` +
-        `      a) calcul numérique simple ou identification d'une configuration\n` +
-        `      b) observation d'un pattern ou vérification d'une propriété\n` +
-        `      c) raisonnement géométrique ou calcul plus élaboré\n` +
-        `      d) "En déduire que …" — le nouvel énoncé du théorème\n` +
-        `  • Puisque l'app n'affiche PAS de figures : donner toutes les mesures et noms\n` +
-        `    de points explicitement dans le texte (ex : "AM = 4 cm, AB = 12 cm, …").\n` +
+        `1. **Activité** (découverte guidée — OBLIGATOIRE pour toute section introduisant\n` +
+        `   un nouveau théorème, propriété ou définition) :\n` +
         `\n` +
-        `Personnalisation de l'Activité par section :\n` +
+        `   L'Activité N'EST PAS un exercice de vérification — c'est une démarche de\n` +
+        `   DÉCOUVERTE qui conduit l'élève à énoncer lui-même le résultat.\n` +
         `\n` +
-        `  SECTION I (Droites des Milieux) :\n` +
-        `    Partir d'un parallélogramme ou d'une symétrie centrale.\n` +
-        `    a) Construire un point ou identifier la nature d'un quadrilatère.\n` +
-        `    b) Montrer que ce quadrilatère est un parallélogramme.\n` +
-        `    c) En déduire le parallélisme de deux droites.\n` +
-        `    d) "En déduire que la droite joignant les milieux de [AB] et [AC] est\n` +
-        `       parallèle à (BC)."\n` +
+        `   POINT DE DÉPART : identifier dans le scope LE CONCEPT CONNU le plus proche\n` +
+        `   du nouveau résultat à découvrir (résultat déjà prouvé dans ce cours ou acquis\n` +
+        `   au collège) et l'utiliser comme contexte de l'activité.\n` +
+        `   • Chapitre géométrique → utiliser une figure connue (parallélogramme, symétrie,\n` +
+        `     triangle rectangle, cercle, vecteur déjà défini…).\n` +
+        `   • Chapitre algébrique/numérique → partir d'un cas numérique simple (exemple\n` +
+        `     concret avec des petits entiers) et faire observer le pattern général.\n` +
+        `   • Chapitre sur les fonctions → partir d'un tableau de valeurs ou d'une équation\n` +
+        `     simple, faire calculer et observer la régularité.\n` +
         `\n` +
-        `  SECTION II (Théorème de Thalès) :\n` +
-        `    Partir du théorème des milieux (cas k = 1/2) pour généraliser.\n` +
-        `    a) Cas milieu : M milieu de [AB], calculer AM/AB et AN/AC (= 1/2), MN/BC.\n` +
-        `    b) Cas k = 1/3 : AM = AB/3, calculer AN/AC et MN/BC (admettre la position).\n` +
-        `    c) Observer que AM/AB = AN/AC = MN/BC dans les deux cas. Calculer ces\n` +
-        `       rapports pour un troisième jeu de valeurs (k quelconque).\n` +
-        `    d) "En déduire la relation générale : si (MN)//(BC), alors\n` +
-        `       AM/AB = AN/AC = MN/BC."\n` +
+        `   SOUS-QUESTIONS PROGRESSIVES a) b) c) d) :\n` +
+        `     a) Calcul numérique simple ou observation directe sur le cas de départ.\n` +
+        `     b) Élargissement à un deuxième cas ou dérivation d'une propriété intermédiaire.\n` +
+        `     c) Raisonnement ou calcul qui fait apparaître la règle générale.\n` +
+        `     d) "En déduire que …" — l'élève énonce lui-même le théorème.\n` +
         `\n` +
-        `  SECTION III (Réciproque) :\n` +
-        `    Partir du théorème de Thalès pour construire la démonstration inverse.\n` +
-        `    Donner AM, MB, AN, NC numériques.\n` +
-        `    a) Calculer AB = AM + MB et AC = AN + NC.\n` +
-        `    b) Calculer AM/AB.\n` +
-        `    c) Calculer AN/AC. Comparer AM/AB et AN/AC.\n` +
-        `    d) "En déduire que (MN)//(BC)."\n` +
+        `   Puisque l'app n'affiche PAS de figures : donner toutes les mesures, noms de\n` +
+        `   points et valeurs numériques explicitement dans le texte.\n` +
         `\n` +
-        `═══ THÉORÈME / RETENONS ═══\n` +
-        `Immédiatement après l'Activité, énoncer le théorème en BLOCKQUOTE (lignes > …) :\n` +
-        `  > **Théorème :**\n` +
-        `  > Soit ABC un triangle …\n` +
-        `  > Si … alors …\n` +
-        `(le blockquote sera rendu comme une boîte colorée dans l'interface)\n` +
+        `2. **Théorème** (ou **Retenons**) — immédiatement après l'Activité :\n` +
+        `   Énoncer en BLOCKQUOTE (chaque ligne commence par "> ") :\n` +
+        `     > **Théorème :**\n` +
+        `     > [énoncé exact du programme tunisien]\n` +
+        `   Le blockquote est rendu comme une boîte colorée dans l'interface.\n` +
+        `   Pas de preuve, pas d'extension, pas de remarque hors scope.\n` +
         `\n` +
-        `═══ APPLICATION ═══\n` +
-        `  Section II  → aptitude "Calculer les distances" : calculer DEUX longueurs inconnues.\n` +
-        `  Section III → aptitude "Montrer le parallélisme" : DEUX applications "A-t-on (MN)//(BC)?"\n` +
-        `  Section IV  → PAS d'Activité. Deux énoncés de construction (AM/AB = p/q ; n parties).\n` +
-        `  Chaque Application DOIT avoir sa résolution complète dans workedExamples.\n` +
+        `3. **Application** :\n` +
+        `   • Cibler EXACTEMENT UNE des Aptitudes à développer identifiées dans le scope\n` +
+        `     pour cette section ("Calculer…", "Montrer que…", "Reconnaître…", etc.).\n` +
+        `   • Problème numérique concret avec valeurs précises et question directe.\n` +
+        `   • Toutes les données textuelles (pas de figure).\n` +
+        `   • Ce problème DOIT figurer dans workedExamples avec sa solution complète.\n` +
+        `\n` +
+        `   Règle spéciale : si le scope mentionne une section d'APPLICATIONS (constructions,\n` +
+        `   partages, résolutions…) sans nouveau théorème → pas d'Activité pour cette section,\n` +
+        `   seulement des énoncés d'application numérotés.\n` +
         `\n` +
         `═══ RÈGLES GLOBALES ═══\n` +
-        `  • Sections : ## I- Nom, ## II- Nom, ## III- Nom, ## IV- Nom (headings Markdown).\n` +
-        `  • keyConcepts = énoncés des Théorèmes/Retenons, un par section, verbatim.\n` +
-        `  • workedExamples = résolutions complètes de toutes les Applications.\n` +
-        `  • Zéro concept absent du scope ; tout après "PAS" est INTERDIT.`
+        `  • Sections : ## I- Nom exact, ## II- Nom exact, … (headings Markdown, noms du scope).\n` +
+        `  • keyConcepts = énoncés verbatim des Théorèmes/Retenons, un par section.\n` +
+        `  • workedExamples = résolutions complètes de TOUTES les Applications.\n` +
+        `  • Zéro concept absent du scope ; tout ce qui suit "PAS" dans le scope est INTERDIT.`
       : null;
 
   // ── Geometry construction rule (universal) ───────────────────────────────
