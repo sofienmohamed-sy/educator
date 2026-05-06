@@ -56,6 +56,7 @@ export const solveRequestSchema = z.object({
     .nullish()
     .transform((v) => v ?? undefined),
   subject: subjectSchema.nullish().transform((v) => v ?? undefined),
+  topic: nullishString({ max: 4096 }),
   bookIds: nullishArray(z.string().min(1), 5),
   input: z.discriminatedUnion("kind", [
     z.object({

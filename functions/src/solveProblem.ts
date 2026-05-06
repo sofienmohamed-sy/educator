@@ -66,6 +66,7 @@ export const solveProblem = onCall(
       section: req.section,
       language: req.language,
       subject: req.subject,
+      topic: req.topic,
       profile,
       ragContext,
     });

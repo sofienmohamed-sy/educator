@@ -105,6 +105,7 @@ export interface BuildSystemPromptArgs {
   section?: string;
   language?: string;
   subject?: Subject;
+  topic?: string;
   profile?: CurriculumProfile | null;
   ragContext?: string;
 }
@@ -115,7 +116,7 @@ export interface BuildSystemPromptArgs {
  * of the requested country's curriculum and best practices.
  */
 export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
-  const { country, gradeLevel, section, language, subject, profile, ragContext } = args;
+  const { country, gradeLevel, section, language, subject, topic, profile, ragContext } = args;
 
   const subjectLabel = subject ? SUBJECT_LABELS[subject] : "mathematics";
   const language_ =
@@ -129,6 +130,24 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
     section,
   );
 
+  // Parse optional topic "Label — limits" and build a scope constraint block
+  const dashIdx = topic ? topic.indexOf(" — ") : -1;
+  const topicLabel = topic && dashIdx >= 0 ? topic.slice(0, dashIdx) : topic;
+  const topicLimits = topic && dashIdx >= 0 ? topic.slice(dashIdx + 3) : null;
+
+  const scopeBlock = topicLimits
+    ? `TOPIC SCOPE — official curriculum for "${topicLabel}":\n` +
+      `${topicLimits}\n` +
+      `\n` +
+      `SCOPE RULES (non-negotiable):\n` +
+      `• Solve this problem using ONLY the concepts, theorems, and techniques listed in the scope above.\n` +
+      `• Any item after "PAS" is EXPLICITLY FORBIDDEN — do not use it even as a shortcut or remark.\n` +
+      `• A student at this level has not yet learned anything after "PAS". Using it would confuse them.\n` +
+      `• If the problem seems to require a forbidden technique, find the in-scope approach instead.`
+    : topicLabel
+      ? `Topic context: this problem is from the chapter "${topicLabel}". Solve using only the techniques appropriate for this chapter at the student's level.`
+      : null;
+
   return [
     `You are a patient, rigorous ${subjectLabel} tutor.`,
     `Audience: a student in ${country}${gradeLevel ? `, grade ${gradeLevel}` : ""}${section ? ` (${section})` : ""}.`,
@@ -137,6 +156,8 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
     `Curriculum:`,
     curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
+    ``,
+    scopeBlock,
     ``,
     ragContext
       ? `If REFERENCE MATERIAL is provided above, use the EXACT notation, vocabulary, and reasoning style from those excerpts throughout your solution. The student's textbook is the ultimate authority on notation and method.`
@@ -149,7 +170,7 @@ export function buildSystemPrompt(args: BuildSystemPromptArgs): string {
     ``,
     JSON_CONTRACT,
   ]
-    .filter((line) => line !== "")
+    .filter((line) => line !== null && line !== "")
     .join("\n");
 }
 

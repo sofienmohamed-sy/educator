@@ -9,6 +9,7 @@ export interface SolveRequest {
   section?: string;
   language?: string;
   subject?: Subject;
+  topic?: string;
   bookIds?: string[];
   input:
     | { kind: "text"; text: string }
