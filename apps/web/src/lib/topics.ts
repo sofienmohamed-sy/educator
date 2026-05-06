@@ -34,6 +34,116 @@ export type Topic = string | TopicEntry;
  */
 const TOPICS: Record<string, Topic[]> = {
   // ── FRANCE ────────────────────────────────────────────────────────────────
+  // Seconde générale et technologique (BO 2019, commun à toutes les sections).
+  // Programme sans dérivée ni second degré formel — ces blocs sont en Première.
+  "FR_math_Seconde": [
+    {
+      label: "Logique, ensembles et raisonnement",
+      limits:
+        "Notations ensemblistes : ∅, ∈, ⊂, ∩, ∪, complémentaire Ā, produit cartésien E×F, Card(A). Propositions mathématiques, connecteurs « et »/« ou » ; négation d'une proposition simple ; implication P⟹Q, réciproque, contraposée ; équivalence logique. Raisonnements : par l'absurde, par disjonction de cas, par contre-exemple. PAS les quantificateurs ∀ et ∃ (hors programme Seconde), PAS la démonstration par récurrence.",
+    },
+    {
+      label: "Nombres réels et calcul algébrique",
+      limits:
+        "Ensembles ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ ; intervalles (8 types), notation [a,b], ]a,b[, etc. ; valeur absolue |x| = distance à 0, inéquation |x−a|≤r. Irrationnels : √2 et π. Encadrement décimal d'un réel à 10⁻ⁿ. Arithmétique élémentaire : multiples, diviseurs, pair/impair, fraction irréductible. Règles de calcul : puissances entières relatives ; racines carrées (√(ab)=√a·√b, √(a²)=|a|). Produits remarquables : (a+b)², (a−b)², (a+b)(a−b). Équations ax+b=0, ax+b=cx+d, x²=a ; inéquations ax+b>0 ; tableau de signes d'un produit A(x)B(x) ou quotient A(x)/B(x). PAS le discriminant Δ (Première), PAS les polynômes du 2nd degré.",
+    },
+    {
+      label: "Vecteurs du plan",
+      limits:
+        "Égalité de vecteurs, représentants, vecteur nul u⃗₀ ; produit k·u⃗ (colinéarité : l'un est multiple de l'autre). Relation de Chasles AB⃗+BC⃗=AC⃗ ; addition et soustraction. Base orthonormée (î,ĵ) : coordonnées (x,y) d'un vecteur, expression u⃗=xi⃗+yj⃗ ; norme ‖AB⃗‖=√((xB−xA)²+(yB−yA)²) ; milieu M (xM=(xA+xB)/2, yM=(yA+yB)/2). Déterminant de deux vecteurs dans une BON : det(u⃗,v⃗)=x₁y₂−x₂y₁ ; critère de colinéarité (det=0), alignement, parallélisme. PAS le produit scalaire (Première), PAS la projection orthogonale.",
+    },
+    {
+      label: "Droites du plan",
+      limits:
+        "Vecteur directeur d'une droite. Équation cartésienne ax+by+c=0 (a,b non tous nuls). Équation réduite y=mx+p ; pente (coefficient directeur) m : deux droites parallèles ↔ mêmes pentes ou droites verticales, deux droites sécantes ↔ pentes différentes. Déterminer une équation à partir de deux points, d'un point et d'un vecteur directeur, ou d'un point et d'une pente. Intersection de deux droites sécantes (résolution du système). PAS l'équation de cercle (Première), PAS la droite perpendiculaire formelle.",
+    },
+    {
+      label: "Fonctions : représentation, signe et fonctions de référence",
+      limits:
+        "Domaine de définition Df ; courbe représentative y=f(x) ; image, antécédent. Fonctions de référence à connaître : valeur absolue x↦|x|, carré x↦x², inverse x↦1/x, racine carrée x↦√x, cube x↦x³ — définitions et allures. Signe d'une fonction affine. Tableau de signes d'un produit ou d'un quotient. Résoudre f(x)=k, f(x)<k graphiquement ou algébriquement selon la fonction. PAS la dérivée (Première).",
+    },
+    {
+      label: "Fonctions : variations et extrémums",
+      limits:
+        "Tableau de variations ; croissance, décroissance, monotonie sur un intervalle. Maximum et minimum d'une fonction sur un intervalle. Variations des fonctions de référence (affine, carré pour x≥0, inverse sur ]0,+∞[). Position relative de deux courbes (f(x)≥g(x) ↔ f(x)−g(x)≥0). Problèmes d'optimisation (recherche graphique ou par calcul d'un extremum). Algorithmes d'approximation d'un extremum : balayage, dichotomie. PAS la dérivée.",
+    },
+    {
+      label: "Statistiques descriptives et information chiffrée",
+      limits:
+        "Proportions et pourcentages. Évolution : variation absolue V₂−V₁, coefficient multiplicateur V₂/V₁, taux d'évolution (V₂−V₁)/V₁ ; évolutions successives (produit des CM) et réciproque (CM inverse). Statistiques à une variable : linéarité de la moyenne, médiane, quartiles Q₁ et Q₃, écart interquartile, écart-type σ ; influence de l'ajout/suppression d'une valeur. Série continue : histogramme, polygone des fréquences cumulées, médiane graphiquement. Représentations : boîtes à moustaches, diagrammes en barres, circulaires. PAS la régression linéaire (Terminale/voie technologique).",
+    },
+    {
+      label: "Croisement de deux variables qualitatives",
+      limits:
+        "Tableau croisé d'effectifs (tableau de contingence) pour deux variables qualitatives. Fréquences marginales (distribution d'une variable seule). Fréquences conditionnelles fA(B)=Card(A∩B)/Card(A) : interprétation, calcul. Compléter un tableau croisé par raisonnement sur les effectifs ou à l'aide des fréquences conditionnelles. PAS le coefficient de corrélation, PAS les tests d'indépendance.",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Rappel : expérience aléatoire, univers fini, événement, P(A)=Card(A)/Card(Ω) (équiprobabilité). Loi des grands nombres (version vulgarisée) : pour n grand, la fréquence observée est proche de la probabilité. Probabilité conditionnelle : PA(B) = P(A∩B)/P(A) pour P(A)>0 ; distinction entre PA(B) et PB(A). Arbres de probabilité pondérés : règle de multiplication des branches, calcul de P(A∩B) et P(B). PAS la formule des probabilités totales formelle (Première), PAS la formule de Bayes (Terminale).",
+    },
+  ],
+
+  // Première — Spécialité Mathématiques (BO 2019, voie générale).
+  // Programme de 6h/semaine, préparant à la Terminale Spé Maths.
+  "FR_math_Première_Spécialité Maths": [
+    {
+      label: "Suites numériques et modèles discrets",
+      limits:
+        "Modes de génération d'une suite : formule explicite u_n=f(n), relation de récurrence u_{n+1}=f(u_n), algorithme, motifs géométriques. Suites arithmétiques (raison r, terme général u_n=u₀+nr, somme 1+2+…+n=n(n+1)/2). Suites géométriques (raison q, terme général u_n=u₀·qⁿ, somme 1+q+…+q^{n-1}=(q^n−1)/(q−1) pour q≠1). Sens de variation. Introduction intuitive à la limite (pas de définition formelle avec ε). Applications : évolutions à taux fixe, actualisation, suite de Syracuse, suite de Fibonacci. PAS la démonstration par récurrence formelle (Terminale), PAS la convergence définie formellement.",
+    },
+    {
+      label: "Fonctions polynômes du second degré",
+      limits:
+        "Forme développée réduite ax²+bx+c. Forme factorisée a(x−r₁)(x−r₂) : racines réelles, signe de la fonction, somme r₁+r₂=−b/a et produit r₁r₂=c/a. Forme canonique a(x−h)²+k avec h=−b/(2a) et k=f(h) ; calcul du sommet. Discriminant Δ=b²−4ac : deux racines réelles distinctes (Δ>0), racine double (Δ=0), pas de racine réelle (Δ<0). Résolution de ax²+bx+c=0 et inéquations du second degré. Choix de la forme adaptée selon le problème (équation, optimisation, signe). PAS la factorisation de polynômes du 3ème degré (approfondissement).",
+    },
+    {
+      label: "Dérivation — nombre dérivé et fonction dérivée",
+      limits:
+        "Taux de variation (f(b)−f(a))/(b−a) ; pente d'une sécante. Nombre dérivé f'(a) : limite du taux de variation quand b→a ; équation de la tangente y=f(a)+f'(a)(x−a) ; approximation affine f(a+h)≈f(a)+f'(a)h. Fonctions dérivées usuelles : (xⁿ)'=nxⁿ⁻¹ pour n∈ℤ, (√x)'=1/(2√x), (1/x)'=−1/x². Règles opératoires : somme (u+v)'=u'+v', produit (uv)'=u'v+uv', inverse (1/u)'=−u'/u², quotient (u/v)'=(u'v−uv')/v². Dérivabilité de x↦|x| en 0 (non dérivable). PAS la règle de la chaîne (f∘g)' générale (Terminale), PAS les dérivées de sin, cos, ln (Terminale).",
+    },
+    {
+      label: "Variations, extrémums et courbes représentatives",
+      limits:
+        "Fonctions paires (f(-x)=f(x), symétrie axe Oy) et impaires (f(-x)=-f(x), symétrie centrale O). Lien signe de f' ↔ sens de variation sur un intervalle ; caractérisation des fonctions constantes. Tangente horizontale en un extremum local : f'(a)=0. Étude complète d'un polynôme du second degré : variations, extremum, signe, courbe. Méthode de Newton (exemple d'algorithme pour approcher une racine). PAS la convexité f'' (Terminale).",
+    },
+    {
+      label: "Fonction exponentielle",
+      limits:
+        "Définition : unique fonction dérivable sur ℝ vérifiant f'=f et f(0)=1 (existence et unicité admises). Notation exp(x) et eˣ, nombre e≈2,718. Propriétés algébriques : exp(x+y)=exp(x)·exp(y), exp(0)=1, exp(−x)=1/exp(x), exp(nx)=[exp(x)]ⁿ. Signe : exp(x)>0 pour tout x. Sens de variation : strictement croissante sur ℝ. Courbe représentative et lien avec les suites géométriques à taux fixe. Modélisation : croissance (N(t)=N₀·e^{rt}) et décroissance (désintégration radioactive) exponentielles. Pour k réel, dérivée de t↦e^{kt} est k·e^{kt}. PAS ln (Terminale), PAS la chaîne générale e^{u(x)}' (Terminale).",
+    },
+    {
+      label: "Trigonométrie",
+      limits:
+        "Cercle trigonométrique (rayon 1, centre O). Enroulement de la droite réelle sur le cercle : image d'un réel x ↔ point M(x). Longueur d'arc = mesure en radians ; conversion degrés ↔ radians. Cosinus et sinus d'un réel x : abscisse et ordonnée de M(x) ; lien avec cos et sin dans un triangle rectangle. Valeurs remarquables : 0, π/6, π/4, π/3, π/2, π, 3π/2, 2π. Relations : sin²x+cos²x=1 ; cos(−x)=cos(x) ; sin(−x)=−sin(x) ; cos(π−x)=−cos(x) ; sin(π−x)=sin(x). PAS les formules d'addition (Terminale), PAS tan (Terminale), PAS les dérivées de sin et cos (Terminale).",
+    },
+    {
+      label: "Calcul vectoriel et produit scalaire dans le plan",
+      limits:
+        "Produit scalaire u⃗·v⃗ : définition via la projection orthogonale (u⃗·v⃗=‖u⃗‖·‖projv⃗u⃗‖) et via le cosinus (u⃗·v⃗=‖u⃗‖·‖v⃗‖·cos θ). Bilinéarité et symétrie ; ‖u⃗+v⃗‖²=‖u⃗‖²+2u⃗·v⃗+‖v⃗‖² ; ‖u⃗−v⃗‖²=‖u⃗‖²−2u⃗·v⃗+‖v⃗‖². Formule d'Al-Kashi : a²=b²+c²−2bc·cos A. Expression en coordonnées orthonormées : u⃗·v⃗=x₁x₂+y₁y₂. Transformation de MA⃗·MB⃗=OM⃗²−(OA⃗+OB⃗)·OM⃗+OA⃗·OB⃗. PAS le produit vectoriel (Terminale SE).",
+    },
+    {
+      label: "Géométrie repérée dans le plan",
+      limits:
+        "Vecteur normal à une droite : (a,b) est vecteur normal à la droite d'équation ax+by+c=0. Déterminer l'équation cartésienne d'une droite connaissant un point et un vecteur normal. Projection orthogonale d'un point M sur une droite (d) : point H tel que MH⃗⊥(d) — calcul des coordonnées de H. Équation de cercle de centre Ω(a,b) et rayon r : (x−a)²+(y−b)²=r² ; reconnaître, déterminer centre et rayon. PAS l'équation de sphère, PAS les droites et plans de ℝ³ (Terminale SE).",
+    },
+    {
+      label: "Probabilités conditionnelles et indépendance",
+      limits:
+        "Rappel : probabilité conditionnelle P(A|B)=P(A∩B)/P(B). Indépendance de deux événements : P(A∩B)=P(A)·P(B) ; vérification et exploitation. Partition de l'univers (système complet d'événements B₁,…,Bₙ). Formule des probabilités totales : P(A)=∑P(Bₖ)·P(A|Bₖ). Succession de n≤4 épreuves indépendantes identiques : représentation par arbre ou tableau, calcul de probabilités. Méthode Monte-Carlo : estimation d'une aire ou de π par simulation Python. PAS la formule de Bayes (Terminale).",
+    },
+    {
+      label: "Variables aléatoires réelles",
+      limits:
+        "Variable aléatoire réelle X sur Ω fini : formalisation comme fonction X:Ω→ℝ ; loi de probabilité (tableau des valeurs et probabilités P(X=xᵢ)) ; fonction de répartition discrète. Espérance E(X)=∑xᵢ·P(X=xᵢ) ; interprétation (valeur moyenne à long terme, jeu équitable). Variance V(X)=E(X²)−[E(X)]² (formule de König-Huygens) ; écart-type σ(X)=√V(X). Linéarité de l'espérance E(aX+b)=aE(X)+b. PAS la loi binomiale formelle B(n,p) (Terminale), PAS les variables continues.",
+    },
+    {
+      label: "Expérimentations et simulation Python",
+      limits:
+        "Simulation d'une variable aléatoire avec Python (random.random(), boucles, listes). Lire, comprendre et écrire une fonction Python renvoyant la moyenne d'un échantillon de taille n. Étudier la distance entre la moyenne empirique m d'un échantillon de taille n et l'espérance μ. Fluctuation d'échantillonnage : simuler N échantillons de taille n d'une VA d'espérance μ et d'écart-type σ ; proportion des cas où |m−μ|≤2σ/√n (lien avec l'intervalle de confiance vu en Terminale). PAS les tests statistiques formels, PAS la loi normale (Terminale).",
+    },
+  ],
+
   // Spécialité Mathématiques (BO 2019) — programme commun à toute Terminale
   // qui conserve la spé maths. Pas de nombres complexes ni d'arithmétique :
   // ces blocs sont en option Maths Expertes uniquement.
@@ -240,18 +350,21 @@ const TOPICS: Record<string, Topic[]> = {
     "Combinatoire et dénombrement",
     "Algorithmique (Python)",
   ],
+  // Fallback générique Première (aucune section sélectionnée).
+  // Contenu = Spécialité Maths, la filière dominante. Limits intentionnellement
+  // plus courts que la version avec section pour rester lisibles comme fallback.
   "FR_math_Première": [
-    "Second degré",
-    "Suites arithmétiques et géométriques",
-    "Dérivation",
-    "Variations et extremums",
-    "Fonctions trigonométriques",
-    "Fonction exponentielle (introduction)",
-    "Géométrie repérée",
-    "Produit scalaire dans le plan",
-    "Probabilités conditionnelles",
-    "Variables aléatoires",
-    "Loi binomiale (introduction)",
+    { label: "Suites numériques et modèles discrets", limits: "Suites arith./géom. (terme général, somme) ; récurrences u_{n+1}=f(u_n) ; sens de variation ; limite intuitive." },
+    { label: "Fonctions polynômes du second degré", limits: "Formes développée, canonique, factorisée ; discriminant Δ ; racines, signe, optimisation." },
+    { label: "Dérivation", limits: "Nombre dérivé, tangente, approximation affine ; dérivées de xⁿ, √x, 1/x ; somme, produit, quotient. PAS chain rule." },
+    { label: "Variations et courbes représentatives", limits: "Parité ; lien signe f'—sens de variation ; extremum local (f'(a)=0) ; étude d'un polynôme du 2nd degré." },
+    { label: "Fonction exponentielle", limits: "Définition f'=f, f(0)=1 ; propriétés algébriques ; modélisation croissance/décroissance. PAS ln." },
+    { label: "Trigonométrie", limits: "Cercle trigonométrique, radian ; cos et sin d'un réel ; valeurs remarquables ; sin²+cos²=1. PAS formules d'addition." },
+    { label: "Produit scalaire dans le plan", limits: "Définition (projection/cosinus) ; ‖u±v‖² ; Al-Kashi ; expression en coordonnées. PAS produit vectoriel." },
+    { label: "Géométrie repérée", limits: "Vecteur normal ax+by+c=0 ; projection orthogonale ; équation de cercle. PAS espace." },
+    { label: "Probabilités conditionnelles et indépendance", limits: "Indépendance ; formule des probabilités totales ; n≤4 épreuves (arbre). PAS Bayes." },
+    { label: "Variables aléatoires réelles", limits: "Loi, espérance, variance (König-Huygens), écart-type ; linéarité de E. PAS loi binomiale." },
+    { label: "Expérimentations Python", limits: "Simulation, moyenne empirique, fluctuation d'échantillonnage |m−μ|≤2σ/√n." },
   ],
   // Spécialité Physique-Chimie Terminale (BO 2019). La même clé est
   // utilisée pour la section « Spécialité Physique-Chimie ». Le
