@@ -10,6 +10,7 @@ import type {
   WritingSubject,
   WritingAnalysis,
   WritingContent,
+  FichePedagogique,
 } from "./types";
 
 // ── Profile ───────────────────────────────────────────────────────────────────
@@ -107,6 +108,20 @@ export const solveWritingFn = httpsCallable<
   },
   { id: string; analysis: WritingAnalysis; usedCuratedCurriculum: boolean }
 >(functions, "solveWriting");
+
+export const generateFicheFn = httpsCallable<
+  {
+    subject: Subject;
+    topic: string;
+    country: string;
+    gradeLevel?: string;
+    section?: string;
+    language?: string;
+    nbSeances?: number;
+    bookIds?: string[];
+  },
+  { id: string; fiche: FichePedagogique }
+>(functions, "generateFiche");
 
 export const generateWritingFn = httpsCallable<
   {

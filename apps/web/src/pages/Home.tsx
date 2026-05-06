@@ -11,7 +11,7 @@ import {
 import { db } from "../firebase";
 import { useAuth } from "../auth/AuthProvider";
 
-type HistoryTab = "problems" | "courses" | "exercises" | "exams" | "writingProblems" | "writingContent";
+type HistoryTab = "problems" | "courses" | "exercises" | "exams" | "fiches" | "writingProblems" | "writingContent";
 
 interface HistoryDoc {
   id: string;
@@ -25,6 +25,8 @@ interface HistoryDoc {
   difficulty?: string;
   totalPoints?: number;
   exam?: { title?: string };
+  fiche?: { chapitre?: string; niveau?: string };
+  nbSeances?: number;
   writingSubject?: string;
   contentType?: string;
   analysis?: { restatement?: string; feedback?: string };
@@ -63,6 +65,12 @@ const NAV_CARDS = [
     cta: "Browse →",
   },
   {
+    to: "/generate/fiche",
+    title: "Fiche pédagogique",
+    desc: "Générez une fiche pédagogique complète (séances, démarche, activités, retenons, série d'exercices) pour n'importe quel chapitre.",
+    cta: "Générer →",
+  },
+  {
     to: "/writing/solve",
     title: "Analyze writing",
     desc: "Get grammar corrections, essay feedback, vocabulary explanations, literary analysis, or reading comprehension help.",
@@ -92,9 +100,11 @@ export default function Home() {
             ? "exercises"
             : tab === "exams"
               ? "exams"
-              : tab === "writingProblems"
-                ? "writingProblems"
-                : "writingContent";
+              : tab === "fiches"
+                ? "fiches"
+                : tab === "writingProblems"
+                  ? "writingProblems"
+                  : "writingContent";
 
     const q = query(
       collection(db, "users", user.uid, collectionName),
@@ -147,6 +157,14 @@ export default function Home() {
         </span>
       );
     }
+    if (tab === "fiches") {
+      return (
+        <span>
+          <strong>{item.subject}</strong> — {item.fiche?.chapitre ?? item.topic}{" "}
+          <span className="muted">({item.fiche?.niveau} · {item.nbSeances} séance(s))</span>
+        </span>
+      );
+    }
     if (tab === "writingProblems") {
       return (
         <span>
@@ -191,7 +209,7 @@ export default function Home() {
         <h2 style={{ marginTop: 0 }}>History</h2>
 
         <div className="row" style={{ marginBottom: "1rem", gap: "0.5rem", flexWrap: "wrap" }}>
-          {(["problems", "courses", "exercises", "exams", "writingProblems", "writingContent"] as HistoryTab[]).map((t) => (
+          {(["problems", "courses", "exercises", "exams", "fiches", "writingProblems", "writingContent"] as HistoryTab[]).map((t) => (
             <button
               key={t}
               type="button"
@@ -202,7 +220,9 @@ export default function Home() {
                 ? "Writing Analyses"
                 : t === "writingContent"
                   ? "Writing Content"
-                  : t.charAt(0).toUpperCase() + t.slice(1)}
+                  : t === "fiches"
+                    ? "Fiches"
+                    : t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
           ))}
         </div>
