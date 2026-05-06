@@ -1210,103 +1210,266 @@ const TOPICS: Record<string, Topic[]> = {
     },
   ],
 
-  // Section Sciences expérimentales (3ème AS SE).
+  // Section Sciences expérimentales (3ème AS SE) — 14 chapitres.
+  // Analyse identique à SM ; géométrie : PAS rotations, PAS produit vectoriel,
+  // PAS intersection plan-sphère ; arithmétique : dénombrement seul (pas de théorie des nombres).
   "TN_math_3ème secondaire_Sciences expérimentales": [
     {
-      label: "Analyse — Fonctions et suites",
+      label: "Généralités sur les fonctions",
       limits:
-        "Même programme d'analyse que la section Mathématiques (fonctions, continuité TVI, limites, dérivée, fonctions du programme identiques). Principe de récurrence inclus. Suites récurrentes Uₙ₊₁=f(Uₙ) avec f affine ou homographique. PAS asymptotes obliques dans les aptitudes requises (mais abordées), PAS suites adjacentes, PAS suites à deux termes, PAS intégrale.",
+        "Ensemble de définition Df (calcul et lecture graphique). Parité : paire f(−x)=f(x) (symétrie/Oy), impaire f(−x)=−f(x) (symétrie/O). Restriction à un intervalle. Majorant, minorant. Opérations algébriques sur les fonctions. Fonctions affines par intervalles : représentation, lecture images et antécédents. PAS dérivée ni limites dans ce chapitre.",
     },
     {
-      label: "Géométrie",
+      label: "Continuité",
       limits:
-        "Produit scalaire plan : applications longueurs, angles, lieux géométriques. Arcs/angles orientés, cercle trigonométrique, déterminant de 2 vecteurs. Trigonométrie : cos/sin/tan d'un réel, coordonnées polaires, formules d'addition et ×2, résolution équations/inéquations. Nombres complexes : forme algébrique, conjugué, opérations, module, argument, écriture trigonométrique, affixe point/vecteur, lieux géométriques. Vecteurs de l'espace, déterminant de 3 vecteurs, produit scalaire dans l'espace, équations de droites et plans (paramétriques et cartésiennes), positions relatives, équation d'une sphère. PAS rotations (réservées à la section Mathématiques), PAS produit vectoriel (SE), PAS intersection plan-sphère (SE).",
+        "Continuité en un réel a : lim_{x→a} f(x)=f(a), vérification algébrique et graphique. Continuité sur un intervalle. Image d'un intervalle par une fonction continue. TVI (admis) et corollaire. Prolongement par continuité. Opérations sur les fonctions continues. PAS définition ε-δ.",
     },
     {
-      label: "Statistiques, dénombrement et probabilités",
+      label: "Limites",
       limits:
-        "Séries à un caractère (paramètres position/dispersion, initiation distribution normale) et à deux caractères (tableau, marginales, nuage, point moyen). Dénombrement : cardinal, combinaison, permutation, arrangement, binôme. Probabilité uniforme : définition, P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes et dépendantes (arbre). PAS loi binomiale, PAS régression/ajustement affine.",
+        "Limites finies et infinies en un réel et à ±∞. Asymptotes horizontales, verticales et obliques (abordées sur des exemples, sans être une aptitude requise pour SE). Formes indéterminées (∞−∞, ∞/∞, 0×∞), techniques de levée (factorisation, conjugué, terme dominant). Théorème des gendarmes. PAS ε-δ.",
+    },
+    {
+      label: "Dérivabilité",
+      limits:
+        "Nombre dérivé f'(a)=lim_{h→0}(f(a+h)−f(a))/h. Équation de tangente y=f'(a)(x−a)+f(a), demi-tangentes. Approximation affine f(a+h)≈f(a)+hf'(a). Dérivées usuelles (xⁿ, 1/x, √x, sin x, cos x, tan x), opérations (somme, produit, quotient, composée). Lien signe f'—variations (admis), extrema locaux, tableau de variations. PAS Rolle, PAS TAF, PAS dérivée seconde.",
+    },
+    {
+      label: "Étude des fonctions du programme",
+      limits:
+        "Polynômes deg 1-3 et bicarrées ; rationnelles (ax+b)/(cx+d), (ax²+bx+c)/(dx+e), (ax²+bx+c)/(dx²+ex+f) ; irrationnelles √(ax+b) et √(ax²+bx+c) ; circulaires sin(ax+b), cos(ax+b), tan x. Méthode complète : domaine, parité, continuité, limites, asymptotes, dérivée, tableau, tracé, position relative. Symétries axiales et centrales. PAS logarithme ni exponentielle (4ème AS).",
+    },
+    {
+      label: "Suites numériques — généralités",
+      limits:
+        "Comportement global : monotonie et bornement. Suites arithmétiques et géométriques : terme général, somme, limites admises (|q|<1 → u_n→0). Suites u_n=f(n) avec f polynôme ou rationnelle : limite via les théorèmes sur les fonctions. Développement décimal illimité périodique → fraction. PAS suites à deux termes, PAS suites adjacentes.",
+    },
+    {
+      label: "Suites numériques — récurrentes et convergence",
+      limits:
+        "Principe de récurrence : démonstrations d'inégalités et de propriétés de variations d'une suite. Suites récurrentes u_{n+1}=f(u_n) avec f affine (point fixe, suite géométrique ou arithmétique auxiliaire) et f homographique (suite auxiliaire géométrique). Représentation graphique (n,u_n) et sur l'axe. Convergence : définition, théorèmes de comparaison. PAS suites adjacentes.",
+    },
+    {
+      label: "Statistiques",
+      limits:
+        "Séries à un caractère : mode, médiane, quartiles, moyenne, variance, écart-type ; initiation distribution normale (courbe de Gauss, concentration empirique). Séries à deux caractères : tableau de contingence, distributions marginales, nuage de points, point moyen G(x̄,ȳ). PAS régression ni coefficient de corrélation (3ème AS SE).",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Loi de probabilité sur Ω fini : P(ωᵢ)≥0, ΣP=1. P(A∪B)=P(A)+P(B)−P(A∩B), équiprobabilité. Épreuves successives indépendantes (arbre pondéré) et dépendantes (arbre conditionnel, sans remplacement). PAS probabilités conditionnelles formalisées, PAS loi binomiale (4ème AS).",
+    },
+    {
+      label: "Produit scalaire dans le plan",
+      limits:
+        "Trois expressions de u⃗·v⃗ : géométrique (‖u⃗‖‖v⃗‖cosθ), par les normes, analytique (xx'+yy'). Bilinéarité, symétrie, u⃗·u⃗=‖u⃗‖². Applications : calcul d'angle, formule d'Al-Kashi, distance d'un point à une droite. Lieux géométriques par le produit scalaire. PAS produit vectoriel plan.",
+    },
+    {
+      label: "Trigonométrie",
+      limits:
+        "Arcs orientés, arcs associés (cos(−x), sin(π−x), etc.). Angles orientés, angle inscrit et angle au centre. Déterminant de deux vecteurs, colinéarité. Cos/sin/tan d'un réel, coordonnées polaires. Formules d'addition : cos(a±b), sin(a±b) ; duplication cos(2a), sin(2a). Transformation a·cosθ+b·sinθ=r·cos(θ−φ). Résolution de cos(ax+b)=c, sin(ax+b)=c, tan x=c et inéquations.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "Forme algébrique z=a+ib, conjugué, opérations (dont division). Module |z|=√(a²+b²), argument modulo 2π. Écriture trigonométrique r(cosθ+i sinθ). Propriétés : |z₁z₂|=|z₁||z₂|, arg(z₁z₂)=arg z₁+arg z₂. Affixe d'un point et d'un vecteur. Lieux géométriques (|z−a|=r → cercle, arg(z−a)=θ → demi-droite). PAS forme exponentielle e^(iθ) (4ème AS), PAS racines nèmes de l'unité.",
+    },
+    {
+      label: "Géométrie dans l'espace",
+      limits:
+        "Vecteurs de l'espace : opérations, base, coordonnées. Déterminant de trois vecteurs, coplanarité. Produit scalaire dans l'espace : u⃗·v⃗=xx'+yy'+zz', norme, orthogonalité. Équation paramétrique d'une droite, équation cartésienne d'un plan, équation d'une sphère (x−a)²+(y−b)²+(z−c)²=r². Positions relatives : droite/droite, droite/plan, plan/plan. PAS produit vectoriel (SE), PAS intersection plan-sphère (SE), PAS rotations du plan (SM uniquement).",
+    },
+    {
+      label: "Dénombrement",
+      limits:
+        "Principe multiplicatif. Cardinal d'un ensemble fini. Arrangements A(n,p)=n!/(n−p)!, permutations n!, combinaisons C(n,p), formule du binôme (a+b)ⁿ=ΣC(n,k)aⁿ⁻ᵏbᵏ. PAS division euclidienne, PAS PGCD, PAS nombres premiers (arithmétique réservée à SM pour 3ème AS).",
     },
   ],
 
-  // Section Sciences techniques (3ème AS ST).
+  // Section Sciences techniques (3ème AS ST) — 12 chapitres.
+  // Analyse : limites intuitives (pas ε-δ), PAS asymptotes obliques, PAS suites homographiques.
+  // Géométrie : produit vectoriel ET produit mixte dans l'espace, PAS sphères, PAS rotations du plan.
   "TN_math_3ème secondaire_Technique": [
     {
-      label: "Analyse — Fonctions et suites",
+      label: "Généralités sur les fonctions",
       limits:
-        "Même catalogue de fonctions que SM/SE (polynômes deg 1-3, bicarrées, rationnelles, circulaires). Limites introduites intuitivement (sans définition ε-δ), asymptotes décrites graphiquement. Dérivabilité, tangente, approximation affine, lien signe f'—variations—extrema. Principe de récurrence. Suites récurrentes Uₙ₊₁=f(Uₙ) avec f affine ou homographique ; limite de la suite géométrique admise. Formules trigonométriques d'addition et ×2, résolution équations/inéquations circulaires. PAS recherche d'asymptotes obliques (hors programme ST), PAS suites homographiques convergentes vers irrationnels (ST), PAS produit vectoriel espace.",
+        "Ensemble de définition, parité (paire/impaire), restriction, majorant/minorant. Opérations algébriques sur les fonctions. Fonctions affines par intervalles. Représentation graphique, lecture des images et antécédents.",
     },
     {
-      label: "Géométrie",
+      label: "Continuité et limites",
       limits:
-        "Produit scalaire plan. Arcs/angles orientés, cercle trigonométrique. Nombres complexes : forme algébrique, conjugué, opérations, module, argument, écriture trigonométrique, affixe point/vecteur. Vecteurs de l'espace : base, opérations, produit scalaire, produit vectoriel ET produit mixte dans l'espace, équations paramétriques et cartésiennes des droites et plans, intersections. PAS sphères (ST), PAS rotations du plan (ST), PAS lieux géométriques complexes avancés.",
+        "Continuité en un réel : approche intuitive (la courbe ne \"saute\" pas), TVI (admis), prolongement par continuité. Limites finies et infinies introduites intuitivement (sans définition ε-δ) : lecture graphique, calcul algébrique de base. Asymptotes horizontales et verticales décrites graphiquement. PAS asymptotes obliques (hors programme ST), PAS formes indéterminées avancées.",
     },
     {
-      label: "Statistiques, dénombrement et probabilités",
+      label: "Dérivabilité",
       limits:
-        "Séries à un caractère et à deux caractères (tableau, marginales, nuage, point moyen). Dénombrement : cardinal, combinaison, permutation, arrangement, nombre d'applications d'un ensemble fini dans un autre, binôme. Probabilité uniforme : définition, P(A∪B), P(A∩B), équiprobabilité. PAS épreuves successives dépendantes formalisées (ST), PAS loi binomiale, PAS régression.",
-    },
-  ],
-
-  // Section Sciences de l'informatique (3ème AS SI).
-  "TN_math_3ème secondaire_Informatique": [
-    {
-      label: "Analyse — Fonctions et suites",
-      limits:
-        "Suites récurrentes Uₙ₊₁=aUₙ+b : terme, représentation graphique, limite via suite géométrique auxiliaire ; limite de la suite géométrique admise. Généralités sur les fonctions (domaine, parité, périodicité, variation, extrema). Limites finies/infinies (intuitives, sans ε-δ), asymptotes. Continuité et dérivabilité sur les fonctions du programme. Fonctions du programme : polynômes deg 1-3, bicarrées, (ax+b)/(cx+d), (ax²+bx+c)/(dx+e), x↦√(ax+b), circulaires x↦sin(ax+b), x↦cos(ax+b) (pas de tan). Asymptotes obliques possibles. PAS fonctions trigonométriques tan, PAS homographies suites, PAS formules addition trigonométriques.",
+        "Nombre dérivé, équation de tangente y=f'(a)(x−a)+f(a), approximation affine. Dérivées usuelles (xⁿ, 1/x, √x, sin x, cos x, tan x), opérations (somme, produit, quotient, composée). Lien signe f'—variations (admis), extrema locaux, tableau de variations. PAS Rolle, PAS TAF, PAS dérivée seconde.",
     },
     {
-      label: "Géométrie et algèbre",
+      label: "Étude des fonctions du programme",
       limits:
-        "Produit scalaire plan (longueurs, angles, aires, équation droite/cercle, formule d'Al-Kashi). Cercle trigonométrique, arcs orientés, cos/sin/tan d'un réel, formules d'addition et ×2, résolution cos x=c/sin x=c et inéquations. Systèmes linéaires (2×2, 3×2, 2×3, 3×3) par substitution, déterminant (2×2), pivot de Gauss ; notion de matrice et matrice complète. PAS vecteurs de l'espace, PAS nombres complexes (SI 3ème AS), PAS produit vectoriel.",
+        "Polynômes deg 1-3 et bicarrées ; rationnelles (ax+b)/(cx+d), (ax²+bx+c)/(dx+e) ; irrationnelles √(ax+b), √(ax²+bx+c) ; circulaires sin(ax+b), cos(ax+b), tan x. Méthode complète : domaine, parité, continuité, limites (H/V), dérivée, tableau de variations, tracé. Symétries axiales et centrales. PAS asymptotes obliques, PAS logarithme ni exponentielle.",
     },
     {
-      label: "Logique, arithmétique et systèmes de numération",
+      label: "Suites numériques",
       limits:
-        "Logique propositionnelle : proposition, table de vérité, négation, connecteurs (∧, ∨, ⇒, ⇔), loi de De Morgan, réciproque, contraposée. Principe de récurrence. Arithmétique dans ℕ : division euclidienne, PGCD, PPCM, entiers premiers entre eux, lemme de Gauss, nombres premiers (théorème d'Euclide, crible d'Ératosthène). Systèmes de numération en base 2, 8, 16 : conversion entre bases et opérations (addition, multiplication) dans la même base. PAS petit théorème de Fermat (SI 3ème AS), PAS décomposition en facteurs premiers formelle.",
+        "Comportement global : monotonie, bornement. Suites arithmétiques et géométriques : terme général, somme, limite de la suite géométrique (admise). Suites u_n=f(n) (polynôme ou rationnelle) : limite. Suites récurrentes u_{n+1}=f(u_n) avec f affine uniquement (u_{n+1}=au_n+b) : point fixe, transformation en suite géométrique/arithmétique, terme général, représentation graphique. Principe de récurrence : démonstrations d'inégalités. PAS f homographique pour les suites récurrentes (ST), PAS suites adjacentes.",
+    },
+    {
+      label: "Statistiques",
+      limits:
+        "Séries à un caractère : paramètres de position (mode, médiane, quartiles, moyenne) et de dispersion (étendue, variance, écart-type). Séries à deux caractères : tableau de contingence, distributions marginales, nuage de points, point moyen G(x̄,ȳ). PAS régression/ajustement affine (ST), PAS distribution normale.",
     },
     {
       label: "Dénombrement et probabilités",
       limits:
-        "Dénombrement : cardinal d'un ensemble fini, nombre d'applications, combinaison, permutation, arrangement, formule du binôme. Probabilité sur ensemble fini : définition, langage probabiliste, P(A∪B), P(A∩B), équiprobabilité. Expériences indépendantes et dépendantes évoquées (simulation). PAS épreuves successives formalisées, PAS loi binomiale, PAS arbre de choix probabiliste développé.",
+        "Cardinal d'un ensemble fini. Nombre d'applications d'un ensemble fini dans un autre (n^p). Arrangements, permutations, combinaisons, formule du binôme. Probabilité uniforme : P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes. PAS épreuves successives dépendantes formalisées (ST), PAS loi binomiale.",
+    },
+    {
+      label: "Produit scalaire dans le plan",
+      limits:
+        "Trois expressions de u⃗·v⃗ : géométrique, par les normes, analytique (xx'+yy'). Applications : calcul d'angle, formule d'Al-Kashi, équation d'une droite (vecteur normal), distance d'un point à une droite. Lieux géométriques par le produit scalaire.",
+    },
+    {
+      label: "Trigonométrie",
+      limits:
+        "Arcs orientés, arcs associés, angles orientés. Déterminant de deux vecteurs. Cos/sin/tan d'un réel. Formules d'addition : cos(a±b), sin(a±b) ; duplication cos(2a), sin(2a). Transformation a·cosθ+b·sinθ=r·cos(θ−φ). Résolution de cos(ax+b)=c, sin(ax+b)=c, tan x=c et inéquations associées.",
+    },
+    {
+      label: "Nombres complexes",
+      limits:
+        "Forme algébrique z=a+ib, conjugué, opérations. Module |z|=√(a²+b²), argument modulo 2π. Écriture trigonométrique r(cosθ+i sinθ). Affixe d'un point et d'un vecteur. Lieux géométriques (module = cercle, argument = demi-droite). PAS forme exponentielle (4ème AS), PAS racines nèmes de l'unité.",
+    },
+    {
+      label: "Géométrie dans l'espace",
+      limits:
+        "Vecteurs de l'espace : base, opérations, coordonnées. Produit scalaire dans l'espace (u⃗·v⃗=xx'+yy'+zz'). Produit vectoriel u⃗×v⃗ : définition, norme=‖u⃗‖‖v⃗‖|sinθ|, calcul en coordonnées. Produit mixte [u⃗,v⃗,w⃗]=det(u⃗,v⃗,w⃗) et coplanarité. Équation paramétrique d'une droite, équation cartésienne d'un plan ax+by+cz+d=0. Positions relatives : droite/droite, droite/plan, plan/plan. PAS sphères (ST), PAS rotations du plan (SM uniquement).",
+    },
+    {
+      label: "Arithmétique",
+      limits:
+        "Division euclidienne dans ℕ, divisibilité, propriétés. PGCD (algorithme d'Euclide), PPCM, entiers premiers entre eux, lemme de Gauss. Nombres premiers : théorème d'Euclide (infinité), théorème fondamental de l'arithmétique. PAS petit théorème de Fermat (ST), PAS congruences (4ème AS).",
     },
   ],
 
-  // Section Économie & Gestion (3ème AS SEG).
+  // Section Sciences de l'informatique (3ème AS SI) — 8 chapitres.
+  // Programme spécifique : fonctions sans tan, suites affines seulement,
+  // systèmes linéaires et matrices, logique propositionnelle, bases de numération.
+  "TN_math_3ème secondaire_Informatique": [
+    {
+      label: "Généralités sur les fonctions et continuité",
+      limits:
+        "Ensemble de définition, parité, périodicité, variations, extrema. Représentation graphique, lecture images et antécédents. Continuité intuitive, TVI (admis). Limites finies et infinies (approche intuitive), asymptotes (H, V, obliques). PAS définition ε-δ, PAS tan (SI 3ème AS).",
+    },
+    {
+      label: "Dérivabilité",
+      limits:
+        "Nombre dérivé, équation de tangente, demi-tangentes. Dérivées usuelles (xⁿ, 1/x, √x, sin x, cos x — PAS tan), opérations (somme, produit, quotient, composée). Lien signe f'—variations, extrema locaux, tableau de variations. PAS Rolle, PAS TAF.",
+    },
+    {
+      label: "Étude des fonctions du programme",
+      limits:
+        "Polynômes deg 1-3 et bicarrées ; rationnelles (ax+b)/(cx+d) et (ax²+bx+c)/(dx+e) ; irrationnelles x↦√(ax+b) ; circulaires x↦sin(ax+b), x↦cos(ax+b). PAS x↦tan x, PAS x↦√(ax²+bx+c). Méthode complète : domaine, parité, continuité, limites, asymptotes, dérivée, tableau, tracé.",
+    },
+    {
+      label: "Suites numériques",
+      limits:
+        "Suites récurrentes u_{n+1}=au_n+b (f affine) : point fixe, transformation en suite géométrique (si a≠1) ou arithmétique (si a=1), terme général, représentation graphique (n,u_n) et sur l'axe. Limite de la suite géométrique admise. Principe de récurrence. PAS f homographique (SI 3ème AS), PAS suites adjacentes.",
+    },
+    {
+      label: "Produit scalaire et trigonométrie",
+      limits:
+        "Produit scalaire plan : définition, expressions (géométrique, normes, analytique), applications (longueurs, angles, aires, équation de droite, équation de cercle, formule d'Al-Kashi). Cercle trigonométrique, arcs orientés, cos/sin/tan d'un réel. Formules d'addition : cos(a±b), sin(a±b), cos(2a), sin(2a). Résolution de cos x=c, sin x=c et inéquations. PAS vecteurs de l'espace, PAS nombres complexes (SI 3ème AS).",
+    },
+    {
+      label: "Systèmes linéaires et matrices",
+      limits:
+        "Systèmes linéaires à n équations et m inconnues (2×2, 3×2, 2×3, 3×3) : méthode par substitution et méthode du pivot de Gauss (réduction ligne par ligne). Déterminant 2×2 : ad−bc, interprétation (système de Cramer pour 2×2). Notion de matrice : tableau de coefficients, matrice complète (augmentée). PAS matrices inversibles, PAS déterminant 3×3 formel.",
+    },
+    {
+      label: "Logique propositionnelle et systèmes de numération",
+      limits:
+        "Logique : proposition (vrai/faux), négation ¬p, conjonction p∧q, disjonction p∨q, implication p⇒q, équivalence p⇔q ; tables de vérité ; lois de De Morgan (¬(p∧q)=¬p∨¬q) ; réciproque (q⇒p) et contraposée (¬q⇒¬p) d'une implication. Systèmes de numération : base 10, base 2 (binaire), base 8 (octal), base 16 (hexadécimal) ; conversion entre bases ; addition et multiplication dans une même base. PAS représentation en complément à 2, PAS virgule flottante.",
+    },
+    {
+      label: "Arithmétique et dénombrement",
+      limits:
+        "Principe de récurrence (appliqué ici à l'arithmétique). Division euclidienne a=bq+r, divisibilité, propriétés. PGCD (algorithme d'Euclide), PPCM, entiers premiers entre eux (PGCD=1), lemme de Gauss. Nombres premiers : théorème d'Euclide (infinité), crible d'Ératosthène. Dénombrement : cardinal, nombre d'applications (n^p), arrangements, permutations, combinaisons, binôme. Probabilité sur ensemble fini : définition, P(A∪B), P(A∩B), équiprobabilité, épreuves indépendantes et dépendantes évoquées. PAS petit théorème de Fermat (SI 3ème AS), PAS loi binomiale.",
+    },
+  ],
+
+  // Section Économie & Gestion (3ème AS SEG) — 8 chapitres.
+  // Analyse allégée : PAS formules d'addition trig, PAS asymptotes obliques,
+  // suites affines seulement. Plus : systèmes linéaires et théorie des graphes.
   "TN_math_3ème secondaire_Économie & Gestion": [
     {
-      label: "Analyse — Fonctions, suites et trigonométrie",
+      label: "Généralités sur les fonctions",
       limits:
-        "Généralités sur les fonctions (domaine, parité, périodicité, variation, extrema). Continuité et limites intuitives, asymptotes. Dérivabilité : nombre dérivé, tangente, approximation affine, lien f'—variations—extrema. Fonctions du programme : polynômes deg 1-3, bicarrées, (ax+b)/(cx+d), (ax²+bx+c)/(dx+e), x↦√(ax+b). Cercle trigonométrique, cos/sin/tan d'un réel, x↦sin(x+a), x↦cos(x+a), résolution équations/inéquations cosX=c, sinX=c. Principe de récurrence. Suites récurrentes Uₙ₊₁=aUₙ+b via suite auxiliaire géométrique, limite admise. PAS formules d'addition trigonométriques, PAS asymptotes obliques formelles.",
+        "Ensemble de définition, parité, périodicité, variations sur un intervalle, extrema locaux. Représentation graphique, lecture images et antécédents. Fonctions affines par intervalles.",
     },
     {
-      label: "Statistiques, dénombrement et probabilités",
+      label: "Continuité et limites",
       limits:
-        "Séries à un caractère (paramètres position/dispersion, distribution normale initiation) et à deux caractères (tableau, marginales, nuage, point moyen). Dénombrement : cardinal, combinaison, permutation, arrangement, binôme. Probabilité uniforme : définition, P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes et dépendantes (arbre). PAS loi binomiale, PAS régression/ajustement affine.",
+        "Continuité intuitive : courbe continue, TVI (admis). Limites finies et infinies (intuitivement, sans ε-δ). Asymptotes horizontales et verticales décrites graphiquement. PAS asymptotes obliques formelles (SEG).",
     },
     {
-      label: "Algèbre et théorie des graphes",
+      label: "Dérivabilité et étude des fonctions",
       limits:
-        "Systèmes linéaires à n lignes et m colonnes (1≤n≤4, 1≤m≤3) : méthode de substitution et méthode du pivot de Gauss. Théorie des graphes : sommets, arêtes, ordre, nombre chromatique, théorème d'Euler, chaînes, algorithme de Dijkstra (plus courte chaîne), coloration d'un graphe, reconnaissance d'une chaîne eulérienne. PAS matrices inversibles, PAS programmation linéaire.",
+        "Nombre dérivé, tangente y=f'(a)(x−a)+f(a), approximation affine. Dérivées usuelles (xⁿ, 1/x, √x, sin x, cos x), opérations. Lien signe f'—variations, extrema. Fonctions du programme : polynômes deg 1-3, bicarrées, (ax+b)/(cx+d), (ax²+bx+c)/(dx+e), x↦√(ax+b). Méthode d'étude complète. PAS √(ax²+bx+c), PAS tan, PAS logarithme ni exponentielle.",
+    },
+    {
+      label: "Trigonométrie et suites",
+      limits:
+        "Cercle trigonométrique, cos/sin/tan d'un réel. Fonctions x↦sin(x+a) et x↦cos(x+a) : représentation graphique, variations. Résolution de cosX=c et sinX=c (et inéquations associées). PAS formules d'addition (SEG). Principe de récurrence : démonstrations d'inégalités. Suites récurrentes u_{n+1}=au_n+b (f affine) : point fixe, suite auxiliaire géométrique, terme général, limite admise. PAS f homographique (SEG), PAS développement périodique.",
+    },
+    {
+      label: "Statistiques",
+      limits:
+        "Séries à un caractère : mode, médiane, quartiles, moyenne, variance, écart-type ; initiation distribution normale (courbe de Gauss). Séries à deux caractères : tableau de contingence, distributions marginales, nuage de points, point moyen G(x̄,ȳ). PAS régression ni coefficient de corrélation (3ème AS SEG).",
+    },
+    {
+      label: "Dénombrement et probabilités",
+      limits:
+        "Cardinal d'un ensemble fini. Arrangements, permutations, combinaisons C(n,p), formule du binôme. Probabilité uniforme : P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes et dépendantes (arbre de choix). PAS loi binomiale (4ème AS), PAS probabilités conditionnelles formalisées.",
+    },
+    {
+      label: "Systèmes linéaires",
+      limits:
+        "Systèmes linéaires à n lignes et m colonnes (1≤n≤4, 1≤m≤3) : vérification d'une solution, méthode de substitution, méthode du pivot de Gauss (réductions successives). Applications : modélisation de situations économiques (prix, production, équilibre offre/demande). PAS matrices inversibles, PAS déterminants, PAS programmation linéaire.",
+    },
+    {
+      label: "Théorie des graphes",
+      limits:
+        "Vocabulaire de base : graphe, sommet, arête, degré, ordre d'un graphe, graphe complet. Nombre chromatique (coloration d'un graphe : minimum de couleurs pour que deux sommets adjacents aient des couleurs différentes). Chaînes et cycles : chaîne eulérienne (parcourant chaque arête une fois) et cycle eulérien ; théorème d'Euler (condition : exactement 0 ou 2 sommets de degré impair). Plus courte chaîne entre deux sommets : algorithme de Dijkstra (pondéré). PAS arbres couvrants, PAS programmation linéaire, PAS graphes orientés.",
     },
   ],
 
-  // Section Lettres (3ème AS SL).
+  // Section Lettres (3ème AS SL) — 5 chapitres du programme MEN 2008.
   "TN_math_3ème secondaire_Lettres": [
     {
-      label: "Analyse — Fonctions et problèmes du 2ème degré",
+      label: "Problèmes du 2ème degré et généralités sur les fonctions",
       limits:
-        "Problèmes du 2nd degré : racines d'un trinôme, signe du trinôme. Dérivabilité : nombre dérivé, tangente, approximation affine, lien f'—variations—extrema locaux. Fonctions du programme : polynômes deg 1-3, bicarrées, (ax+b)/(cx+d). Étude graphique complète (domaine, parité, variations, extrema, position relative de deux courbes). PAS limites formelles, PAS continuité, PAS fonctions circulaires, PAS trigonométrie.",
+        "Trinôme ax²+bx+c : discriminant, racines, signe, factorisation. Ensemble de définition Df, parité, représentation graphique, position relative de deux courbes (résolution d'inéquations graphiques). PAS limites formelles, PAS continuité, PAS fonctions circulaires.",
     },
     {
-      label: "Analyse — Suites numériques",
+      label: "Dérivabilité et étude des fonctions",
       limits:
-        "Suites arithmétiques et géométriques (limite admise, somme exploitée). Suites récurrentes Uₙ₊₁=aUₙ+b : calcul des termes, représentation graphique (n,Uₙ) et sur axe, limite via suite auxiliaire géométrique. Développement décimal illimité périodique → fraction. PAS suites Uₙ=f(n) (hors programme SL), PAS principe de récurrence.",
+        "Nombre dérivé : définition comme limite du taux d'accroissement, tangente en un point, approximation affine. Dérivées des fonctions usuelles (polynômes, (ax+b)/(cx+d), bicarrées). Lien f'—variations—extrema locaux. Étude complète : domaine, parité, variations, tableau de signe, extrema, courbe. PAS règle des chaînes complexe, PAS fonctions circulaires, PAS ln ni exp (SL).",
     },
     {
-      label: "Statistiques, dénombrement et probabilités",
+      label: "Suites numériques",
       limits:
-        "Séries à un caractère (paramètres position/dispersion) et à deux caractères (tableau, marginales, nuage, point moyen, ajustement affine). Cardinal d'un ensemble fini (sans formules combinatoires). Probabilité uniforme : définition, P(A∪B), P(A∩B), équiprobabilité, épreuves successives indépendantes et dépendantes (arbre). PAS combinaisons/permutations/arrangements formels, PAS loi binomiale.",
+        "Suites arithmétiques (raison r, somme des n premiers termes) et géométriques (raison q≠0, somme). Limite d'une suite géométrique (admise : |q|<1 → 0). Suites récurrentes Uₙ₊₁=aUₙ+b : calcul des termes, représentation graphique (n,Uₙ) et sur axe réel, limite via suite auxiliaire géométrique. Développement décimal illimité périodique ↔ fraction. PAS Uₙ=f(n) général, PAS principe de récurrence (SL), PAS suites à deux termes.",
+    },
+    {
+      label: "Statistiques",
+      limits:
+        "Séries à un caractère : effectifs, fréquences, histogramme, polygone des effectifs, médiane, quartiles, moyenne, variance, écart-type. Séries à deux caractères : tableau de contingence, distributions marginales et conditionnelles, nuage de points, point moyen G, ajustement affine par la méthode des moindres carrés (unique à SL parmi les 3ème AS). PAS initiation à la loi normale (SL), PAS corrélation formelle.",
+    },
+    {
+      label: "Dénombrement et probabilités",
+      limits:
+        "Cardinal d'un ensemble fini : règle additive, produit cartésien (sans formules combinatoires formelles C(n,p)). Probabilité sur un univers fini équiprobable : définition, P(A∪B)=P(A)+P(B)−P(A∩B), événements incompatibles, probabilité conditionnelle P(A|B), épreuves successives indépendantes et dépendantes (arbre). PAS arrangements, PAS permutations, PAS combinaisons C(n,p) formelles, PAS loi binomiale (4ème AS).",
     },
   ],
 
