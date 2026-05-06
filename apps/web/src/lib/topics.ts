@@ -2157,6 +2157,252 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── UNITED STATES ──────────────────────────────────────────────────────────
+  // Grades K–8 follow the Common Core State Standards for Mathematics (CCSS-M).
+  "US_math_Kindergarten": [
+    {
+      label: "Counting and Cardinality",
+      limits: "Count to 100 by ones and tens; count forward from any number; write numerals 0–20; count objects and pair number names with objects; compare two groups of objects (more/fewer/same) and two written numerals (greater/less/equal) within 20. NOT addition or subtraction algorithms.",
+    },
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Understand addition as putting together and adding to; understand subtraction as taking apart and taking from; represent and solve addition and subtraction word problems within 10 using objects, fingers, drawings, and equations; decompose numbers up to 10 (e.g., 6 = 4+2); fluently add and subtract within 5. NOT written standard algorithm.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Compose and decompose numbers from 11 to 19 into ten ones and some further ones (e.g., 18 = 10+8); represent these using objects, drawings, or equations. Foundation for place value. NOT multi-digit addition or subtraction.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Describe and compare measurable attributes (length, weight) of objects; classify objects into given categories (color, shape, size) and count/sort by category; display sorting results in simple graphs. NOT using standard measurement units.",
+    },
+    {
+      label: "Geometry",
+      limits: "Name and describe 2-D shapes (square, circle, triangle, rectangle, hexagon) and 3-D shapes (cube, cone, cylinder, sphere) regardless of orientation or size; analyze and compare shapes by attributes; use shapes to build pictures, models, and designs; partition circles and rectangles into two and four equal shares. NOT coordinates, NOT area formulas.",
+    },
+  ],
+
+  "US_math_Grade 1": [
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Solve addition and subtraction word problems within 20 (all problem types: result unknown, change unknown, start unknown); apply commutative and associative properties; understand subtraction as an unknown-addend problem; count on to add; use doubles, making 10 strategy; add three single-digit numbers; fluently add and subtract within 10. NOT multiplication.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Understand that the digits of a two-digit number represent tens and ones; count, read, write, and compare two-digit numbers; add within 100 using concrete models, place value, and properties (including adding a 2-digit number and a 1-digit number, and a 2-digit number and a multiple of 10); subtract multiples of 10 from multiples of 10 (10–90) using mental strategies. NOT standard algorithm for multi-digit addition.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Order three objects by length; compare lengths using a third object; express the length of an object as a whole number of same-size units; tell and write time in hours and half-hours on analog and digital clocks; organize, represent, and interpret data with up to three categories (bar graphs, tally charts). NOT measuring with fractional units.",
+    },
+    {
+      label: "Geometry",
+      limits: "Distinguish between defining attributes (e.g., triangles are closed and 3-sided) and non-defining attributes (color, size, orientation); compose 2-D and 3-D shapes to create a composite shape; partition circles and rectangles into halves and fourths; understand that half of means one of two equal shares. NOT coordinate plane.",
+    },
+  ],
+
+  "US_math_Grade 2": [
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Solve one- and two-step word problems involving addition and subtraction within 100; fluently add and subtract within 20 using mental strategies; know from memory all sums of two one-digit numbers; determine whether a group of objects (up to 20) is odd or even; use addition to find the total number of objects arranged in rectangular arrays up to 5×5. NOT multiplication algorithm.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Understand place value for three-digit numbers (hundreds, tens, ones); count within 1000; skip-count by 5s, 10s, and 100s; read, write, and compare numbers up to 1000; fluently add and subtract within 100 using strategies based on place value; add up to four two-digit numbers; add and subtract within 1000 using models, drawings, and strategies. NOT standard algorithm for 3-digit numbers yet.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Measure and estimate lengths in standard units (centimeters, meters, inches, feet); measure the same object with different units and explain the relationship; solve addition and subtraction word problems involving lengths; represent whole-number sums and differences on a number line; work with time (nearest 5 minutes, am/pm) and money (total value of a collection of bills and coins); generate measurement data and show on a line plot; draw and interpret bar graphs and picture graphs. NOT area or volume.",
+    },
+    {
+      label: "Geometry",
+      limits: "Recognize and draw shapes having specified attributes (number of angles, equal faces); identify triangles, quadrilaterals, pentagons, hexagons, and cubes; partition a rectangle into rows and columns of same-size squares; partition circles and rectangles into halves, thirds, and fourths; describe equal shares as a half of, a third of, a fourth of. NOT fractions on the number line.",
+    },
+  ],
+
+  "US_math_Grade 3": [
+    {
+      label: "Operations and Algebraic Thinking — Multiplication and Division",
+      limits: "Interpret products and quotients of whole numbers in word problems; use properties (commutative, associative, distributive) to multiply and divide; fluently multiply and divide within 100; solve two-step word problems using the four operations; identify and explain arithmetic patterns. NOT multi-digit multiplication or division algorithm.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Round whole numbers to the nearest 10 or 100; fluently add and subtract within 1000 using strategies and algorithms; multiply one-digit whole numbers by multiples of 10 (6×90) using place value and properties. NOT 4-digit arithmetic, NOT long division algorithm.",
+    },
+    {
+      label: "Number and Operations — Fractions",
+      limits: "Understand a fraction 1/b as the quantity formed by 1 part when a whole is partitioned into b equal parts; understand a/b as a parts of size 1/b; represent fractions on a number line; explain equivalence (same size/same point on number line); compare fractions with the same numerator or denominator using < = >; fractions with denominators 2, 3, 4, 6, 8. NOT adding or subtracting fractions.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Tell and write time to the nearest minute; solve elapsed time problems; measure and estimate liquid volumes and masses (grams, kilograms, liters) and solve one-step word problems; measure lengths to the nearest half and quarter inch and show data on a line plot; understand area as covering with unit squares, relate area to multiplication, find area of rectangles and irregular shapes by decomposition; distinguish perimeter from area. NOT surface area or volume.",
+    },
+    {
+      label: "Geometry",
+      limits: "Understand that shapes in different categories may share attributes; classify quadrilaterals (rhombuses, rectangles, squares); partition shapes into equal areas and express area as a unit fraction. NOT coordinate plane.",
+    },
+  ],
+
+  "US_math_Grade 4": [
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Solve multi-step word problems with all four operations and equations with letter symbols for unknowns; find all factor pairs for a whole number 1–100; determine if a number is prime or composite; generate and analyze patterns (e.g., continue a rule, identify apparent features). NOT exponents.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Recognize that a digit in one place is ten times what it is in the place to its right; read, write, and compare multi-digit whole numbers up to 1,000,000; round to any place; fluently add and subtract multi-digit whole numbers using the standard algorithm; multiply a four-digit number by a one-digit number and two two-digit numbers using strategies; find whole-number quotients and remainders with up to four-digit dividends and one-digit divisors. NOT 5-digit × 2-digit multiplication.",
+    },
+    {
+      label: "Number and Operations — Fractions",
+      limits: "Explain why fractions are equivalent using visual fraction models; compare fractions with unlike numerators and denominators by creating common denominators or numerators; add and subtract fractions and mixed numbers with like denominators; multiply a fraction by a whole number; express tenths and hundredths as fractions and as decimals; compare decimals to hundredths using <, =, >. NOT unlike-denominator addition, NOT fraction division.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Know relative sizes of measurement units within one system (km/m/cm, kg/g, lb/oz, l/ml, hr/min/sec); solve conversion word problems; represent measurement data on a line plot with fractions (½, ¼, ⅛); understand angle measurement as rotation; measure and draw angles with a protractor; solve addition/subtraction angle problems. NOT volume, NOT scale drawings.",
+    },
+    {
+      label: "Geometry",
+      limits: "Draw points, lines, line segments, rays, angles (right/acute/obtuse), parallel and perpendicular lines; classify 2-D figures by properties including parallel/perpendicular sides and angle types; identify line-symmetric figures and draw lines of symmetry. NOT coordinate plane, NOT congruence transformations.",
+    },
+  ],
+
+  "US_math_Grade 5": [
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Write and interpret simple numerical expressions without evaluating (e.g., 'add 8 and 7, then multiply by 2'); generate two numerical patterns from two rules, form ordered pairs, and graph on a coordinate plane. Order of operations (parentheses and brackets, no exponents). NOT variables in expressions.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Understand place value from millions to thousandths; explain patterns in the number of zeros when multiplying/dividing by powers of 10; read, write, and compare decimals to thousandths; round decimals to any place; fluently multiply multi-digit whole numbers using the standard algorithm; find whole-number quotients with 4-digit dividends and 2-digit divisors; add, subtract, multiply, and divide decimals to hundredths using concrete models and algorithms. NOT scientific notation.",
+    },
+    {
+      label: "Number and Operations — Fractions",
+      limits: "Add and subtract fractions with unlike denominators (including mixed numbers) by finding equivalent fractions; solve word problems involving addition and subtraction of fractions; interpret multiplication of a fraction by a whole number and a fraction by a fraction; multiply and divide fractions and mixed numbers; interpret division of a whole number by a unit fraction and vice versa; solve real-world problems involving multiplication and division of fractions. NOT complex algebraic manipulation of fractions.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Convert measurement units within a given system (customary and metric); represent and interpret data on a line plot involving fractional measurements; understand volume as cubic units; measure volume by counting unit cubes; relate volume to multiplication and addition; find volume of right rectangular prisms using V=l×w×h and V=B×h; find volume of composite 3-D figures. NOT surface area formula.",
+    },
+    {
+      label: "Geometry",
+      limits: "Use a coordinate system (all positive values, first quadrant only); represent and interpret real-world and mathematical problems by graphing points in the first quadrant; understand properties used to classify 2-D figures in a hierarchy (e.g., all rectangles are parallelograms); classify quadrilaterals and triangles based on their properties. NOT negative coordinates, NOT area formulas beyond rectangles and triangles.",
+    },
+  ],
+
+  "US_math_Grade 6": [
+    {
+      label: "Ratios and Proportional Relationships",
+      limits: "Understand ratio as comparing two quantities; use ratio language; unit rate a/b for a:b; solve problems using tables of equivalent ratios, tape diagrams, double number lines, equations; find percent of a quantity; solve percent problems (tax, tip, discount); convert measurement units using ratio reasoning. NOT proportional equation y=kx (Grade 7).",
+    },
+    {
+      label: "The Number System",
+      limits: "Interpret and compute quotients of fractions; divide fractions by fractions (a/b ÷ c/d = ad/bc) and solve word problems; fluently divide multi-digit numbers and add/subtract/multiply/divide multi-digit decimals using the standard algorithm; find GCF and LCM; understand that positive and negative numbers describe quantities in opposite directions; locate and order rational numbers on a number line and in all four quadrants of the coordinate plane; find absolute value; interpret absolute value in context. NOT operations with negative numbers (Grade 7).",
+    },
+    {
+      label: "Expressions and Equations",
+      limits: "Write and evaluate numerical expressions with whole-number exponents; write, read, and evaluate algebraic expressions; identify parts of an expression (term, coefficient); generate equivalent expressions using properties (commutativity, associativity, distributivity); reason about and solve one-variable equations (px+q=r and p(x+q)=r) and inequalities (x>c); represent and analyze quantitative relationships between two variables using equations and graphs. NOT systems of equations, NOT quadratics.",
+    },
+    {
+      label: "Geometry",
+      limits: "Find area of triangles, special quadrilaterals, and polygons by composing/decomposing into rectangles and triangles; find area of composite figures; find surface area of 3-D figures using nets (triangular prisms, rectangular prisms, pyramids); find volume of right rectangular prisms with fractional edge lengths using V=l×w×h. NOT circles, NOT cylinders.",
+    },
+    {
+      label: "Statistics and Probability",
+      limits: "Recognize a statistical question; describe and summarize distributions: center (mean, median, mode), variability (mean absolute deviation MAD, interquartile range IQR), shape (symmetric, skewed); display data using dot plots, histograms, and box plots; summarize numerical data sets in context including number of observations, measures of center, and variability. NOT probability, NOT comparing two populations.",
+    },
+  ],
+
+  "US_math_Grade 7": [
+    {
+      label: "Ratios and Proportional Relationships",
+      limits: "Decide whether two quantities are in a proportional relationship; identify the constant of proportionality k in tables, graphs, equations y=kx, diagrams, and verbal descriptions; represent proportional relationships by equations; explain what a point (x,y) means, including (0,0) and (1,k); solve multi-step ratio and percent problems (percent increase/decrease, percent error, simple interest, markups/markdowns, gratuities, commissions). NOT slope of a non-proportional linear relationship (Grade 8).",
+    },
+    {
+      label: "The Number System",
+      limits: "Apply and extend understanding to add, subtract, multiply, and divide rational numbers; understand p+q as p moved |q| on the number line; show that the distance is |p−q|; apply properties to add and subtract rational numbers; understand multiplication/division rules for negatives and positives; convert a rational number to a decimal using long division (terminating or repeating); solve real-world problems involving the four operations with rational numbers. NOT irrational numbers (Grade 8).",
+    },
+    {
+      label: "Expressions and Equations",
+      limits: "Apply properties to add, subtract, factor, and expand linear expressions with rational coefficients; rewrite 0.1 + 0.2 as 0.3(3) etc.; solve multi-step real-life and mathematical problems with positive and negative rational numbers; solve equations of the form px+q=r and p(x+q)=r; solve inequalities of those forms and graph; use variables to represent quantities in a problem-solving context. NOT systems of equations, NOT quadratic equations.",
+    },
+    {
+      label: "Geometry",
+      limits: "Solve problems involving scale drawings (compute lengths and area); draw geometric shapes with given conditions (triangles given 3 measures); describe 2-D cross-sections of 3-D figures (prisms, pyramids); use facts about supplementary, complementary, vertical, and adjacent angles; solve simple equations for an unknown angle; solve problems involving area and circumference of circles (A=πr², C=2πr); solve problems involving area, volume, and surface area of 2- and 3-D figures (prisms, right prisms, right pyramids). NOT congruence transformations (Grade 8).",
+    },
+    {
+      label: "Statistics and Probability",
+      limits: "Understand that statistics can be used to gain information about a population; use random sampling to draw inferences; draw informal comparative inferences about two populations using measures of center and measures of variability; understand probability of a chance event (number between 0 and 1); approximate probability using experimental results; find probabilities of simple and compound events using organized lists, tables, tree diagrams, and simulation. NOT normal distribution, NOT formal hypothesis testing.",
+    },
+  ],
+
+  "US_math_Grade 8": [
+    {
+      label: "The Number System",
+      limits: "Understand informally that every number has a decimal expansion; show that rational numbers have repeating or terminating decimal expansions; approximate irrational numbers by rational numbers; use rational approximations to locate irrational numbers on a number line and estimate their values (e.g., √2 ≈ 1.414). NOT formal proof of irrationality.",
+    },
+    {
+      label: "Expressions and Equations",
+      limits: "Know and apply properties of integer exponents (product rule, quotient rule, power rule, zero exponent, negative exponents); use square root and cube root symbols; evaluate square roots of perfect squares and cube roots of perfect cubes; use scientific notation for very large and very small quantities; perform operations with scientific notation; solve linear equations in one variable (one solution, no solution, infinitely many); solve pairs of simultaneous linear equations by graphing, substitution, and elimination; solve related word problems. NOT quadratic equations.",
+    },
+    {
+      label: "Functions",
+      limits: "Understand a function as a rule that assigns to each input exactly one output; represent functions with tables, graphs, and equations; compare properties of two functions each represented differently; interpret the equation y=mx+b as a linear function with slope m and y-intercept b; give examples of non-linear functions; construct a function to model a linear relationship between two quantities; determine and interpret the rate of change and initial value of a linear function. NOT quadratic or exponential functions in depth (Grade 9+).",
+    },
+    {
+      label: "Geometry",
+      limits: "Verify properties of rotations, reflections, and translations (lines map to lines, distances and angles preserved); understand that 2-D figures are congruent if one can be obtained from the other by rigid motions; understand that 2-D figures are similar if one can be obtained from the other by a sequence of rotations, reflections, translations, and dilations; use AA criterion for triangle similarity; apply the Pythagorean Theorem (explain proof using diagrams; find length of missing side; find distance between two points in the coordinate plane); apply the converse; know and use the formulas for volume of cones, cylinders, and spheres. NOT trigonometric ratios (Grade 9/10).",
+    },
+    {
+      label: "Statistics and Probability",
+      limits: "Construct and interpret scatter plots for bivariate measurement data; describe patterns (clustering, outliers, positive/negative/no association, linear/nonlinear); know that straight lines are widely used to model relationships; fit a straight line to data informally and assess fit; use the linear equation to solve problems; understand and interpret two-way tables of categorical data; interpret relative frequencies and possible associations. NOT regression formulas, NOT correlation coefficient calculation.",
+    },
+  ],
+
+  "US_math_Grade 9": [
+    {
+      label: "Number, Quantity, and Algebraic Reasoning",
+      limits: "Interpret parts of an expression (terms, factors, coefficients); interpret complicated expressions by viewing one or more of their parts as a single entity; use units to understand problems and guide the solution; define appropriate quantities for a model; choose a level of accuracy appropriate to limitations on measurement. Create equations and inequalities in one variable and use them to solve problems. NOT complex numbers (Grade 11).",
+    },
+    {
+      label: "Linear Equations, Inequalities, and Systems",
+      limits: "Solve linear equations and inequalities in one variable, including equations with coefficients represented by letters; explain each step; solve systems of two linear equations in two variables (graphing, substitution, elimination); solve systems word problems; represent constraints by equations/inequalities and interpret solutions in context; graph the solution set of a linear inequality in two variables; graph systems of linear inequalities. NOT non-linear systems.",
+    },
+    {
+      label: "Functions — Linear and Exponential",
+      limits: "Understand a function assigns exactly one output to each input; use function notation f(x); interpret statements using function notation; determine domain and range from a graph; identify key features of graphs: intercepts, intervals where increasing/decreasing, relative maxima/minima, symmetries, end behavior; identify that linear functions grow by equal differences and exponential functions grow by equal factors; construct and compare linear and exponential models from contexts; interpret parameters of linear (y=mx+b) and exponential (y=ab^x) functions in context. NOT logarithmic functions (Grade 11).",
+    },
+    {
+      label: "Quadratic Functions and Equations",
+      limits: "Interpret key features of quadratic functions (vertex, intercepts, axis of symmetry, increasing/decreasing intervals) from graphs, tables, and expressions; use completing the square to reveal the vertex form a(x−h)²+k; factor quadratic expressions; solve quadratic equations by factoring, completing the square, and the quadratic formula; understand that real solutions to x²=a with a>0 are ±√a; real-world modeling with quadratic functions. NOT complex number solutions (Grade 11).",
+    },
+    {
+      label: "Statistics — Single and Bivariate Data",
+      limits: "Represent data with plots (dot plots, histograms, box plots); compare center (mean, median) and spread (standard deviation, IQR) of two or more data sets; interpret differences in shape, center, and spread; interpret relative frequencies in two-way frequency tables; represent data on two quantitative variables on a scatter plot; fit a linear function and use it to solve problems; compute and interpret the correlation coefficient of a linear fit informally. NOT formal inference, NOT normal distribution calculations.",
+    },
+  ],
+
+  "US_math_Grade 10": [
+    {
+      label: "Congruence and Geometric Transformations",
+      limits: "Know precise definitions of angle, circle, perpendicular/parallel lines, line segment; represent transformations as functions that take points to points; describe rotations, reflections, and translations; understand that rigid motions preserve distances and angles; use rigid motions to define congruence; use the definition of congruence in terms of rigid motions to show that two triangles are congruent; explain how the criteria for triangle congruence (ASA, SAS, SSS) follow from the definition. Make geometric constructions (angle bisector, perpendicular bisector, copy angle) with compass and straightedge. NOT coordinate proof in depth.",
+    },
+    {
+      label: "Similarity, Proof, and Trigonometry",
+      limits: "Verify informally that dilations take lines to lines and preserve or change angles; given two similar figures, use the definition of similarity to establish AA, SAS, SSS criteria; prove theorems about triangles (base angles of isosceles triangle, angle sum, exterior angle, midsegment, proportionality); understand that side ratios in right triangles are properties of angles (trig ratios); define sin, cos, tan for acute angles; use SOH-CAH-TOA; find missing sides and angles; understand and apply the relationship sin(θ)=cos(90°−θ); use Pythagorean theorem to derive sin²+cos²=1; know exact values for 30°, 45°, 60°. NOT law of sines/cosines (Grade 11), NOT unit circle with radians (Grade 11).",
+    },
+    {
+      label: "Circles",
+      limits: "Identify and describe relationships between central angles, inscribed angles, and intercepted arcs (inscribed angle = ½ arc, central angle = arc); identify and describe tangent, chord, and secant relationships; derive and use the formula for arc length and area of a sector (A=½r²θ in radians not required; degree form fine); find the equation of a circle (x−h)²+(y−k)²=r² given center and radius; complete the square to find the center and radius of a circle. NOT conic sections beyond circles.",
+    },
+    {
+      label: "Expressing Geometric Properties with Coordinates",
+      limits: "Prove the slope criteria for parallel and perpendicular lines; find the point on a directed segment between two given points that partitions the segment in a given ratio; compute perimeters and areas of polygons using coordinates; use coordinates to prove simple geometric theorems algebraically (e.g., diagonals of a parallelogram bisect each other); derive the equation of a circle and a parabola given a focus and directrix. NOT ellipse or hyperbola equations.",
+    },
+    {
+      label: "Geometric Measurement and Modeling",
+      limits: "Give informal arguments for the formulas for the circumference and area of a circle, the area of a sector, and the volume of a cylinder, pyramid, and cone; use dissection arguments and Cavalieri's principle; use geometric shapes, measures, and properties to describe objects; apply concepts of density based on area and volume; use geometric methods to solve design problems (e.g., maximize area given perimeter). NOT calculus-based volume.",
+    },
+  ],
+
   // Grade 12 AP track — single key covering BOTH AP Calculus AB and AP
   // Calculus BC. AB is a strict subset of BC; entries flag (AB+BC) for
   // shared content and (BC only) for items unique to the BC exam.
@@ -2343,15 +2589,38 @@ const TOPICS: Record<string, Topic[]> = {
     "Parametric, polar, and vector functions (BC)",
   ],
   "US_math_Grade 11": [
-    "Polynomial and rational functions",
-    "Exponential and logarithmic functions",
-    "Trigonometric functions and identities",
-    "Conic sections",
-    "Sequences and series",
-    "Vectors and matrices",
-    "Probability and combinatorics",
-    "Statistics: distributions",
-    "Limits (intro to calculus)",
+    {
+      label: "Polynomial and Rational Functions",
+      limits: "Interpret and rewrite polynomial expressions; add, subtract, multiply polynomials; factor (GCF, difference of squares, sum/difference of cubes, by grouping); divide polynomials using long division and synthetic division; remainder theorem and factor theorem; identify zeros graphically and algebraically; end behavior; graph polynomials; simplify rational expressions; add/subtract/multiply/divide rational expressions; solve rational equations; identify asymptotes and holes. NOT partial fraction decomposition (AP Calc).",
+    },
+    {
+      label: "Exponential and Logarithmic Functions",
+      limits: "Graph exponential functions y=ab^x; understand inverse relationship between exponential and logarithmic functions; properties of logarithms (product, quotient, power rules); change of base; solve exponential and logarithmic equations; use ln and log₁₀; model exponential growth and decay (A=Pe^(rt), half-life, Newton's law of cooling); distinguish between linear, quadratic, and exponential models. NOT calculus derivatives of e^x or ln(x) (AP Calc).",
+    },
+    {
+      label: "Trigonometric Functions",
+      limits: "Define and extend trig functions to all real numbers using the unit circle; understand radian measure and convert between degrees and radians; evaluate trig functions for special angles (0, π/6, π/4, π/3, π/2 and their reflections); graph y=A·sin(Bx+C)+D and y=A·cos(Bx+C)+D (amplitude, period, phase shift, vertical shift); model periodic phenomena; define and graph tangent; use inverse trig functions (arcsin, arccos, arctan) for the principal value. NOT law of sines/cosines in depth (see next topic).",
+    },
+    {
+      label: "Trigonometric Identities and Triangle Applications",
+      limits: "Pythagorean identities sin²θ+cos²θ=1 and derived forms; quotient and reciprocal identities; sum and difference formulas for sin(A±B) and cos(A±B); double-angle formulas; verify identities; solve trig equations over [0, 2π) and over all reals; apply the law of sines (including ambiguous case) and law of cosines to solve oblique triangles; find area of a triangle using ½ab·sin(C). NOT half-angle formulas in depth.",
+    },
+    {
+      label: "Conic Sections",
+      limits: "Derive and use standard-form equations for parabolas (x²=4py, y²=4px), ellipses ((x/a)²+(y/b)²=1), and hyperbolas ((x/a)²−(y/b)²=1); identify vertices, foci, directrix, axes, asymptotes; translate conics (completing the square); sketch graphs. Derive the equation of a circle as a special ellipse. NOT parametric form of conics, NOT polar form.",
+    },
+    {
+      label: "Sequences, Series, and the Binomial Theorem",
+      limits: "Define sequences recursively and explicitly; arithmetic sequences (general term, partial sums); geometric sequences (general term, partial sums, infinite geometric series S=a/(1-r) for |r|<1); sigma notation; binomial theorem and Pascal's triangle to expand (a+b)^n; use binomial coefficients C(n,k). NOT calculus-based convergence tests (AP Calc BC).",
+    },
+    {
+      label: "Probability, Combinatorics, and Statistics",
+      limits: "Fundamental counting principle; permutations (nPr) and combinations (nCr); binomial probability P(X=k)=C(n,k)p^k(1-p)^(n-k); expected value; normal distribution and z-scores; use tables/calculators to find probabilities for normal distributions; understand sampling distributions informally; interpret margin of error; distinguish observational study from experiment. NOT formal confidence intervals or hypothesis testing (AP Stats).",
+    },
+    {
+      label: "Matrices and Vectors (selected topics)",
+      limits: "Matrix notation; add/subtract matrices; scalar multiplication; multiply matrices (m×n by n×p); use matrices to represent and solve systems of linear equations; find the determinant of a 2×2 matrix; understand the inverse matrix A⁻¹; define 2-D vectors geometrically and algebraically; add/subtract vectors; scalar multiplication; magnitude and direction; dot product. NOT vector cross product, NOT eigenvalues.",
+    },
   ],
   "US_physics_Grade 12 (AP)": [
     "Kinematics in 1D and 2D",
