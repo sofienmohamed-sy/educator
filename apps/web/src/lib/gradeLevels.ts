@@ -8,7 +8,7 @@ export const GRADE_LEVELS_BY_COUNTRY: Record<string, string[]> = {
   FR: ["Seconde", "Première", "Terminale"],
   MA: ["Tronc commun", "1ère Bac", "2ème Bac"],
   TN: ["1ère secondaire", "2ème secondaire", "3ème secondaire", "4ème (Bac)"],
-  US: ["Grade 9", "Grade 10", "Grade 11", "Grade 12 (AP)"],
+  US: ["Kindergarten", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12 (AP)"],
   GB: ["GCSE", "AS-level", "A-level"],
   DE: ["Klasse 10", "Klasse 11", "Klasse 12", "Abitur"],
   IT: ["3ª Liceo", "4ª Liceo", "5ª Liceo Scientifico"],

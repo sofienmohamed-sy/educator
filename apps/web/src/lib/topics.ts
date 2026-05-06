@@ -34,6 +34,162 @@ export type Topic = string | TopicEntry;
  */
 const TOPICS: Record<string, Topic[]> = {
   // ── FRANCE ────────────────────────────────────────────────────────────────
+  // Seconde générale et technologique (BO 2019, commun à toutes les sections).
+  // Programme sans dérivée ni second degré formel — ces blocs sont en Première.
+  "FR_math_Seconde": [
+    {
+      label: "Logique, ensembles et raisonnement",
+      limits:
+        "Notations ensemblistes : ∅, ∈, ⊂, ∩, ∪, complémentaire Ā, produit cartésien E×F, Card(A). Propositions mathématiques, connecteurs « et »/« ou » ; négation d'une proposition simple ; implication P⟹Q, réciproque, contraposée ; équivalence logique. Raisonnements : par l'absurde, par disjonction de cas, par contre-exemple. PAS les quantificateurs ∀ et ∃ (hors programme Seconde), PAS la démonstration par récurrence.",
+    },
+    {
+      label: "Nombres réels et calcul algébrique",
+      limits:
+        "Ensembles ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ ; intervalles (8 types), notation [a,b], ]a,b[, etc. ; valeur absolue |x| = distance à 0, inéquation |x−a|≤r. Irrationnels : √2 et π. Encadrement décimal d'un réel à 10⁻ⁿ. Arithmétique élémentaire : multiples, diviseurs, pair/impair, fraction irréductible. Règles de calcul : puissances entières relatives ; racines carrées (√(ab)=√a·√b, √(a²)=|a|). Produits remarquables : (a+b)², (a−b)², (a+b)(a−b). Équations ax+b=0, ax+b=cx+d, x²=a ; inéquations ax+b>0 ; tableau de signes d'un produit A(x)B(x) ou quotient A(x)/B(x). PAS le discriminant Δ (Première), PAS les polynômes du 2nd degré.",
+    },
+    {
+      label: "Vecteurs du plan",
+      limits:
+        "Égalité de vecteurs, représentants, vecteur nul u⃗₀ ; produit k·u⃗ (colinéarité : l'un est multiple de l'autre). Relation de Chasles AB⃗+BC⃗=AC⃗ ; addition et soustraction. Base orthonormée (î,ĵ) : coordonnées (x,y) d'un vecteur, expression u⃗=xi⃗+yj⃗ ; norme ‖AB⃗‖=√((xB−xA)²+(yB−yA)²) ; milieu M (xM=(xA+xB)/2, yM=(yA+yB)/2). Déterminant de deux vecteurs dans une BON : det(u⃗,v⃗)=x₁y₂−x₂y₁ ; critère de colinéarité (det=0), alignement, parallélisme. PAS le produit scalaire (Première), PAS la projection orthogonale.",
+    },
+    {
+      label: "Droites du plan",
+      limits:
+        "Vecteur directeur d'une droite. Équation cartésienne ax+by+c=0 (a,b non tous nuls). Équation réduite y=mx+p ; pente (coefficient directeur) m : deux droites parallèles ↔ mêmes pentes ou droites verticales, deux droites sécantes ↔ pentes différentes. Déterminer une équation à partir de deux points, d'un point et d'un vecteur directeur, ou d'un point et d'une pente. Intersection de deux droites sécantes (résolution du système). PAS l'équation de cercle (Première), PAS la droite perpendiculaire formelle.",
+    },
+    {
+      label: "Fonctions : représentation, signe et fonctions de référence",
+      limits:
+        "Domaine de définition Df ; courbe représentative y=f(x) ; image, antécédent. Fonctions de référence à connaître : valeur absolue x↦|x|, carré x↦x², inverse x↦1/x, racine carrée x↦√x, cube x↦x³ — définitions et allures. Signe d'une fonction affine. Tableau de signes d'un produit ou d'un quotient. Résoudre f(x)=k, f(x)<k graphiquement ou algébriquement selon la fonction. PAS la dérivée (Première).",
+    },
+    {
+      label: "Fonctions : variations et extrémums",
+      limits:
+        "Tableau de variations ; croissance, décroissance, monotonie sur un intervalle. Maximum et minimum d'une fonction sur un intervalle. Variations des fonctions de référence (affine, carré pour x≥0, inverse sur ]0,+∞[). Position relative de deux courbes (f(x)≥g(x) ↔ f(x)−g(x)≥0). Problèmes d'optimisation (recherche graphique ou par calcul d'un extremum). Algorithmes d'approximation d'un extremum : balayage, dichotomie. PAS la dérivée.",
+    },
+    {
+      label: "Statistiques descriptives et information chiffrée",
+      limits:
+        "Proportions et pourcentages. Évolution : variation absolue V₂−V₁, coefficient multiplicateur V₂/V₁, taux d'évolution (V₂−V₁)/V₁ ; évolutions successives (produit des CM) et réciproque (CM inverse). Statistiques à une variable : linéarité de la moyenne, médiane, quartiles Q₁ et Q₃, écart interquartile, écart-type σ ; influence de l'ajout/suppression d'une valeur. Série continue : histogramme, polygone des fréquences cumulées, médiane graphiquement. Représentations : boîtes à moustaches, diagrammes en barres, circulaires. PAS la régression linéaire (Terminale/voie technologique).",
+    },
+    {
+      label: "Croisement de deux variables qualitatives",
+      limits:
+        "Tableau croisé d'effectifs (tableau de contingence) pour deux variables qualitatives. Fréquences marginales (distribution d'une variable seule). Fréquences conditionnelles fA(B)=Card(A∩B)/Card(A) : interprétation, calcul. Compléter un tableau croisé par raisonnement sur les effectifs ou à l'aide des fréquences conditionnelles. PAS le coefficient de corrélation, PAS les tests d'indépendance.",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Rappel : expérience aléatoire, univers fini, événement, P(A)=Card(A)/Card(Ω) (équiprobabilité). Loi des grands nombres (version vulgarisée) : pour n grand, la fréquence observée est proche de la probabilité. Probabilité conditionnelle : PA(B) = P(A∩B)/P(A) pour P(A)>0 ; distinction entre PA(B) et PB(A). Arbres de probabilité pondérés : règle de multiplication des branches, calcul de P(A∩B) et P(B). PAS la formule des probabilités totales formelle (Première), PAS la formule de Bayes (Terminale).",
+    },
+  ],
+
+  // Première — Spécialité Mathématiques (BO 2019, voie générale).
+  // Programme de 6h/semaine, préparant à la Terminale Spé Maths.
+  "FR_math_Première_Spécialité Maths": [
+    {
+      label: "Suites numériques et modèles discrets",
+      limits:
+        "Modes de génération d'une suite : formule explicite u_n=f(n), relation de récurrence u_{n+1}=f(u_n), algorithme, motifs géométriques. Suites arithmétiques (raison r, terme général u_n=u₀+nr, somme 1+2+…+n=n(n+1)/2). Suites géométriques (raison q, terme général u_n=u₀·qⁿ, somme 1+q+…+q^{n-1}=(q^n−1)/(q−1) pour q≠1). Sens de variation. Introduction intuitive à la limite (pas de définition formelle avec ε). Applications : évolutions à taux fixe, actualisation, suite de Syracuse, suite de Fibonacci. PAS la démonstration par récurrence formelle (Terminale), PAS la convergence définie formellement.",
+    },
+    {
+      label: "Fonctions polynômes du second degré",
+      limits:
+        "Forme développée réduite ax²+bx+c. Forme factorisée a(x−r₁)(x−r₂) : racines réelles, signe de la fonction, somme r₁+r₂=−b/a et produit r₁r₂=c/a. Forme canonique a(x−h)²+k avec h=−b/(2a) et k=f(h) ; calcul du sommet. Discriminant Δ=b²−4ac : deux racines réelles distinctes (Δ>0), racine double (Δ=0), pas de racine réelle (Δ<0). Résolution de ax²+bx+c=0 et inéquations du second degré. Choix de la forme adaptée selon le problème (équation, optimisation, signe). PAS la factorisation de polynômes du 3ème degré (approfondissement).",
+    },
+    {
+      label: "Dérivation — nombre dérivé et fonction dérivée",
+      limits:
+        "Taux de variation (f(b)−f(a))/(b−a) ; pente d'une sécante. Nombre dérivé f'(a) : limite du taux de variation quand b→a ; équation de la tangente y=f(a)+f'(a)(x−a) ; approximation affine f(a+h)≈f(a)+f'(a)h. Fonctions dérivées usuelles : (xⁿ)'=nxⁿ⁻¹ pour n∈ℤ, (√x)'=1/(2√x), (1/x)'=−1/x². Règles opératoires : somme (u+v)'=u'+v', produit (uv)'=u'v+uv', inverse (1/u)'=−u'/u², quotient (u/v)'=(u'v−uv')/v². Dérivabilité de x↦|x| en 0 (non dérivable). PAS la règle de la chaîne (f∘g)' générale (Terminale), PAS les dérivées de sin, cos, ln (Terminale).",
+    },
+    {
+      label: "Variations, extrémums et courbes représentatives",
+      limits:
+        "Fonctions paires (f(-x)=f(x), symétrie axe Oy) et impaires (f(-x)=-f(x), symétrie centrale O). Lien signe de f' ↔ sens de variation sur un intervalle ; caractérisation des fonctions constantes. Tangente horizontale en un extremum local : f'(a)=0. Étude complète d'un polynôme du second degré : variations, extremum, signe, courbe. Méthode de Newton (exemple d'algorithme pour approcher une racine). PAS la convexité f'' (Terminale).",
+    },
+    {
+      label: "Fonction exponentielle",
+      limits:
+        "Définition : unique fonction dérivable sur ℝ vérifiant f'=f et f(0)=1 (existence et unicité admises). Notation exp(x) et eˣ, nombre e≈2,718. Propriétés algébriques : exp(x+y)=exp(x)·exp(y), exp(0)=1, exp(−x)=1/exp(x), exp(nx)=[exp(x)]ⁿ. Signe : exp(x)>0 pour tout x. Sens de variation : strictement croissante sur ℝ. Courbe représentative et lien avec les suites géométriques à taux fixe. Modélisation : croissance (N(t)=N₀·e^{rt}) et décroissance (désintégration radioactive) exponentielles. Pour k réel, dérivée de t↦e^{kt} est k·e^{kt}. PAS ln (Terminale), PAS la chaîne générale e^{u(x)}' (Terminale).",
+    },
+    {
+      label: "Trigonométrie",
+      limits:
+        "Cercle trigonométrique (rayon 1, centre O). Enroulement de la droite réelle sur le cercle : image d'un réel x ↔ point M(x). Longueur d'arc = mesure en radians ; conversion degrés ↔ radians. Cosinus et sinus d'un réel x : abscisse et ordonnée de M(x) ; lien avec cos et sin dans un triangle rectangle. Valeurs remarquables : 0, π/6, π/4, π/3, π/2, π, 3π/2, 2π. Relations : sin²x+cos²x=1 ; cos(−x)=cos(x) ; sin(−x)=−sin(x) ; cos(π−x)=−cos(x) ; sin(π−x)=sin(x). PAS les formules d'addition (Terminale), PAS tan (Terminale), PAS les dérivées de sin et cos (Terminale).",
+    },
+    {
+      label: "Calcul vectoriel et produit scalaire dans le plan",
+      limits:
+        "Produit scalaire u⃗·v⃗ : définition via la projection orthogonale (u⃗·v⃗=‖u⃗‖·‖projv⃗u⃗‖) et via le cosinus (u⃗·v⃗=‖u⃗‖·‖v⃗‖·cos θ). Bilinéarité et symétrie ; ‖u⃗+v⃗‖²=‖u⃗‖²+2u⃗·v⃗+‖v⃗‖² ; ‖u⃗−v⃗‖²=‖u⃗‖²−2u⃗·v⃗+‖v⃗‖². Formule d'Al-Kashi : a²=b²+c²−2bc·cos A. Expression en coordonnées orthonormées : u⃗·v⃗=x₁x₂+y₁y₂. Transformation de MA⃗·MB⃗=OM⃗²−(OA⃗+OB⃗)·OM⃗+OA⃗·OB⃗. PAS le produit vectoriel (Terminale SE).",
+    },
+    {
+      label: "Géométrie repérée dans le plan",
+      limits:
+        "Vecteur normal à une droite : (a,b) est vecteur normal à la droite d'équation ax+by+c=0. Déterminer l'équation cartésienne d'une droite connaissant un point et un vecteur normal. Projection orthogonale d'un point M sur une droite (d) : point H tel que MH⃗⊥(d) — calcul des coordonnées de H. Équation de cercle de centre Ω(a,b) et rayon r : (x−a)²+(y−b)²=r² ; reconnaître, déterminer centre et rayon. PAS l'équation de sphère, PAS les droites et plans de ℝ³ (Terminale SE).",
+    },
+    {
+      label: "Probabilités conditionnelles et indépendance",
+      limits:
+        "Rappel : probabilité conditionnelle P(A|B)=P(A∩B)/P(B). Indépendance de deux événements : P(A∩B)=P(A)·P(B) ; vérification et exploitation. Partition de l'univers (système complet d'événements B₁,…,Bₙ). Formule des probabilités totales : P(A)=∑P(Bₖ)·P(A|Bₖ). Succession de n≤4 épreuves indépendantes identiques : représentation par arbre ou tableau, calcul de probabilités. Méthode Monte-Carlo : estimation d'une aire ou de π par simulation Python. PAS la formule de Bayes (Terminale).",
+    },
+    {
+      label: "Variables aléatoires réelles",
+      limits:
+        "Variable aléatoire réelle X sur Ω fini : formalisation comme fonction X:Ω→ℝ ; loi de probabilité (tableau des valeurs et probabilités P(X=xᵢ)) ; fonction de répartition discrète. Espérance E(X)=∑xᵢ·P(X=xᵢ) ; interprétation (valeur moyenne à long terme, jeu équitable). Variance V(X)=E(X²)−[E(X)]² (formule de König-Huygens) ; écart-type σ(X)=√V(X). Linéarité de l'espérance E(aX+b)=aE(X)+b. PAS la loi binomiale formelle B(n,p) (Terminale), PAS les variables continues.",
+    },
+    {
+      label: "Expérimentations et simulation Python",
+      limits:
+        "Simulation d'une variable aléatoire avec Python (random.random(), boucles, listes). Lire, comprendre et écrire une fonction Python renvoyant la moyenne d'un échantillon de taille n. Étudier la distance entre la moyenne empirique m d'un échantillon de taille n et l'espérance μ. Fluctuation d'échantillonnage : simuler N échantillons de taille n d'une VA d'espérance μ et d'écart-type σ ; proportion des cas où |m−μ|≤2σ/√n (lien avec l'intervalle de confiance vu en Terminale). PAS les tests statistiques formels, PAS la loi normale (Terminale).",
+    },
+  ],
+
+  // Voie Technologique (STMG, STI2D, ST2S, STL…) — programme allégé BO 2019.
+  // Moins formel que la Spé Maths : pas de chain rule complète, pas de radians,
+  // pas de variable aléatoire formalisée, pas d'exp ni ln (reportés en Terminale).
+  "FR_math_Première_Voie Technologique": [
+    {
+      label: "Calcul numérique et algébrique",
+      limits:
+        "Puissances entières et fractionnaires, racines carrées ; factorisation (produits remarquables a²−b², (a±b)²) ; équations du 1er degré ax+b=0, inéquations ax+b>0 ; systèmes 2×2 par substitution. PAS équations du 2nd degré avec forme canonique a(x−h)²+k (Spé Maths), PAS calcul dans ℂ.",
+    },
+    {
+      label: "Équations et inéquations du second degré",
+      limits:
+        "Équation ax²+bx+c=0, discriminant Δ=b²−4ac, racines réelles x₁/x₂ si Δ≥0 ; tableau de signe d'un trinôme ; inéquations ax²+bx+c≥0. PAS forme canonique (Spé Maths), PAS somme/produit des racines formalisées.",
+    },
+    {
+      label: "Suites arithmétiques et géométriques",
+      limits:
+        "Suite arithmétique : terme général u_n=u₀+nr, somme des n premiers termes S=n·(u₀+u_{n-1})/2 ; suite géométrique : u_n=u₀·qⁿ, somme S=u₀·(1−qⁿ)/(1−q) ; modèles discrets (remboursement, intérêts). PAS récurrences u_{n+1}=f(u_n) non affines (Terminale Techno), PAS convergence formelle.",
+    },
+    {
+      label: "Fonctions — dérivée et étude",
+      limits:
+        "Nombre dérivé comme taux de variation limite (interprétation graphique = pente de la tangente) ; dérivées de xⁿ, √x, 1/x, fonctions affines ; dérivée d'une somme, d'un produit (règle uv) et d'un quotient u/v simples ; tableau de variations, extremums locaux. PAS chain rule pour f∘g (Terminale Techno), PAS convexité f'', PAS ln ni exp (Terminale Techno).",
+    },
+    {
+      label: "Géométrie analytique et vecteurs",
+      limits:
+        "Coordonnées dans le plan ; vecteurs : égalité, somme, produit par un scalaire, colinéarité via le déterminant ; équation de droite y=mx+p et ax+by+c=0 ; parallélisme, sécance, distance entre deux points. PAS produit scalaire (Spé Première), PAS équation de cercle.",
+    },
+    {
+      label: "Statistiques descriptives et ajustement affine",
+      limits:
+        "Séries simples et doubles ; indicateurs de position (moyenne, médiane, Q₁/Q₃) et de dispersion (écart interquartile, écart-type σ) ; diagramme en boîte ; ajustement affine ŷ=ax+b par la méthode des moindres carrés (calcul à la calculatrice ou tableau de calcul). PAS coefficient de corrélation r formel (Terminale Techno), PAS séries chronologiques.",
+    },
+    {
+      label: "Probabilités conditionnelles",
+      limits:
+        "Espace Ω, événements, probabilité d'un événement ; probabilité conditionnelle PA(B)=P(A∩B)/P(A) ; arbres de probabilités à deux étapes. PAS formule des probabilités totales formelle (Terminale Techno), PAS Bayes.",
+    },
+    {
+      label: "Variables aléatoires et loi binomiale",
+      limits:
+        "Variable aléatoire discrète X : tableau de la loi de probabilité, espérance E(X)=Σxᵢ·pᵢ ; épreuve de Bernoulli, schéma de Bernoulli (n épreuves indépendantes) ; loi binomiale B(n,p), espérance E=np. PAS variance/écart-type de la binomiale (Terminale Techno), PAS loi normale.",
+    },
+  ],
+
   // Spécialité Mathématiques (BO 2019) — programme commun à toute Terminale
   // qui conserve la spé maths. Pas de nombres complexes ni d'arithmétique :
   // ces blocs sont en option Maths Expertes uniquement.
@@ -221,37 +377,91 @@ const TOPICS: Record<string, Topic[]> = {
         "Programmes simples : suites, dichotomie, simulation de variables aléatoires ; lecture/exécution d'algorithmes plutôt que conception complexe.",
     },
   ],
-  // Generic fallback FR Terminale (no section selected).
-  "FR_math_Terminale": [
-    "Suites numériques (limites, monotonie)",
-    "Limites de fonctions",
-    "Continuité",
-    "Compléments sur la dérivation",
-    "Convexité",
-    "Fonction logarithme népérien",
-    "Fonction exponentielle",
-    "Primitives et intégration",
-    "Vecteurs et géométrie dans l'espace",
-    "Produit scalaire dans l'espace",
-    "Probabilités conditionnelles",
-    "Variables aléatoires (espérance, variance)",
-    "Loi binomiale",
-    "Loi des grands nombres",
-    "Combinatoire et dénombrement",
-    "Algorithmique (Python)",
+  // Voie Technologique (STMG, STI2D, ST2S, STL…) — programme BO 2019.
+  // Différenciateur clé : la loi normale N(μ,σ²) EST au programme Terminale Techno,
+  // mais PAS en Terminale Spé Maths.
+  "FR_math_Terminale_Voie Technologique": [
+    {
+      label: "Suites et limites",
+      limits:
+        "Rappels suites arith./géom. ; limite d'une suite monotone bornée (admis) ; suites définies par récurrence u_{n+1}=f(u_n) (étude graphique via la droite y=u et la courbe y=f(u), seuil de convergence) ; convergence vers une limite. PAS démonstration formelle par récurrence, PAS suites extraites.",
+    },
+    {
+      label: "Limites et continuité des fonctions",
+      limits:
+        "Limites finies et infinies en ±∞ et en un point ; opérations sur les limites, formes indéterminées ∞/∞, 0/0 (factorisation, conjugué) ; théorème de la valeur intermédiaire (TVI, énoncé et application numérique) ; fonction continue sur un intervalle fermé. PAS limites comparées e^x vs xⁿ (Spé Maths), PAS théorème de Heine.",
+    },
+    {
+      label: "Dérivation et étude de fonctions",
+      limits:
+        "Dérivée d'une composée f(ax+b) et d'une composée générale (chain rule) ; dérivée de ln(u(x)) et e^{u(x)} ; tableau de variations complet ; résolution numérique f(x)=0 par dichotomie. PAS convexité/concavité f'' (Spé Maths), PAS formule de Leibniz.",
+    },
+    {
+      label: "Fonction logarithme népérien",
+      limits:
+        "ln x : définition comme primitive de 1/x sur ]0;+∞[ ; propriétés (ln(ab)=ln a+ln b, ln(a/b), ln(aⁿ)=n·ln a) ; dérivée ; limites usuelles lim_{x→+∞} ln x/x=0 et lim_{x→0⁺} x·ln x=0 ; modèles de décroissance logarithmique. PAS logarithme en base a, PAS ln dans ℂ.",
+    },
+    {
+      label: "Fonction exponentielle",
+      limits:
+        "e^x : définition f'=f, f(0)=1 ; propriétés algébriques e^{a+b}=e^a·e^b ; dérivée de e^{u(x)} ; limites usuelles ; modèles de croissance/décroissance exponentielle N(t)=N₀e^{kt} ; demi-vie. PAS équations différentielles du 2nd ordre.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives usuelles (xⁿ, 1/x, e^x, cos, sin) ; intégrale de Riemann ∫_a^b f(x)dx : existence pour f continue, interprétation géométrique (aire algébrique) ; valeur moyenne (1/(b−a))·∫_a^b f(x)dx. PAS intégration par parties (Spé Maths), PAS changement de variable.",
+    },
+    {
+      label: "Probabilités conditionnelles et formule de Bayes",
+      limits:
+        "Rappel P(A|B)=P(A∩B)/P(B) ; formule des probabilités totales pour une partition {A,Ā} ou {A₁,A₂,A₃} ; formule de Bayes P(A|B)=P(B|A)·P(A)/P(B) (cas simples à 2 ou 3 hypothèses). PAS Bayes généralisé à n hypothèses complexes.",
+    },
+    {
+      label: "Variables aléatoires — loi binomiale et loi normale",
+      limits:
+        "Rappel loi binomiale B(n,p) : coefficients C(n,k), P(X=k), E(X)=np, V(X)=np(1−p) ; loi normale N(μ,σ²) : courbe de Gauss (symétrie autour de μ, paramètre σ contrôle l'étalement) ; propriétés P(μ−kσ≤X≤μ+kσ) pour k=1,2,3 (table ou calculatrice) ; loi normale centrée réduite N(0,1). DIFFÉRENCIATEUR TECHNO : la loi normale N(μ,σ²) est au programme Terminale Techno, mais PAS en Terminale Spé Maths.",
+    },
+    {
+      label: "Statistiques — régression, corrélation et séries chronologiques",
+      limits:
+        "Nuage de points, droite de régression ŷ=ax+b par moindres carrés (formules de a et b via moyennes et variances) ; coefficient de corrélation linéaire r (définition -1≤r≤1, interprétation |r|≈1 fort, |r|≈0 faible) ; séries chronologiques : valeurs observées, moyenne mobile (lissage), ajustement linéaire sur série lissée, prévision. PAS corrélation de Spearman, PAS tests d'hypothèses formels.",
+    },
   ],
+
+  // Generic fallback FR Terminale (no section selected) — mirrors Spé Maths, la filière majoritaire.
+  "FR_math_Terminale": [
+    { label: "Suites numériques (limites, monotonie)", limits: "Convergence, suites monotones bornées, démonstration par récurrence, récurrences u_{n+1}=f(u_n). PAS suites complexes." },
+    { label: "Limites de fonctions", limits: "Limites en ±∞ et en un point, opérations, formes indéterminées, limites comparées (e^x vs xⁿ, ln x vs xⁿ)." },
+    { label: "Continuité", limits: "Continuité sur un intervalle, composée continue, TVI et corollaire. PAS Heine." },
+    { label: "Compléments sur la dérivation", limits: "Chain rule ; dérivées de e^{u(x)}, ln(u(x)), u(x)^n." },
+    { label: "Convexité", limits: "Définition par f''≥0 ; tangente en-dessous/au-dessus ; point d'inflexion f''=0 avec changement de signe." },
+    { label: "Fonction logarithme népérien", limits: "Définition comme primitive de 1/x, propriétés, dérivée, limites usuelles." },
+    { label: "Fonction exponentielle", limits: "Définition f'=f f(0)=1, propriétés, dérivée, limites usuelles." },
+    { label: "Primitives et intégration", limits: "Primitives usuelles, TFC, intégration par parties, aires, valeur moyenne. PAS changement de variable (Spé)." },
+    { label: "Vecteurs et géométrie dans l'espace", limits: "Combinaisons linéaires, coplanaires, droites/plans paramétriques, positions relatives." },
+    { label: "Produit scalaire dans l'espace", limits: "Définition, vecteur normal, équation cartésienne d'un plan, distance point-plan." },
+    { label: "Probabilités conditionnelles", limits: "P(A|B), formule des probabilités totales, arbres, indépendance, Bayes (cas simples)." },
+    { label: "Variables aléatoires (espérance, variance)", limits: "Loi discrète, E(X), V(X), linéarité de E, variance d'une somme de VA indépendantes." },
+    { label: "Loi binomiale", limits: "Schéma de Bernoulli, B(n,p), E=np, V=np(1−p), probabilités cumulées." },
+    { label: "Loi des grands nombres", limits: "Bienaymé-Tchebychev, loi faible des grands nombres (moyenne converge vers E(X))." },
+    { label: "Combinatoire et dénombrement", limits: "k-uplets, arrangements, combinaisons C(n,k), binôme de Newton." },
+    { label: "Algorithmique (Python)", limits: "Suites récurrentes, dichotomie, Newton (intro), simulation VA, seuils." },
+  ],
+  // Fallback générique Première (aucune section sélectionnée).
+  // Contenu = Spécialité Maths, la filière dominante. Limits intentionnellement
+  // plus courts que la version avec section pour rester lisibles comme fallback.
   "FR_math_Première": [
-    "Second degré",
-    "Suites arithmétiques et géométriques",
-    "Dérivation",
-    "Variations et extremums",
-    "Fonctions trigonométriques",
-    "Fonction exponentielle (introduction)",
-    "Géométrie repérée",
-    "Produit scalaire dans le plan",
-    "Probabilités conditionnelles",
-    "Variables aléatoires",
-    "Loi binomiale (introduction)",
+    { label: "Suites numériques et modèles discrets", limits: "Suites arith./géom. (terme général, somme) ; récurrences u_{n+1}=f(u_n) ; sens de variation ; limite intuitive." },
+    { label: "Fonctions polynômes du second degré", limits: "Formes développée, canonique, factorisée ; discriminant Δ ; racines, signe, optimisation." },
+    { label: "Dérivation", limits: "Nombre dérivé, tangente, approximation affine ; dérivées de xⁿ, √x, 1/x ; somme, produit, quotient. PAS chain rule." },
+    { label: "Variations et courbes représentatives", limits: "Parité ; lien signe f'—sens de variation ; extremum local (f'(a)=0) ; étude d'un polynôme du 2nd degré." },
+    { label: "Fonction exponentielle", limits: "Définition f'=f, f(0)=1 ; propriétés algébriques ; modélisation croissance/décroissance. PAS ln." },
+    { label: "Trigonométrie", limits: "Cercle trigonométrique, radian ; cos et sin d'un réel ; valeurs remarquables ; sin²+cos²=1. PAS formules d'addition." },
+    { label: "Produit scalaire dans le plan", limits: "Définition (projection/cosinus) ; ‖u±v‖² ; Al-Kashi ; expression en coordonnées. PAS produit vectoriel." },
+    { label: "Géométrie repérée", limits: "Vecteur normal ax+by+c=0 ; projection orthogonale ; équation de cercle. PAS espace." },
+    { label: "Probabilités conditionnelles et indépendance", limits: "Indépendance ; formule des probabilités totales ; n≤4 épreuves (arbre). PAS Bayes." },
+    { label: "Variables aléatoires réelles", limits: "Loi, espérance, variance (König-Huygens), écart-type ; linéarité de E. PAS loi binomiale." },
+    { label: "Expérimentations Python", limits: "Simulation, moyenne empirique, fluctuation d'échantillonnage |m−μ|≤2σ/√n." },
   ],
   // Spécialité Physique-Chimie Terminale (BO 2019). La même clé est
   // utilisée pour la section « Spécialité Physique-Chimie ». Le
@@ -1947,6 +2157,252 @@ const TOPICS: Record<string, Topic[]> = {
   ],
 
   // ── UNITED STATES ──────────────────────────────────────────────────────────
+  // Grades K–8 follow the Common Core State Standards for Mathematics (CCSS-M).
+  "US_math_Kindergarten": [
+    {
+      label: "Counting and Cardinality",
+      limits: "Count to 100 by ones and tens; count forward from any number; write numerals 0–20; count objects and pair number names with objects; compare two groups of objects (more/fewer/same) and two written numerals (greater/less/equal) within 20. NOT addition or subtraction algorithms.",
+    },
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Understand addition as putting together and adding to; understand subtraction as taking apart and taking from; represent and solve addition and subtraction word problems within 10 using objects, fingers, drawings, and equations; decompose numbers up to 10 (e.g., 6 = 4+2); fluently add and subtract within 5. NOT written standard algorithm.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Compose and decompose numbers from 11 to 19 into ten ones and some further ones (e.g., 18 = 10+8); represent these using objects, drawings, or equations. Foundation for place value. NOT multi-digit addition or subtraction.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Describe and compare measurable attributes (length, weight) of objects; classify objects into given categories (color, shape, size) and count/sort by category; display sorting results in simple graphs. NOT using standard measurement units.",
+    },
+    {
+      label: "Geometry",
+      limits: "Name and describe 2-D shapes (square, circle, triangle, rectangle, hexagon) and 3-D shapes (cube, cone, cylinder, sphere) regardless of orientation or size; analyze and compare shapes by attributes; use shapes to build pictures, models, and designs; partition circles and rectangles into two and four equal shares. NOT coordinates, NOT area formulas.",
+    },
+  ],
+
+  "US_math_Grade 1": [
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Solve addition and subtraction word problems within 20 (all problem types: result unknown, change unknown, start unknown); apply commutative and associative properties; understand subtraction as an unknown-addend problem; count on to add; use doubles, making 10 strategy; add three single-digit numbers; fluently add and subtract within 10. NOT multiplication.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Understand that the digits of a two-digit number represent tens and ones; count, read, write, and compare two-digit numbers; add within 100 using concrete models, place value, and properties (including adding a 2-digit number and a 1-digit number, and a 2-digit number and a multiple of 10); subtract multiples of 10 from multiples of 10 (10–90) using mental strategies. NOT standard algorithm for multi-digit addition.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Order three objects by length; compare lengths using a third object; express the length of an object as a whole number of same-size units; tell and write time in hours and half-hours on analog and digital clocks; organize, represent, and interpret data with up to three categories (bar graphs, tally charts). NOT measuring with fractional units.",
+    },
+    {
+      label: "Geometry",
+      limits: "Distinguish between defining attributes (e.g., triangles are closed and 3-sided) and non-defining attributes (color, size, orientation); compose 2-D and 3-D shapes to create a composite shape; partition circles and rectangles into halves and fourths; understand that half of means one of two equal shares. NOT coordinate plane.",
+    },
+  ],
+
+  "US_math_Grade 2": [
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Solve one- and two-step word problems involving addition and subtraction within 100; fluently add and subtract within 20 using mental strategies; know from memory all sums of two one-digit numbers; determine whether a group of objects (up to 20) is odd or even; use addition to find the total number of objects arranged in rectangular arrays up to 5×5. NOT multiplication algorithm.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Understand place value for three-digit numbers (hundreds, tens, ones); count within 1000; skip-count by 5s, 10s, and 100s; read, write, and compare numbers up to 1000; fluently add and subtract within 100 using strategies based on place value; add up to four two-digit numbers; add and subtract within 1000 using models, drawings, and strategies. NOT standard algorithm for 3-digit numbers yet.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Measure and estimate lengths in standard units (centimeters, meters, inches, feet); measure the same object with different units and explain the relationship; solve addition and subtraction word problems involving lengths; represent whole-number sums and differences on a number line; work with time (nearest 5 minutes, am/pm) and money (total value of a collection of bills and coins); generate measurement data and show on a line plot; draw and interpret bar graphs and picture graphs. NOT area or volume.",
+    },
+    {
+      label: "Geometry",
+      limits: "Recognize and draw shapes having specified attributes (number of angles, equal faces); identify triangles, quadrilaterals, pentagons, hexagons, and cubes; partition a rectangle into rows and columns of same-size squares; partition circles and rectangles into halves, thirds, and fourths; describe equal shares as a half of, a third of, a fourth of. NOT fractions on the number line.",
+    },
+  ],
+
+  "US_math_Grade 3": [
+    {
+      label: "Operations and Algebraic Thinking — Multiplication and Division",
+      limits: "Interpret products and quotients of whole numbers in word problems; use properties (commutative, associative, distributive) to multiply and divide; fluently multiply and divide within 100; solve two-step word problems using the four operations; identify and explain arithmetic patterns. NOT multi-digit multiplication or division algorithm.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Round whole numbers to the nearest 10 or 100; fluently add and subtract within 1000 using strategies and algorithms; multiply one-digit whole numbers by multiples of 10 (6×90) using place value and properties. NOT 4-digit arithmetic, NOT long division algorithm.",
+    },
+    {
+      label: "Number and Operations — Fractions",
+      limits: "Understand a fraction 1/b as the quantity formed by 1 part when a whole is partitioned into b equal parts; understand a/b as a parts of size 1/b; represent fractions on a number line; explain equivalence (same size/same point on number line); compare fractions with the same numerator or denominator using < = >; fractions with denominators 2, 3, 4, 6, 8. NOT adding or subtracting fractions.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Tell and write time to the nearest minute; solve elapsed time problems; measure and estimate liquid volumes and masses (grams, kilograms, liters) and solve one-step word problems; measure lengths to the nearest half and quarter inch and show data on a line plot; understand area as covering with unit squares, relate area to multiplication, find area of rectangles and irregular shapes by decomposition; distinguish perimeter from area. NOT surface area or volume.",
+    },
+    {
+      label: "Geometry",
+      limits: "Understand that shapes in different categories may share attributes; classify quadrilaterals (rhombuses, rectangles, squares); partition shapes into equal areas and express area as a unit fraction. NOT coordinate plane.",
+    },
+  ],
+
+  "US_math_Grade 4": [
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Solve multi-step word problems with all four operations and equations with letter symbols for unknowns; find all factor pairs for a whole number 1–100; determine if a number is prime or composite; generate and analyze patterns (e.g., continue a rule, identify apparent features). NOT exponents.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Recognize that a digit in one place is ten times what it is in the place to its right; read, write, and compare multi-digit whole numbers up to 1,000,000; round to any place; fluently add and subtract multi-digit whole numbers using the standard algorithm; multiply a four-digit number by a one-digit number and two two-digit numbers using strategies; find whole-number quotients and remainders with up to four-digit dividends and one-digit divisors. NOT 5-digit × 2-digit multiplication.",
+    },
+    {
+      label: "Number and Operations — Fractions",
+      limits: "Explain why fractions are equivalent using visual fraction models; compare fractions with unlike numerators and denominators by creating common denominators or numerators; add and subtract fractions and mixed numbers with like denominators; multiply a fraction by a whole number; express tenths and hundredths as fractions and as decimals; compare decimals to hundredths using <, =, >. NOT unlike-denominator addition, NOT fraction division.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Know relative sizes of measurement units within one system (km/m/cm, kg/g, lb/oz, l/ml, hr/min/sec); solve conversion word problems; represent measurement data on a line plot with fractions (½, ¼, ⅛); understand angle measurement as rotation; measure and draw angles with a protractor; solve addition/subtraction angle problems. NOT volume, NOT scale drawings.",
+    },
+    {
+      label: "Geometry",
+      limits: "Draw points, lines, line segments, rays, angles (right/acute/obtuse), parallel and perpendicular lines; classify 2-D figures by properties including parallel/perpendicular sides and angle types; identify line-symmetric figures and draw lines of symmetry. NOT coordinate plane, NOT congruence transformations.",
+    },
+  ],
+
+  "US_math_Grade 5": [
+    {
+      label: "Operations and Algebraic Thinking",
+      limits: "Write and interpret simple numerical expressions without evaluating (e.g., 'add 8 and 7, then multiply by 2'); generate two numerical patterns from two rules, form ordered pairs, and graph on a coordinate plane. Order of operations (parentheses and brackets, no exponents). NOT variables in expressions.",
+    },
+    {
+      label: "Number and Operations in Base Ten",
+      limits: "Understand place value from millions to thousandths; explain patterns in the number of zeros when multiplying/dividing by powers of 10; read, write, and compare decimals to thousandths; round decimals to any place; fluently multiply multi-digit whole numbers using the standard algorithm; find whole-number quotients with 4-digit dividends and 2-digit divisors; add, subtract, multiply, and divide decimals to hundredths using concrete models and algorithms. NOT scientific notation.",
+    },
+    {
+      label: "Number and Operations — Fractions",
+      limits: "Add and subtract fractions with unlike denominators (including mixed numbers) by finding equivalent fractions; solve word problems involving addition and subtraction of fractions; interpret multiplication of a fraction by a whole number and a fraction by a fraction; multiply and divide fractions and mixed numbers; interpret division of a whole number by a unit fraction and vice versa; solve real-world problems involving multiplication and division of fractions. NOT complex algebraic manipulation of fractions.",
+    },
+    {
+      label: "Measurement and Data",
+      limits: "Convert measurement units within a given system (customary and metric); represent and interpret data on a line plot involving fractional measurements; understand volume as cubic units; measure volume by counting unit cubes; relate volume to multiplication and addition; find volume of right rectangular prisms using V=l×w×h and V=B×h; find volume of composite 3-D figures. NOT surface area formula.",
+    },
+    {
+      label: "Geometry",
+      limits: "Use a coordinate system (all positive values, first quadrant only); represent and interpret real-world and mathematical problems by graphing points in the first quadrant; understand properties used to classify 2-D figures in a hierarchy (e.g., all rectangles are parallelograms); classify quadrilaterals and triangles based on their properties. NOT negative coordinates, NOT area formulas beyond rectangles and triangles.",
+    },
+  ],
+
+  "US_math_Grade 6": [
+    {
+      label: "Ratios and Proportional Relationships",
+      limits: "Understand ratio as comparing two quantities; use ratio language; unit rate a/b for a:b; solve problems using tables of equivalent ratios, tape diagrams, double number lines, equations; find percent of a quantity; solve percent problems (tax, tip, discount); convert measurement units using ratio reasoning. NOT proportional equation y=kx (Grade 7).",
+    },
+    {
+      label: "The Number System",
+      limits: "Interpret and compute quotients of fractions; divide fractions by fractions (a/b ÷ c/d = ad/bc) and solve word problems; fluently divide multi-digit numbers and add/subtract/multiply/divide multi-digit decimals using the standard algorithm; find GCF and LCM; understand that positive and negative numbers describe quantities in opposite directions; locate and order rational numbers on a number line and in all four quadrants of the coordinate plane; find absolute value; interpret absolute value in context. NOT operations with negative numbers (Grade 7).",
+    },
+    {
+      label: "Expressions and Equations",
+      limits: "Write and evaluate numerical expressions with whole-number exponents; write, read, and evaluate algebraic expressions; identify parts of an expression (term, coefficient); generate equivalent expressions using properties (commutativity, associativity, distributivity); reason about and solve one-variable equations (px+q=r and p(x+q)=r) and inequalities (x>c); represent and analyze quantitative relationships between two variables using equations and graphs. NOT systems of equations, NOT quadratics.",
+    },
+    {
+      label: "Geometry",
+      limits: "Find area of triangles, special quadrilaterals, and polygons by composing/decomposing into rectangles and triangles; find area of composite figures; find surface area of 3-D figures using nets (triangular prisms, rectangular prisms, pyramids); find volume of right rectangular prisms with fractional edge lengths using V=l×w×h. NOT circles, NOT cylinders.",
+    },
+    {
+      label: "Statistics and Probability",
+      limits: "Recognize a statistical question; describe and summarize distributions: center (mean, median, mode), variability (mean absolute deviation MAD, interquartile range IQR), shape (symmetric, skewed); display data using dot plots, histograms, and box plots; summarize numerical data sets in context including number of observations, measures of center, and variability. NOT probability, NOT comparing two populations.",
+    },
+  ],
+
+  "US_math_Grade 7": [
+    {
+      label: "Ratios and Proportional Relationships",
+      limits: "Decide whether two quantities are in a proportional relationship; identify the constant of proportionality k in tables, graphs, equations y=kx, diagrams, and verbal descriptions; represent proportional relationships by equations; explain what a point (x,y) means, including (0,0) and (1,k); solve multi-step ratio and percent problems (percent increase/decrease, percent error, simple interest, markups/markdowns, gratuities, commissions). NOT slope of a non-proportional linear relationship (Grade 8).",
+    },
+    {
+      label: "The Number System",
+      limits: "Apply and extend understanding to add, subtract, multiply, and divide rational numbers; understand p+q as p moved |q| on the number line; show that the distance is |p−q|; apply properties to add and subtract rational numbers; understand multiplication/division rules for negatives and positives; convert a rational number to a decimal using long division (terminating or repeating); solve real-world problems involving the four operations with rational numbers. NOT irrational numbers (Grade 8).",
+    },
+    {
+      label: "Expressions and Equations",
+      limits: "Apply properties to add, subtract, factor, and expand linear expressions with rational coefficients; rewrite 0.1 + 0.2 as 0.3(3) etc.; solve multi-step real-life and mathematical problems with positive and negative rational numbers; solve equations of the form px+q=r and p(x+q)=r; solve inequalities of those forms and graph; use variables to represent quantities in a problem-solving context. NOT systems of equations, NOT quadratic equations.",
+    },
+    {
+      label: "Geometry",
+      limits: "Solve problems involving scale drawings (compute lengths and area); draw geometric shapes with given conditions (triangles given 3 measures); describe 2-D cross-sections of 3-D figures (prisms, pyramids); use facts about supplementary, complementary, vertical, and adjacent angles; solve simple equations for an unknown angle; solve problems involving area and circumference of circles (A=πr², C=2πr); solve problems involving area, volume, and surface area of 2- and 3-D figures (prisms, right prisms, right pyramids). NOT congruence transformations (Grade 8).",
+    },
+    {
+      label: "Statistics and Probability",
+      limits: "Understand that statistics can be used to gain information about a population; use random sampling to draw inferences; draw informal comparative inferences about two populations using measures of center and measures of variability; understand probability of a chance event (number between 0 and 1); approximate probability using experimental results; find probabilities of simple and compound events using organized lists, tables, tree diagrams, and simulation. NOT normal distribution, NOT formal hypothesis testing.",
+    },
+  ],
+
+  "US_math_Grade 8": [
+    {
+      label: "The Number System",
+      limits: "Understand informally that every number has a decimal expansion; show that rational numbers have repeating or terminating decimal expansions; approximate irrational numbers by rational numbers; use rational approximations to locate irrational numbers on a number line and estimate their values (e.g., √2 ≈ 1.414). NOT formal proof of irrationality.",
+    },
+    {
+      label: "Expressions and Equations",
+      limits: "Know and apply properties of integer exponents (product rule, quotient rule, power rule, zero exponent, negative exponents); use square root and cube root symbols; evaluate square roots of perfect squares and cube roots of perfect cubes; use scientific notation for very large and very small quantities; perform operations with scientific notation; solve linear equations in one variable (one solution, no solution, infinitely many); solve pairs of simultaneous linear equations by graphing, substitution, and elimination; solve related word problems. NOT quadratic equations.",
+    },
+    {
+      label: "Functions",
+      limits: "Understand a function as a rule that assigns to each input exactly one output; represent functions with tables, graphs, and equations; compare properties of two functions each represented differently; interpret the equation y=mx+b as a linear function with slope m and y-intercept b; give examples of non-linear functions; construct a function to model a linear relationship between two quantities; determine and interpret the rate of change and initial value of a linear function. NOT quadratic or exponential functions in depth (Grade 9+).",
+    },
+    {
+      label: "Geometry",
+      limits: "Verify properties of rotations, reflections, and translations (lines map to lines, distances and angles preserved); understand that 2-D figures are congruent if one can be obtained from the other by rigid motions; understand that 2-D figures are similar if one can be obtained from the other by a sequence of rotations, reflections, translations, and dilations; use AA criterion for triangle similarity; apply the Pythagorean Theorem (explain proof using diagrams; find length of missing side; find distance between two points in the coordinate plane); apply the converse; know and use the formulas for volume of cones, cylinders, and spheres. NOT trigonometric ratios (Grade 9/10).",
+    },
+    {
+      label: "Statistics and Probability",
+      limits: "Construct and interpret scatter plots for bivariate measurement data; describe patterns (clustering, outliers, positive/negative/no association, linear/nonlinear); know that straight lines are widely used to model relationships; fit a straight line to data informally and assess fit; use the linear equation to solve problems; understand and interpret two-way tables of categorical data; interpret relative frequencies and possible associations. NOT regression formulas, NOT correlation coefficient calculation.",
+    },
+  ],
+
+  "US_math_Grade 9": [
+    {
+      label: "Number, Quantity, and Algebraic Reasoning",
+      limits: "Interpret parts of an expression (terms, factors, coefficients); interpret complicated expressions by viewing one or more of their parts as a single entity; use units to understand problems and guide the solution; define appropriate quantities for a model; choose a level of accuracy appropriate to limitations on measurement. Create equations and inequalities in one variable and use them to solve problems. NOT complex numbers (Grade 11).",
+    },
+    {
+      label: "Linear Equations, Inequalities, and Systems",
+      limits: "Solve linear equations and inequalities in one variable, including equations with coefficients represented by letters; explain each step; solve systems of two linear equations in two variables (graphing, substitution, elimination); solve systems word problems; represent constraints by equations/inequalities and interpret solutions in context; graph the solution set of a linear inequality in two variables; graph systems of linear inequalities. NOT non-linear systems.",
+    },
+    {
+      label: "Functions — Linear and Exponential",
+      limits: "Understand a function assigns exactly one output to each input; use function notation f(x); interpret statements using function notation; determine domain and range from a graph; identify key features of graphs: intercepts, intervals where increasing/decreasing, relative maxima/minima, symmetries, end behavior; identify that linear functions grow by equal differences and exponential functions grow by equal factors; construct and compare linear and exponential models from contexts; interpret parameters of linear (y=mx+b) and exponential (y=ab^x) functions in context. NOT logarithmic functions (Grade 11).",
+    },
+    {
+      label: "Quadratic Functions and Equations",
+      limits: "Interpret key features of quadratic functions (vertex, intercepts, axis of symmetry, increasing/decreasing intervals) from graphs, tables, and expressions; use completing the square to reveal the vertex form a(x−h)²+k; factor quadratic expressions; solve quadratic equations by factoring, completing the square, and the quadratic formula; understand that real solutions to x²=a with a>0 are ±√a; real-world modeling with quadratic functions. NOT complex number solutions (Grade 11).",
+    },
+    {
+      label: "Statistics — Single and Bivariate Data",
+      limits: "Represent data with plots (dot plots, histograms, box plots); compare center (mean, median) and spread (standard deviation, IQR) of two or more data sets; interpret differences in shape, center, and spread; interpret relative frequencies in two-way frequency tables; represent data on two quantitative variables on a scatter plot; fit a linear function and use it to solve problems; compute and interpret the correlation coefficient of a linear fit informally. NOT formal inference, NOT normal distribution calculations.",
+    },
+  ],
+
+  "US_math_Grade 10": [
+    {
+      label: "Congruence and Geometric Transformations",
+      limits: "Know precise definitions of angle, circle, perpendicular/parallel lines, line segment; represent transformations as functions that take points to points; describe rotations, reflections, and translations; understand that rigid motions preserve distances and angles; use rigid motions to define congruence; use the definition of congruence in terms of rigid motions to show that two triangles are congruent; explain how the criteria for triangle congruence (ASA, SAS, SSS) follow from the definition. Make geometric constructions (angle bisector, perpendicular bisector, copy angle) with compass and straightedge. NOT coordinate proof in depth.",
+    },
+    {
+      label: "Similarity, Proof, and Trigonometry",
+      limits: "Verify informally that dilations take lines to lines and preserve or change angles; given two similar figures, use the definition of similarity to establish AA, SAS, SSS criteria; prove theorems about triangles (base angles of isosceles triangle, angle sum, exterior angle, midsegment, proportionality); understand that side ratios in right triangles are properties of angles (trig ratios); define sin, cos, tan for acute angles; use SOH-CAH-TOA; find missing sides and angles; understand and apply the relationship sin(θ)=cos(90°−θ); use Pythagorean theorem to derive sin²+cos²=1; know exact values for 30°, 45°, 60°. NOT law of sines/cosines (Grade 11), NOT unit circle with radians (Grade 11).",
+    },
+    {
+      label: "Circles",
+      limits: "Identify and describe relationships between central angles, inscribed angles, and intercepted arcs (inscribed angle = ½ arc, central angle = arc); identify and describe tangent, chord, and secant relationships; derive and use the formula for arc length and area of a sector (A=½r²θ in radians not required; degree form fine); find the equation of a circle (x−h)²+(y−k)²=r² given center and radius; complete the square to find the center and radius of a circle. NOT conic sections beyond circles.",
+    },
+    {
+      label: "Expressing Geometric Properties with Coordinates",
+      limits: "Prove the slope criteria for parallel and perpendicular lines; find the point on a directed segment between two given points that partitions the segment in a given ratio; compute perimeters and areas of polygons using coordinates; use coordinates to prove simple geometric theorems algebraically (e.g., diagonals of a parallelogram bisect each other); derive the equation of a circle and a parabola given a focus and directrix. NOT ellipse or hyperbola equations.",
+    },
+    {
+      label: "Geometric Measurement and Modeling",
+      limits: "Give informal arguments for the formulas for the circumference and area of a circle, the area of a sector, and the volume of a cylinder, pyramid, and cone; use dissection arguments and Cavalieri's principle; use geometric shapes, measures, and properties to describe objects; apply concepts of density based on area and volume; use geometric methods to solve design problems (e.g., maximize area given perimeter). NOT calculus-based volume.",
+    },
+  ],
+
   // Grade 12 AP track — single key covering BOTH AP Calculus AB and AP
   // Calculus BC. AB is a strict subset of BC; entries flag (AB+BC) for
   // shared content and (BC only) for items unique to the BC exam.
@@ -2133,15 +2589,38 @@ const TOPICS: Record<string, Topic[]> = {
     "Parametric, polar, and vector functions (BC)",
   ],
   "US_math_Grade 11": [
-    "Polynomial and rational functions",
-    "Exponential and logarithmic functions",
-    "Trigonometric functions and identities",
-    "Conic sections",
-    "Sequences and series",
-    "Vectors and matrices",
-    "Probability and combinatorics",
-    "Statistics: distributions",
-    "Limits (intro to calculus)",
+    {
+      label: "Polynomial and Rational Functions",
+      limits: "Interpret and rewrite polynomial expressions; add, subtract, multiply polynomials; factor (GCF, difference of squares, sum/difference of cubes, by grouping); divide polynomials using long division and synthetic division; remainder theorem and factor theorem; identify zeros graphically and algebraically; end behavior; graph polynomials; simplify rational expressions; add/subtract/multiply/divide rational expressions; solve rational equations; identify asymptotes and holes. NOT partial fraction decomposition (AP Calc).",
+    },
+    {
+      label: "Exponential and Logarithmic Functions",
+      limits: "Graph exponential functions y=ab^x; understand inverse relationship between exponential and logarithmic functions; properties of logarithms (product, quotient, power rules); change of base; solve exponential and logarithmic equations; use ln and log₁₀; model exponential growth and decay (A=Pe^(rt), half-life, Newton's law of cooling); distinguish between linear, quadratic, and exponential models. NOT calculus derivatives of e^x or ln(x) (AP Calc).",
+    },
+    {
+      label: "Trigonometric Functions",
+      limits: "Define and extend trig functions to all real numbers using the unit circle; understand radian measure and convert between degrees and radians; evaluate trig functions for special angles (0, π/6, π/4, π/3, π/2 and their reflections); graph y=A·sin(Bx+C)+D and y=A·cos(Bx+C)+D (amplitude, period, phase shift, vertical shift); model periodic phenomena; define and graph tangent; use inverse trig functions (arcsin, arccos, arctan) for the principal value. NOT law of sines/cosines in depth (see next topic).",
+    },
+    {
+      label: "Trigonometric Identities and Triangle Applications",
+      limits: "Pythagorean identities sin²θ+cos²θ=1 and derived forms; quotient and reciprocal identities; sum and difference formulas for sin(A±B) and cos(A±B); double-angle formulas; verify identities; solve trig equations over [0, 2π) and over all reals; apply the law of sines (including ambiguous case) and law of cosines to solve oblique triangles; find area of a triangle using ½ab·sin(C). NOT half-angle formulas in depth.",
+    },
+    {
+      label: "Conic Sections",
+      limits: "Derive and use standard-form equations for parabolas (x²=4py, y²=4px), ellipses ((x/a)²+(y/b)²=1), and hyperbolas ((x/a)²−(y/b)²=1); identify vertices, foci, directrix, axes, asymptotes; translate conics (completing the square); sketch graphs. Derive the equation of a circle as a special ellipse. NOT parametric form of conics, NOT polar form.",
+    },
+    {
+      label: "Sequences, Series, and the Binomial Theorem",
+      limits: "Define sequences recursively and explicitly; arithmetic sequences (general term, partial sums); geometric sequences (general term, partial sums, infinite geometric series S=a/(1-r) for |r|<1); sigma notation; binomial theorem and Pascal's triangle to expand (a+b)^n; use binomial coefficients C(n,k). NOT calculus-based convergence tests (AP Calc BC).",
+    },
+    {
+      label: "Probability, Combinatorics, and Statistics",
+      limits: "Fundamental counting principle; permutations (nPr) and combinations (nCr); binomial probability P(X=k)=C(n,k)p^k(1-p)^(n-k); expected value; normal distribution and z-scores; use tables/calculators to find probabilities for normal distributions; understand sampling distributions informally; interpret margin of error; distinguish observational study from experiment. NOT formal confidence intervals or hypothesis testing (AP Stats).",
+    },
+    {
+      label: "Matrices and Vectors (selected topics)",
+      limits: "Matrix notation; add/subtract matrices; scalar multiplication; multiply matrices (m×n by n×p); use matrices to represent and solve systems of linear equations; find the determinant of a 2×2 matrix; understand the inverse matrix A⁻¹; define 2-D vectors geometrically and algebraically; add/subtract vectors; scalar multiplication; magnitude and direction; dot product. NOT vector cross product, NOT eigenvalues.",
+    },
   ],
   "US_physics_Grade 12 (AP)": [
     "Kinematics in 1D and 2D",
