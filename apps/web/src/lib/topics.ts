@@ -1473,108 +1473,113 @@ const TOPICS: Record<string, Topic[]> = {
     },
   ],
 
-  // Section Mathématiques (SM) — programme le plus complet, seul à inclure
-  // similitudes et structures algébriques.
+  // Section Mathématiques (SM) — 11 chapitres du programme MEN. Programme le
+  // plus complet : seul à inclure similitudes, structures algébriques, équations
+  // différentielles du 2ème ordre, forme exponentielle des complexes, suites
+  // adjacentes, Rolle/TAF, intégration par parties et changement de variable.
   "TN_math_4ème (Bac)_Mathématiques": [
     {
       label: "Suites numériques",
       limits:
-        "Convergence, limite, monotonie, suites majorées/minorées ; suites définies par récurrence à 1 ET 2 termes ; suites adjacentes. PAS le critère de Cauchy.",
+        "Convergence et limite d'une suite : définition, unicité de la limite. Suites monotones majorées/minorées (admis : convergentes). Principe de récurrence (raisonnement par récurrence). Suites récurrentes à 1 terme Uₙ₊₁=f(Uₙ) : point fixe, comportement selon la nature de f, représentation en toile d'araignée. Suites récurrentes à 2 termes Uₙ₊₂=aUₙ₊₁+bUₙ : équation caractéristique r²=ar+b, deux racines distinctes ou racine double, expression générale. Suites adjacentes : définition (l'une croissante, l'autre décroissante, même limite), encadrement de la limite. PAS le critère de Cauchy.",
     },
     {
       label: "Limites et continuité",
       limits:
-        "Limites en un point et à l'infini, formes indéterminées, limites comparées (lim x→+∞ e^x/x^n et ln x/x^n) ; théorème des gendarmes ; TVI et corollaire ; prolongement par continuité.",
+        "Limites finies et infinies d'une fonction en un point (bilatéral, unilatéral) et à l'infini. Formes indéterminées (0/0, ∞/∞, ∞−∞, 0×∞) résolues par factorisation, conjugué, ou mise en facteur. Limites comparées : lim_{x→+∞} e^x/xⁿ=+∞, lim_{x→+∞} ln x/xⁿ=0, lim_{x→0⁺} x·ln x=0, lim_{x→0} sin x/x=1. Théorème des gendarmes. TVI (version exacte : f continue sur [a,b], f(a)·f(b)<0 → ∃c : f(c)=0) et corollaire (injectivité). Prolongement par continuité en un point isolé (ex. : f(x)=sin x/x prolongée en 0). PAS la continuité uniforme.",
     },
     {
       label: "Dérivabilité",
       limits:
-        "Nombre dérivé, dérivées composées, dérivée d'une bijection réciproque ; théorème de Rolle, théorème des accroissements finis (TAF) ; convexité et points d'inflexion. Section Mathématiques uniquement pour Rolle/TAF.",
+        "Nombre dérivé : limite du taux d'accroissement, interprétation géométrique (tangente). Dérivées des fonctions usuelles et règle de la chaîne (f∘g)'. Dérivée d'une bijection réciproque : (f⁻¹)'(y)=1/f'(f⁻¹(y)). Théorème de Rolle : f continue sur [a,b], dérivable sur ]a,b[, f(a)=f(b) → ∃c∈]a,b[ : f'(c)=0. Théorème des accroissements finis (TAF) : conséquences (inégalité des accroissements finis |f(b)−f(a)|≤M|b−a|, monotonie de f via le signe de f'). Convexité : f''≥0 ↔ f convexe ; point d'inflexion : f'' change de signe. PAS le théorème de l'Hôpital (hors programme TN SM).",
     },
     {
       label: "Fonctions logarithme et exponentielle",
       limits:
-        "ln x et e^x : définitions, propriétés, dérivées, primitives ; études de fonctions associées ; équations et inéquations.",
+        "ln x : définition comme primitive de 1/x sur ]0,+∞[ vérifiant ln(1)=0 ; propriétés (ln(ab), ln(a/b), ln(aⁿ), ln(1/a)) ; dérivée (ln x)'=1/x, (ln u)'=u'/u ; primitives ∫1/x=ln|x|+C, ∫1/(ax+b)=ln|ax+b|/a+C, ∫u'/u=ln|u|+C. e^x : définition comme réciproque de ln, propriétés (e^{a+b}=e^a·e^b, (e^x)'=e^x, ∫e^x=e^x) ; dérivée (e^u)'=u'·e^u, primitive ∫u'·e^u=e^u+C. Études graphiques complètes de fonctions associées (x·eˣ, eˣ/x, x^n·ln x, ln(f(x))…). Résolution d'équations et inéquations impliquant ln et exp. Comparaisons (ln x ≺ xⁿ ≺ e^x).",
     },
     {
       label: "Calcul intégral et primitives",
       limits:
-        "Primitives usuelles ; intégrale de Riemann, propriétés ; intégration par parties ET changement de variable ; valeur moyenne ; calcul d'aires, longueurs et volumes de révolution.",
+        "Primitives usuelles (polynômes, 1/x, eˣ, sin x, cos x, tan x sur ]-π/2,π/2[, u'/u, u'·uⁿ). Intégrale de Riemann ∫_a^b f(x)dx : définition, propriétés (linéarité, Chasles, positivité, valeur absolue). Intégration par parties (IPP) : ∫_a^b u·v' = [uv]_a^b − ∫_a^b u'·v. Changement de variable : ∫_a^b f(g(t))g'(t)dt = ∫_{g(a)}^{g(b)} f(u)du. Valeur moyenne sur [a,b] : μ=1/(b−a)·∫_a^b f(x)dx. Calcul d'aires entre courbes. Volume de révolution autour de l'axe Ox : V=π·∫_a^b [f(x)]²dx. Longueur d'arc : L=∫_a^b √(1+[f'(x)]²)dx. PAS l'intégrale impropre.",
     },
     {
       label: "Équations différentielles",
       limits:
-        "1er ordre linéaire (y' + ay = f, avec f constante, polynôme ou exponentielle) ; 2e ordre à coefficients constants (ay'' + by' + cy = 0) ; PAS les systèmes ED, PAS Wronskien.",
+        "1er ordre linéaire homogène y'+a(x)y=0 : solution générale y=Ce^{-A(x)} où A'=a. 1er ordre linéaire à second membre y'+a(x)y=f(x) : méthode de variation de la constante ; cas particuliers selon f (f constante → y_p=f/a ; f=Be^{cx} → y_p=λe^{cx} si c≠-a ; f polynôme → y_p polynôme). 2ème ordre à coefficients constants ay''+by'+cy=0 : équation caractéristique ar²+br+c=0 ; cas Δ>0 (deux racines réelles r₁,r₂ : y=Ae^{r₁x}+Be^{r₂x}), Δ=0 (racine double r : y=(Ax+B)e^{rx}), Δ<0 (racines complexes α±iβ : y=e^{αx}(A cosβx + B sinβx)). PAS les systèmes d'équations différentielles, PAS le Wronskien.",
     },
     {
       label: "Nombres complexes",
       limits:
-        "Formes algébrique, trigonométrique ET exponentielle (formules d'Euler et de Moivre) ; racines nèmes de l'unité ; résolution dans ℂ ; interprétation géométrique dans le plan complexe.",
+        "Forme algébrique z=a+ib, forme trigonométrique z=r(cosθ+i sinθ), forme exponentielle z=re^{iθ}. Formule d'Euler e^{iθ}=cosθ+i sinθ ; formule de Moivre (cosθ+i sinθ)ⁿ=cos(nθ)+i sin(nθ). Racines nèmes de l'unité : zₖ=e^{2ikπ/n} pour k=0,…,n−1 ; représentation régulière dans le plan. Racines nèmes d'un complexe quelconque z=re^{iθ} : zₖ=r^{1/n}·e^{i(θ+2kπ)/n}. Résolution d'équations dans ℂ (2nd degré avec Δ<0, équations bicarrées). Interprétation géométrique : affixe, translation (z↦z+b), rotation (z↦e^{iα}z), homothétie (z↦kz), symétrie centrale (z↦−z+2ω).",
     },
     {
-      label: "Isométries et similitudes",
+      label: "Isométries et similitudes du plan",
       limits:
-        "Isométries planes (translations, rotations, réflexions, symétries glissées) ; similitudes directes ET indirectes (centre, rapport, angle) ; composition ; applications aux polygones réguliers. Section Mathématiques uniquement.",
+        "Isométries directes : translations (z↦z+t) et rotations r(Ω,α) (z↦e^{iα}(z−ω)+ω) ; composition de deux rotations (r(Ω₁,α)∘r(Ω₂,β)=r(Ω,α+β) si α+β≢0[2π], sinon translation). Isométries indirectes : réflexion d'axe (expression complexe z↦e^{2iα}z̄+t), symétrie centrale. Similitudes directes : z'=az+b (a∈ℂ*, a≠1) ; centre Ω=(b/(1−a)), rapport |a|, angle arg(a) ; similitudes directes comme composées rotation+homothétie. Similitudes indirectes : z'=az̄+b. Composition de deux similitudes directes. Applications : polygones réguliers, construction de figures récursives. Section Mathématiques EXCLUSIVEMENT.",
     },
     {
       label: "Dénombrement et probabilités",
       limits:
-        "Arrangements, combinaisons, formule du binôme ; variables aléatoires discrètes, espérance, variance, écart-type ; loi binomiale. PAS la loi normale ni la loi de Poisson en SM.",
+        "Dénombrement : arrangements sans répétition A(n,p)=n!/(n−p)!, permutations n!, combinaisons C(n,p)=n!/(p!(n−p)!) ; triangle de Pascal, formule du binôme (a+b)ⁿ=∑C(n,k)aᵏbⁿ⁻ᵏ. Variable aléatoire discrète X sur Ω fini : loi de probabilité P(X=xᵢ), espérance E(X)=∑xᵢP(X=xᵢ), variance V(X)=E(X²)−[E(X)]², écart-type σ(X) ; espérance et variance d'une combinaison linéaire aX+b. Loi binomiale B(n,p) : schéma de Bernoulli répété, P(X=k)=C(n,k)pᵏ(1−p)^{n−k}, E(X)=np, V(X)=np(1−p). PAS la loi normale, PAS la loi de Poisson (hors programme TN SM).",
     },
     {
       label: "Arithmétique dans ℤ",
       limits:
-        "Divisibilité, division euclidienne, PGCD (algorithme d'Euclide étendu) ; identité de Bézout, lemme de Gauss ; congruences modulo n ; critères de divisibilité. PAS le petit théorème de Fermat (hors programme TN).",
+        "Divisibilité dans ℤ : relation a|b, diviseurs, multiples, division euclidienne a=bq+r. PGCD : algorithme d'Euclide itératif et étendu (calcul des coefficients de Bézout u,v tels que au+bv=d). Identité de Bézout : ∃(u,v)∈ℤ² tels que au+bv=PGCD(a,b). PPCM via PGCD. Lemme de Gauss : a|bc et PGCD(a,b)=1 → a|c. Nombres premiers : définition, infinité (preuve d'Euclide), décomposition en facteurs premiers. Congruences modulo n : définition a≡b[n], propriétés (addition, multiplication, puissance) ; critères de divisibilité (par 2,3,5,9,10,11) ; équation ax≡b[n] (existence ↔ d|b avec d=PGCD(a,n), nb solutions). PAS le petit théorème de Fermat (hors programme TN).",
     },
     {
       label: "Structures algébriques",
       limits:
-        "Lois de composition internes ; groupe (axiomes, sous-groupes, groupes cycliques) ; anneau (ℤ, ℤ/nℤ) ; corps (ℚ, ℝ, ℂ, ℤ/pℤ pour p premier) ; morphismes. Section Mathématiques EXCLUSIVEMENT.",
+        "Loi de composition interne (LCI) sur E : associativité, commutativité, élément neutre e, élément symétrique (inverse). Groupe (G,⋆) : LCI associative, neutre, tout élément inversible ; exemples (ℤ,+), (ℝ*,×), (ℤ/nℤ,+). Sous-groupe : définition (stable, neutre, inverses) ; sous-groupe engendré par un élément, groupe cyclique, ordre d'un élément. Anneau (A,+,×) : groupe abélien pour +, LCI associative pour ×, distributivité ; exemples ℤ, ℤ/nℤ, ℤ[X] (polynômes à coefficients entiers). Corps : anneau où tout élément non nul est inversible pour × ; exemples ℚ, ℝ, ℂ, ℤ/pℤ (p premier). Morphismes : définition, noyau, image ; isomorphisme (bijectif). Section Mathématiques EXCLUSIVEMENT.",
     },
   ],
 
-  // Section Sciences expérimentales (SE) — programme allégé : pas de
-  // similitudes, pas de forme exponentielle, pas d'arithmétique formelle.
+  // Section Sciences expérimentales (SE) — 8 chapitres. Programme allégé vs SM :
+  // pas de similitudes, pas de forme exponentielle des complexes, pas de racines
+  // nèmes, pas d'arithmétique formelle, pas de structures algébriques, pas d'ED,
+  // pas d'IPP ni changement de variable ; géométrie de l'espace remplace les
+  // isométries/similitudes planes.
   "TN_math_4ème (Bac)_Sciences expérimentales": [
     {
       label: "Suites numériques",
       limits:
-        "Convergence, limites, monotonie ; suites définies par récurrence simple (un seul terme précédent). PAS les suites à 2 termes, PAS les suites adjacentes.",
+        "Convergence et limite d'une suite : définition intuitive, suites bornées et monotones (admis : convergentes). Suites récurrentes à 1 terme Uₙ₊₁=f(Uₙ) : point fixe, comportement selon |f'| au voisinage du point fixe (admis), représentation graphique (toile d'araignée). Limite d'une suite géométrique : |q|<1→0, q>1→+∞. Applications scientifiques (pharmacocinétique, population). PAS les suites à 2 termes (SE), PAS les suites adjacentes (SE), PAS le principe de récurrence formel.",
     },
     {
       label: "Limites et continuité",
       limits:
-        "Limites usuelles, formes indéterminées de base, limites comparées simples ; TVI (énoncé et application). PAS le prolongement par continuité formel.",
+        "Limites finies et infinies d'une fonction en un point et à l'infini. Formes indéterminées classiques (0/0, ∞/∞) résolues par factorisation ou mise en facteur du terme dominant. Limites comparées de base : lim_{x→+∞} e^x/xⁿ=+∞ et lim_{x→+∞} ln x/xⁿ=0 (admises). Théorème des gendarmes. Continuité en un point ; TVI : énoncé et application à l'existence d'une solution d'équation f(x)=k (résolution approchée par dichotomie). PAS prolongement par continuité formel (SE), PAS étude de continuité uniforme.",
     },
     {
       label: "Dérivabilité",
       limits:
-        "Nombre dérivé, équation de tangente, tableau de variations, dérivées des fonctions usuelles. PAS le théorème de Rolle, PAS le théorème des accroissements finis.",
+        "Nombre dérivé : définition comme limite du taux d'accroissement, équation de la tangente en un point. Dérivées des fonctions usuelles (polynômes, √x, 1/x, ln x, e^x, sin x, cos x). Règle de la chaîne (f∘g)'. Tableau de variations via le signe de f', extrema locaux et globaux. Convexité : f''≥0 ↔ courbe au-dessus de ses tangentes ; point d'inflexion (f'' change de signe). Applications scientifiques (vitesse, accélération instantanées). PAS théorème de Rolle (SE), PAS TAF (SE), PAS dérivée de la bijection réciproque.",
     },
     {
       label: "Fonctions logarithme et exponentielle",
       limits:
-        "ln x et e^x : propriétés, dérivées, primitives élémentaires, étude graphique. Approche moins technique qu'en section Mathématiques.",
+        "ln x : définition, propriétés algébriques (ln(ab), ln(a/b), ln(aⁿ)), dérivée (ln x)'=1/x, (ln u)'=u'/u, primitives ∫1/x=ln|x|, ∫u'/u=ln|u|. e^x : définition réciproque de ln, propriétés, dérivée et primitive. Études graphiques complètes de fonctions composées (x·eˣ, x²·e^{-x}, ln(1+x)…). Résolution d'équations et inéquations. Applications : décroissance radioactive N(t)=N₀·e^{-λt}, loi de Beer-Lambert, pH. Moins formel qu'en SM : pas de ∫u'·e^u en tant que formule autonome, mais primitives obtenues par composition.",
     },
     {
       label: "Calcul intégral et primitives",
       limits:
-        "Primitives usuelles, intégrale de Riemann, valeur moyenne, calcul d'aires simples. PAS l'intégration par parties, PAS le changement de variable.",
+        "Primitives usuelles (polynômes, 1/x, eˣ, sin x, cos x, u'/u, u'·uⁿ). Intégrale de Riemann ∫_a^b f(x)dx : interprétation géométrique (aire algébrique), propriétés (linéarité, Chasles, positivité). Calcul d'aires entre deux courbes. Valeur moyenne d'une fonction sur [a,b] : μ=∫_a^b f/(b−a). Applications scientifiques : énergie cinétique, quantité de matière (courbe concentration-temps), déplacement. PAS intégration par parties (SE), PAS changement de variable, PAS volumes de révolution.",
     },
     {
       label: "Nombres complexes",
       limits:
-        "Formes algébrique et trigonométrique UNIQUEMENT ; module, argument, conjugué ; résolution du second degré dans ℂ. PAS la forme exponentielle (Euler), PAS les racines nèmes de l'unité.",
+        "Forme algébrique z=a+ib : partie réelle et imaginaire, conjugué z̄, module |z|=√(a²+b²), opérations (+, −, ×, ÷). Forme trigonométrique z=r(cosθ+i sinθ) : argument θ=arg(z), multiplication et division (addition/soustraction des arguments). Formule de Moivre (cosθ+i sinθ)ⁿ=cos(nθ)+i sin(nθ) — conséquence directe, pas via forme exponentielle. Résolution d'équations du 2nd degré dans ℂ (Δ<0). Interprétation géométrique : affixe d'un point, |z₁−z₂|=distance entre deux points. PAS la forme exponentielle e^{iθ} (SE), PAS les racines nèmes de l'unité (SE).",
     },
     {
       label: "Géométrie dans l'espace",
       limits:
-        "Vecteurs, équations de plans et droites, orthogonalité, positions relatives ; isométries simples (translations, symétries planes/centrales). PAS de similitudes (réservées à la section Mathématiques).",
+        "Vecteurs de l'espace : coordonnées, norme, colinéarité, coplanarité. Produit scalaire u⃗·v⃗=x₁x₂+y₁y₂+z₁z₂ : angle entre vecteurs, orthogonalité, projection. Produit vectoriel u⃗∧v⃗ (coordonnées, norme=aire du parallélogramme, orthogonalité) ; applications : normale à un plan, aire d'un triangle. Plans : équation cartésienne ax+by+cz+d=0, vecteur normal (a,b,c) ; distance d'un point à un plan. Droites : représentation paramétrique x=x₀+at, équations de droite dans l'espace. Positions relatives : droite/plan (sécante, parallèle, dans le plan) ; deux droites (coplanaires, gauches) ; deux plans (sécants, parallèles). PAS produit mixte formel (SE), PAS isométries/similitudes du plan (SM uniquement).",
     },
     {
       label: "Probabilités",
       limits:
-        "Probabilités conditionnelles, indépendance, formule de Bayes ; variables aléatoires discrètes, espérance, variance ; loi binomiale. PAS la loi normale, PAS de dénombrement avancé.",
+        "Probabilité conditionnelle P(A|B)=P(A∩B)/P(B) ; formule des probabilités totales (partition de Ω en n événements Bₖ) ; indépendance de deux événements. Formule de Bayes P(Bₖ|A)=P(Bₖ)P(A|Bₖ)/∑P(Bⱼ)P(A|Bⱼ) ; applications scientifiques (tests de diagnostic : sensibilité, spécificité, valeur prédictive positive). Variable aléatoire discrète : loi de probabilité, espérance E(X), variance V(X), écart-type σ(X). Loi binomiale B(n,p) : schéma de Bernoulli, P(X=k)=C(n,k)pᵏ(1−p)^{n−k}, E(X)=np, V(X)=np(1−p). PAS la loi normale (SE 4ème AS), PAS dénombrement avancé (arrangements/permutations).",
     },
   ],
 
