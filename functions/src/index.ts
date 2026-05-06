@@ -6,6 +6,7 @@ export { solveProblem } from "./solveProblem";
 export { solveWriting } from "./solveWriting";
 export { generateWriting } from "./generateWriting";
 export { generateCourse } from "./generateCourse";
+export { generateFiche } from "./generateFiche";
 export { generateCourseStream } from "./generateCourseStream";
 export { generateExercises } from "./generateExercises";
 export { generateExercisesStream } from "./generateExercisesStream";

@@ -27,7 +27,7 @@ export interface MultimodalUserInstructions {
 
 const DEFAULT_MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 4096;
-const MAX_TOKENS_GENERATION = 8192;
+const MAX_TOKENS_GENERATION = 16384;
 export const MAX_TOKENS_EXAM = 16384;
 
 /** Lazy client — created on first use so unit tests can mock the module. */
@@ -75,23 +75,25 @@ export async function generateWithClaude<T>(args: {
     { type: "text", text: userMessage },
   ];
 
-  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent, maxTokens);
-  const firstParse = tryParseAs(firstReply, schema);
+  const first = await callClaude(anthropic, model, systemPrompt, userContent, maxTokens);
+  const firstParse = tryParseAs(first.text, schema);
   if (firstParse.ok) return firstParse.value;
 
   logger.warn("Claude response failed validation; retrying once", {
     error: firstParse.error,
+    truncated: first.truncated,
   });
+
+  const retryInstruction = first.truncated
+    ? `Your previous response was cut off because it was too long. Return a MORE CONCISE JSON object: shorter paragraphs, fewer sentences per section, abbreviate repetitive content. Return ONLY the JSON object — no prose, no fences.`
+    : `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`;
 
   const retryContent: Anthropic.Messages.ContentBlockParam[] = [
     ...userContent,
-    {
-      type: "text",
-      text: `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`,
-    },
+    { type: "text", text: retryInstruction },
   ];
-  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent, maxTokens);
-  const secondParse = tryParseAs(secondReply, schema);
+  const second = await callClaude(anthropic, model, systemPrompt, retryContent, maxTokens);
+  const secondParse = tryParseAs(second.text, schema);
   if (secondParse.ok) return secondParse.value;
 
   throw new Error(
@@ -136,6 +138,12 @@ export async function streamWithClaude<T>(args: {
     }
   }
 
+  const finalMsg = await stream.finalMessage();
+  if (finalMsg.stop_reason === "max_tokens") {
+    logger.warn("Streamed response truncated by max_tokens", { model, maxTokens });
+    throw new Error("Response was truncated (max_tokens reached). Please try again — the model will be asked to be more concise.");
+  }
+
   const result = tryParseAs(fullText, schema);
   if (result.ok) return result.value;
   throw new Error(`Claude returned invalid JSON: ${result.error}`);
@@ -154,23 +162,25 @@ export async function solveWithClaude(args: SolveArgs): Promise<Solution> {
 
   const anthropic = client(apiKey);
 
-  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent);
-  const firstParse = tryParseAs(firstReply, solutionSchema);
+  const first = await callClaude(anthropic, model, systemPrompt, userContent);
+  const firstParse = tryParseAs(first.text, solutionSchema);
   if (firstParse.ok) return firstParse.value;
 
   logger.warn("Claude solution failed validation; retrying once", {
     error: firstParse.error,
+    truncated: first.truncated,
   });
+
+  const retryInstruction = first.truncated
+    ? `Your previous response was cut off because it was too long. Return a MORE CONCISE JSON solution: fewer steps, shorter explanations. Return ONLY the JSON object.`
+    : `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`;
 
   const retryContent: Anthropic.Messages.ContentBlockParam[] = [
     ...userContent,
-    {
-      type: "text",
-      text: `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`,
-    },
+    { type: "text", text: retryInstruction },
   ];
-  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent);
-  const secondParse = tryParseAs(secondReply, solutionSchema);
+  const second = await callClaude(anthropic, model, systemPrompt, retryContent);
+  const secondParse = tryParseAs(second.text, solutionSchema);
   if (secondParse.ok) return secondParse.value;
 
   throw new Error(
@@ -205,28 +215,35 @@ export async function analyzeWithClaude<T>(args: AnalyzeArgs<T>): Promise<T> {
     instructions,
   );
 
-  const firstReply = await callClaude(anthropic, model, systemPrompt, userContent, MAX_TOKENS_GENERATION);
-  const firstParse = tryParseAs(firstReply, schema);
+  const first = await callClaude(anthropic, model, systemPrompt, userContent, MAX_TOKENS_GENERATION);
+  const firstParse = tryParseAs(first.text, schema);
   if (firstParse.ok) return firstParse.value;
 
   logger.warn("Claude analysis failed validation; retrying once", {
     error: firstParse.error,
+    truncated: first.truncated,
   });
+
+  const retryInstruction = first.truncated
+    ? `Your previous response was cut off because it was too long. Return a MORE CONCISE JSON object. Return ONLY the JSON object.`
+    : `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`;
 
   const retryContent: Anthropic.Messages.ContentBlockParam[] = [
     ...userContent,
-    {
-      type: "text",
-      text: `Your previous response could not be parsed as the required JSON. Error:\n${firstParse.error}\n\nReturn ONLY a valid JSON object matching the schema in the system prompt.`,
-    },
+    { type: "text", text: retryInstruction },
   ];
-  const secondReply = await callClaude(anthropic, model, systemPrompt, retryContent, MAX_TOKENS_GENERATION);
-  const secondParse = tryParseAs(secondReply, schema);
+  const second = await callClaude(anthropic, model, systemPrompt, retryContent, MAX_TOKENS_GENERATION);
+  const secondParse = tryParseAs(second.text, schema);
   if (secondParse.ok) return secondParse.value;
 
   throw new Error(
     `Claude returned invalid JSON after retry: ${secondParse.error}`,
   );
+}
+
+interface CallClaudeResult {
+  text: string;
+  truncated: boolean;
 }
 
 async function callClaude(
@@ -235,7 +252,7 @@ async function callClaude(
   systemPrompt: string,
   userContent: Anthropic.Messages.ContentBlockParam[],
   maxTokens: number = MAX_TOKENS,
-): Promise<string> {
+): Promise<CallClaudeResult> {
   const response = await anthropic.messages.create({
     model,
     max_tokens: maxTokens,
@@ -257,7 +274,9 @@ async function callClaude(
     .trim();
 
   if (!text) throw new Error("Claude returned no text content");
-  return text;
+  const truncated = response.stop_reason === "max_tokens";
+  if (truncated) logger.warn("Claude response truncated by max_tokens", { model, maxTokens });
+  return { text, truncated };
 }
 
 const DEFAULT_INSTRUCTIONS: MultimodalUserInstructions = {

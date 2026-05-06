@@ -153,3 +153,35 @@ export interface WritingContent {
   tips?: string[];
   summary?: string;
 }
+
+// ── Fiche pédagogique ─────────────────────────────────────────────────────────
+
+export interface FicheParagraphe {
+  titre: string;
+  demarche: string[];
+  contenu: string;
+  retenons?: string[];
+  applications?: string[];
+}
+
+export interface FicheSeance {
+  numero: number;
+  duree: string;
+  aptitudes: string[];
+  paragraphes: FicheParagraphe[];
+}
+
+export interface FicheExercice {
+  enonce: string;
+  questions: string[];
+}
+
+export interface FichePedagogique {
+  chapitre: string;
+  niveau: string;
+  seances: FicheSeance[];
+  serie?: {
+    theme: string;
+    exercices: FicheExercice[];
+  };
+}

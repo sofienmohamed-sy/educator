@@ -11,6 +11,7 @@ import GenerateExercises from "./pages/GenerateExercises";
 import GenerateExam from "./pages/GenerateExam";
 import WritingSolver from "./pages/WritingSolver";
 import WritingGenerator from "./pages/WritingGenerator";
+import GenerateFiche from "./pages/GenerateFiche";
 
 export default function App() {
   const { user, loading, signOut } = useAuth();
@@ -83,6 +84,7 @@ export default function App() {
         <Route path="/generate/exam" element={<GenerateExam />} />
         <Route path="/writing/solve" element={<WritingSolver />} />
         <Route path="/writing/generate" element={<WritingGenerator />} />
+        <Route path="/generate/fiche" element={<GenerateFiche />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
