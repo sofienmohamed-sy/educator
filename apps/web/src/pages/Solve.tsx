@@ -5,6 +5,7 @@ import GradeLevelPicker from "../components/GradeLevelPicker";
 import ProblemInput, { type InputValue } from "../components/ProblemInput";
 import SectionPicker from "../components/SectionPicker";
 import SubjectPicker from "../components/SubjectPicker";
+import TopicPicker from "../components/TopicPicker";
 import StepList, { type Solution } from "../components/StepList";
 import { fileContentType, uploadProblemFile } from "../lib/upload";
 import { solveProblem } from "../lib/solve";
@@ -16,6 +17,7 @@ export default function Solve() {
   const [gradeLevel, setGradeLevel] = useState("");
   const [section, setSection] = useState("");
   const [subject, setSubject] = useState<Subject>("math");
+  const [topic, setTopic] = useState("");
   const [input, setInput] = useState<InputValue>({ kind: "text", text: "" });
   const [solution, setSolution] = useState<Solution | null>(null);
   const [usedCurated, setUsedCurated] = useState(false);
@@ -37,6 +39,7 @@ export default function Solve() {
           gradeLevel: gradeLevel || undefined,
           section: section || undefined,
           subject,
+          topic: topic || undefined,
           input: { kind: "text", text: input.text.trim() },
         });
         setSolution(res.solution);
@@ -48,6 +51,7 @@ export default function Solve() {
           gradeLevel: gradeLevel || undefined,
           section: section || undefined,
           subject,
+          topic: topic || undefined,
           input: {
             kind: "storage",
             path,
@@ -84,6 +88,19 @@ export default function Solve() {
             gradeLevel={gradeLevel}
             value={section}
             onChange={setSection}
+          />
+        </div>
+
+        <div style={{ marginBottom: "0.75rem" }}>
+          <label>Chapter / topic <span className="muted" style={{ fontWeight: 400 }}>(optional — helps constrain the solution to your curriculum level)</span></label>
+          <TopicPicker
+            subject={subject}
+            country={country}
+            gradeLevel={gradeLevel}
+            section={section}
+            value={topic}
+            onChange={setTopic}
+            placeholder="e.g. Thalès et sa réciproque"
           />
         </div>
 
