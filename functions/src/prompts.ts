@@ -520,6 +520,20 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     profile,
     ragContext,
   } = args;
+
+  const dashIdx = topic.indexOf(" — ");
+  const topicLabel = dashIdx >= 0 ? topic.slice(0, dashIdx) : topic;
+  const topicLimits = dashIdx >= 0 ? topic.slice(dashIdx + 3) : null;
+
+  const scopeBlock = topicLimits
+    ? `STRICT SCOPE — official curriculum fiche for "${topicLabel}":\n` +
+      `${topicLimits}\n` +
+      `\n` +
+      `SCOPE RULES (non-negotiable):\n` +
+      `• Every concept, theorem, and technique used in questions or solutions MUST appear in the scope text above.\n` +
+      `• Any item after "PAS" is EXPLICITLY FORBIDDEN — do not use it even in a solution step.\n` +
+      `• Do not add extensions, shortcuts, or neighbouring topics absent from the scope.`
+    : null;
   const subjectLabel = SUBJECT_LABELS[subject];
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
@@ -549,6 +563,8 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
     `Curriculum:`,
     curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
+    ``,
+    scopeBlock,
     ``,
     ragContext
       ? `EXERCISE DESIGN MODEL — UNDERSTAND THIS BEFORE WRITING ANYTHING:\n` +
@@ -589,14 +605,14 @@ export function buildExercisesPrompt(args: BuildExercisesPromptArgs): string {
         `• Level defined 100% by the book. "${difficulty}" selects exercises at the\n` +
         `  ${difficulty} end of the book's own range — do not lower the mathematical floor.\n` +
         `• A student who has studied ONLY this book must recognise every technique used.`
-      : `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topic}".\n` +
+      : `Generate exactly ${count} ${difficulty}-difficulty practice exercise(s) on the topic: "${topicLabel}".\n` +
         `Difficulty "${difficulty}" means: ${difficultyHelperDesc}`,
     `Each exercise must have a complete, step-by-step solution following the "passage between steps" approach — explain WHY each step follows from the previous one.`,
     `Include 1–3 hints per exercise to guide students without revealing the answer.`,
     ``,
     EXERCISES_JSON_CONTRACT,
   ]
-    .filter((line) => line !== "")
+    .filter((line) => line !== null && line !== "")
     .join("\n");
 }
 
@@ -682,6 +698,30 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
   const language_ =
     language ?? profile?.defaultLanguage ?? "the student's language";
 
+  // Parse each topic "Label — limits" into label + limits
+  const parsedTopics = topics.map((t) => {
+    const idx = t.indexOf(" — ");
+    return idx >= 0
+      ? { label: t.slice(0, idx), limits: t.slice(idx + 3) }
+      : { label: t, limits: null };
+  });
+  const topicLabels = parsedTopics.map((t) => t.label);
+  const scopedTopics = parsedTopics.filter((t) => t.limits);
+
+  const scopeBlock =
+    scopedTopics.length > 0
+      ? `STRICT SCOPE — official curriculum fiches for these topics:\n` +
+        scopedTopics
+          .map((t) =>
+            `\n"${t.label}":\n${t.limits}\n` +
+            `→ Any item after "PAS" in this topic's scope is EXPLICITLY FORBIDDEN.`,
+          )
+          .join("\n") +
+        `\n\nSCOPE RULES (non-negotiable):\n` +
+        `• Every concept, theorem, and technique in every question and solution MUST appear in the relevant scope above.\n` +
+        `• Do not use extensions, shortcuts, or neighbouring topics absent from the scope.`
+      : null;
+
   const curriculumBlock = renderCurriculumBlock(
     profile,
     country,
@@ -698,6 +738,8 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     `Curriculum:`,
     curriculumBlock,
     ragContext ? `\n${ragContext}` : "",
+    ``,
+    scopeBlock,
     ``,
     ragContext
       ? `EXERCISE DESIGN MODEL — UNDERSTAND THIS BEFORE WRITING ANYTHING:\n` +
@@ -742,7 +784,7 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
         `• Level defined 100% by the book. A student who has studied ONLY this book\n` +
         `  must be able to attempt every question — using only what the book teaches.\n` +
         `• Do not introduce any tool, theorem, or notation absent from the book.`
-      : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topics.join(", ")}.`,
+      : `Create a complete ${subjectLabel} exam covering the following topic(s): ${topicLabels.join(", ")}.`,
     ``,
     `SUBPART TYPE DEFINITIONS (60/20/20 within EACH exercise):`,
     ``,
@@ -821,7 +863,7 @@ export function buildExamPrompt(args: BuildExamPromptArgs): string {
     ``,
     EXAM_JSON_CONTRACT,
   ]
-    .filter((line) => line !== "")
+    .filter((line) => line !== null && line !== "")
     .join("\n");
 }
 
