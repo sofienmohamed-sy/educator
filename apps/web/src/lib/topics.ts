@@ -1580,113 +1580,139 @@ const TOPICS: Record<string, Topic[]> = {
 
   // Section Informatique (SI) — math allégée comme SE, mais avec une
   // arithmétique solide pour la cryptographie ; pas de similitudes ni d'ED.
+  // Section Informatique (SI) — 9 chapitres. Analyse similaire à SE mais avec
+  // arithmétique solide (Euclide étendu, Bézout, congruences) pour la crypto ;
+  // dénombrement lié à la complexité ; pas de similitudes, pas d'ED, pas de
+  // géométrie de l'espace, pas de nombres complexes avancés.
   "TN_math_4ème (Bac)_Informatique": [
     {
       label: "Suites numériques",
       limits:
-        "Convergence, limites, suites récurrentes simples ; applications algorithmiques (étude de complexité). PAS les suites à 2 termes.",
+        "Convergence et limite d'une suite : définition intuitive, suites monotones majorées/minorées (admis : convergentes). Suites récurrentes Uₙ₊₁=f(Uₙ) avec f affine ou linéaire : point fixe, comportement selon |a|; représentation graphique (toile d'araignée). ε-approché d'une limite calculé par algorithme itératif. Applications : complexité O(log n) (dichotomie), O(n) (Euclide). PAS suites à 2 termes (SI), PAS suites adjacentes (SI).",
     },
     {
       label: "Limites et continuité",
-      limits: "Limites usuelles, continuité, TVI ; sans technicité avancée.",
+      limits:
+        "Limites finies et infinies en un point et à l'infini ; formes indéterminées résolues par factorisation ou croissances comparées simples (xⁿ vs eˣ admis). Continuité sur un intervalle ; TVI (énoncé + application numérique par dichotomie — directement implémentable). Prolongement par continuité (utile pour définir des fonctions continues par morceaux en code). PAS les limites comparées formelles ln^n/xⁿ (moins poussé qu'en SM).",
     },
     {
       label: "Dérivabilité",
       limits:
-        "Dérivées, tableau de variations ; PAS Rolle ni TAF.",
+        "Nombre dérivé : limite du taux d'accroissement ; équation de tangente. Dérivées des fonctions usuelles (polynômes, √x, 1/x, ln x, e^x, sin x, cos x) et règle de la chaîne. Tableau de variations, extrema locaux, point d'inflexion (f'' change de signe). Applications : optimisation, approximation de Newton-Raphson (idée algorithmique). PAS théorème de Rolle (SI), PAS TAF (SI).",
     },
     {
       label: "Fonctions logarithme et exponentielle",
-      limits: "ln x et e^x : propriétés, dérivées, primitives basiques.",
+      limits:
+        "ln x : définition, propriétés algébriques, dérivée, primitives (1/x, 1/(ax+b), u'/u). e^x : définition, propriétés, dérivée, primitive. Études de fonctions associées (x·eˣ, ln x / x…). Résolution d'équations et inéquations impliquant ln et exp. Applications : complexité O(n log n) (tri fusion, tri rapide), croissance exponentielle (mémoire), calcul du nombre d'itérations.",
     },
     {
       label: "Calcul intégral et primitives",
       limits:
-        "Primitives usuelles, intégrale de Riemann ; PAS intégration par parties.",
+        "Primitives usuelles (polynômes, 1/x, eˣ, sin x, cos x, u'/u, u'·uⁿ). Intégrale de Riemann : définition, propriétés (linéarité, Chasles, positivité, valeur absolue). Calcul d'aires entre courbes. Valeur moyenne sur [a,b]. Méthodes numériques d'intégration : rectangles (gauche/droite/milieu), trapèzes — erreur d'approximation (idée). PAS intégration par parties (SI).",
     },
     {
       label: "Nombres complexes",
       limits:
-        "Formes algébrique et trigonométrique ; opérations, module, argument. PAS la forme exponentielle.",
+        "Forme algébrique z=a+ib : opérations, conjugué z̄, module |z|. Forme trigonométrique z=r(cos θ + i sin θ) : argument, multiplication (addition des arguments), formule de De Moivre. Résolution d'équations du 2nd degré dans ℂ (discriminant négatif). Interprétation géométrique : affixe, |z₁−z₂| = distance. PAS forme exponentielle e^{iθ} (SI 4ème AS), PAS racines nèmes de l'unité.",
     },
     {
       label: "Dénombrement",
       limits:
-        "Arrangements, combinaisons, formule du binôme ; applications à l'analyse de complexité d'algorithmes.",
+        "Listes ordonnées avec répétition (nᵖ) et sans répétition A(n,p)=n!/(n-p)!. Permutations de n éléments : n!. Combinaisons C(n,p)=n!/(p!(n-p)!) ; triangle de Pascal ; formule du binôme (a+b)ⁿ. Applications directes : analyse de complexité O(C(n,p)) pour algorithmes de recherche exhaustive, codage combinatoire, hash, arbres de décision. PAS probabilités (chapitre séparé).",
     },
     {
       label: "Arithmétique dans ℤ",
       limits:
-        "Divisibilité, PGCD (algo d'Euclide ET Euclide étendu), Bézout, lemme de Gauss, congruences modulo n ; applications cryptographiques (notion de RSA). PAS Fermat.",
+        "Divisibilité et division euclidienne ; PGCD par algorithme d'Euclide itératif ET étendu (calcul des coefficients de Bézout u et v tels que au+bv=PGCD(a,b)) ; identité de Bézout, lemme de Gauss ; PPCM. Congruences modulo n : définition, propriétés (addition, multiplication), classes d'équivalence ℤ/nℤ ; inverse modulaire (existence ↔ PGCD=1) ; application RSA : chiffrement c=mᵉ mod n, déchiffrement m=cᵈ mod n, génération des clés. PAS petit théorème de Fermat au programme TN, PAS crible d'Ératosthène (3ème AS SI).",
     },
     {
       label: "Probabilités",
       limits:
-        "Probabilités conditionnelles, variables aléatoires discrètes, espérance, variance, loi binomiale.",
+        "Probabilité conditionnelle P(A|B)=P(A∩B)/P(B) ; formule des probabilités totales (système complet d'événements) ; indépendance ; formule de Bayes : P(Bₖ|A)=P(Bₖ)P(A|Bₖ)/∑P(Bⱼ)P(A|Bⱼ). Variable aléatoire discrète : loi de probabilité, espérance E(X), variance V(X), écart-type. Loi binomiale B(n,p) : schéma, P(X=k), E(X)=np, V(X)=np(1−p) ; génération pseudo-aléatoire et simulation (Monte-Carlo). PAS loi normale (SI 4ème AS).",
     },
   ],
 
   // Section Technique (ST) — math appliquée à la technique ; pas de
   // nombres complexes avancés, pas d'arithmétique formelle.
+  // Section Technique (ST) — 7 chapitres du programme MEN, math appliquée
+  // à l'ingénierie. Pas de nombres complexes avancés, pas d'arithmétique,
+  // pas d'équations différentielles, pas de similitudes.
   "TN_math_4ème (Bac)_Technique": [
-    {
-      label: "Fonctions et dérivées",
-      limits:
-        "Limites simples, continuité informelle, dérivée et étude de variations ; applications techniques (optimisation simple, taux de variation).",
-    },
     {
       label: "Suites numériques",
       limits:
-        "Suites arithmétiques et géométriques (raison, terme général, somme) ; applications pratiques. PAS les suites définies par récurrence générale.",
+        "Suites arithmétiques (raison r, terme général, somme des n premiers termes) et géométriques (raison q, terme général, somme, limite si |q|<1). Suites récurrentes Uₙ₊₁=aUₙ+b : calcul des termes, représentation graphique, limite via suite auxiliaire géométrique. Applications pratiques : emprunts à intérêts composés, croissance géométrique. PAS suites à 2 termes (ST), PAS suites adjacentes (ST), PAS principe de récurrence.",
+    },
+    {
+      label: "Limites et continuité",
+      limits:
+        "Limites finies et infinies d'une fonction en un point et à l'infini ; formes indéterminées classiques (0/0, ∞/∞, ∞−∞, 0×∞) résolues par factorisation ou mise en facteur. Continuité en un point et sur un intervalle ; TVI (énoncé sans preuve, application à la résolution approchée d'équations). PAS limites comparées impliquant ln^n et e^x (ST), PAS prolongement par continuité formel.",
+    },
+    {
+      label: "Dérivabilité et étude des fonctions",
+      limits:
+        "Nombre dérivé : limite du taux d'accroissement, tangente en un point. Dérivées des fonctions usuelles (polynômes, racine carrée, 1/x, 1/√x, ln x, e^x, sin x, cos x) et règle de la chaîne. Tableau de signe de f', extrema locaux et globaux, point d'inflexion via changement de signe de f'. Étude complète : domaine, parité, limites aux bornes, variations, asymptotes, courbe. PAS théorème de Rolle (ST), PAS TAF (ST), PAS convexité formelle.",
+    },
+    {
+      label: "Fonctions logarithme et exponentielle",
+      limits:
+        "ln x : définition comme primitive de 1/x sur ]0,+∞[, propriétés algébriques (ln(ab), ln(a/b), ln(aⁿ)), dérivée, primitives élémentaires (∫1/x dx, ∫1/(ax+b) dx). e^x : définition, propriétés, dérivée, primitive ; études graphiques de fonctions associées (x·eˣ, eˣ/x…) ; résolution d'équations et inéquations impliquant ln et exp. Applications techniques : croissance/décroissance exponentielle, amortissement. PAS forme exponentielle complexe.",
     },
     {
       label: "Calcul intégral",
       limits:
-        "Primitives usuelles, intégrale comme aire ; PAS intégration par parties, PAS changement de variable.",
+        "Primitives usuelles (polynômes, 1/x, eˣ, sin x, cos x, u'/u, u'·uⁿ). Intégrale de Riemann : définition géométrique, propriétés (linéarité, Chasles, positivité). Calcul d'aires entre courbe et axe des abscisses, et entre deux courbes. Valeur moyenne d'une fonction sur [a,b]. Applications techniques : énergie, travail. PAS intégration par parties (ST), PAS changement de variable.",
     },
     {
-      label: "Logarithme et exponentielle",
+      label: "Probabilités et loi binomiale",
       limits:
-        "ln x et e^x : propriétés et dérivées de base ; applications techniques.",
-    },
-    {
-      label: "Probabilités",
-      limits: "Loi binomiale, espérance, variance ; sans dénombrement avancé.",
-    },
-    {
-      label: "Statistiques",
-      limits:
-        "Séries statistiques à une et deux variables, indices, ajustement linéaire (régression).",
-    },
-  ],
-
-  // Section Économie & Gestion (SEG) — accent sur applications financières
-  // et statistiques ; pas de nombres complexes, pas d'arithmétique.
-  "TN_math_4ème (Bac)_Économie & Gestion": [
-    {
-      label: "Fonctions numériques",
-      limits:
-        "Dérivée, étude de variations, extremums ; applications économiques : élasticité, coût marginal, recettes. PAS les théorèmes de Rolle/TAF.",
-    },
-    {
-      label: "Suites numériques (applications financières)",
-      limits:
-        "Suites arithmétiques et géométriques ; intérêts simples et composés, valeur acquise et valeur actuelle, annuités constantes, amortissements.",
-    },
-    {
-      label: "Calcul intégral",
-      limits:
-        "Primitives usuelles, intégrale et aire ; surplus du consommateur/producteur. Sans technique d'intégration avancée.",
-    },
-    {
-      label: "Probabilités",
-      limits:
-        "Probabilités conditionnelles, formule de Bayes ; variables aléatoires discrètes, espérance, variance, loi binomiale.",
+        "Combinatoire de base : C(n,p)=n!/(p!(n-p)!), formule du binôme (a+b)ⁿ. Variable aléatoire discrète X : loi de probabilité (tableau), espérance E(X), variance V(X)=E(X²)−[E(X)]², écart-type σ(X). Loi binomiale B(n,p) : schéma de Bernoulli, P(X=k)=C(n,k)pᵏ(1−p)^{n-k}, espérance np, variance np(1−p). PAS loi normale (ST), PAS loi de Poisson.",
     },
     {
       label: "Statistiques à deux variables",
       limits:
-        "Régression linéaire (méthode des moindres carrés), coefficient de corrélation ; séries chronologiques, indices simples et synthétiques, taux de variation.",
+        "Série à une variable : rappels (moyenne, variance, écart-type). Série à deux variables (xi, yi) : nuage de points, point moyen G=(x̄, ȳ) ; droite de régression ŷ=ax+b par moindres carrés (formules a=cov(X,Y)/V(X), b=ȳ−ax̄) ; coefficient de corrélation linéaire r∈[−1,1] et interprétation ; ajustement affine et prévision. Indices simples (indice de prix, de valeur, de quantité) et taux de variation ; séries chronologiques : tendance par régression, variation saisonnière (moyennes mobiles d'ordre 4 ou 12). PAS régression non-linéaire formelle (ST).",
+    },
+  ],
+
+  // Section Économie & Gestion (SEG) — 7 chapitres. Accent sur les applications
+  // financières et économétriques. Pas de nombres complexes, pas d'arithmétique,
+  // pas d'équations différentielles, pas de géométrie, pas de similitudes.
+  "TN_math_4ème (Bac)_Économie & Gestion": [
+    {
+      label: "Suites numériques et mathématiques financières",
+      limits:
+        "Suites arithmétiques (intérêts simples : Vₙ=V₀+n·r) et géométriques (intérêts composés : Vₙ=V₀·qⁿ). Valeur acquise et valeur actuelle d'un capital. Annuités constantes : valeur acquise et valeur actuelle (sommes de suites géométriques). Amortissement linéaire (constant) et dégressif (géométrique) ; tableau d'amortissement d'emprunt (capital restant dû, intérêts, amortissement). PAS suites récurrentes non-linéaires (SEG), PAS principe de récurrence.",
+    },
+    {
+      label: "Limites et continuité",
+      limits:
+        "Limites finies et infinies d'une fonction, formes indéterminées (0/0, ∞/∞) résolues par factorisation ou mise en facteur du terme dominant. Continuité en un point et sur un intervalle. TVI (énoncé + application : existence d'un seuil de rentabilité). PAS limites comparées formelles ln^n/xⁿ (SEG), PAS prolongement par continuité formel.",
+    },
+    {
+      label: "Dérivabilité et étude des fonctions",
+      limits:
+        "Nombre dérivé, équation de tangente. Dérivées des fonctions usuelles et composées (polynômes, 1/x, √x, ln x, e^x). Tableau de variations, extrema locaux et globaux, point d'inflexion. Applications économiques : coût total C(x), coût marginal Cm=C'(x), recette R(x)=p·x, profit P(x)=R(x)−C(x), profit maximal (C'(x)=R'(x)) ; élasticité e(x)=f'(x)·x/f(x). PAS théorème de Rolle (SEG), PAS TAF (SEG).",
+    },
+    {
+      label: "Fonctions logarithme et exponentielle",
+      limits:
+        "ln x : définition, propriétés algébriques (ln(ab), ln(a/b), ln(aⁿ)), dérivée, primitives associées (∫1/x, ∫1/(ax+b)). e^x : définition, propriétés, dérivée, primitive. Études de fonctions combinées. Équations et inéquations impliquant ln et exp. Applications : actualisation continue V=V₀·e^{rt}, élasticité logarithmique d(ln f)/d(ln x).",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives usuelles (polynômes, 1/x, eˣ, sin x, cos x, u'/u, u'·uⁿ). Intégrale de Riemann : définition géométrique, propriétés de linéarité, de Chasles, de positivité. Calcul d'aires entre deux courbes. Surplus du consommateur SC=∫₀^{x*}[D(x)−p*]dx et surplus du producteur SP=∫₀^{x*}[p*−O(x)]dx. PAS intégration par parties (SEG), PAS changement de variable.",
+    },
+    {
+      label: "Probabilités",
+      limits:
+        "Probabilité conditionnelle P(A|B) ; formule des probabilités totales (système complet d'événements) ; indépendance. Formule de Bayes P(Bₖ|A) : applications au contrôle qualité et à la fiabilité. Variable aléatoire discrète : loi de probabilité, espérance E(X), variance V(X), écart-type σ ; espérance et variance d'une combinaison linéaire aX+b. Loi binomiale B(n,p) : schéma, P(X=k)=C(n,k)pᵏ(1−p)^{n-k}, E(X)=np. PAS loi normale (SEG 4ème AS).",
+    },
+    {
+      label: "Statistiques à deux variables",
+      limits:
+        "Nuage de points, point moyen G=(x̄,ȳ). Droite de régression ŷ=ax+b par moindres carrés : formules a=cov(X,Y)/V(X), b=ȳ−ax̄. Coefficient de corrélation linéaire r∈[−1,1] : interprétation de |r| (force de la liaison), prévision. Séries chronologiques : tendance par ajustement affine, méthode des moyennes mobiles (ordre 4 pour données trimestrielles, ordre 12 pour mensuelles), coefficients saisonniers. Indices : indice simple (rapport de valeurs), indice de groupe (Laspeyres et Paasche présentés, Laspeyres seul exigible en SEG) ; taux de variation et taux moyen. PAS régression non-linéaire formelle (SEG).",
     },
   ],
 
