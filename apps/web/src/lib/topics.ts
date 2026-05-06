@@ -144,6 +144,52 @@ const TOPICS: Record<string, Topic[]> = {
     },
   ],
 
+  // Voie Technologique (STMG, STI2D, ST2S, STL…) — programme allégé BO 2019.
+  // Moins formel que la Spé Maths : pas de chain rule complète, pas de radians,
+  // pas de variable aléatoire formalisée, pas d'exp ni ln (reportés en Terminale).
+  "FR_math_Première_Voie Technologique": [
+    {
+      label: "Calcul numérique et algébrique",
+      limits:
+        "Puissances entières et fractionnaires, racines carrées ; factorisation (produits remarquables a²−b², (a±b)²) ; équations du 1er degré ax+b=0, inéquations ax+b>0 ; systèmes 2×2 par substitution. PAS équations du 2nd degré avec forme canonique a(x−h)²+k (Spé Maths), PAS calcul dans ℂ.",
+    },
+    {
+      label: "Équations et inéquations du second degré",
+      limits:
+        "Équation ax²+bx+c=0, discriminant Δ=b²−4ac, racines réelles x₁/x₂ si Δ≥0 ; tableau de signe d'un trinôme ; inéquations ax²+bx+c≥0. PAS forme canonique (Spé Maths), PAS somme/produit des racines formalisées.",
+    },
+    {
+      label: "Suites arithmétiques et géométriques",
+      limits:
+        "Suite arithmétique : terme général u_n=u₀+nr, somme des n premiers termes S=n·(u₀+u_{n-1})/2 ; suite géométrique : u_n=u₀·qⁿ, somme S=u₀·(1−qⁿ)/(1−q) ; modèles discrets (remboursement, intérêts). PAS récurrences u_{n+1}=f(u_n) non affines (Terminale Techno), PAS convergence formelle.",
+    },
+    {
+      label: "Fonctions — dérivée et étude",
+      limits:
+        "Nombre dérivé comme taux de variation limite (interprétation graphique = pente de la tangente) ; dérivées de xⁿ, √x, 1/x, fonctions affines ; dérivée d'une somme, d'un produit (règle uv) et d'un quotient u/v simples ; tableau de variations, extremums locaux. PAS chain rule pour f∘g (Terminale Techno), PAS convexité f'', PAS ln ni exp (Terminale Techno).",
+    },
+    {
+      label: "Géométrie analytique et vecteurs",
+      limits:
+        "Coordonnées dans le plan ; vecteurs : égalité, somme, produit par un scalaire, colinéarité via le déterminant ; équation de droite y=mx+p et ax+by+c=0 ; parallélisme, sécance, distance entre deux points. PAS produit scalaire (Spé Première), PAS équation de cercle.",
+    },
+    {
+      label: "Statistiques descriptives et ajustement affine",
+      limits:
+        "Séries simples et doubles ; indicateurs de position (moyenne, médiane, Q₁/Q₃) et de dispersion (écart interquartile, écart-type σ) ; diagramme en boîte ; ajustement affine ŷ=ax+b par la méthode des moindres carrés (calcul à la calculatrice ou tableau de calcul). PAS coefficient de corrélation r formel (Terminale Techno), PAS séries chronologiques.",
+    },
+    {
+      label: "Probabilités conditionnelles",
+      limits:
+        "Espace Ω, événements, probabilité d'un événement ; probabilité conditionnelle PA(B)=P(A∩B)/P(A) ; arbres de probabilités à deux étapes. PAS formule des probabilités totales formelle (Terminale Techno), PAS Bayes.",
+    },
+    {
+      label: "Variables aléatoires et loi binomiale",
+      limits:
+        "Variable aléatoire discrète X : tableau de la loi de probabilité, espérance E(X)=Σxᵢ·pᵢ ; épreuve de Bernoulli, schéma de Bernoulli (n épreuves indépendantes) ; loi binomiale B(n,p), espérance E=np. PAS variance/écart-type de la binomiale (Terminale Techno), PAS loi normale.",
+    },
+  ],
+
   // Spécialité Mathématiques (BO 2019) — programme commun à toute Terminale
   // qui conserve la spé maths. Pas de nombres complexes ni d'arithmétique :
   // ces blocs sont en option Maths Expertes uniquement.
@@ -331,24 +377,75 @@ const TOPICS: Record<string, Topic[]> = {
         "Programmes simples : suites, dichotomie, simulation de variables aléatoires ; lecture/exécution d'algorithmes plutôt que conception complexe.",
     },
   ],
-  // Generic fallback FR Terminale (no section selected).
+  // Voie Technologique (STMG, STI2D, ST2S, STL…) — programme BO 2019.
+  // Différenciateur clé : la loi normale N(μ,σ²) EST au programme Terminale Techno,
+  // mais PAS en Terminale Spé Maths.
+  "FR_math_Terminale_Voie Technologique": [
+    {
+      label: "Suites et limites",
+      limits:
+        "Rappels suites arith./géom. ; limite d'une suite monotone bornée (admis) ; suites définies par récurrence u_{n+1}=f(u_n) (étude graphique via la droite y=u et la courbe y=f(u), seuil de convergence) ; convergence vers une limite. PAS démonstration formelle par récurrence, PAS suites extraites.",
+    },
+    {
+      label: "Limites et continuité des fonctions",
+      limits:
+        "Limites finies et infinies en ±∞ et en un point ; opérations sur les limites, formes indéterminées ∞/∞, 0/0 (factorisation, conjugué) ; théorème de la valeur intermédiaire (TVI, énoncé et application numérique) ; fonction continue sur un intervalle fermé. PAS limites comparées e^x vs xⁿ (Spé Maths), PAS théorème de Heine.",
+    },
+    {
+      label: "Dérivation et étude de fonctions",
+      limits:
+        "Dérivée d'une composée f(ax+b) et d'une composée générale (chain rule) ; dérivée de ln(u(x)) et e^{u(x)} ; tableau de variations complet ; résolution numérique f(x)=0 par dichotomie. PAS convexité/concavité f'' (Spé Maths), PAS formule de Leibniz.",
+    },
+    {
+      label: "Fonction logarithme népérien",
+      limits:
+        "ln x : définition comme primitive de 1/x sur ]0;+∞[ ; propriétés (ln(ab)=ln a+ln b, ln(a/b), ln(aⁿ)=n·ln a) ; dérivée ; limites usuelles lim_{x→+∞} ln x/x=0 et lim_{x→0⁺} x·ln x=0 ; modèles de décroissance logarithmique. PAS logarithme en base a, PAS ln dans ℂ.",
+    },
+    {
+      label: "Fonction exponentielle",
+      limits:
+        "e^x : définition f'=f, f(0)=1 ; propriétés algébriques e^{a+b}=e^a·e^b ; dérivée de e^{u(x)} ; limites usuelles ; modèles de croissance/décroissance exponentielle N(t)=N₀e^{kt} ; demi-vie. PAS équations différentielles du 2nd ordre.",
+    },
+    {
+      label: "Calcul intégral",
+      limits:
+        "Primitives usuelles (xⁿ, 1/x, e^x, cos, sin) ; intégrale de Riemann ∫_a^b f(x)dx : existence pour f continue, interprétation géométrique (aire algébrique) ; valeur moyenne (1/(b−a))·∫_a^b f(x)dx. PAS intégration par parties (Spé Maths), PAS changement de variable.",
+    },
+    {
+      label: "Probabilités conditionnelles et formule de Bayes",
+      limits:
+        "Rappel P(A|B)=P(A∩B)/P(B) ; formule des probabilités totales pour une partition {A,Ā} ou {A₁,A₂,A₃} ; formule de Bayes P(A|B)=P(B|A)·P(A)/P(B) (cas simples à 2 ou 3 hypothèses). PAS Bayes généralisé à n hypothèses complexes.",
+    },
+    {
+      label: "Variables aléatoires — loi binomiale et loi normale",
+      limits:
+        "Rappel loi binomiale B(n,p) : coefficients C(n,k), P(X=k), E(X)=np, V(X)=np(1−p) ; loi normale N(μ,σ²) : courbe de Gauss (symétrie autour de μ, paramètre σ contrôle l'étalement) ; propriétés P(μ−kσ≤X≤μ+kσ) pour k=1,2,3 (table ou calculatrice) ; loi normale centrée réduite N(0,1). DIFFÉRENCIATEUR TECHNO : la loi normale N(μ,σ²) est au programme Terminale Techno, mais PAS en Terminale Spé Maths.",
+    },
+    {
+      label: "Statistiques — régression, corrélation et séries chronologiques",
+      limits:
+        "Nuage de points, droite de régression ŷ=ax+b par moindres carrés (formules de a et b via moyennes et variances) ; coefficient de corrélation linéaire r (définition -1≤r≤1, interprétation |r|≈1 fort, |r|≈0 faible) ; séries chronologiques : valeurs observées, moyenne mobile (lissage), ajustement linéaire sur série lissée, prévision. PAS corrélation de Spearman, PAS tests d'hypothèses formels.",
+    },
+  ],
+
+  // Generic fallback FR Terminale (no section selected) — mirrors Spé Maths, la filière majoritaire.
   "FR_math_Terminale": [
-    "Suites numériques (limites, monotonie)",
-    "Limites de fonctions",
-    "Continuité",
-    "Compléments sur la dérivation",
-    "Convexité",
-    "Fonction logarithme népérien",
-    "Fonction exponentielle",
-    "Primitives et intégration",
-    "Vecteurs et géométrie dans l'espace",
-    "Produit scalaire dans l'espace",
-    "Probabilités conditionnelles",
-    "Variables aléatoires (espérance, variance)",
-    "Loi binomiale",
-    "Loi des grands nombres",
-    "Combinatoire et dénombrement",
-    "Algorithmique (Python)",
+    { label: "Suites numériques (limites, monotonie)", limits: "Convergence, suites monotones bornées, démonstration par récurrence, récurrences u_{n+1}=f(u_n). PAS suites complexes." },
+    { label: "Limites de fonctions", limits: "Limites en ±∞ et en un point, opérations, formes indéterminées, limites comparées (e^x vs xⁿ, ln x vs xⁿ)." },
+    { label: "Continuité", limits: "Continuité sur un intervalle, composée continue, TVI et corollaire. PAS Heine." },
+    { label: "Compléments sur la dérivation", limits: "Chain rule ; dérivées de e^{u(x)}, ln(u(x)), u(x)^n." },
+    { label: "Convexité", limits: "Définition par f''≥0 ; tangente en-dessous/au-dessus ; point d'inflexion f''=0 avec changement de signe." },
+    { label: "Fonction logarithme népérien", limits: "Définition comme primitive de 1/x, propriétés, dérivée, limites usuelles." },
+    { label: "Fonction exponentielle", limits: "Définition f'=f f(0)=1, propriétés, dérivée, limites usuelles." },
+    { label: "Primitives et intégration", limits: "Primitives usuelles, TFC, intégration par parties, aires, valeur moyenne. PAS changement de variable (Spé)." },
+    { label: "Vecteurs et géométrie dans l'espace", limits: "Combinaisons linéaires, coplanaires, droites/plans paramétriques, positions relatives." },
+    { label: "Produit scalaire dans l'espace", limits: "Définition, vecteur normal, équation cartésienne d'un plan, distance point-plan." },
+    { label: "Probabilités conditionnelles", limits: "P(A|B), formule des probabilités totales, arbres, indépendance, Bayes (cas simples)." },
+    { label: "Variables aléatoires (espérance, variance)", limits: "Loi discrète, E(X), V(X), linéarité de E, variance d'une somme de VA indépendantes." },
+    { label: "Loi binomiale", limits: "Schéma de Bernoulli, B(n,p), E=np, V=np(1−p), probabilités cumulées." },
+    { label: "Loi des grands nombres", limits: "Bienaymé-Tchebychev, loi faible des grands nombres (moyenne converge vers E(X))." },
+    { label: "Combinatoire et dénombrement", limits: "k-uplets, arrangements, combinaisons C(n,k), binôme de Newton." },
+    { label: "Algorithmique (Python)", limits: "Suites récurrentes, dichotomie, Newton (intro), simulation VA, seuils." },
   ],
   // Fallback générique Première (aucune section sélectionnée).
   // Contenu = Spécialité Maths, la filière dominante. Limits intentionnellement
