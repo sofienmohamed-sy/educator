@@ -1,5 +1,6 @@
 import { useState } from "react";
 import StepList from "./StepList";
+import { renderMarkdown } from "../lib/renderRichText";
 import type { Exercise } from "../lib/types";
 
 interface Props {
@@ -35,7 +36,7 @@ export default function ExerciseList({ exercises }: Props) {
           <h4 style={{ marginTop: 0 }}>
             Exercise {i + 1}
           </h4>
-          <p>{ex.question}</p>
+          <div style={{ marginBottom: "0.5rem" }}>{renderMarkdown(ex.question)}</div>
 
           {ex.hints && ex.hints.length > 0 && (
             <div style={{ marginBottom: "0.5rem" }}>
@@ -49,7 +50,7 @@ export default function ExerciseList({ exercises }: Props) {
               {hintsOpen.has(i) && (
                 <ol style={{ marginTop: "0.5rem" }}>
                   {ex.hints.map((hint, j) => (
-                    <li key={j}>{hint}</li>
+                    <li key={j}>{renderMarkdown(hint)}</li>
                   ))}
                 </ol>
               )}
